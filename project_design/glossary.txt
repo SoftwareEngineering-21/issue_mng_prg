@@ -5,21 +5,24 @@ project :
 ITS의 대상이 되는 가장 상위의 product를 의미한다. project에 issue를 등록하여 관리하게 된다.
 
 admin :
-project의 생성자이다.
+project를 생성한 user이다.
 admin은 user에게 project의 authority를 부여할 수 있다.
+
+contributor :
+project에 접근 가능한 user를 의미한다.
+admin, tester, player, developer 로 분류된다.
 
 authority :
 project 접근 권한을 의미한다. authority는 tester, player, developer 로 분류된다.
 
-
 tester :
-new 이슈를 생성, fix된 이슈를 최종 확인한다.
+new issue를 생성, fix된 issue를 최종 확인한다.
 
 player : 
-new 이슈에 assignee를 배정, resolved 이슈를 최종 마감한다.
+new issue를 assignee를 배정, resolved issue를 최종 마감한다.
 
 developer:
-assignee로 배정받은 이슈를 해결하여 fixed 상태로 수정한다.
+assignee로 배정받은 issue를 해결하여 fixed 상태로 수정한다.
 
 issue:
 project에 등록된 이슈를 의미한다.
@@ -31,5 +34,31 @@ timestamp:
 현재 로컬 타임을 받아오는 행위를 의미한다.
 
 issue status:
-현재 이슈의 진행 단계를 의미한다.
+현재 issue의 진행 단계를 의미한다.
 new, assigned, fixed, resolved, closed로 분류된다.
+
+issue type:
+issue의 속성을 의미한다.
+bug, improvement, new feature, task로 분류된다.
+
+priority:
+issue의 우선순위를 의미한다.
+blocker, critical, major, minor, trivial로 분류된다.
+
+browse:
+project, issue의 목록을 테이블로 정렬하는 행위를 의미한다.
+
+filter:
+검색 조건을 설정하여 목록을 리턴받는 행위를 의미한다.
+
+reporter:
+issue를 생성한 tester를 의미한다.
+
+assignee:
+issue 코드 수정을 담당하는 developer를 의미한다.
+
+fixer:
+issue 코드 수정을 완료한 developer를 의미한다.
+
+
+
