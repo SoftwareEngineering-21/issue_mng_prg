@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class MainController {
 
+    @GetMapping("/")
+    public String init(){
+        return "/test";
+    }
 
     @GetMapping("/demo")
     @ResponseBody
@@ -20,6 +24,6 @@ public class MainController {
 
     @GetMapping("/test")
     public String test() {
-        return "test";
+        return "main";
     }
 }
