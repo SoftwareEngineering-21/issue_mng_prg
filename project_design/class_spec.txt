@@ -1,6 +1,5 @@
 User
 -userID
--password(?)
 -role
 
 Project
@@ -27,12 +26,38 @@ Comment
 -timeStamp
 -author
 
-userService
-projectService
-issueService
-commentService
+<Service Layer (Manage Business Logic)>
 
-UserControl
-ProjectControl
-IssueControl
-CommentControl
+userService
+(password 는 임의로 기입해두었습니다.)
+-
+int registerUser(string name, string ID, string pw, string email)
+int login(string ID, string pw)
+(check register/login validity?)
+User getUser(string ID)
+int giveAuth(string ID, string type)
+int retrieveAuth(string ID, string type)
+
+projectService
+-
+Project createProject(string projectName, string ID, string description)
+Project[] userProjects(string ID)
+Project[] filterProjects(string ID, string Filter1, ...)
+Project[] allProjects()
+Project printProject(string projectID)
+
+statService
+-
+Map<Project, int> genDefaultStat(int projectID, timePeriod TimePeriod)
+Map<String, int> genFilterStat(int projectID, timePeriod TimePeriod, string Filter)
+
+issueService
+-
+Issue printIssue(string issueID)
+int changeStatus(string Status)
+
+commentService
+-
+Comment[] showComments(string issueID)
+int addComment(string message)
+int delComment(string commentID)
