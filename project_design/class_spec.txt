@@ -29,7 +29,7 @@ CommentID
 
 Comment
 -CommentID ID
--int issueID
+-IssueID issueID
 -String text
 -Date date
 -User author
