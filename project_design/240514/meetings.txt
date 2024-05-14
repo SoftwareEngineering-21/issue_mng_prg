@@ -1,0 +1,16 @@
+1. Plans
+	mini project
+		~ 5/15(목) 'Project Creation' implementation
+		~ 5/16(금) 1st merge
+		~ 5/17(토) 2nd merge
+
+	~ 5/21(화) Main project imp.
+		logic : ~5/21 : Project, Issue
+				~5/28 : Comment, Stat
+
+~5/15 DB <-> Logic
+	logic - data class imp, wiki
+	DB - schema imp, wiki
+
+형우 - GUI + doc management
+etc. crud - request -> read
