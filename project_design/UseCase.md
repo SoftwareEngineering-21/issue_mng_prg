@@ -155,25 +155,25 @@
 <ul>
     <li>Preconditions</li>
     <p>
-      1. User는 하나 이상의 Project에 player로 등록되어 있어야 한다.
+      1. User는 하나 이상의 Project에 player로 등록되어 있어야 한다.<br>
       2.해당 Project에는 하나 이상의 issue가 존재해야 한다.
     </p>
     <li>Main Scenario</li>
     <p>
       (로그인 이후)
-      1. User는 화면에 뜬 Proejct 목록 중에서, 자신이 player authority를 가지고 있는 Project를 선택합니다.
-      2. 시스템은 User가 선택한 Project의 project id를 통해 서버에 요청을 보내, 해당 project의 정보를 불러와 화면을 구성합니다.
-      3. User는 Project의 issue list 중에서 issue 하나를 선택합니다.
-      4. 시스템은 User가 선택한 issue의 issue id를 서버에 보내, 해당 issue 정보를 불러와 화면을 구성합니다.
-      5. User는 issue 정보 창에서 '상태 변경' 버튼을 눌러서 issue의 상태를 new/reopened/resolve에서 assigned/closed로 변경을 요청합니다.
-      6. 시스템은 확인창을 띄우고, User는 확인 버튼을 누릅니다.
-      7. 시스템은 해당 issue의 id와 변경할 상태 값을 서버에 보내, 데이터 변경을 요청합니다.
+      1. User는 화면에 뜬 Proejct 목록 중에서, 자신이 player authority를 가지고 있는 Project를 선택합니다.<br>
+      2. 시스템은 User가 선택한 Project의 project id를 통해 서버에 요청을 보내, 해당 project의 정보를 불러와 화면을 구성합니다.<br>
+      3. User는 Project의 issue list 중에서 issue 하나를 선택합니다.<br>
+      4. 시스템은 User가 선택한 issue의 issue id를 서버에 보내, 해당 issue 정보를 불러와 화면을 구성합니다.<br>
+      5. User는 issue 정보 창에서 '상태 변경' 버튼을 눌러서 issue의 상태를 new/reopened/resolve에서 assigned/closed로 변경을 요청합니다.<br>
+      6. 시스템은 확인창을 띄우고, User는 확인 버튼을 누릅니다.<br>
+      7. 시스템은 해당 issue의 id와 변경할 상태 값을 서버에 보내, 데이터 변경을 요청합니다.<br>
       8. 서버로부터 변경 완료 신호를 받은 시스템은 변경된 issue 정보를 화면에 출력합니다.
     </p>
     <li>Alternate Scenarios</li>
     <p> 
-      1-1/4-1/7-1. 서버로부터 응답이 없을 경우, '인터넷 연결 오류' 메세지를 출력합니다.
-      5-1. new/reopened/resolve 상태가 아닌 issue의 상태를 변경하려는 경우, 오류 메세지를 출력합니다.
+      1-1/4-1/7-1. 서버로부터 응답이 없을 경우, '인터넷 연결 오류' 메세지를 출력합니다.<br>
+      5-1. new/reopened/resolve 상태가 아닌 issue의 상태를 변경하려는 경우, 오류 메세지를 출력합니다.<br>
       5-2. assigned/closed 외의 상태로 issue의 상태를 변경하려는 경우, 오류 메세지를 출력합니다.
     </p>
     <li>Test</li>
@@ -197,21 +197,21 @@
 <ul>
     <li>Preconditions</li>
     <p>
-      1. User는 하나 이상의 Project에 player로 등록되어 있어야 한다.
-      2. 해당 Project에 등록된 developer가 최소 한 명 이상이여야 한다.
+      1. User는 하나 이상의 Project에 player로 등록되어 있어야 한다.<br>
+      2. 해당 Project에 등록된 developer가 최소 한 명 이상이여야 한다.<br>
       3. 해당 Project에 등록된 issue가 최소 한 개 이상이여야 한다.
     </p>
     <li>Main Scenario</li>
     <p>
       (로그인 이후)
-      1. User는 화면에 뜬 Proejct 목록 중에서, 자신이 player authority를 가지고 있는 Project를 선택합니다.
-      2. 시스템은 User가 선택한 Project의 project id를 통해 서버에 요청을 보내, 해당 project의 정보를 불러와 화면을 구성합니다.
-      3. User는 Project의 issue list 중에서 issue 하나를 선택합니다.
-      4. 시스템은 User가 선택한 issue의 issue id를 서버에 보내, 해당 issue 정보를 불러와 화면을 구성합니다.
-      5. User는 issue 정보 창에서 'assignee 배정' 버튼을 누릅니다.
-      6. 시스템은 현재 Project의 등록된 developer list를 출력합니다.
-      7. User는 list 중에서 assignee로 배정할 developer를 선택합니다.
-      8. 시스템에 서버에 현재 issue id와 user id, developer id를 보내며, assignee 배정 요청을 보냅니다.
+      1. User는 화면에 뜬 Proejct 목록 중에서, 자신이 player authority를 가지고 있는 Project를 선택합니다.<br>
+      2. 시스템은 User가 선택한 Project의 project id를 통해 서버에 요청을 보내, 해당 project의 정보를 불러와 화면을 구성합니다.<br>
+      3. User는 Project의 issue list 중에서 issue 하나를 선택합니다.<br>
+      4. 시스템은 User가 선택한 issue의 issue id를 서버에 보내, 해당 issue 정보를 불러와 화면을 구성합니다.<br>
+      5. User는 issue 정보 창에서 'assignee 배정' 버튼을 누릅니다.<br>
+      6. 시스템은 현재 Project의 등록된 developer list를 출력합니다.<br>
+      7. User는 list 중에서 assignee로 배정할 developer를 선택합니다.<br>
+      8. 시스템에 서버에 현재 issue id와 user id, developer id를 보내며, assignee 배정 요청을 보냅니다.<br>
       9. 서버에서 정상 처리 완료 신호가 오면, 해당 issue의 정보를 다시 갱신하여 화면에 출력합니다.
     </p>
     <li>Alternate Scenarios</li>
@@ -240,25 +240,25 @@
 <ul>
     <li>Preconditions</li>
     <p>
-      1. User는 하나 이상의 Project에 developer로 등록되어 있어야 한다.
+      1. User는 하나 이상의 Project에 developer로 등록되어 있어야 한다.<br>
       2.해당 Project에는 하나 이상의 issue가 존재해야 한다.
     </p>
     <li>Main Scenario</li>
     <p>
       (로그인 이후)
-      1. User는 화면에 뜬 Proejct 목록 중에서, 자신이 developer authority를 가지고 있는 Project를 선택합니다.
-      2. 시스템은 User가 선택한 Project의 project id를 통해 서버에 요청을 보내, 해당 project의 정보를 불러와 화면을 구성합니다.
-      3. User는 Project의 issue list 중에서 issue 하나를 선택합니다.
-      4. 시스템은 User가 선택한 issue의 issue id를 서버에 보내, 해당 issue 정보를 불러와 화면을 구성합니다.
-      5. User는 issue 정보 창에서 '상태 변경' 버튼을 눌러서 issue의 상태를 assigned에서 fixed로 변경을 요청합니다.
-      6. 시스템은 확인창을 띄우고, User는 확인 버튼을 누릅니다.
-      7. 시스템은 해당 issue의 id와 변경할 상태 값을 서버에 보내, 데이터 변경을 요청합니다.
+      1. User는 화면에 뜬 Proejct 목록 중에서, 자신이 developer authority를 가지고 있는 Project를 선택합니다.<br>
+      2. 시스템은 User가 선택한 Project의 project id를 통해 서버에 요청을 보내, 해당 project의 정보를 불러와 화면을 구성합니다.<br>
+      3. User는 Project의 issue list 중에서 issue 하나를 선택합니다.<br>
+      4. 시스템은 User가 선택한 issue의 issue id를 서버에 보내, 해당 issue 정보를 불러와 화면을 구성합니다.<br>
+      5. User는 issue 정보 창에서 '상태 변경' 버튼을 눌러서 issue의 상태를 assigned에서 fixed로 변경을 요청합니다.<br>
+      6. 시스템은 확인창을 띄우고, User는 확인 버튼을 누릅니다.<br>
+      7. 시스템은 해당 issue의 id와 변경할 상태 값을 서버에 보내, 데이터 변경을 요청합니다.<br>
       8. 서버로부터 변경 완료 신호를 받은 시스템은 변경된 issue 정보를 화면에 출력합니다.
     </p>
     <li>Alternate Scenarios</li>
     <p> 
-      1-1/4-1/7-1. 서버로부터 응답이 없을 경우, '인터넷 연결 오류' 메세지를 출력합니다.
-      5-1. assigned 상태가 아닌 issue의 상태를 변경하려는 경우, 오류 메세지를 출력합니다.
+      1-1/4-1/7-1. 서버로부터 응답이 없을 경우, '인터넷 연결 오류' 메세지를 출력합니다.<br>
+      5-1. assigned 상태가 아닌 issue의 상태를 변경하려는 경우, 오류 메세지를 출력합니다.<br>
       5-2. fixed 외의 상태로 issue의 상태를 변경하려는 경우, 오류 메세지를 출력합니다.
     </p>
     <li>Test</li>
@@ -288,11 +288,11 @@
     <li>Main Scenario</li>
     <p>
       (로그인 이후)
-      1. User는 화면에 뜬 Proejct 목록 중에서, 자신이 developer authority를 가지고 있는 Project를 선택합니다.
-      2. 시스템은 User가 선택한 Project의 project id를 통해 서버에 요청을 보내, 해당 project의 정보를 불러와 화면을 구성합니다.
-      3. User는 Project 창에서 'issue 생성하기' 버튼을 누릅니다.
-      4. User issue 생성 창에서, issue name, description 등의 정보를 작성한 후, '생성하기' 버튼을 누릅니다.
-      5. 시스템은 해당 정보와 user id를 서버로 전송하여, issue 생성 요청을 보냅니다.
+      1. User는 화면에 뜬 Proejct 목록 중에서, 자신이 developer authority를 가지고 있는 Project를 선택합니다.<br>
+      2. 시스템은 User가 선택한 Project의 project id를 통해 서버에 요청을 보내, 해당 project의 정보를 불러와 화면을 구성합니다.<br>
+      3. User는 Project 창에서 'issue 생성하기' 버튼을 누릅니다.<br>
+      4. User issue 생성 창에서, issue name, description 등의 정보를 작성한 후, '생성하기' 버튼을 누릅니다.<br>
+      5. 시스템은 해당 정보와 user id를 서버로 전송하여, issue 생성 요청을 보냅니다.<br>
       6. 서버에서 issue 생성 완료 신호를 받을 경우, 생성된 issue 정보를 받아와 화면에 출력합니다.
     </p>
     <li>Alternate Scenarios</li>
@@ -320,25 +320,25 @@
 <ul>
     <li>Preconditions</li>
     <p>
-      1. User는 하나 이상의 Project에 tester로 등록되어 있어야 한다.
+      1. User는 하나 이상의 Project에 tester로 등록되어 있어야 한다.<br>
       2.해당 Project에는 하나 이상의 issue가 존재해야 한다.
     </p>
     <li>Main Scenario</li>
     <p>
       (로그인 이후)
-      1. User는 화면에 뜬 Proejct 목록 중에서, 자신이 tester authority를 가지고 있는 Project를 선택합니다.
-      2. 시스템은 User가 선택한 Project의 project id를 통해 서버에 요청을 보내, 해당 project의 정보를 불러와 화면을 구성합니다.
-      3. User는 Project의 issue list 중에서 issue 하나를 선택합니다.
-      4. 시스템은 User가 선택한 issue의 issue id를 서버에 보내, 해당 issue 정보를 불러와 화면을 구성합니다.
-      5. User는 issue 정보 창에서 '상태 변경' 버튼을 눌러서 issue의 상태를 fixed에서 reopened/resolved로 변경을 요청합니다.
-      6. 시스템은 확인창을 띄우고, User는 확인 버튼을 누릅니다.
-      7. 시스템은 해당 issue의 id와 변경할 상태 값을 서버에 보내, 데이터 변경을 요청합니다.
+      1. User는 화면에 뜬 Proejct 목록 중에서, 자신이 tester authority를 가지고 있는 Project를 선택합니다.<br>
+      2. 시스템은 User가 선택한 Project의 project id를 통해 서버에 요청을 보내, 해당 project의 정보를 불러와 화면을 구성합니다.<br>
+      3. User는 Project의 issue list 중에서 issue 하나를 선택합니다.<br>
+      4. 시스템은 User가 선택한 issue의 issue id를 서버에 보내, 해당 issue 정보를 불러와 화면을 구성합니다.<br>
+      5. User는 issue 정보 창에서 '상태 변경' 버튼을 눌러서 issue의 상태를 fixed에서 reopened/resolved로 변경을 요청합니다.<br>
+      6. 시스템은 확인창을 띄우고, User는 확인 버튼을 누릅니다.<br>
+      7. 시스템은 해당 issue의 id와 변경할 상태 값을 서버에 보내, 데이터 변경을 요청합니다.<br>
       8. 서버로부터 변경 완료 신호를 받은 시스템은 변경된 issue 정보를 화면에 출력합니다.
     </p>
     <li>Alternate Scenarios</li>
     <p> 
-      1-1/4-1/7-1. 서버로부터 응답이 없을 경우, '인터넷 연결 오류' 메세지를 출력합니다.
-      5-1. fixed 상태가 아닌 issue의 상태를 변경하려는 경우, 오류 메세지를 출력합니다.
+      1-1/4-1/7-1. 서버로부터 응답이 없을 경우, '인터넷 연결 오류' 메세지를 출력합니다.<br>
+      5-1. fixed 상태가 아닌 issue의 상태를 변경하려는 경우, 오류 메세지를 출력합니다.<br>
       5-2. reopened/resolved 외의 상태로 issue의 상태를 변경하려는 경우, 오류 메세지를 출력합니다.
     </p>
     <li>Test</li>
