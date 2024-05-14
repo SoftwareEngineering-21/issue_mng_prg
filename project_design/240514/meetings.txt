@@ -8,7 +8,7 @@
 		logic : ~5/21 : Project, Issue
 				~5/28 : Comment, Stat
 
-	~5/15 DB <-> Logic
+	~ 5/15 DB <-> Logic
 		logic - data class imp, wiki
 		DB - write schema, wiki
 
