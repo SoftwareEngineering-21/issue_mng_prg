@@ -1,6 +1,5 @@
 User
 -userID
--role
 
 Project
 -projectID
