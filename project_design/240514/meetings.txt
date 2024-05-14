@@ -8,9 +8,9 @@
 		logic : ~5/21 : Project, Issue
 				~5/28 : Comment, Stat
 
-~5/15 DB <-> Logic
-	logic - data class imp, wiki
-	DB - schema imp, wiki
+	~5/15 DB <-> Logic
+		logic - data class imp, wiki
+		DB - write schema, wiki
 
 형우 - GUI + doc management
 etc. crud - request -> read
