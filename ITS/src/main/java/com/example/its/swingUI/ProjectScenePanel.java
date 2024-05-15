@@ -1,4 +1,5 @@
 package com.example.its.swingUI;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
@@ -16,33 +17,6 @@ import javax.swing.JButton;
 public class ProjectScenePanel extends JPanel {
     ProjectScenePanel(){
         setLayout(new BorderLayout(0, 1));
-		
-		//User 정보 칸 설정
-		JPanel UserInfoPanel = new JPanel();
-		add(UserInfoPanel, BorderLayout.NORTH);
-		UserInfoPanel.setLayout(new BoxLayout(UserInfoPanel, BoxLayout.X_AXIS));
-		
-		Component horizontalGlue = Box.createHorizontalGlue();
-		UserInfoPanel.add(horizontalGlue);
-		
-		Component horizontalStrut_4 = Box.createHorizontalStrut(20);
-		UserInfoPanel.add(horizontalStrut_4);
-		
-		JPanel panel = new JPanel();
-		UserInfoPanel.add(panel);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		
-		JLabel lblNewLabel = new JLabel("UserName");
-		panel.add(lblNewLabel);
-		
-		Component horizontalStrut_5 = Box.createHorizontalStrut(20);
-		panel.add(horizontalStrut_5);
-		
-		JButton btnNewButton = new JButton("LogOut");
-		panel.add(btnNewButton);
-		
-		Component horizontalStrut_6 = Box.createHorizontalStrut(20);
-		panel.add(horizontalStrut_6);
 		
 		//Project Name 출력 칸
 		JPanel CenterPanel = new JPanel();
@@ -106,7 +80,7 @@ public class ProjectScenePanel extends JPanel {
 		IssueListPanel.setBackground(new Color(240, 240, 240));
 		IssueListPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		GridBagLayout gbl_IssueListPanel = new GridBagLayout();
-		gbl_IssueListPanel.columnWidths = new int[] {420, 0};
+		gbl_IssueListPanel.columnWidths = new int[] {0};
 		gbl_IssueListPanel.rowHeights = new int[size];
 		gbl_IssueListPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gbl_IssueListPanel.rowWeights = new double[]{0.0};
