@@ -1,3 +1,5 @@
+package com.example.its.dataClassDB;
+
 public class IssueDB {
     private int id;
     private String title;
@@ -40,7 +42,7 @@ public class IssueDB {
 
         public IssueDB build()
         {
-            return new IssueDB(this):
+            return new IssueDB(this);
         }
     }
 
@@ -56,16 +58,16 @@ public class IssueDB {
         this.date = date;
     }
 
-    public int readId() {return this.id}
-    public String readTitle() {return this.title}
-    public String readDesription() {return this.description}
-    public String readReporter() {return this.reporter}
-    public String readAssignee() {return this.assignee}
-    public String readFixer() {return this.fixer}
-    public int readType() {return this.type}
-    public int readPriority() {return this.priority}
-    public int readstatus() {return this.status}
-    public String readDate() {return this.date}
+    public int readId() {return this.id;}
+    public String readTitle() {return this.title;}
+    public String readDesription() {return this.description;}
+    public String readReporter() {return this.reporter;}
+    public String readAssignee() {return this.assignee;}
+    public String readFixer() {return this.fixer;}
+    public int readType() {return this.type;}
+    public int readPriority() {return this.priority;}
+    public int readstatus() {return this.status;}
+    public String readDate() {return this.date;}
     public void updateId(int id) {this.id=id;}
     public void updateTitle(String title) {this.title=title;}
     public void updateDescription(String description) {this.description=description;}
