@@ -13,5 +13,13 @@ public class Issue {
 
 	public class IssueID{
 		private int id;
+
+		public int getIssueId() {
+			return id;
+		}
+	}
+
+	public int readID() {
+		return ID.getIssueId();
 	}
 }

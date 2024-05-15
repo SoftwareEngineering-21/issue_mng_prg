@@ -8,5 +8,13 @@ public class Project {
 
 	private class projectID {
 		private int projectID;
+
+		public int getProjectID() {
+			return projectID;
+		}
+	}
+
+	public int readID() {
+		return ID.getProjectID();
 	}
 }

@@ -9,5 +9,25 @@ public class Comment {
 
 	private class CommentID {
 		private int ID;
+
+		public int getCommentID() {
+			return ID;
+		}
+	}
+
+	private class Date {
+		private String time;
+
+		public String getTime() {
+			return time;
+		}
+	}
+
+	public int readID(){
+		return ID.getCommentID();
+	}
+
+	public String readTime() {
+		return date.getTime();
 	}
 }
