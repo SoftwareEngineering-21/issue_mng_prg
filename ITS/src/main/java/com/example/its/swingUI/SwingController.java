@@ -10,17 +10,19 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import lombok.val;
-
 public class SwingController {
     JFrame window;
     JPanel outputPanel;
+
+    ProjectScenePanel projectScene;
+    MainScenePanel mainScene;
+    IssueScenePanel issueScene;
 
     public SwingController(){
         window = new JFrame("Issue Manager");
 		BorderLayout borderLayout = (BorderLayout) window.getContentPane().getLayout();
 		borderLayout.setVgap(5);
-		window.setBounds(100, 100, 450, 300);
+		window.setBounds(100, 100, 1000, 600);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel UserInfoPanel = new JPanel();
@@ -57,9 +59,9 @@ public class SwingController {
         window.setVisible(value);
     }
 
-    public void change(){
+    public void change(JPanel targetPanel){
         window.getContentPane().remove(outputPanel);
-        outputPanel = new ProjectScenePanel();
+        outputPanel = targetPanel;
 
         window.getContentPane().add(outputPanel);
         window.repaint();
