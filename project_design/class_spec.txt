@@ -1,0 +1,73 @@
+User
+-String userID
+
+ProjectID
+-int projectID
+
+Project
+-projectID ID
+-String title
+-String description
+-User admin
+
+IssueID
+-int issueID
+
+Issue
+-IssueID ID
+-String title
+-String description
+-int status
+-User assignee
+-User reporter
+-User fixer
+-int priority
+-Comment[] comments
+
+CommentID
+-int commentID
+
+Comment
+-CommentID ID
+-IssueID issueID
+-String text
+-Date date
+-User author
+
+Date
+- String time
+
+<Service Layer (Manage Business Logic)>
+
+userService
+(password 는 임의로 기입해 두었습니다.)
+-
+void createUser(String name, String ID, String pw, String email)
+AccountToken login(String ID, String pw)
+//check register/login validity
+User requestUser(String ID)
+void updateAuth(User user, String type)
+
+projectService
+-
+Project createProject(String projectName, String ID, String description)
+//overload requestProjects
+Project[] requestProjectList(User user, enum Filter)
+Project requestProject(ProjectID project)
+
+statService
+-
+Map<Project, int> requestDefaultStat(ProjectID project, Date date)
+Map<String, int> requestFilterStat(ProjectID project, Date date, enum Filter)
+
+issueService
+-
+Issue requestIssue(IssueID issue)
+Issue[] requestIssueList()
+int updateIssue(String Status)
+
+commentService
+-
+Comment[] requestComments(IssueID issue)
+int createComment(String message)
+int deleteComment(CommentID comment)
