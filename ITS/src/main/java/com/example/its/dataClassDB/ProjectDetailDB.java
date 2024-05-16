@@ -6,9 +6,8 @@ public class ProjectDetailDB {
     private String description;
     private String adminId;
 
-    public ProjectDetailDB(int id, String title, String description, String adminId)
+    public ProjectDetailDB(String title, String description, String adminId)
     {
-        this.id = id;
         this.title = title;
         this.description = description;
         this.adminId = adminId;
