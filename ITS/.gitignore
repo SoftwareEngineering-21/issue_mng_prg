@@ -1,4 +1,6 @@
 HELP.md
+application.yaml
+testapplication.yaml
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
