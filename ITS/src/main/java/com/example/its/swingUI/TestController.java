@@ -2,9 +2,12 @@ package com.example.its.swingUI;
 
 import java.util.ArrayList;
 
+import com.example.its.dataClassDB.ProjectDetailDB;
+
+//GUI Test를 위한 testClass입니다
 public class TestController implements SwingController {
     SwingGUI gui;
-    ArrayList<Project> projectList = new ArrayList<>();
+    ArrayList<ProjectDetailDB> projectList = new ArrayList<>();
 
     public TestController(){
         gui = new SwingGUI(this);
@@ -12,13 +15,13 @@ public class TestController implements SwingController {
     }
 
     @Override
-    public ArrayList<Project> getProjectList() {
+    public ArrayList<ProjectDetailDB> getProjectList() {
         return projectList;
     }
 
     @Override
     public void makeNewProject(String title, String decs) {
-        Project newProject = new Project(projectList.size(), title, decs);
+        ProjectDetailDB newProject = new ProjectDetailDB(projectList.size(), title, decs, "Admin");
         projectList.add(newProject);
         System.out.println(projectList.size());
 

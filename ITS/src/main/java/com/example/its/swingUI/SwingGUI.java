@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.example.its.dataClassDB.ProjectDetailDB;
+
 public class SwingGUI {
     SwingController controller;
 
@@ -102,7 +104,7 @@ public class SwingGUI {
         mainScene.repaint();
     }
 
-    ArrayList<Project> getProjectList(){
+    ArrayList<ProjectDetailDB> getProjectList(){
         return controller.getProjectList();
     }
 

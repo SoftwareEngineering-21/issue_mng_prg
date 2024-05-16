@@ -12,6 +12,9 @@ import javax.swing.JScrollPane;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.border.LineBorder;
+
+import com.example.its.dataClassDB.ProjectDetailDB;
+
 import java.awt.Color;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -65,7 +68,7 @@ public class MainScenePanel extends JPanel {
 	void makeProjectList(){
 		ProjectListPanel.removeAll();
 
-		ArrayList<Project> projectList = integratedGUI.getProjectList();
+		ArrayList<ProjectDetailDB> projectList = integratedGUI.getProjectList();
 		int size = projectList.size();
 		System.out.println(projectList.size());
 		gbl_ProjectListPanel.rowHeights = new int[size + 1];
@@ -74,17 +77,15 @@ public class MainScenePanel extends JPanel {
 
 		ProjectPanel projectPanel[] = new ProjectPanel[size];
 		for(int i = 0; i < size; i++) {
-			gbl_ProjectListPanel.rowHeights[i] = 70;
+			gbl_ProjectListPanel.rowHeights[i] = 100;
 			gbl_ProjectListPanel.rowWeights[i] = 0;
 
-			projectPanel[i] = new ProjectPanel(i, projectList.get(i).getTitle());
+			projectPanel[i] = new ProjectPanel(i, projectList.get(i).readTitle());
 			projectPanel[i].addGbcPanel(ProjectListPanel, i);
 		}
 		System.out.println(projectPanel.length);
 		gbl_ProjectListPanel.rowHeights[size] = 0;
 		gbl_ProjectListPanel.rowWeights[size] = Double.MIN_VALUE;
-
-		
 		
 		revalidate();
 		repaint();
