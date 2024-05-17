@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import com.example.its.dataClassDB.ProjectDetailDB;
 
 public class SwingGUI {
-    SwingController controller;
+    ProjectController controller;
 
     JFrame window;
     JFrame additionalFrame;
@@ -27,7 +27,7 @@ public class SwingGUI {
 
     enum PanelIndex { PROJECTSCENE, MAINSCENE, ISSUESCENE };
 
-    public SwingGUI(SwingController controller){
+    public SwingGUI(ProjectController controller){
         this.controller = controller;
 
         this.mainScene = new MainScenePanel(this);
