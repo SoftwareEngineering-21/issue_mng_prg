@@ -32,10 +32,7 @@ public class ItsApplication implements CommandLineRunner {
     public  void test(){
         ProjectDB p = new ProjectDB("change", "test2", "test2");
         // System.out.println("test1");
-        // pdbs.createProjectService(p);
         //String adminId = new String("test2");
-        pdbs.updateProjectService(1, p);
-        System.out.println("update");
         pdbs.deleteProjectService(3);
         System.out.println("delete");
         
