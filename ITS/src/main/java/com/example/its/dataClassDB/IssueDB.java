@@ -17,40 +17,21 @@ public class IssueDB {
     private int status;
     private String date;
 
-    public static class Builder
+    //assignee 있는 생성자
+    public IssueDB(String title, String description, String reporter, String assignee, int type, int priority, int status, String date)
     {
-        // 필수 매개변수
-        private String title;
-        private String description;
-        private String reporter;
-        private int type;
-        private int priority;
-        private int status;
-        private String date;
-
-        //선택 매개변수
-        private String assignee = null;
-        private String fixer = null;
-
-        public Builder assignee(String assignee)
-        {
-            this.assignee = assignee;
-            return this;
-        }
-
-        public Builder fixer(String fixer)
-        {
-            this.fixer = fixer;
-            return this;
-        }
-
-        public IssueDB build()
-        {
-            return new IssueDB(this);
-        }
+        this.title = title;
+        this.description = description;
+        this.reporter = reporter;
+        this.assignee = assignee;
+        this.type = type;
+        this.priority = priority;
+        this.status = status;
+        this.date = date;
     }
 
-    private IssueDB(Builder Builder)
+    //assignee 없는 생성자
+    public IssueDB(String title, String description, String reporter, int type, int priority, int status, String date)
     {
         this.title = title;
         this.description = description;
