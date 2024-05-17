@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.example.its.dataClassDB.ProjectDetailDB;
+import com.example.its.dataClassDB.ProjectDB;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.mybatis.SampleClass;
 import com.example.its.mybatis.SampleDTO;
@@ -30,7 +30,7 @@ public class ItsApplication implements CommandLineRunner {
 
 
     public  void test(){
-        ProjectDetailDB p = new ProjectDetailDB("change", "test2", "test2");
+        ProjectDB p = new ProjectDB("change", "test2", "test2");
         // System.out.println("test1");
         // pdbs.createProjectService(p);
         //String adminId = new String("test2");

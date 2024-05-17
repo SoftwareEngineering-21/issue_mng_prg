@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.its.dataClassDB.ProjectDetailDB;
+import com.example.its.dataClassDB.ProjectDB;
 
-//import jakarta.annotation.PostConstruct;
+//import jakarta.anotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -19,19 +19,19 @@ public class ProjectDBService {
     //     projectDB.createProjectDetailDBTable();
     // }
 
-    public void createProjectService(ProjectDetailDB project){
+    public void createProjectService(ProjectDB project){
         projectDB.createProject(project);
     }
 
-    public ProjectDetailDB readProjectService(int id){
+    public ProjectDB readProjectService(int id){
         return projectDB.readProject(id);
     }
 
-    public List<ProjectDetailDB> readProjectListService(String adminId){
+    public List<ProjectDB> readProjectListService(String adminId){
         return projectDB.readProjectList(adminId);
     }
 
-    public void updateProjectService(int id, ProjectDetailDB project){
+    public void updateProjectService(int id, ProjectDB project){
         projectDB.updateProject(id ,project);
     }
 
