@@ -1,5 +1,3 @@
-package com.example.its.dataClassDB;
-
 public class PIRelationDB {
     private int projectId;
     private int issueId;
@@ -10,8 +8,8 @@ public class PIRelationDB {
         this.issueId = issueId;
     }
 
-    public int readProjectId() {return this.projectId;}
-    public int readIssueId() {return this.issueId;}
-    public void updateProjectId(int projectId) {this.projectId=projectId;}
-    public void updateIssueId(int issueId) {this.issueId=issueId;}
+    public int readProjectId() {return this.projectId}
+    public int readIssueId() {return this.issueId}
+    public void updateProjectId(int projectId) {this.projectId=projectId}
+    public void updateIssueId(int issueId) {this.issueId=issueId}
 }
