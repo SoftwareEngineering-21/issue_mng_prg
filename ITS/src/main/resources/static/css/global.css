@@ -6,7 +6,7 @@ body{
 }
 .logo {
     margin-top: 30px;
-    font-size: 36px;
+    font-size: 50px;
     font-weight: 800;
     color: #303050;
     cursor: pointer;
@@ -14,7 +14,14 @@ body{
     padding-left: 50px; /* 좌측 여백 추가 */
 }
 .logo span {
-    font-size: 15px;
+    font-size: 30px;
     padding-left: 10px;
+}
+a{
+    text-decoration-line: none;
+    color: #303050;
+}
+a:hover {
+    text-decoration: none;
 }
 

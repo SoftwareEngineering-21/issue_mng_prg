@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/logo.css}"> <!-- 외부 CSS 파일 링크 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"> <!-- 외부 CSS 파일 링크 -->
 
-    </th:block>
+
 </head>
 <body>
 <!-- 메인 로고 -->
-    <div class ="logo">
-        <div th:replace="~{test::logo}"></div>
-    </div>
+<div class ="logo">
+    <div th:replace="~{logo::logo}"></div>
+</div>
 
 </body>
 </html>
