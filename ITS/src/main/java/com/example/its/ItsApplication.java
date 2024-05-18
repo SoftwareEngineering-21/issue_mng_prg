@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
-import com.example.its.dataClassDB.ProjectDetailDB;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.mybatis.SampleClass;
 import com.example.its.mybatis.SampleDTO;
 
-
+@EnableAsync
 @SpringBootApplication
 public class ItsApplication implements CommandLineRunner {
 
@@ -22,37 +22,23 @@ public class ItsApplication implements CommandLineRunner {
 
     @Autowired
     public ProjectDBService pdbs;
+    @Autowired
     public  SampleClass sampleClass;
 
     public  List<SampleDTO> sampleDTOList;
 
-
-
-
-
+    
     public  void test(){
-        ProjectDetailDB p = new ProjectDetailDB("change", "test2", "test2");
-        // System.out.println("test1");
-        // pdbs.createProjectService(p);
-        //String adminId = new String("test2");
-        pdbs.updateProjectService(1, p);
-        System.out.println("update");
-        pdbs.deleteProjectService(3);
-        System.out.println("delete");
-        
-        /*
-        sampleDTOList = sampleClass.selectTestList();
-        int size = sampleDTOList.size();
-        System.out.println("test용"+size);
-        int i =0;
-        for(i= 0; i<size ; i++){
-            System.out.println(sampleDTOList.get(i).getIdtset());
-        }
-        */
-    }
+        // ProjectDB p = new ProjectDB("change", "test2", "test2");
+        // pdbs.deleteProjectService(3);
+        // System.out.println("delete");
 
+    }
+    
     @Override
     public void run(String... args) throws Exception {
+        sampleClass.test1();
+        pdbs.createProjectService("aaa", "ab", "test");
         test();
     }
 }
