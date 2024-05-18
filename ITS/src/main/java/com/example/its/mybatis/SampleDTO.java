@@ -1,6 +1,7 @@
 package com.example.its.mybatis;
 
 public class SampleDTO {
-    public int idtset;
+    private int idtset;
+    public int getIdtset() {return idtset;}
 
 }

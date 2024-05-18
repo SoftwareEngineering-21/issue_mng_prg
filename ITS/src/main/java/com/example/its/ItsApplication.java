@@ -19,6 +19,7 @@ public class ItsApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(ItsApplication.class, args);
     }
+
     @Autowired
     public ProjectDBService pdbs;
     public  SampleClass sampleClass;
@@ -45,7 +46,7 @@ public class ItsApplication implements CommandLineRunner {
         System.out.println("test용"+size);
         int i =0;
         for(i= 0; i<size ; i++){
-            System.out.println(sampleDTOList.get(i).idtset);
+            System.out.println(sampleDTOList.get(i).getIdtset());
         }
         */
     }

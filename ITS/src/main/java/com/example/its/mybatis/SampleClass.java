@@ -9,7 +9,7 @@ import java.util.List;
 public class SampleClass {
     private final Sample sample;
 
-    public List<SampleDTO> selectTestList(){
+    public   List<SampleDTO> selectTestList(){
         return sample.selectTest();
     }
 

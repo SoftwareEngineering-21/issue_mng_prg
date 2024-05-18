@@ -45,29 +45,29 @@ userService
 void createUser(String name, String ID, String pw, String email)
 AccountToken login(String ID, String pw)
 //check register/login validity
-User requestUser(String ID)
+User readUser(String ID)
 void updateAuth(User user, String type)
 
 projectService
 -
 Project createProject(String projectName, String ID, String description)
-//overload requestProjects
-Project[] requestProjectList(User user, enum Filter)
-Project requestProject(ProjectID project)
+//overload readProjects
+Project[] readProjectList(User user, enum Filter)
+Project readProject(ProjectID project)
 
 statService
 -
-Map<Project, int> requestDefaultStat(ProjectID project, Date date)
-Map<String, int> requestFilterStat(ProjectID project, Date date, enum Filter)
+Map<Project, int> readDefaultStat(ProjectID project, Date date)
+Map<String, int> readFilterStat(ProjectID project, Date date, enum Filter)
 
 issueService
 -
-Issue requestIssue(IssueID issue)
-Issue[] requestIssueList()
+Issue readIssue(IssueID issue)
+Issue[] readIssueList()
 int updateIssue(String Status)
 
 commentService
 -
-Comment[] requestComments(IssueID issue)
+Comment[] readComments(IssueID issue)
 int createComment(String message)
 int deleteComment(CommentID comment)
