@@ -1,8 +1,9 @@
 package com.example.its.swingUI;
 
+import com.example.its.dataClassDB.ProjectDB;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Panel;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -11,8 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import com.example.its.dataClassDB.ProjectDetailDB;
 
 public class SwingGUI {
     ProjectController controller;
@@ -104,7 +103,7 @@ public class SwingGUI {
         mainScene.repaint();
     }
 
-    ArrayList<ProjectDetailDB> getProjectList(){
+    ArrayList<ProjectDB> getProjectList(){
         return controller.getProjectList();
     }
 
