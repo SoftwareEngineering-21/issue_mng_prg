@@ -1,5 +1,10 @@
 package com.example.its.dataClassDB;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class CommentDB {
     private int id;
     private String text;
@@ -14,12 +19,4 @@ public class CommentDB {
         this.date = date;
     }
 
-    public int readId() {return this.id;}
-    public String readText() {return this.text;}
-    public String readReporter() {return this.reporter;}
-    public String readDate() {return this.date;}
-    public void updateId(int id) {this.id=id;}
-    public void updateText(String text) {this.text=text;}
-    public void updateReporter(String reporter) {this.reporter=reporter;}
-    public void updateDate(String date) {this.date=date;}
 }

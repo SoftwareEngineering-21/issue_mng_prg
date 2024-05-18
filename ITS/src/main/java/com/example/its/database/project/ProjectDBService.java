@@ -1,12 +1,15 @@
 package com.example.its.database.project;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import com.example.its.dataClassDB.ProjectDetailDB;
+import com.example.its.dataClassDB.ProjectDB;
 
-//import jakarta.annotation.PostConstruct;
+//import jakarta.anotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -14,29 +17,62 @@ import lombok.RequiredArgsConstructor;
 public class ProjectDBService {
     private final ProjectDBMapper projectDB;
 
-    // @PostConstruct
-    // public void init(){
-    //     projectDB.createProjectDetailDBTable();
-    // }
-
-    public void createProjectService(ProjectDetailDB project){
-        projectDB.createProject(project);
+    @Async
+    public void createProjectService(String title, String description, String adminId){
+        synchronized (this) {
+            ProjectDB project = new ProjectDB(title, description, adminId);
+            projectDB.createProject(project);
+        }
     }
 
-    public ProjectDetailDB readProjectService(int id){
-        return projectDB.readProject(id);
+    @Async
+    public CompletableFuture<ProjectDB> readProjectService(int id){
+        synchronized (this){
+            return CompletableFuture.completedFuture(projectDB.readProject(id));
+        }
     }
 
-    public List<ProjectDetailDB> readProjectListService(String adminId){
-        return projectDB.readProjectList(adminId);
+    @Async
+    public CompletableFuture<List<ProjectDB>> readProjectListService(String adminId){
+        synchronized (this){
+            return CompletableFuture.completedFuture(projectDB.readProjectList(adminId));
+        }
     }
 
-    public void updateProjectService(int id, ProjectDetailDB project){
-        projectDB.updateProject(id ,project);
+    @Async
+    public void updateProjectService(int id, String title, String description){
+        ProjectDB preProject;
+        synchronized (this) {
+            try {
+                preProject = readProjectService(id).get();
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        
+        // 빈 값이면 기존값 대입
+        if (title.equals("")){
+            title = preProject.getTitle();
+        }
+        if (description.equals("")){
+            description = preProject.getDescription();
+        }
+        
+        ProjectDB new_project = new ProjectDB(title, description, preProject.getAdminId());
+        synchronized (this) {
+            projectDB.updateProject(id ,new_project);
+        }
     }
 
+    @Async
     public void deleteProjectService(int id){
-        projectDB.deleteProject(id);
+        synchronized (this) {
+            projectDB.deleteProject(id);
+        }
     }
     
 }

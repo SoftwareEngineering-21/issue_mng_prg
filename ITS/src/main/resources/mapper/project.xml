@@ -4,8 +4,8 @@
 
 <mapper namespace="com.example.its.database.project.ProjectDBMapper">
 <!--
-    <update id="createProjectDetailDBTable">
-        CREATE TABLE IF NOT EXISTS ProjectDetailDB (
+    <update id="createProjectDBTable">
+        CREATE TABLE IF NOT EXISTS ProjectDB (
             id INT AUTO_INCREMENT PRIMARY KEY,
             title VARCHAR(100) NOT NULL,
             description TEXT NOT NULL,
@@ -14,32 +14,32 @@
     </update>
 -->
     <insert id="createProject" useGeneratedKeys="true" keyProperty="id">
-        insert INTO ProjectDetailDB(title, description, adminId)
+        insert INTO ProjectDB(title, description, adminId)
         values (#{title}, #{description}, #{adminId})
     </insert>
     
     
-    <select id="readProject" resultType="com.example.its.dataClassDB.ProjectDetailDB">
+    <select id="readProject" resultType="com.example.its.dataClassDB.ProjectDB">
         select id, title, description, adminId
-        from ProjectDetailDB
+        from ProjectDB
         where id=#{id}
     </select>
 
-    <select id="readProjectList" resultType="com.example.its.dataClassDB.ProjectDetailDB">
+    <select id="readProjectList" resultType="com.example.its.dataClassDB.ProjectDB">
         select *
-        from ProjectDetailDB
+        from ProjectDB
         where adminId=#{adminId}
     </select>
 
     <update id="updateProject">
-        UPDATE ProjectDetailDB
+        UPDATE ProjectDB
         SET title=#{project.title},
             description=#{project.description}
         WHERE id=#{id}
     </update>
 
     <delete id="deleteProject">
-        DELETE FROM ProjectDetailDB
+        DELETE FROM ProjectDB
         WHERE id=#{id}
     </delete>
 </mapper>
