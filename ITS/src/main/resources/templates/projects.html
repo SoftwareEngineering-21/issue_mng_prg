@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects</title>
+<!--    <link rel="icon" type="image/x-icon" href="../static/favicon.ico">-->
+    <title>ITS SYSTEM</title>
     <style>
         .projectsHeader{
             display : flex;
@@ -30,7 +31,7 @@
             border: 5px solid #303050;
             border-radius: 15px !important;
             width: 100%;
-            max-width: 1195px;
+            max-width: 1200px;
             color: #303050;
             cursor: pointer;
         }
@@ -42,40 +43,47 @@
 
         }
         a h5{
-
-            text-decoration: none;
             color: #303050;
         }
         .card a:hover{
             text-decoration: none;
         }
     </style>
-    <script>
-        function addProjectIDParam(id) {
-            var currentUrl = window.location.href; // 현재 URL 가져오
-            window.location.href = currentUrl + "/ProjectID=" + id; // 새로운 URL로 이동
-        }
-    </script>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"> <!-- 외부 CSS 파일 링크 -->
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
 <div class ="logo">
-    <div th:replace="~{logo::logo}"></div>
+    <div th:replace="~{logo::logo}" id = 'logo'></div>
+    <script>
+        $(document).ready(function() {
+            // beforeunload 이벤트 핸들러 추가
+            $(window).on('beforeunload', function() {
+                return '변경 사항을 저장하지 않을 수 있습니다. 정말로 이 페이지를 떠나시겠습니까?';
+            });
+        });
+
+        // 이벤트 제거
+        $('#logo').click(function() {
+            $(window).off('beforeunload'); // 이벤트 핸들러 제거
+        });
+    </script>
 </div>
 <div class="container">
     <div class="row mt-5">
         <div class="col-12">
             <div class = "projectsHeader">
                 <h1>Projects</h1>
-                <div>
-                    <p>New Project</p> <!-- 오른쪽에 배치될 추가 텍스트 -->
+                <div  onclick="window.location.href='/projects/create'">
+                    <p>New Project</p>
                 </div>
             </div>
             <div class="card-container">
                     <div class="card" th:each="project : ${projects}">
 
-                        <a th:href="@{|/projects/projectID=${project.projectID}|}">
+                        <a th:href="@{|/projects/projectid=${project.projectID.getProjectID()}|}">
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${project.title}"></h5>
                             </div>
