@@ -1,4 +1,4 @@
 package com.example.its.logic;
 
-public class userService {
+public class UserService {
 }

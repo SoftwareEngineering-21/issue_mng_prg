@@ -1,19 +1,16 @@
 package com.example.its.dataClass;
 
+import lombok.Getter;
+
+@Getter
 public class Comment {
 	private CommentID ID;
-	private Issue.IssueID issueID;
+	private IssueID issueID;
 	private String text;
 	private Date date;
 	private User author;
 
-	private class CommentID {
-		private int ID;
 
-		public int getCommentID() {
-			return ID;
-		}
-	}
 
 	private class Date {
 		private String time;
@@ -23,11 +20,4 @@ public class Comment {
 		}
 	}
 
-	public int readID(){
-		return ID.getCommentID();
-	}
-
-	public String readTime() {
-		return date.getTime();
-	}
 }

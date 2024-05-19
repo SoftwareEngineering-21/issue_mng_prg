@@ -1,78 +1,37 @@
 package com.example.its.database.project;
 
+import com.example.its.dataClass.Project;
+import com.example.its.dataClass.ProjectID;
+import com.example.its.dataClass.User;
+import com.example.its.dataClassDB.ProjectDB;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
-
-import com.example.its.dataClassDB.ProjectDB;
-
-//import jakarta.anotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
-
 @Service
-@RequiredArgsConstructor
 public class ProjectDBService {
-    private final ProjectDBMapper projectDB;
 
-    @Async
-    public void createProjectService(String title, String description, String adminId){
-        synchronized (this) {
-            ProjectDB project = new ProjectDB(title, description, adminId);
-            projectDB.createProject(project);
-        }
-    }
+    @Autowired
+    private ProjectDBManager manager;
 
-    @Async
-    public CompletableFuture<ProjectDB> readProjectService(int id){
-        synchronized (this){
-            return CompletableFuture.completedFuture(projectDB.readProject(id));
-        }
-    }
-
-    @Async
-    public CompletableFuture<List<ProjectDB>> readProjectListService(String adminId){
-        synchronized (this){
-            return CompletableFuture.completedFuture(projectDB.readProjectList(adminId));
-        }
-    }
-
-    @Async
-    public void updateProjectService(int id, String title, String description){
-        ProjectDB preProject;
-        synchronized (this) {
-            try {
-                preProject = readProjectService(id).get();
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+    public List<Project> readProjectListService(String adminID){
+        CompletableFuture<List<ProjectDB>> rs = manager.readProjectListServiceDB(adminID);
+        try {
+            List<ProjectDB> list = rs.get();
+            List<Project> projects = new ArrayList<>();
+            for (ProjectDB projectDB : list) {
+                projects.add(new Project(new ProjectID(projectDB.getId()),projectDB.getTitle(),projectDB.getDescription(),new User(projectDB.getAdminId())));
+                return projects;
             }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
         }
-        
-        // 빈 값이면 기존값 대입
-        if (title.equals("")){
-            title = preProject.getTitle();
-        }
-        if (description.equals("")){
-            description = preProject.getDescription();
-        }
-        
-        ProjectDB new_project = new ProjectDB(title, description, preProject.getAdminId());
-        synchronized (this) {
-            projectDB.updateProject(id ,new_project);
-        }
+        throw new RuntimeException();
     }
-
-    @Async
-    public void deleteProjectService(int id){
-        synchronized (this) {
-            projectDB.deleteProject(id);
-        }
-    }
-    
 }
