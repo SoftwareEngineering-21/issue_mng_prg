@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class Project {
-	private final ProjectID ID;
+	private final ProjectID projectID;
 	private final String title;
 	private final String description;
 	private final User admin;

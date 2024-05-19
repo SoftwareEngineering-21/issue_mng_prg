@@ -12,12 +12,5 @@ public class Comment {
 
 
 
-	private class Date {
-		private String time;
-
-		public String getTime() {
-			return time;
-		}
-	}
 
 }

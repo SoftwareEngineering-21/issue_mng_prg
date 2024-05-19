@@ -9,13 +9,13 @@ public class ProjectDB {
     private int id;
     private String title;
     private String description;
-    private String adminId;
+    private String adminID;
 
-    public ProjectDB(String title, String description, String adminId)
+    public ProjectDB(String title, String description, String adminID)
     {
         this.title = title;
         this.description = description;
-        this.adminId = adminId;
+        this.adminID = adminID;
     }
     
 }
