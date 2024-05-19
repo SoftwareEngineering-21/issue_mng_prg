@@ -6,13 +6,13 @@ import lombok.Setter;
 @Setter
 @Getter
 public class PIRelationDB {
-    private int projectId;
-    private int issueId;
+    private int projectID;
+    private int issueID;
 
-    public PIRelationDB(int projectId, int issueId)
+    public PIRelationDB(int projectID, int issueID)
     {
-        this.projectId = projectId;
-        this.issueId = issueId;
+        this.projectID = projectID;
+        this.issueID = issueID;
     }
 
 }

@@ -13,32 +13,32 @@ public class UserDBManager {
     private final UserDBMapper userDB;
 
     @Async
-    public void createUserManager(String id, String pw){
+    public void createUserManager(String ID, String password){
         synchronized (this){
-            UserDB new_user = new UserDB(id, pw);
+            UserDB new_user = new UserDB(ID, password);
             userDB.createUser(new_user);
         }
     }
 
     @Async
-    public CompletableFuture<UserDB> readUserManager(String id){
+    public CompletableFuture<UserDB> readUserManager(String ID){
         synchronized (this){
-            return CompletableFuture.completedFuture(userDB.readUser(id));
+            return CompletableFuture.completedFuture(userDB.readUser(ID));
         }
     }
 
     @Async
-    public void updateUserManager(String pw){
+    public void updateUserManager(String ID, String password){
         synchronized (this) {
-            
+            userDB.updateUser(ID, password);
         }
     }
 
 
     @Async
-    public void deleteUserManager(String id){
+    public void deleteUserManager(String ID){
         synchronized (this){
-            userDB.deleteUser(id);
+            userDB.deleteUser(ID);
         }
     }
 }

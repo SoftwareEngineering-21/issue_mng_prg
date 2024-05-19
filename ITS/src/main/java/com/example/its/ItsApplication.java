@@ -2,16 +2,15 @@ package com.example.its;
 
 import java.util.List;
 
-import com.example.its.database.project.ProjectDBService;
-import com.example.its.swingUI.TestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-import com.example.its.database.project.ProjectDBManager;
-import com.example.its.mybatis.SampleDTO;
+import com.example.its.dataClass.Project;
+import com.example.its.database.project.ProjectDBService;
+import com.example.its.swingUI.TestController;
 
 @EnableAsync
 @SpringBootApplication
@@ -26,23 +25,20 @@ public class ItsApplication implements CommandLineRunner {
         SpringApplication.run(ItsApplication.class, args);
     }
 
-    @Autowired
-    public ProjectDBManager pdbs;
+    public TestController controller;
 
     @Autowired
     public ProjectDBService service;
-
-    public TestController controller;
-
-    public  List<SampleDTO> sampleDTOList;
-
-
     
     @Override
     public void run(String... args) throws Exception {
 
-        pdbs.createProjectService("aaa", "ab", "test");
 
+        List<Project> pr = service.readProjectListService("test");
+        System.out.println(pr.size());
+        for(Project p : pr) {
+            System.out.println(p.getAdmin().getUserID()+"," + p.getID().getID() +","+ p.getTitle()+","+p.getDescription());
+        }
 
 
         controller = new TestController();

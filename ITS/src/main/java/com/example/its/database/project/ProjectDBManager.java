@@ -5,38 +5,37 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
 
 import com.example.its.dataClassDB.ProjectDB;
 
 //import jakarta.anotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
-@Service
+//@Service
 @RequiredArgsConstructor
 public class ProjectDBManager {
     private final ProjectDBMapper projectDB;
 
     @Async
-    public void createProjectService(String title, String description, String adminId){
+    public void createProjectManage(String title, String description, String adminID){
         synchronized (this) {
-            ProjectDB project = new ProjectDB(title, description, adminId);
+            ProjectDB project = new ProjectDB(title, description, adminID);
             projectDB.createProject(project);
         }
     }
 
     //TODO int id 말고 UserID id 같은 객체로 parameter 바꿀것
     @Async
-    public CompletableFuture<ProjectDB> readProjectService(int id){
+    public CompletableFuture<ProjectDB> readProjectManage(int ID){
         synchronized (this){
-            return CompletableFuture.completedFuture(projectDB.readProject(id));
+            return CompletableFuture.completedFuture(projectDB.readProject(ID));
         }
     }
 
     @Async
-    public CompletableFuture<List<ProjectDB>> readProjectListServiceDB(String adminId){
+    public CompletableFuture<List<ProjectDB>> readProjectListManage(String adminID){
         synchronized (this){
-            return CompletableFuture.completedFuture(projectDB.readProjectList(adminId));
+            return CompletableFuture.completedFuture(projectDB.readProjectList(adminID));
         }
     }
 
@@ -44,11 +43,11 @@ public class ProjectDBManager {
 
 
     @Async
-    public void updateProjectService(int id, String title, String description){
+    public void updateProjectManage(int ID, String title, String description){
         ProjectDB preProject;
         synchronized (this) {
             try {
-                preProject = readProjectService(id).get();
+                preProject = readProjectManage(ID).get();
                 // 빈 값이면 기존값 대입
                 if (title.equals("")){
                     title = preProject.getTitle();
@@ -56,8 +55,8 @@ public class ProjectDBManager {
                 if (description.equals("")){
                     description = preProject.getDescription();
                 }
-                ProjectDB new_project = new ProjectDB(title, description, preProject.getAdminId());
-                projectDB.updateProject(id ,new_project);
+                ProjectDB new_project = new ProjectDB(title, description, preProject.getAdminID());
+                projectDB.updateProject(ID ,new_project);
 
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
@@ -67,18 +66,12 @@ public class ProjectDBManager {
                 e.printStackTrace();
             }
         }
-        
-
-
-        synchronized (this) {
-
-        }
     }
 
     @Async
-    public void deleteProjectService(int id){
+    public void deleteProjectManage(int ID){
         synchronized (this) {
-            projectDB.deleteProject(id);
+            projectDB.deleteProject(ID);
         }
     }
     

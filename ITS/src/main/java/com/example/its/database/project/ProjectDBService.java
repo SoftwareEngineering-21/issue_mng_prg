@@ -19,13 +19,44 @@ public class ProjectDBService {
     @Autowired
     private ProjectDBManager manager;
 
-    public List<Project> readProjectListService(String adminID){
-        CompletableFuture<List<ProjectDB>> rs = manager.readProjectListServiceDB(adminID);
+    //ProjectDB DTO to Project DTO
+    private Project PDBtoProject(ProjectDB pdb){
+        Project newP = new Project(new ProjectID(pdb.getID()), pdb.getTitle(), pdb.getDescription(), new User(pdb.getAdminID()));
+        return newP;
+    }
+
+    //create Project
+    public void createProjectService(String title, String description, User adminID){
+        manager.createProjectManage(title, description, adminID.getUserID());
+    }
+
+    //read one project
+    public Project readProjectService(int ID){
+        CompletableFuture<ProjectDB> pdb = manager.readProjectManage(ID);
+        try {
+            ProjectDB rpd = pdb.get();
+            Project pd = PDBtoProject(rpd);
+            return pd;
+        }
+        catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+        // TODO 왜인지 밑에랑 다르게 throw error가 에러가 남
+        //throw new RuntimeException();
+    }
+
+    // TODO adminId 말고 권한으로 바꾸기
+    //read project List
+    public List<Project> readProjectListService(User adminID){
+        CompletableFuture<List<ProjectDB>> rs = manager.readProjectListManage(adminID.getUserID());
         try {
             List<ProjectDB> list = rs.get();
             List<Project> projects = new ArrayList<>();
             for (ProjectDB projectDB : list) {
-                projects.add(new Project(new ProjectID(projectDB.getId()),projectDB.getTitle(),projectDB.getDescription(),new User(projectDB.getAdminId())));
+                projects.add(PDBtoProject(projectDB));
                 return projects;
             }
         } catch (InterruptedException e) {
@@ -35,4 +66,15 @@ public class ProjectDBService {
         }
         throw new RuntimeException();
     }
+    
+    //update projectDB title, description
+    public void updateProjectService(int ID, String title, String description){
+        manager.updateProjectManage(ID, title, description);
+    }
+
+    // delete projectDB
+    public void deleteProjectService(int ID){
+        manager.deleteProjectManage(ID);
+    }
+
 }

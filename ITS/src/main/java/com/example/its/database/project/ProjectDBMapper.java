@@ -11,9 +11,9 @@ import com.example.its.dataClassDB.ProjectDB;
 public interface ProjectDBMapper {
     //void createProjectDetailDBTable();
     void createProject(ProjectDB project);
-    ProjectDB readProject(int id);
-    List<ProjectDB> readProjectList(String adminId);
-    void updateProject(@Param("id") int id, @Param("project") ProjectDB project);
-    void deleteProject(int id);
+    ProjectDB readProject(int ID);
+    List<ProjectDB> readProjectList(String adminID);
+    void updateProject(@Param("ID") int ID, @Param("project") ProjectDB project);
+    void deleteProject(int ID);
     
 }

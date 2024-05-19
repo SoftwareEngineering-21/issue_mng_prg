@@ -7,8 +7,8 @@ import com.example.its.dataClassDB.UserDB;
 @Mapper
 public interface UserDBMapper {
     public void createUser(UserDB user);
-    public UserDB readUser(String id);
-    public void updateUser(String id, String pw);
-    public void deleteUser(String id);
+    public UserDB readUser(String ID);
+    public void updateUser(String ID, String password);
+    public void deleteUser(String ID);
 
 }

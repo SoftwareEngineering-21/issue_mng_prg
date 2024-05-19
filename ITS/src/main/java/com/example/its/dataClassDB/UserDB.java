@@ -6,12 +6,12 @@ import lombok.Setter;
 @Setter
 @Getter
 public class UserDB {
-    private String id;
+    private String ID;
     private String pw;
 
-    public UserDB(String id, String pw)
+    public UserDB(String ID, String pw)
     {
-        this.id = id;
+        this.ID = ID;
         this.pw = pw;
     }
 

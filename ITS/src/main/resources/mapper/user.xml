@@ -4,27 +4,26 @@
 
 <mapper namespace="com.example.its.database.user.UserDBMapper">
 
-    <insert id="createUser" keyProperty="id">
-        insert INTO UserDB(id, pw)
-        values (#{id}, #{pw})
+    <insert id="createUser">
+        insert INTO UserDB(ID, password)
+        values (#{ID}, #{password})
     </insert>
     
     
     <select id="readUser" resultType="com.example.its.dataClassDB.UserDB">
-        select id, pw
+        select ID, password
         from UserDB
-        where id=#{id}
+        where ID=#{ID}
     </select>
 
     <update id="updateUser">
         UPDATE UserDB
-        SET id=#{id},
-            pw=#{pw}
-        WHERE id=#{id}
+        SET password=#{password}
+        WHERE ID=#{ID}
     </update>
 
     <delete id="deleteUser">
         DELETE FROM UserDB
-        WHERE id=#{id}
+        WHERE ID=#{ID}
     </delete>
 </mapper>

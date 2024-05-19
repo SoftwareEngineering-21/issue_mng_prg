@@ -13,34 +13,34 @@
         )
     </update>
 -->
-    <insert id="createProject" useGeneratedKeys="true" keyProperty="id">
-        insert INTO ProjectDB(title, description, adminId)
-        values (#{title}, #{description}, #{adminId})
+    <insert id="createProject" useGeneratedKeys="true" keyProperty="ID">
+        insert INTO ProjectDB(title, description, adminID)
+        values (#{title}, #{description}, #{adminID})
     </insert>
     
     
     <select id="readProject" resultType="com.example.its.dataClassDB.ProjectDB">
-        select ID, title, description, adminId
+        select ID, title, description, adminID
         from ProjectDB
-        where id=#{id}
+        where ID=#{ID}
     </select>
 
     <!-- TODO where 조건 바꾸기 -->
     <select id="readProjectList" resultType="com.example.its.dataClassDB.ProjectDB">
         select *
         from ProjectDB
-        where adminId=#{adminId}
+        where adminID=#{adminID}
     </select>
 
     <update id="updateProject">
         UPDATE ProjectDB
         SET title=#{project.title},
             description=#{project.description}
-        WHERE id=#{id}
+        WHERE ID=#{ID}
     </update>
 
     <delete id="deleteProject">
         DELETE FROM ProjectDB
-        WHERE id=#{id}
+        WHERE ID=#{ID}
     </delete>
 </mapper>
