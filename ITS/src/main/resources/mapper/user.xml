@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.its.database.user.UserDBMapper">
+
+    <insert id="createUser" keyProperty="id">
+        insert INTO UserDB(id, pw)
+        values (#{id}, #{pw})
+    </insert>
+    
+    
+    <select id="readUser" resultType="com.example.its.dataClassDB.UserDB">
+        select id, pw
+        from UserDB
+        where id=#{id}
+    </select>
+
+    <update id="updateUser">
+        UPDATE UserDB
+        SET id=#{id},
+            pw=#{pw}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteUser">
+        DELETE FROM UserDB
+        WHERE id=#{id}
+    </delete>
+</mapper>
