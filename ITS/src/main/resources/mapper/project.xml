@@ -20,11 +20,12 @@
     
     
     <select id="readProject" resultType="com.example.its.dataClassDB.ProjectDB">
-        select id, title, description, adminId
+        select ID, title, description, adminId
         from ProjectDB
         where id=#{id}
     </select>
 
+    <!-- TODO where 조건 바꾸기 -->
     <select id="readProjectList" resultType="com.example.its.dataClassDB.ProjectDB">
         select *
         from ProjectDB

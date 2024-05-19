@@ -41,10 +41,20 @@ public class ProjectDBService {
 
     @Async
     public void updateProjectService(int id, String title, String description){
-        ProjectDB preProject;
         synchronized (this) {
             try {
+                ProjectDB preProject;
                 preProject = readProjectService(id).get();
+                // 빈 값이면 기존값 대입
+                if (title.equals("")){
+                    title = preProject.getTitle();
+                }
+                if (description.equals("")){
+                    description = preProject.getDescription();
+                }
+                
+                ProjectDB new_project = new ProjectDB(title, description, preProject.getAdminId());
+                projectDB.updateProject(id ,new_project);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -52,19 +62,6 @@ public class ProjectDBService {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }
-        
-        // 빈 값이면 기존값 대입
-        if (title.equals("")){
-            title = preProject.getTitle();
-        }
-        if (description.equals("")){
-            description = preProject.getDescription();
-        }
-        
-        ProjectDB new_project = new ProjectDB(title, description, preProject.getAdminId());
-        synchronized (this) {
-            projectDB.updateProject(id ,new_project);
         }
     }
 
