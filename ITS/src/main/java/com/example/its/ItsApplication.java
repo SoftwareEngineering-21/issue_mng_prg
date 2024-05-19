@@ -27,7 +27,7 @@ public class ItsApplication implements CommandLineRunner {
         SpringApplication.run(ItsApplication.class, args);
     }
 
-    public TestController controller;
+    //public TestController controller;
 
     @Autowired
     public ProjectDBService service;

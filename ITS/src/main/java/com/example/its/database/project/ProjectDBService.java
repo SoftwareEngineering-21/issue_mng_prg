@@ -27,7 +27,7 @@ public class ProjectDBService {
 
     //create Project
     public void createProjectService(String title, String description, User adminID){
-        manager.createProjectManage(title, description, adminID.getUserID());
+        manager.createProjectManage(title, description, adminID.getID());
     }
 
     //read one project
@@ -44,14 +44,14 @@ public class ProjectDBService {
         catch (ExecutionException e) {
             throw new RuntimeException(e);
         }
-        // TODO 왜인지 밑에랑 다르게 throw error가 에러가 남
+        // TODO 왜인지 throw error가 에러가 남
         //throw new RuntimeException();
     }
 
     // TODO adminId 말고 권한으로 바꾸기
     //read project List
     public List<Project> readProjectListService(User adminID){
-        CompletableFuture<List<ProjectDB>> rs = manager.readProjectListManage(adminID.getUserID());
+        CompletableFuture<List<ProjectDB>> rs = manager.readProjectListManage(adminID.getID());
         try {
             List<ProjectDB> list = rs.get();
             List<Project> projects = new ArrayList<>();
@@ -65,7 +65,7 @@ public class ProjectDBService {
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         }
-        throw new RuntimeException();
+        //throw new RuntimeException();
     }
     
     //update projectDB title, description
