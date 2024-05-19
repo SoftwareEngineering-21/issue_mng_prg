@@ -59,6 +59,7 @@ public class ProjectDBService {
                 projects.add(PDBtoProject(projectDB));
                 return projects;
             }
+            return projects;
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {
