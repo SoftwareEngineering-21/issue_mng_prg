@@ -18,7 +18,7 @@ public class ProjectDBManager {
     private final ProjectDBMapper projectDB;
 
     @Async
-    public void createProjectService(String title, String description, String adminId){
+    public void createProjectManage(String title, String description, String adminId){
         synchronized (this) {
             ProjectDB project = new ProjectDB(title, description, adminId);
             projectDB.createProject(project);
@@ -56,7 +56,7 @@ public class ProjectDBManager {
                 if (description.equals("")){
                     description = preProject.getDescription();
                 }
-                ProjectDB new_project = new ProjectDB(title, description, preProject.getAdminId());
+                ProjectDB new_project = new ProjectDB(title, description, preProject.getAdminID());
                 projectDB.updateProject(id ,new_project);
 
             } catch (InterruptedException e) {

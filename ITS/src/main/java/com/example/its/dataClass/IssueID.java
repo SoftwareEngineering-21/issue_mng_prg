@@ -6,5 +6,5 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class IssueID {
-    private final int id;
+    private final int ID;
 }
