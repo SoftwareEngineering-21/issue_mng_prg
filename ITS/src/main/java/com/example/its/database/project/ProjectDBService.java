@@ -3,6 +3,7 @@ package com.example.its.database.project;
 import com.example.its.dataClass.Project;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.User;
+import com.example.its.dataClass.UserID;
 import com.example.its.dataClassDB.ProjectDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +19,13 @@ public class ProjectDBService {
     @Autowired
     private ProjectDBManager manager;
 
-    public List<Project> readProjectListService(User adminID){
+    public List<Project> readProjectListService(UserID adminID){
         CompletableFuture<List<ProjectDB>> rs = manager.readProjectListServiceDB(adminID.getID());
         try {
-            List<ProjectDB> list = rs.get();
+            List<ProjectDB> rslist = rs.get();
             List<Project> projects = new ArrayList<>();
-            for (ProjectDB projectDB : list) {
-                projects.add(new Project(new ProjectID(projectDB.getId()),projectDB.getTitle(),projectDB.getDescription(),new User(projectDB.getAdminID())));
+            for (ProjectDB projectDB : rslist) {
+                projects.add(new Project(new ProjectID(projectDB.getId()),projectDB.getTitle(),projectDB.getDescription(),new UserID(projectDB.getAdminID())));
 
             }
             return projects;
@@ -35,7 +36,7 @@ public class ProjectDBService {
         }
 
     }
-    public void createProjectService(String title, String description, User adminID){
+    public void createProjectService(String title, String description, UserID adminID){
         manager.createProjectManage(title, description, adminID.getID());
     }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.its.dataClass.Project;
 import com.example.its.dataClass.User;
+import com.example.its.dataClass.UserID;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.swingUI.TestController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class ItsApplication implements CommandLineRunner {
         //pdbs.createProjectService("aaa", "ab", "test");
 
         //service.createProjectService("t","a",new User("test"));
-        List<Project> pr = service.readProjectListService(new User("test"));
+        List<Project> pr = service.readProjectListService(new UserID("test"));
         System.out.println(pr.size());
         for(Project p : pr) {
             System.out.println(p.getAdmin().getID()+"," + p.getProjectID().getID() +","+ p.getTitle()+","+p.getDescription());

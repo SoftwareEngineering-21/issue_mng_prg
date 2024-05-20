@@ -1,7 +1,9 @@
 package com.example.its.webUI.Controller.Projects;
 
 import com.example.its.dataClass.User;
+import com.example.its.dataClass.UserID;
 import com.example.its.database.project.ProjectDBService;
+import com.example.its.logic.ProjectService;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Controller;
@@ -13,19 +15,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ProjectsController {
 
 
-    private final ProjectDBService service;
+    private final ProjectService service;
 
     @Setter
-    private User user = new User("test2");
+    private UserID ID = new UserID("test");
 
     @GetMapping("/projects")
     public String readProjects(Model model) {
-        // Sample data
-
         // Add projects to the model
-        model.addAttribute("projects", service.readProjectListService(user));
-
-
+        model.addAttribute("projects", service.readProjects(ID));
         // Return the name of the view (Thymeleaf template)
         return "projects";
     }
