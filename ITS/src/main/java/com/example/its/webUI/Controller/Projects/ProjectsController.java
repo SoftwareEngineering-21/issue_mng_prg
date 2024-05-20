@@ -2,17 +2,11 @@ package com.example.its.webUI.Controller.Projects;
 
 import com.example.its.dataClass.User;
 import com.example.its.database.project.ProjectDBService;
-import com.example.its.webUI.Controller.Project;
-import com.example.its.webUI.Controller.ProjectID;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,6 +32,6 @@ public class ProjectsController {
 
     @GetMapping("/projects/create")
     public String createProject() {
-        return"createProject";
+        return "create_project";
     }
 }

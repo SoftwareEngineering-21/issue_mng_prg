@@ -17,7 +17,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/public/**").permitAll()  // 공용 엔드포인트
+                        .requestMatchers("/**").permitAll()  // 공용 엔드포인트
                         .anyRequest().authenticated()               // 다른 모든 요청은 인증 필요
                 )
                 .formLogin(formLogin -> formLogin
