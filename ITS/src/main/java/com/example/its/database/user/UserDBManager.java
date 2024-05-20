@@ -3,11 +3,13 @@ package com.example.its.database.user;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
 import com.example.its.dataClassDB.UserDB;
 
 import lombok.RequiredArgsConstructor;
 
+@Service
 @RequiredArgsConstructor
 public class UserDBManager {
     private final UserDBMapper userDB;

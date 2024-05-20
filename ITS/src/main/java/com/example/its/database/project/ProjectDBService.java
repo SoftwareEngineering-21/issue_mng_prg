@@ -57,7 +57,6 @@ public class ProjectDBService {
             List<Project> projects = new ArrayList<>();
             for (ProjectDB projectDB : list) {
                 projects.add(PDBtoProject(projectDB));
-                return projects;
             }
             return projects;
         } catch (InterruptedException e) {

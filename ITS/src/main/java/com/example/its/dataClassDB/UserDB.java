@@ -7,12 +7,12 @@ import lombok.Setter;
 @Getter
 public class UserDB {
     private String ID;
-    private String pw;
+    private String password;
 
-    public UserDB(String ID, String pw)
+    public UserDB(String ID, String password)
     {
         this.ID = ID;
-        this.pw = pw;
+        this.password = password;
     }
 
 
