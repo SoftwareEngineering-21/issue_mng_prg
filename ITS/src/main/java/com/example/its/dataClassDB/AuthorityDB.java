@@ -6,14 +6,14 @@ import lombok.Setter;
 @Setter
 @Getter
 public class AuthorityDB {
-    private String userId;
-    private int projectId;
+    private String userID;
+    private int projectID;
     private int auth;
 
-    public AuthorityDB(String userId, int projectId, int auth)
+    public AuthorityDB(String userID, int projectID, int auth)
     {
-        this.userId = userId;
-        this.projectId = projectId;
+        this.userID = userID;
+        this.projectID = projectID;
         this.auth = auth;
     }
 

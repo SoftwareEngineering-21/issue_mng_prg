@@ -6,14 +6,14 @@ import lombok.Setter;
 @Setter
 @Getter
 public class CommentDB {
-    private int id;
+    private int ID;
     private String text;
     private String reporter;
     private String date;
 
-    public CommentDB(int id, String text, String reporter, String date)
+    public CommentDB(int ID, String text, String reporter, String date)
     {
-        this.id = id;
+        this.ID = ID;
         this.text = text;
         this.reporter = reporter;
         this.date = date;
