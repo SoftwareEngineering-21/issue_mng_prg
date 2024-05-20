@@ -5,9 +5,6 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class User {
-	private final String ID;
-
-
-
+public class ProjectID {
+    private final int ID;
 }

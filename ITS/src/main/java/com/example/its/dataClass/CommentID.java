@@ -1,13 +1,12 @@
 package com.example.its.dataClass;
 
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class User {
-	private final String ID;
-
-
+public class CommentID {
+    private final int ID;
 
 }

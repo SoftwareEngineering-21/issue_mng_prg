@@ -14,8 +14,8 @@
     </update>
 -->
     <insert id="createProject" useGeneratedKeys="true" keyProperty="id">
-        insert INTO ProjectDB(title, description, adminId)
-        values (#{title}, #{description}, #{adminId})
+        insert INTO ProjectDB(title, description, adminID)
+        values (#{title}, #{description}, #{adminID})
     </insert>
     
     
@@ -28,7 +28,7 @@
     <select id="readProjectList" resultType="com.example.its.dataClassDB.ProjectDB">
         select *
         from ProjectDB
-        where adminId=#{adminId}
+            where adminId=#{adminId}
     </select>
 
     <update id="updateProject">
