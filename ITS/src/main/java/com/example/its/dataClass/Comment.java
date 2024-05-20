@@ -8,7 +8,7 @@ public class Comment {
 	private IssueID issueID;
 	private String text;
 	private Date date;
-	private User author;
+	private UserID author;
 
 
 
