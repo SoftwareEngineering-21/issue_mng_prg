@@ -9,7 +9,7 @@ public class Project {
 	private final ProjectID projectID;
 	private final String title;
 	private final String description;
-	private final User admin;
+	private final UserID admin;
 
 
 

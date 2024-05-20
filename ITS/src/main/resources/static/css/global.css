@@ -6,7 +6,7 @@ body{
 }
 .logo {
     margin-top: 20px;
-    font-size: 50px;
+    font-size: 70px;
     font-weight: 800;
     color: #303050;
     cursor: pointer;
@@ -14,7 +14,7 @@ body{
     padding-left: 15px;
 }
 .logo span {
-    font-size: 30px;
+    font-size: 35px;
     padding-left: 10px;
 }
 a{

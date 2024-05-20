@@ -25,8 +25,7 @@ public class ProjectDBManager {
         }
     }
 
-    //TODO int id 말고 UserID id 같은 객체로 parameter 바꿀것
-    @Async
+
     public CompletableFuture<ProjectDB> readProjectService(int id){
         synchronized (this){
             return CompletableFuture.completedFuture(projectDB.readProject(id));

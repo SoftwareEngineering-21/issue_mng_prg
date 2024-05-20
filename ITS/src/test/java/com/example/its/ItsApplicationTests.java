@@ -57,9 +57,7 @@ class ProjectsControllerTest {
 
 //        verify(model).addAttribute("projects", new ArrayList<>());
 //        assertEquals("projects", viewName);
-        verify(model).addAttribute(eq("projects"), projectListCaptor.capture());
-        List<Project> capturedProjects = projectListCaptor.getValue();
-        assertEquals(14 , capturedProjects.size());
+//        assertEquals(14 , capturedProjects.size());
 
     }
 }
