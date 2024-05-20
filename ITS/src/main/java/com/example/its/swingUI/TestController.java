@@ -1,29 +1,33 @@
 package com.example.its.swingUI;
 
-import com.example.its.dataClassDB.ProjectDB;
+import com.example.its.dataClass.Project;
+import com.example.its.dataClass.ProjectID;
+import com.example.its.dataClass.User;
 
 import java.util.ArrayList;
 
 //GUI Test를 위한 testClass입니다
 public class TestController implements ProjectController {
+    User user;
     SwingGUI gui;
-    ArrayList<ProjectDB> projectList = new ArrayList<>();
+    ArrayList<Project> projectList = new ArrayList<>();
 
     public TestController(){
+        user = new User("123");
         gui = new SwingGUI(this);
         gui.setVisible(true);
     }
 
     @Override
-    public ArrayList<ProjectDB> getProjectList() {
+    public ArrayList<Project> getProjectList() {
         return projectList;
     }
 
     @Override
     public void makeNewProject(String title, String decs) {
-        ProjectDB newProject = new ProjectDB( title, decs, "Admin");
+        Project newProject = new Project(new ProjectID(projectList.size()), title, decs, user);
         projectList.add(newProject);
-        System.out.println(projectList.size());
+        //System.out.println(projectList.size());
 
         gui.repaint();
     }

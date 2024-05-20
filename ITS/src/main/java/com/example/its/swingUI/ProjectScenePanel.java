@@ -7,6 +7,9 @@ import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import java.awt.Component;
 import javax.swing.Box;
@@ -15,6 +18,13 @@ import java.awt.Color;
 import javax.swing.JButton;
 
 public class ProjectScenePanel extends JPanel {
+	class NewIssueButtonAction implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+		}
+	}
+
     ProjectScenePanel(){
         setLayout(new BorderLayout(0, 1));
 		
@@ -66,6 +76,7 @@ public class ProjectScenePanel extends JPanel {
 		IssueLIistTextPanel.add(horizontalGlue_2);
 		
 		JButton NewIssueButton = new JButton("New");
+		NewIssueButton.addActionListener(new NewIssueButtonAction());
 		IssueLIistTextPanel.add(NewIssueButton);
 		
 		Component horizontalStrut_3 = Box.createHorizontalStrut(20);

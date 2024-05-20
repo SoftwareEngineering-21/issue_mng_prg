@@ -1,6 +1,6 @@
 package com.example.its.swingUI;
 
-import com.example.its.dataClassDB.ProjectDB;
+import com.example.its.dataClass.Project;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -29,6 +29,14 @@ public class MainScenePanel extends JPanel {
 	JPanel ProjectListPanel;
 	GridBagLayout gbl_ProjectListPanel;
 
+	class NewProjectButtonAction implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Open MakeProjectFrame");
+			integratedGUI.callMakeProjecFrame();
+		}
+	}
+
     MainScenePanel(SwingGUI main){
 		this.integratedGUI = main;
 
@@ -42,8 +50,8 @@ public class MainScenePanel extends JPanel {
 		NewProjectButtonPanel.add(horizontalGlue_1);
 		
 		JButton NewProjectButton = new JButton("New");
-		NewProjectButtonPanel.add(NewProjectButton);
 		NewProjectButton.addActionListener(new NewProjectButtonAction());
+		NewProjectButtonPanel.add(NewProjectButton);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		NewProjectButtonPanel.add(horizontalStrut);
@@ -68,7 +76,7 @@ public class MainScenePanel extends JPanel {
 	void makeProjectList(){
 		ProjectListPanel.removeAll();
 
-		ArrayList<ProjectDB> projectList = integratedGUI.getProjectList();
+		ArrayList<Project> projectList = integratedGUI.getProjectList();
 		int size = projectList.size();
 		System.out.println(projectList.size());
 		gbl_ProjectListPanel.rowHeights = new int[size + 1];
@@ -160,14 +168,6 @@ public class MainScenePanel extends JPanel {
 				super.mouseClicked(e);
 				System.out.println("Open ProjectInfo : " + index);
 			}
-		}
-	}
-
-	class NewProjectButtonAction implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.out.println("Open MakeProjectFrame");
-			integratedGUI.callMakeProjecFrame();
 		}
 	}
 }

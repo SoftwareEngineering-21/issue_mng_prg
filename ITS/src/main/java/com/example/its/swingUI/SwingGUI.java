@@ -1,6 +1,6 @@
 package com.example.its.swingUI;
 
-import com.example.its.dataClassDB.ProjectDB;
+import com.example.its.dataClass.Project;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -103,7 +103,7 @@ public class SwingGUI {
         mainScene.repaint();
     }
 
-    ArrayList<ProjectDB> getProjectList(){
+    ArrayList<Project> getProjectList(){
         return controller.getProjectList();
     }
 

@@ -21,6 +21,26 @@ public class MakeProjectFrame extends JFrame {
     private JTextField titleText;
     private JTextArea decsText;
 
+	class PostButtonAction implements ActionListener{
+		JFrame frame;
+
+		PostButtonAction(JFrame frame){
+			this.frame = frame;
+		}
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Post to Server");
+			if(titleText.getText().length() <= 100){
+				gui.makeNewProject(titleText.getText(), decsText.getText());
+				frame.dispose();
+			}
+			else{
+				
+			}
+        }
+    }
+
     MakeProjectFrame(SwingGUI swingGUI){
 		this.gui = swingGUI;
 
@@ -86,20 +106,5 @@ public class MakeProjectFrame extends JFrame {
 			frame.dispose();
         }
         
-    }
-
-    class PostButtonAction implements ActionListener{
-		JFrame frame;
-
-		PostButtonAction(JFrame frame){
-			this.frame = frame;
-		}
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Post to Server");
-			gui.makeNewProject(titleText.getText(), decsText.getText());
-			frame.dispose();
-        }
     }
 }
