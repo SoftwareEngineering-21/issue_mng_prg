@@ -6,13 +6,13 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ICRelationDB {
-    private int issueId;
-    private int commentId;
+    private int issueID;
+    private int commentID;
 
-    public ICRelationDB(int issueId, int commentId)
+    public ICRelationDB(int issueID, int commentID)
     {
-        this.issueId = issueId;
-        this.commentId = commentId;
+        this.issueID = issueID;
+        this.commentID = commentID;
     }
 
 }

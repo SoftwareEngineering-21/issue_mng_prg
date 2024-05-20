@@ -6,7 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class IssueDB {
-    private int id;
+    private int ID;
     private String title;
     private String description;
     private String reporter;

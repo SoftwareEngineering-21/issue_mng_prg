@@ -1,12 +1,5 @@
 package com.example.its;
 
-import java.util.List;
-
-import com.example.its.dataClass.Project;
-import com.example.its.dataClass.User;
-import com.example.its.dataClass.UserID;
-import com.example.its.database.project.ProjectDBService;
-import com.example.its.swingUI.TestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ConfigurableBootstrapContext;
@@ -15,8 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-import com.example.its.database.project.ProjectDBManager;
-import com.example.its.mybatis.SampleDTO;
+import com.example.its.dataClass.User;
+import com.example.its.database.project.ProjectDBService;
+import com.example.its.database.user.UserDBService;
+import com.example.its.swingUI.TestController;
 
 @EnableAsync
 @SpringBootApplication
@@ -33,15 +28,12 @@ public class ItsApplication implements CommandLineRunner {
         controller.run();
     }
 
-    @Autowired
-    public ProjectDBManager pdbs;
+    //public TestController controller;
 
     @Autowired
-    public ProjectDBService service;
-
-
-
-    public  List<SampleDTO> sampleDTOList;
+    public ProjectDBService projectService;
+    @Autowired
+    public UserDBService userService;
 
 
     
@@ -51,13 +43,17 @@ public class ItsApplication implements CommandLineRunner {
         //pdbs.createProjectService("aaa", "ab", "test");
 
         //service.createProjectService("t","a",new User("test"));
-        List<Project> pr = service.readProjectListService(new UserID("test"));
-        System.out.println(pr.size());
-        for(Project p : pr) {
-            System.out.println(p.getAdmin().getID()+"," + p.getProjectID().getID() +","+ p.getTitle()+","+p.getDescription());
+        // List<Project> pr = service.readProjectListService(new User("test"));
+        // System.out.println(pr.size());
+        // for(Project p : pr) {
+        //     System.out.println(p.getAdmin().getID()+"," + p.getProjectID().getID() +","+ p.getTitle()+","+p.getDescription());
+        // }
+        User a = new User("test2");
+        System.out.println("run start");
+        
+        System.out.println("run end");
+
         }
 
-
-        //
-    }
+    
 }
