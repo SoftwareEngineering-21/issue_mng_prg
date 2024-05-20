@@ -11,7 +11,4 @@ public class Project {
 	private final String description;
 	private final UserID admin;
 
-
-
-
 }
