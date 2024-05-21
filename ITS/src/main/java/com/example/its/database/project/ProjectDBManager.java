@@ -7,7 +7,6 @@ import java.util.concurrent.ExecutionException;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClassDB.ProjectDB;
 
 //import jakarta.anotation.PostConstruct;
@@ -19,12 +18,11 @@ public class ProjectDBManager {
     private final ProjectDBMapper projectDB;
 
     @Async
-    public CompletableFuture<ProjectID> createProjectManage(String title, String description, String adminID){
+    public CompletableFuture<Integer> createProjectManage(String title, String description, String adminID){
         synchronized (this) {
             ProjectDB project = new ProjectDB(title, description, adminID);
             projectDB.createProject(project);
-            ProjectID returnID = new ProjectID(project.getID());
-            return CompletableFuture.completedFuture(returnID);
+            return CompletableFuture.completedFuture(project.getID());
         }
     }
 

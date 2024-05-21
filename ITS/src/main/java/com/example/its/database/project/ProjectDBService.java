@@ -28,8 +28,9 @@ public class ProjectDBService {
     //create Project
     public ProjectID createProjectService(String title, String description, UserID adminID){
         try {
-            CompletableFuture<ProjectID> returnID = manager.createProjectManage(title, description, adminID.getID());
-            return returnID.get();
+            CompletableFuture<Integer> temp = manager.createProjectManage(title, description, adminID.getID());
+            ProjectID returnID = new ProjectID(temp.get());
+            return returnID;
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {

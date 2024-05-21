@@ -60,19 +60,12 @@ public class UserDBService {
             }
     }
 
-    //create User
+    //create User, 중복 겁사는 UI단에서?????
     public UserID createUserService(String ID, String password){
-        try {
-            String encodedPW = encodePW(password);
-            CompletableFuture<UserID> preID = manager.createUserManager(ID, encodedPW);
-            UserID returnID;
-            returnID = preID.get();
-            return returnID;
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        }
+        String encodedPW = encodePW(password);
+        manager.createUserManager(ID, encodedPW);
+        User returnID = readUserService(new UserID(ID));
+        return returnID.getID();
     }
 
     // read user

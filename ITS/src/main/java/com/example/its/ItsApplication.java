@@ -48,16 +48,12 @@ public class ItsApplication implements CommandLineRunner {
         // for(Project p : pr) {
         //     System.out.println(p.getAdmin().getID()+"," + p.getProjectID().getID() +","+ p.getTitle()+","+p.getDescription());
         // }
-<<<<<<< Updated upstream
-        //User a = new User("test2");
-=======
->>>>>>> Stashed changes
         System.out.println("run start");
-        UserID a;
-        a = userService.createUserService("abcd", "abcd");
-        System.out.println(a.getID());
+        // UserID a;
+        // a = userService.createUserService("newenwew", "abcd");
+        // System.out.println(a.getID());
         ProjectID b;
-        b = projectService.createProjectService("ssss", "it is description", a);
+        b = projectService.createProjectService("title", "it is description", new UserID("abcd"));
         System.out.println(b.getID());
         
         System.out.println("run end");
