@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 @RequiredArgsConstructor
 public class ProjectService {
@@ -18,12 +17,12 @@ public class ProjectService {
 		service.createProjectService(title,description,ID);
 	}
 
-	public List<Project> readProjects(UserID ID) {
+	public List<Project> readProjectList(UserID ID) {
         return service.readProjectListService(ID);
     }
 
 	public Project readProject(ProjectID ID) {
-
+		return service.readProjectService(ID);
 	}
 
 }
