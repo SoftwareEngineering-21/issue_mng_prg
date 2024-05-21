@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.its.dataClass.User;
+import com.example.its.dataClass.UserID;
 import com.example.its.dataClassDB.UserDB;
 
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class UserDBService {
 
     //UserDB DTO to User DTO
     private User UDBtoUser(UserDB udb){
-        User newU = new User(udb.getID());
+        User newU = new User(new UserID(udb.getID()));
         return newU;
     }
 
@@ -38,9 +39,9 @@ public class UserDBService {
     }
 
     //id pw check
-    public Boolean checkRightPW(User user, String inputPW){
+    public Boolean checkRightPW(UserID userID, String inputPW){
             try {
-                CompletableFuture<UserDB> udb = manager.readUserManager(user.getID());
+                CompletableFuture<UserDB> udb = manager.readUserManager(userID.getID());
                 UserDB currentUserDB;
                 currentUserDB = udb.get();
                 if(currentUserDB == null){
@@ -65,9 +66,8 @@ public class UserDBService {
         manager.createUserManager(ID, encodedPW);
     }
 
-    //TODO user를 받아서 user를 반환하는게 이상함
     // read user
-    public User readUserService(User user){
+    public User readUserService(UserID user){
         CompletableFuture<UserDB> udb = manager.readUserManager(user.getID());
         try {
             UserDB rudb = udb.get();
@@ -80,15 +80,15 @@ public class UserDBService {
     }
 
     //update user's password
-    public void updateUserService(User user, String password, String newPW){
-        if(checkRightPW(user, newPW)){
-            manager.updateUserManager(user.getID(), encodePW(newPW));
+    public void updateUserService(UserID userID, String password, String newPW){
+        if(checkRightPW(userID, newPW)){
+            manager.updateUserManager(userID.getID(), encodePW(newPW));
         }
     }
 
     //delete user
-    public void deleteUserSerivce(User user){
-        manager.deleteUserManager(user.getID());
+    public void deleteUserSerivce(UserID userID){
+        manager.deleteUserManager(userID.getID());
     }
 
 }
