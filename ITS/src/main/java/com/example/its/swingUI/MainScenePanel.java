@@ -24,7 +24,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class MainScenePanel extends JPanel {
-	SwingGUI integratedGUI;
+	SwingGUI itGui;
 
 	JPanel ProjectListPanel;
 	GridBagLayout gbl_ProjectListPanel;
@@ -33,12 +33,12 @@ public class MainScenePanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Open MakeProjectFrame");
-			integratedGUI.callMakeProjecFrame();
+			itGui.callMakeProjecFrame();
 		}
 	}
 
     MainScenePanel(SwingGUI main){
-		this.integratedGUI = main;
+		this.itGui = main;
 
         setLayout(new BorderLayout(0, 5));
 		
@@ -76,7 +76,7 @@ public class MainScenePanel extends JPanel {
 	void makeProjectList(){
 		ProjectListPanel.removeAll();
 
-		ArrayList<Project> projectList = integratedGUI.getProjectList();
+		ArrayList<Project> projectList = itGui.getProjectList();
 		int size = projectList.size();
 		System.out.println(projectList.size());
 		gbl_ProjectListPanel.rowHeights = new int[size + 1];

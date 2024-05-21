@@ -31,5 +31,20 @@ public class TestController implements ProjectController {
 
         gui.repaint();
     }
+
+    @Override
+    public ArrayList<User> getTesterList() {
+        return new ArrayList<User>();
+    }
+
+    @Override
+    public ArrayList<User> getPlayerList() {
+        return new ArrayList<User>();
+    }
+
+    @Override
+    public ArrayList<User> getDeveloperList() {
+        return new ArrayList<User>();
+    }
     
 }

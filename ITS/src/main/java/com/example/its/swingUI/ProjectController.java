@@ -1,6 +1,7 @@
 package com.example.its.swingUI;
 
 import com.example.its.dataClass.Project;
+import com.example.its.dataClass.User;
 
 import java.util.ArrayList;
 
@@ -8,4 +9,7 @@ import java.util.ArrayList;
 public interface ProjectController {
     ArrayList<Project> getProjectList();
     void makeNewProject(String title, String decs);
+    ArrayList<User> getTesterList();
+    ArrayList<User> getPlayerList();
+    ArrayList<User> getDeveloperList();
 }

@@ -1,6 +1,5 @@
 package com.example.its.swingUI;
 
-import java.awt.EventQueue;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -11,6 +10,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
@@ -21,7 +21,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import com.example.its.dataClass.User;
+
 public class ProjectAuthPanel extends JPanel {
+	ProjectController controller;
+
 	private JTextField TesterTextField;
 	private JTextField PlayerTextField;
 	private JTextField DeveloperTextFeild;
@@ -30,7 +34,9 @@ public class ProjectAuthPanel extends JPanel {
     private JPanel PlayerInfoListPanel;
     private JPanel DeveloperInfoListPanel;
 
-    ProjectAuthPanel(){
+    ProjectAuthPanel(ProjectController controller){
+		this.controller = controller;
+
         JPanel ProjectNamePanel = new JPanel();
 		add(ProjectNamePanel, BorderLayout.NORTH);
 		ProjectNamePanel.setLayout(new BoxLayout(ProjectNamePanel, BoxLayout.X_AXIS));
@@ -97,12 +103,6 @@ public class ProjectAuthPanel extends JPanel {
 		TesterInfoListPanel = new JPanel();
 		TesterInfoListPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		TestPanel.add(TesterInfoListPanel);
-		GridBagLayout gbl_TesterInfoListPanel = new GridBagLayout();
-		gbl_TesterInfoListPanel.columnWidths = new int[] {0};
-		gbl_TesterInfoListPanel.rowHeights = new int[] {30, 30};
-		gbl_TesterInfoListPanel.columnWeights = new double[]{1.0};
-		gbl_TesterInfoListPanel.rowWeights = new double[]{1.0, 1.0};
-		TesterInfoListPanel.setLayout(gbl_TesterInfoListPanel);
 		
 		JPanel PlayerPanel = new JPanel();
 		AuthorityPanel.add(PlayerPanel);
@@ -190,27 +190,44 @@ public class ProjectAuthPanel extends JPanel {
     }
 
     void setList(){
-        
+		TesterInfoListPanel.removeAll();
+		PlayerInfoListPanel.removeAll();
+		DeveloperInfoListPanel.removeAll();
+
+		ArrayList<User> testers = controller.getTesterList();
+		GridBagLayout gbl_TesterInfoListPanel = new GridBagLayout();
+		gbl_TesterInfoListPanel.columnWidths = new int[] {0};
+		gbl_TesterInfoListPanel.rowHeights = new int[testers.size()];
+		gbl_TesterInfoListPanel.columnWeights = new double[]{1.0};
+		gbl_TesterInfoListPanel.rowWeights = new double[]{1.0, 1.0};
+
+		for(int i = 0; i < testers.size(); i++){
+			gbl_TesterInfoListPanel.rowHeights[i] = 30;
+			new TesterInfoPanel(TesterInfoListPanel, "Tester Name", i);
+		}
+		TesterInfoListPanel.setLayout(gbl_TesterInfoListPanel);
+
+
 
         revalidate();
         repaint();
     }
 
     class TesterInfoPanel extends JPanel{
-        TesterInfoPanel(JPanel ListPanel){
+        TesterInfoPanel(JPanel ListPanel, String name, int index){
             setBorder(new LineBorder(new Color(0, 0, 0)));
             GridBagConstraints gbc_TesterInfoPanel = new GridBagConstraints();
             gbc_TesterInfoPanel.insets = new Insets(5, 0, 0, 0);
             gbc_TesterInfoPanel.fill = GridBagConstraints.BOTH;
             gbc_TesterInfoPanel.gridx = 0;
-            gbc_TesterInfoPanel.gridy = 0;
+            gbc_TesterInfoPanel.gridy = index;
             ListPanel.add(this, gbc_TesterInfoPanel);
             setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
             Component horizontalStrut_5 = Box.createHorizontalStrut(20);
             add(horizontalStrut_5);
             
-            JLabel TesterNameLabel = new JLabel("Tester Name");
+            JLabel TesterNameLabel = new JLabel(name);
             add(TesterNameLabel);
             
             Component horizontalGlue_2 = Box.createHorizontalGlue();
@@ -233,20 +250,20 @@ public class ProjectAuthPanel extends JPanel {
     }
 
     class PlayerInfoPanel extends JPanel{
-        PlayerInfoPanel(JPanel ListPanel){
+        PlayerInfoPanel(JPanel ListPanel, String name, int index){
             setBorder(new LineBorder(new Color(0, 0, 0)));
             GridBagConstraints gbc_PlayerInfoPanel = new GridBagConstraints();
             gbc_PlayerInfoPanel.insets = new Insets(5, 0, 0, 0);
             gbc_PlayerInfoPanel.fill = GridBagConstraints.BOTH;
             gbc_PlayerInfoPanel.gridx = 0;
-            gbc_PlayerInfoPanel.gridy = 0;
+            gbc_PlayerInfoPanel.gridy = index;
             ListPanel.add(this, gbc_PlayerInfoPanel);
             setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
             
             Component horizontalStrut_5_1 = Box.createHorizontalStrut(20);
             add(horizontalStrut_5_1);
             
-            JLabel PlayerNameLabel = new JLabel("Player Name");
+            JLabel PlayerNameLabel = new JLabel(name);
             add(PlayerNameLabel);
             
             Component horizontalGlue_2_1 = Box.createHorizontalGlue();
@@ -269,20 +286,20 @@ public class ProjectAuthPanel extends JPanel {
     }
 
     class DeveloperInfoPanel extends JPanel{
-        DeveloperInfoPanel(JPanel ListPanel){
+        DeveloperInfoPanel(JPanel ListPanel, String name, int index){
             setBorder(new LineBorder(new Color(0, 0, 0)));
             GridBagConstraints gbc_DeveloperInfoPanel = new GridBagConstraints();
             gbc_DeveloperInfoPanel.fill = GridBagConstraints.BOTH;
             gbc_DeveloperInfoPanel.insets = new Insets(5, 0, 0, 0);
             gbc_DeveloperInfoPanel.gridx = 0;
-            gbc_DeveloperInfoPanel.gridy = 0;
+            gbc_DeveloperInfoPanel.gridy = index;
             ListPanel.add(this, gbc_DeveloperInfoPanel);
             setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
             
             Component horizontalStrut_5_1_1 = Box.createHorizontalStrut(20);
             add(horizontalStrut_5_1_1);
             
-            JLabel DeveloperNameLabel = new JLabel("Developer Name");
+            JLabel DeveloperNameLabel = new JLabel(name);
             add(DeveloperNameLabel);
             
             Component horizontalGlue_2_1_1 = Box.createHorizontalGlue();
