@@ -42,7 +42,7 @@ class ProjectsControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         User userMock = mock(User.class);
-        when(userMock.getID()).thenReturn("test");
+        when(userMock.getID());
         projectsController.setUser(userMock);
         // user 객체를 임의로 초기화
 
