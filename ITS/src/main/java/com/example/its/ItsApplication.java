@@ -7,8 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-import com.example.its.dataClass.ProjectID;
-import com.example.its.dataClass.UserID;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.database.user.UserDBService;
 import com.example.its.swingUI.TestController;
@@ -52,9 +50,9 @@ public class ItsApplication implements CommandLineRunner {
         // UserID a;
         // a = userService.createUserService("newenwew", "abcd");
         // System.out.println(a.getID());
-        ProjectID b;
-        b = projectService.createProjectService("title", "it is description", new UserID("abcd"));
-        System.out.println(b.getID());
+        //ProjectID b;
+        //b = projectService.createProjectService("title", "it is description", new UserID("abcd"));
+        //System.out.println(b.getID());
         
         System.out.println("run end");
 

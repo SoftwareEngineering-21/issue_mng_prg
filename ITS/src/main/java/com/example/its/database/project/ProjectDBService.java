@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import com.example.its.dataClass.Project;
@@ -13,6 +14,7 @@ import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.UserID;
 import com.example.its.dataClassDB.ProjectDB;
 
+@EnableAsync
 @Service
 public class ProjectDBService {
 

@@ -1,14 +1,14 @@
 package com.example.its.webUI.Controller.Projects;
 
-import com.example.its.dataClass.User;
-import com.example.its.dataClass.UserID;
-import com.example.its.database.project.ProjectDBService;
-import com.example.its.logic.ProjectService;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.example.its.dataClass.UserID;
+import com.example.its.logic.ProjectService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,7 +18,7 @@ public class ProjectsController {
     private final ProjectService service;
 
     @Setter
-    private UserID ID = new UserID("test");
+    private UserID ID = new UserID("abcd");
 
     @GetMapping("/projects")
     public String readProjects(Model model) {
