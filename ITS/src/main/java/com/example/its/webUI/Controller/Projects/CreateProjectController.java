@@ -1,6 +1,7 @@
 package com.example.its.webUI.Controller.Projects;
 
 import com.example.its.dataClass.User;
+import com.example.its.dataClass.UserID;
 import com.example.its.logic.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequiredArgsConstructor
 public class CreateProjectController {
 
-    User user = new User("test2");
+    private UserID ID = new UserID("test");
 
 
     private final ProjectService projectService;
 
     @PostMapping("/create")
     public String createProject(@RequestParam("title")String title, @RequestParam("description") String description) {
-        projectService.createProject(user,title,description);
+        projectService.createProject(ID,title,description);
         return "redirect:/projects";
     }
 

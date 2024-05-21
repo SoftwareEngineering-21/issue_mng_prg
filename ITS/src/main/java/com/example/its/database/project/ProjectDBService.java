@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.example.its.dataClass.Project;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.User;
+import com.example.its.dataClass.UserID;
 import com.example.its.dataClassDB.ProjectDB;
 
 @Service
@@ -53,7 +54,7 @@ public class ProjectDBService {
     public List<Project> readProjectListService(User adminID){
         CompletableFuture<List<ProjectDB>> rs = manager.readProjectListManage(adminID.getID());
         try {
-            List<ProjectDB> list = rs.get();
+            List<ProjectDB> rslist = rs.get();
             List<Project> projects = new ArrayList<>();
             for (ProjectDB projectDB : list) {
                 projects.add(PDBtoProject(projectDB));
