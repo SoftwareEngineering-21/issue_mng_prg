@@ -19,7 +19,7 @@ public class UserDBManager {
         synchronized (this){
             UserDB new_user = new UserDB(ID, password);
             userDB.createUser(new_user);
-        }
+            }
     }
 
     @Async

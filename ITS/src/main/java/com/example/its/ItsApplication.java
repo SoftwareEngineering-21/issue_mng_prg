@@ -2,13 +2,11 @@ package com.example.its;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.ConfigurableBootstrapContext;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-import com.example.its.dataClass.User;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.database.user.UserDBService;
 import com.example.its.swingUI.TestController;
@@ -48,8 +46,13 @@ public class ItsApplication implements CommandLineRunner {
         // for(Project p : pr) {
         //     System.out.println(p.getAdmin().getID()+"," + p.getProjectID().getID() +","+ p.getTitle()+","+p.getDescription());
         // }
-        //User a = new User("test2");
         System.out.println("run start");
+        // UserID a;
+        // a = userService.createUserService("newenwew", "abcd");
+        // System.out.println(a.getID());
+        //ProjectID b;
+        //b = projectService.createProjectService("title", "it is description", new UserID("abcd"));
+        //System.out.println(b.getID());
         
         System.out.println("run end");
 
