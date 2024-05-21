@@ -4,6 +4,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import com.example.its.dataClassDB.UserDB;
 
 import lombok.RequiredArgsConstructor;
 
+@EnableAsync
 @Service
 @RequiredArgsConstructor
 public class UserDBService {
@@ -60,10 +62,12 @@ public class UserDBService {
             }
     }
 
-    //create User
-    public void createUserService(String ID, String password){
+    //create User, 중복 겁사는 UI단에서?????
+    public UserID createUserService(String ID, String password){
         String encodedPW = encodePW(password);
         manager.createUserManager(ID, encodedPW);
+        User returnID = readUserService(new UserID(ID));
+        return returnID.getID();
     }
 
     // read user

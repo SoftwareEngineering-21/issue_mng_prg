@@ -18,10 +18,11 @@ public class ProjectDBManager {
     private final ProjectDBMapper projectDB;
 
     @Async
-    public void createProjectManage(String title, String description, String adminID){
+    public CompletableFuture<Integer> createProjectManage(String title, String description, String adminID){
         synchronized (this) {
             ProjectDB project = new ProjectDB(title, description, adminID);
             projectDB.createProject(project);
+            return CompletableFuture.completedFuture(project.getID());
         }
     }
 
