@@ -48,10 +48,11 @@ public class ItsApplication implements CommandLineRunner {
         // for(Project p : pr) {
         //     System.out.println(p.getAdmin().getID()+"," + p.getProjectID().getID() +","+ p.getTitle()+","+p.getDescription());
         // }
-        User a = new User("test2");
+        //User a = new User("test2");
         System.out.println("run start");
         
         System.out.println("run end");
+
 
         }
 
