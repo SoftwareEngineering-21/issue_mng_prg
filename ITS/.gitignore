@@ -1,6 +1,7 @@
 HELP.md
 application.yaml
 testapplication.yaml
+.vscode/
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
