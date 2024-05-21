@@ -4,6 +4,7 @@ package com.example.its;
 
 import com.example.its.dataClass.Project;
 import com.example.its.dataClass.User;
+import com.example.its.dataClass.UserID;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.webUI.Controller.Projects.ProjectsController;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,9 +42,9 @@ class ProjectsControllerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        User userMock = mock(User.class);
+        UserID userMock = mock(UserID.class);
         when(userMock.getID());
-        projectsController.setUser(userMock);
+        projectsController.setID(userMock);
         // user 객체를 임의로 초기화
 
     }

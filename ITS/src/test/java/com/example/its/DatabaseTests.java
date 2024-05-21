@@ -3,6 +3,7 @@ package com.example.its;
 
 import com.example.its.dataClass.Project;
 import com.example.its.dataClass.User;
+import com.example.its.dataClass.UserID;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.logic.ProjectService;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +29,7 @@ public class DatabaseTests {
     private ProjectService projectService;
 
     @Mock
-    User user;
+    UserID user;
 
 
     @BeforeEach
