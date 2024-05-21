@@ -61,9 +61,18 @@ public class UserDBService {
     }
 
     //create User
-    public void createUserService(String ID, String password){
-        String encodedPW = encodePW(password);
-        manager.createUserManager(ID, encodedPW);
+    public UserID createUserService(String ID, String password){
+        try {
+            String encodedPW = encodePW(password);
+            CompletableFuture<UserID> preID = manager.createUserManager(ID, encodedPW);
+            UserID returnID;
+            returnID = preID.get();
+            return returnID;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // read user

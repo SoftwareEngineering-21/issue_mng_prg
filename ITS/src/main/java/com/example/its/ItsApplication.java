@@ -2,13 +2,13 @@ package com.example.its;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.ConfigurableBootstrapContext;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-import com.example.its.dataClass.User;
+import com.example.its.dataClass.ProjectID;
+import com.example.its.dataClass.UserID;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.database.user.UserDBService;
 import com.example.its.swingUI.TestController;
@@ -48,8 +48,17 @@ public class ItsApplication implements CommandLineRunner {
         // for(Project p : pr) {
         //     System.out.println(p.getAdmin().getID()+"," + p.getProjectID().getID() +","+ p.getTitle()+","+p.getDescription());
         // }
+<<<<<<< Updated upstream
         //User a = new User("test2");
+=======
+>>>>>>> Stashed changes
         System.out.println("run start");
+        UserID a;
+        a = userService.createUserService("abcd", "abcd");
+        System.out.println(a.getID());
+        ProjectID b;
+        b = projectService.createProjectService("ssss", "it is description", a);
+        System.out.println(b.getID());
         
         System.out.println("run end");
 

@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.example.its.dataClass.UserID;
 import com.example.its.dataClassDB.UserDB;
 
 import lombok.RequiredArgsConstructor;
@@ -15,10 +16,11 @@ public class UserDBManager {
     private final UserDBMapper userDB;
 
     @Async
-    public void createUserManager(String ID, String password){
+    public CompletableFuture<UserID> createUserManager(String ID, String password){
         synchronized (this){
             UserDB new_user = new UserDB(ID, password);
-            userDB.createUser(new_user);
+            UserID returnID = userDB.createUser(new_user);
+            return CompletableFuture.completedFuture(returnID);
         }
     }
 
