@@ -19,6 +19,8 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
 public class IssueScenePanel extends JPanel {
+	private final IssueController controller;
+
 	class ModifiyButtonAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -33,7 +35,9 @@ public class IssueScenePanel extends JPanel {
 		}
 	}
 
-    IssueScenePanel(){
+    IssueScenePanel(IssueController controller){
+		this.controller = controller;
+
 		setLayout(new BorderLayout(0, 5));
 		
 		JPanel ModifyIssueButtonButtonPanel = new JPanel();
