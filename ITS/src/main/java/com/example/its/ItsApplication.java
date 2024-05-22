@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.example.its.dataClass.Project;
@@ -13,6 +14,7 @@ import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.UserID;
 import com.example.its.database.DBService;
 import com.example.its.swingUI.TestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //@EnableAsync
 @SpringBootApplication
@@ -36,15 +38,15 @@ public class ItsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-//        System.out.println("run start");
-//        serviceDB.deleteProjectService(new ProjectID(17));
-//        serviceDB.deleteUserSerivce(new UserID("qwert"));
-//        serviceDB.createUser("qwer", "aa");
-//        serviceDB.createProject("alalala", "sdfsfsdf", new UserID("abcd"));
-//        List<Project> a = serviceDB.readProjectList(new UserID("abcd"));
-//        System.out.println(a.size());
-//        System.out.println("run end");
+         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+         String encryptedPassword1 = encoder.encode("test1");
+         String encryptedPassword2 = encoder.encode("test2");
+         String encryptedPassword3 = encoder.encode("test3");
+         System.out.println(encryptedPassword1);
+         System.out.println(encryptedPassword2);
+         System.out.println(encryptedPassword3);
+         System.out.println(encoder.matches("test1", "$2a$10$RuJNZMF5xHF2xkTGnFtuBe3W3XUBH1OafX4ScDtY5f0GKwOzlVyPu"));
+         System.out.println(encoder.matches("test1", encryptedPassword1));
     }
 
     

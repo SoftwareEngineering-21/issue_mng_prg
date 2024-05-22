@@ -18,7 +18,7 @@ public class ProjectsController {
     private final ProjectService service;
 
     @Setter
-    private UserID ID = new UserID("abcd");
+    private UserID ID = new UserID("test1");
 
     @GetMapping("/projects")
     public String readProjects(Model model) {

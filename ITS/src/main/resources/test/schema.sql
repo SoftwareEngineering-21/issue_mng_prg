@@ -1,15 +1,16 @@
-CREATE TABLE `UserDB` (
-                          `ID` varchar(45) NOT NULL,
-                          `password` varchar(100) NOT NULL,
-                          PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE "UserDB" (
+                          "ID" varchar(45) NOT NULL PRIMARY KEY,
+                          "password" VARCHAR(100) NOT NULL
+);
 
-CREATE TABLE `ProjectDB` (
-                             `ID` int NOT NULL AUTO_INCREMENT,
-                             `title` varchar(100) NOT NULL,
-                             `description` text NOT NULL,
-                             `adminID` varchar(45) NOT NULL,
-                             PRIMARY KEY (`ID`),
-                             KEY `adminID_idx` (`adminID`),
-                             CONSTRAINT `adminID` FOREIGN KEY (`adminID`) REFERENCES `UserDB` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-)
+
+CREATE TABLE "ProjectDB" (
+                             "ID" INT AUTO_INCREMENT PRIMARY KEY,
+                             "title" VARCHAR(100) NOT NULL,
+                             "description" TEXT NOT NULL,
+                             "adminID" varchar(45) NOT NULL,
+                             CONSTRAINT `FK_ProjectDB_UserDB` FOREIGN KEY ("adminID") REFERENCES "UserDB" ("ID") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+
