@@ -1,9 +1,7 @@
 package com.example.its.dataClassDB;
 
 import lombok.Getter;
-import lombok.Setter;
 
-@Setter
 @Getter
 public class IssueDB {
     private int ID;

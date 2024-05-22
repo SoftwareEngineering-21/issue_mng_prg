@@ -1,10 +1,6 @@
 package com.example.its.database.user;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +10,10 @@ import com.example.its.dataClassDB.UserDB;
 
 import lombok.RequiredArgsConstructor;
 
-@EnableAsync
 @Service
 @RequiredArgsConstructor
 public class UserDBService {
-    @Autowired
+    @Autowired //밑에 final 로 만들고 지우기?
     private UserDBManager manager;
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -41,26 +36,22 @@ public class UserDBService {
     }
 
     //id pw check
-    public Boolean checkRightPW(UserID userID, String inputPW){
-            try {
-                CompletableFuture<UserDB> udb = manager.readUserManager(userID.getID());
-                UserDB currentUserDB;
-                currentUserDB = udb.get();
-                if(currentUserDB == null){
-                    System.out.println("user id is not exist");
-                    return false;
-                }
-                // TODO id & pw맞는거 없으면 customized error 반환
-                if (decodePW(currentUserDB.getPassword(), inputPW)){return true;}
-                else {
-                    System.out.println("pw is not correct");
-                    return false;}
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            } catch (ExecutionException e) {
-                throw new RuntimeException(e);
+    public Boolean checkRightPWService(UserID userID, String inputPW){
+
+            UserDB currentUserDB = manager.readUserManager(userID.getID());
+            if(currentUserDB == null){
+                System.out.println("user id is not exist");
+                return false;
             }
-    }
+            // TODO id & pw맞는거 없으면 customized error 반환
+            if (decodePW(currentUserDB.getPassword(), inputPW)){return true;}
+            else {
+                System.out.println("pw is not correct");
+                return false;
+            }
+
+        }
+
 
     //create User, 중복 겁사는 UI단에서?????
     public UserID createUserService(String ID, String password){
@@ -72,20 +63,13 @@ public class UserDBService {
 
     // read user
     public User readUserService(UserID user){
-        CompletableFuture<UserDB> udb = manager.readUserManager(user.getID());
-        try {
-            UserDB rudb = udb.get();
-            return UDBtoUser(rudb);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        }
+        UserDB rudb = manager.readUserManager(user.getID());
+        return UDBtoUser(rudb);
     }
 
     //update user's password
     public void updateUserService(UserID userID, String password, String newPW){
-        if(checkRightPW(userID, newPW)){
+        if(checkRightPWService(userID, newPW)){
             manager.updateUserManager(userID.getID(), encodePW(newPW));
         }
     }
@@ -94,5 +78,4 @@ public class UserDBService {
     public void deleteUserSerivce(UserID userID){
         manager.deleteUserManager(userID.getID());
     }
-
 }
