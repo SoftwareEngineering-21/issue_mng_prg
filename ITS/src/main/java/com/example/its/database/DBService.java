@@ -8,6 +8,7 @@ import com.example.its.dataClass.Project;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
+import com.example.its.database.authority.AuthorityDBService;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.database.user.UserDBService;
 
@@ -16,10 +17,9 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class DBService {
-    //@Autowired
     private final ProjectDBService projectDBService;
-    //@Autowired
     private final UserDBService userDBService;
+    private final AuthorityDBService authDBService;
 
     //ProjectDB methods
     public ProjectID createProject(String title, String description, UserID adminID){
@@ -63,4 +63,24 @@ public class DBService {
     public void deleteUserSerivce(UserID userID){
         userDBService.deleteUserSerivce(userID);
     }
+
+
+
+    //Authority methods
+    // public int createAuthority(String userID, int projectID, int auth){
+    //     return authDBService.createAuthorityService(userID, projectID, auth);
+    // }
+
+    // public HashMap<String, List<Integer>> readAuthorityListbyProject(ProjectID projectID){
+    //     return authDBService.readAuthorityListbyProjectService(projectID);
+    // }
+
+    // public HashMap<Integer, List<Integer>> readAuthorityListbyUser(UserID userID){
+    //     return authDBService.readAuthorityListbyUserService(userID);
+    // }
+
+    // public void deleteAuthority(int ID){
+    //     authDBService.deleteAuthority(ID);
+    // }
+
 }

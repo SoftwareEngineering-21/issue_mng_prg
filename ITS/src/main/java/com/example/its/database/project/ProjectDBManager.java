@@ -13,23 +13,23 @@ import lombok.RequiredArgsConstructor;
 public class ProjectDBManager {
     private final ProjectDBMapper projectDB;
 
-    public Integer createProjectManage(String title, String description, String adminID){
+    public Integer createProjectManager(String title, String description, String adminID){
         ProjectDB project = new ProjectDB(title, description, adminID);
         projectDB.createProject(project);
         return project.getID();
     }
 
-    public ProjectDB readProjectManage(int ID){
+    public ProjectDB readProjectManager(int ID){
         return projectDB.readProject(ID);
     }
 
-    public List<ProjectDB> readProjectListManage(String adminID){
+    public List<ProjectDB> readProjectListManager(String adminID){
         return projectDB.readProjectList(adminID);
     }
 
 
-    public void updateProjectManage(int ID, String title, String description){
-        ProjectDB preProject = readProjectManage(ID);
+    public void updateProjectManager(int ID, String title, String description){
+        ProjectDB preProject = readProjectManager(ID);
         // 빈 값이면 기존값 대입
         if (title.equals("")){
             title = preProject.getTitle();
@@ -41,7 +41,7 @@ public class ProjectDBManager {
         projectDB.updateProject(ID ,new_project);
     }
 
-    public void deleteProjectManage(int ID){
+    public void deleteProjectManager(int ID){
         projectDB.deleteProject(ID);
     }
     
