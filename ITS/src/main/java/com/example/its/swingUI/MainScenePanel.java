@@ -21,24 +21,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 public class MainScenePanel extends JPanel {
-	SwingGUI itGui;
+	private final MainController controller;
 
-	JPanel ProjectListPanel;
-	GridBagLayout gbl_ProjectListPanel;
+	private JPanel ProjectListPanel;
+	private GridBagLayout gbl_ProjectListPanel;
 
 	class NewProjectButtonAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Open MakeProjectFrame");
-			itGui.callMakeProjecFrame();
+
 		}
 	}
 
-    MainScenePanel(SwingGUI main){
-		this.itGui = main;
+    MainScenePanel(MainController controller){
+		this.controller = controller;
 
         setLayout(new BorderLayout(0, 5));
 		
@@ -76,9 +75,9 @@ public class MainScenePanel extends JPanel {
 	void makeProjectList(){
 		ProjectListPanel.removeAll();
 
-		ArrayList<Project> projectList = itGui.getProjectList();
-		int size = projectList.size();
-		System.out.println(projectList.size());
+		Project[] projectList = controller.getProjectList();
+		int size = projectList.length;
+		System.out.println(projectList.length);
 		gbl_ProjectListPanel.rowHeights = new int[size + 1];
 		gbl_ProjectListPanel.rowWeights = new double[size + 1];
 
@@ -88,7 +87,7 @@ public class MainScenePanel extends JPanel {
 			gbl_ProjectListPanel.rowHeights[i] = 100;
 			gbl_ProjectListPanel.rowWeights[i] = 0;
 
-			projectPanel[i] = new ProjectPanel(i, projectList.get(i).getTitle());
+			projectPanel[i] = new ProjectPanel(i, projectList[i].getTitle());
 			projectPanel[i].addGbcPanel(ProjectListPanel, i);
 		}
 		System.out.println(projectPanel.length);

@@ -15,8 +15,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import lombok.RequiredArgsConstructor;
+
 public class MakeProjectFrame extends JFrame {
-	private SwingGUI gui;
+	private final MakeProjectController controller;
 
     private JTextField titleText;
     private JTextArea decsText;
@@ -32,7 +34,7 @@ public class MakeProjectFrame extends JFrame {
         public void actionPerformed(ActionEvent e) {
             System.out.println("Post to Server");
 			if(titleText.getText().length() <= 100){
-				gui.makeNewProject(titleText.getText(), decsText.getText());
+				controller.makeNewProject(titleText.getText(), decsText.getText());
 				frame.dispose();
 			}
 			else{
@@ -41,8 +43,8 @@ public class MakeProjectFrame extends JFrame {
         }
     }
 
-    MakeProjectFrame(SwingGUI swingGUI){
-		this.gui = swingGUI;
+    MakeProjectFrame(MakeProjectController controller){
+		this.controller = controller;
 
 		setTitle("Make Project");
 		BorderLayout borderLayout = (BorderLayout) this.getContentPane().getLayout();
@@ -93,12 +95,9 @@ public class MakeProjectFrame extends JFrame {
 		getContentPane().add(verticalStrut, BorderLayout.SOUTH);
 	}
 
+	@RequiredArgsConstructor
     class BackButtonAction implements ActionListener{
-		JFrame frame;
-
-		BackButtonAction(JFrame frame){
-			this.frame = frame;
-		}
+		private final JFrame frame;
 
         @Override
         public void actionPerformed(ActionEvent e) {

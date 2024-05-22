@@ -13,8 +13,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/*
+ * @Deprecated GUI는 각 Scene의 controller에서 관리
+ */
+@Deprecated
 public class SwingGUI {
-    ProjectController controller;
+    MainController controller;
 
     JFrame window;
     JFrame additionalFrame;
@@ -25,13 +29,13 @@ public class SwingGUI {
     IssueScenePanel issueScene;
 
     enum PanelIndex { PROJECTSCENE, MAINSCENE, ISSUESCENE };
-
-    public SwingGUI(ProjectController controller){
+/*
+    public SwingGUI(MainController controller){
         this.controller = controller;
 
-        this.mainScene = new MainScenePanel(this);
-        this.projectScene = new ProjectScenePanel();
-        this.issueScene = new IssueScenePanel();
+        //this.mainScene = new MainScenePanel(this);
+        //this.projectScene = new ProjectScenePanel();
+        //this.issueScene = new IssueScenePanel();
 
         this.outputPanel = mainScene;
         MakeJFrame();
@@ -111,11 +115,12 @@ public class SwingGUI {
         if(additionalFrame != null){
             additionalFrame.dispose();
         }
-        additionalFrame = new MakeProjectFrame(this);
+        //additionalFrame = new MakeProjectFrame(this);
         additionalFrame.setVisible(true);
     }
 
     void makeNewProject(String title, String decs){
         controller.makeNewProject(title, decs);
     }
+    */
 }

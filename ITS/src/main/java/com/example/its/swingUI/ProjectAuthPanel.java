@@ -10,7 +10,6 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
@@ -24,7 +23,7 @@ import javax.swing.border.LineBorder;
 import com.example.its.dataClass.User;
 
 public class ProjectAuthPanel extends JPanel {
-	ProjectController controller;
+	private final ProjAuthController controller;
 
 	private JTextField TesterTextField;
 	private JTextField PlayerTextField;
@@ -34,7 +33,7 @@ public class ProjectAuthPanel extends JPanel {
     private JPanel PlayerInfoListPanel;
     private JPanel DeveloperInfoListPanel;
 
-    ProjectAuthPanel(ProjectController controller){
+    ProjectAuthPanel(ProjAuthController controller){
 		this.controller = controller;
 
         JPanel ProjectNamePanel = new JPanel();
@@ -194,14 +193,14 @@ public class ProjectAuthPanel extends JPanel {
 		PlayerInfoListPanel.removeAll();
 		DeveloperInfoListPanel.removeAll();
 
-		ArrayList<User> testers = controller.getTesterList();
+		User testers[] = controller.getTesterList();
 		GridBagLayout gbl_TesterInfoListPanel = new GridBagLayout();
 		gbl_TesterInfoListPanel.columnWidths = new int[] {0};
-		gbl_TesterInfoListPanel.rowHeights = new int[testers.size()];
+		gbl_TesterInfoListPanel.rowHeights = new int[testers.length];
 		gbl_TesterInfoListPanel.columnWeights = new double[]{1.0};
 		gbl_TesterInfoListPanel.rowWeights = new double[]{1.0, 1.0};
 
-		for(int i = 0; i < testers.size(); i++){
+		for(int i = 0; i < testers.length; i++){
 			gbl_TesterInfoListPanel.rowHeights[i] = 30;
 			new TesterInfoPanel(TesterInfoListPanel, "Tester Name", i);
 		}

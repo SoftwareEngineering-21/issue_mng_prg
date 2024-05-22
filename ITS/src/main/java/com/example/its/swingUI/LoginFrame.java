@@ -13,26 +13,34 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import lombok.RequiredArgsConstructor;
+
 public class LoginFrame extends JFrame {
+	private final LoginController controller;
+
 	private JTextField IDTextField;
 	private JTextField PasswordTextField;
 	
+	
+	@RequiredArgsConstructor
 	class LoginButtonAction implements ActionListener {
+		private final JFrame frame;
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			/*
-			if(Login(IDTextField.getText(), PasswordTextField.getText())){
-
+			if(controller.sendLogin(IDTextField.getText(), PasswordTextField.getText())){
+				controller.openMainScene();
+				frame.dispose();
 			}
 			else{
-
+				// Print Message
 			}
-			*/
 		}
-        
     }
 
-    LoginFrame(){
+    LoginFrame(LoginController controller){
+		this.controller = controller;
+
 		setTitle("Login");
 		setBounds(100, 100, 450, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -109,7 +117,7 @@ public class LoginFrame extends JFrame {
 		PasswordTextField.setColumns(10);
 		
 		JButton LoginButton = new JButton("Login");
-		LoginButton.addActionListener(new LoginButtonAction());
+		LoginButton.addActionListener(new LoginButtonAction(this));
 		GridBagConstraints gbc_LoginButton = new GridBagConstraints();
 		gbc_LoginButton.insets = new Insets(10, 10, 10, 10);
 		gbc_LoginButton.fill = GridBagConstraints.BOTH;

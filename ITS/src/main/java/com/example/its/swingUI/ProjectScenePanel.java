@@ -21,7 +21,7 @@ public class ProjectScenePanel extends JPanel {
 	class NewIssueButtonAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
+			
 		}
 	}
 
