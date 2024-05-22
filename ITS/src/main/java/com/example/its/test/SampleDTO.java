@@ -1,4 +1,4 @@
-package com.example.its.mybatis;
+package com.example.its.test;
 
 public class SampleDTO {
     private int idtset;
