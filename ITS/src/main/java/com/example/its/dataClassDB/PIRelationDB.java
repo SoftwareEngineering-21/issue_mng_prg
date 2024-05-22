@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PIRelationDB {
     private int ID;
-    private int projectID;
-    private int issueID;
+    private int projectIDFK;
+    private int issueIDFK;
 
-    public PIRelationDB(int projectID, int issueID)
+    public PIRelationDB(int projectIDFK, int issueIDFK)
     {
-        this.projectID = projectID;
-        this.issueID = issueID;
+        this.projectIDFK = projectIDFK;
+        this.issueIDFK = issueIDFK;
     }
 
 }
