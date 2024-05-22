@@ -1,17 +1,20 @@
 package com.example.its;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.scheduling.annotation.EnableAsync;
 
-import com.example.its.database.project.ProjectDBService;
-import com.example.its.database.user.UserDBService;
+import com.example.its.dataClass.Project;
+import com.example.its.dataClass.ProjectID;
+import com.example.its.dataClass.UserID;
+import com.example.its.database.DBService;
 import com.example.its.swingUI.TestController;
 
-@EnableAsync
+//@EnableAsync
 @SpringBootApplication
 public class ItsApplication implements CommandLineRunner {
 
@@ -29,35 +32,20 @@ public class ItsApplication implements CommandLineRunner {
     //public TestController controller;
 
     @Autowired
-    public ProjectDBService projectService;
-    @Autowired
-    public UserDBService userService;
+    DBService serviceDB;
 
-
-    
     @Override
     public void run(String... args) throws Exception {
 
-        //pdbs.createProjectService("aaa", "ab", "test");
-
-        //service.createProjectService("t","a",new User("test"));
-        // List<Project> pr = service.readProjectListService(new User("test"));
-        // System.out.println(pr.size());
-        // for(Project p : pr) {
-        //     System.out.println(p.getAdmin().getID()+"," + p.getProjectID().getID() +","+ p.getTitle()+","+p.getDescription());
-        // }
         System.out.println("run start");
-        // UserID a;
-        // a = userService.createUserService("newenwew", "abcd");
-        // System.out.println(a.getID());
-        //ProjectID b;
-        //b = projectService.createProjectService("title", "it is description", new UserID("abcd"));
-        //System.out.println(b.getID());
-        
+        serviceDB.deleteProjectService(new ProjectID(17));
+        serviceDB.deleteUserSerivce(new UserID("qwert"));
+        serviceDB.createUser("qwer", "aa");
+        serviceDB.createProject("alalala", "sdfsfsdf", new UserID("abcd"));
+        List<Project> a = serviceDB.readProjectList(new UserID("abcd"));
+        System.out.println(a.size());
         System.out.println("run end");
-
-
-        }
+    }
 
     
 }
