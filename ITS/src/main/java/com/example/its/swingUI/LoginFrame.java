@@ -38,7 +38,7 @@ public class LoginFrame extends JFrame {
 		}
     }
 
-    LoginFrame(LoginController controller){
+    public LoginFrame(LoginController controller){
 		this.controller = controller;
 
 		setTitle("Login");

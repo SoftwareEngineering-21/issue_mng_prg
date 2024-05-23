@@ -2,12 +2,12 @@ package com.example.its.swingUI;
 
 import com.example.its.dataClass.User;
 
-public interface ProjAuthController {
-    public void addTester(User id);
-    public void addPlayer(User id);
-    public void addDeveloper(User id);
+public abstract class ProjAuthController {
+    public abstract void addTester(User id);
+    public abstract void addPlayer(User id);
+    public abstract void addDeveloper(User id);
 
-    public User[] getTesterList();
-    public User[] getPlayerList();
-    public User[] getDeveloperList();
+    public abstract User[] getTesterList();
+    public abstract User[] getPlayerList();
+    public abstract User[] getDeveloperList();
 }

@@ -32,7 +32,7 @@ public class MainScenePanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Open MakeProjectFrame");
-
+			controller.oepnMakeProj();
 		}
 	}
 
@@ -72,7 +72,7 @@ public class MainScenePanel extends JPanel {
 		makeProjectList();
 	}
 
-	void makeProjectList(){
+	public void makeProjectList(){
 		ProjectListPanel.removeAll();
 
 		Project[] projectList = controller.getProjectList();

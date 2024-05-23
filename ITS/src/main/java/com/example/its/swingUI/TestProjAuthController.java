@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.example.its.dataClass.User;
 
-public class TestProjAuthController implements ProjAuthController {
+public class TestProjAuthController extends ProjAuthController {
     ArrayList<User> testerList = new ArrayList<>();
     ArrayList<User> playerList = new ArrayList<>();
     ArrayList<User> developerList = new ArrayList<>();

@@ -35,6 +35,8 @@ public class MakeProjectFrame extends JFrame {
             System.out.println("Post to Server");
 			if(titleText.getText().length() <= 100){
 				controller.makeNewProject(titleText.getText(), decsText.getText());
+				titleText.setText("");
+				decsText.setText("");
 				frame.dispose();
 			}
 			else{

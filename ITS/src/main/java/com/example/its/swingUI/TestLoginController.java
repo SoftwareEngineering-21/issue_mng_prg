@@ -11,6 +11,7 @@ public class TestLoginController implements LoginController {
 
     @Override
     public void openMainScene() {
-        
+        BaseController base = new TestBaseCon();
+        new TestMainController(base);
     }
 }
