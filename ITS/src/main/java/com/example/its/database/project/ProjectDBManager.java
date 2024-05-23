@@ -11,20 +11,20 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ProjectDBManager {
-    private final ProjectDBMapper projectDB;
+    private final ProjectDBMapper mapper;
 
     public Integer createProjectManager(String title, String description, String adminID){
         ProjectDB project = new ProjectDB(title, description, adminID);
-        projectDB.createProject(project);
+        mapper.createProject(project);
         return project.getID();
     }
 
     public ProjectDB readProjectManager(int ID){
-        return projectDB.readProject(ID);
+        return mapper.readProject(ID);
     }
 
     public List<ProjectDB> readProjectListManager(String adminID){
-        return projectDB.readProjectList(adminID);
+        return mapper.readProjectList(adminID);
     }
 
 
@@ -38,11 +38,11 @@ public class ProjectDBManager {
             description = preProject.getDescription();
         }
         ProjectDB new_project = new ProjectDB(title, description, preProject.getAdminID());
-        projectDB.updateProject(ID ,new_project);
+        mapper.updateProject(ID ,new_project);
     }
 
     public void deleteProjectManager(int ID){
-        projectDB.deleteProject(ID);
+        mapper.deleteProject(ID);
     }
     
 }
