@@ -13,6 +13,7 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
 
+import com.example.its.dataClass.Issue;
 import com.example.its.dataClass.Project;
 
 import java.awt.Color;
@@ -23,8 +24,12 @@ import javax.swing.JTextArea;
 import javax.swing.BoxLayout;
 
 public class ProjectScenePanel extends JPanel {
+	ProjSceneController controller;
+
 	JLabel projecNameLabel;
 	JTextArea projectDescArea;
+
+	JPanel IssueListPanel;
 
 	class NewIssueButtonAction implements ActionListener{
 		@Override
@@ -33,7 +38,9 @@ public class ProjectScenePanel extends JPanel {
 		}
 	}
 
-    ProjectScenePanel(){
+    ProjectScenePanel(ProjSceneController controller){
+		this.controller = controller;
+
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		JPanel ProjectPanel = new JPanel();
@@ -102,24 +109,12 @@ public class ProjectScenePanel extends JPanel {
 		JScrollPane scrollPane1 = new JScrollPane();
 		basePanel.add(scrollPane1);
 		
-		int size = 12;
-		JPanel IssueListPanel = new JPanel();
+		IssueListPanel = new JPanel();
 		IssueListPanel.setBackground(new Color(240, 240, 240));
 		IssueListPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		GridBagLayout gbl_IssueListPanel = new GridBagLayout();
-		gbl_IssueListPanel.columnWidths = new int[] {0};
-		gbl_IssueListPanel.rowHeights = new int[size];
-		gbl_IssueListPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_IssueListPanel.rowWeights = new double[]{0.0};
-		IssueListPanel.setLayout(gbl_IssueListPanel);
 		scrollPane1.setViewportView(IssueListPanel);
-		
-		IssuePanel IssuePanel[] = new IssuePanel[size];
-		for(int i = 0; i < size; i++) {
-			gbl_IssueListPanel.rowHeights[i] = 32;
-			IssuePanel[i] = new IssuePanel();
-			IssuePanel[i].addGbcPanel(IssueListPanel, i);
-		}
+
+		makeIssueList();
 	}
 
 	void setProjInfo(Project project){
@@ -128,15 +123,36 @@ public class ProjectScenePanel extends JPanel {
 	}
 
 	void makeIssueList(){
+		Issue[] issueList = controller.getIssueList();
+		int length = 0;
 
+		if(issueList != null){
+			length = issueList.length;
+		}
+
+		int size = length > 10 ? length : 10;
+		GridBagLayout gbl_IssueListPanel = new GridBagLayout();
+		gbl_IssueListPanel.columnWidths = new int[] {0};
+		gbl_IssueListPanel.rowHeights = new int[size];
+		gbl_IssueListPanel.columnWeights = new double[]{1.0};
+		gbl_IssueListPanel.rowWeights = new double[]{0.0};
+		IssueListPanel.setLayout(gbl_IssueListPanel);
+		
+		IssuePanel IssuePanel[] = new IssuePanel[size];
+		for(int i = 0; i < size; i++) {
+			gbl_IssueListPanel.rowHeights[i] = 32;
+			if(i < length){
+				IssuePanel[i] = new IssuePanel(IssueListPanel, i, issueList[i].getTitle(), issueList[i].getDescription());
+			}
+		}
 	}
 	
 	class IssuePanel extends JPanel{
-		IssuePanel(){
-			this("IssueName", "New");
+		IssuePanel(JPanel GbcPanel, int index){
+			this(GbcPanel, index, "IssueName", "New");
 		}
 		
-		IssuePanel(String name, String state){
+		IssuePanel(JPanel GbcPanel, int index, String name, String state){
 			setBorder(new LineBorder(new Color(0, 0, 0)));
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 			
@@ -155,9 +171,7 @@ public class ProjectScenePanel extends JPanel {
 			
 			Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 			add(horizontalStrut_1);
-		}
-		
-		public void addGbcPanel(JPanel GbcPanel, int index) {
+
 			GridBagConstraints gbc_IssuePanel = new GridBagConstraints();
 			gbc_IssuePanel.fill = GridBagConstraints.BOTH;
 			gbc_IssuePanel.insets = new Insets(0, 0, 5, 0);

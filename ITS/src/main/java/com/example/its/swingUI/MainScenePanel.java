@@ -91,8 +91,7 @@ public class MainScenePanel extends JPanel {
 			gbl_ProjectListPanel.rowHeights[i] = 100;
 			gbl_ProjectListPanel.rowWeights[i] = 0;
 
-			projectPanel[i] = new ProjectPanel(i, projectList[i].getTitle());
-			projectPanel[i].addGbcPanel(ProjectListPanel, i);
+			projectPanel[i] = new ProjectPanel(ProjectListPanel, i, projectList[i].getTitle());
 		}
 		System.out.println(projectPanel.length);
 		gbl_ProjectListPanel.rowHeights[size] = 0;
@@ -105,11 +104,11 @@ public class MainScenePanel extends JPanel {
 	class ProjectPanel extends JPanel {
 		int index;
 
-		ProjectPanel(int index, String title){
-			this(index, title, "New");
+		ProjectPanel(JPanel GbcPanel,int index, String title){
+			this(GbcPanel, index, title, "New");
 		}
 
-		ProjectPanel(int index, String title, String Authority){
+		ProjectPanel(JPanel GbcPanel, int index, String title, String Authority){
 			this.index = index;
 
 			setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -153,9 +152,7 @@ public class MainScenePanel extends JPanel {
 			add(horizontalGlue_2);
 
 			addMouseListener(new ProjectPanelAction());
-		}
-		
-		void addGbcPanel(JPanel GbcPanel, int index) {
+			
 			GridBagConstraints gbc_ProjectPanel = new GridBagConstraints();
 			gbc_ProjectPanel.fill = GridBagConstraints.BOTH;
 			gbc_ProjectPanel.weightx = 1;
