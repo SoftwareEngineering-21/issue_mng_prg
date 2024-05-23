@@ -20,15 +20,9 @@ public class TestBaseCon implements BaseController {
             return;
         }
         
-        if(frame.getContentPane().getComponentCount() != 1){
-            frame.getContentPane().removeAll();
-            stack.clear();
-        }
-        else{
-            stack.add((JPanel)frame.getContentPane().getComponent(0));
-        }
+        stack.add((JPanel)frame.getContentPane().getComponent(0));
 
-        frame.getContentPane().add(targetPanel);
+        frame.setPanel(targetPanel);
         
         frame.revalidate();
         frame.repaint();

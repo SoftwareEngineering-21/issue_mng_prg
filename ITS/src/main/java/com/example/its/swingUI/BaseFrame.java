@@ -2,7 +2,6 @@ package com.example.its.swingUI;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -12,16 +11,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class BaseFrame extends JFrame {
-    private ArrayList<JPanel> stack = new ArrayList<>();
+    private JPanel mainPanel;
 
     BaseFrame(){
-        BorderLayout borderLayout = (BorderLayout) this.getContentPane().getLayout();
-		borderLayout.setVgap(5);
-		setBounds(100, 100, 1000, 600);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLayout(new BorderLayout(0,5));
+		this.setBounds(100, 100, 1000, 600);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel UserInfoPanel = new JPanel();
-		getContentPane().add(UserInfoPanel, BorderLayout.NORTH);
+		this.getContentPane().add(UserInfoPanel, BorderLayout.NORTH);
 		UserInfoPanel.setLayout(new BoxLayout(UserInfoPanel, BoxLayout.X_AXIS));
 		
 		Component horizontalGlue = Box.createHorizontalGlue();
@@ -45,6 +43,10 @@ public class BaseFrame extends JFrame {
 		
 		Component horizontalStrut_6 = Box.createHorizontalStrut(20);
 		panel.add(horizontalStrut_6);
+
+        mainPanel = new JPanel();
+        this.getContentPane().add(mainPanel, BorderLayout.CENTER);
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
     }
 
     public void setPanel(JPanel targetPanel){
@@ -52,21 +54,10 @@ public class BaseFrame extends JFrame {
             return;
         }
         
-        if(this.getContentPane().getComponentCount() != 1){
-            this.getContentPane().removeAll();
-        }
-        else{
-            stack.add((JPanel)this.getContentPane().getComponent(0));
-        }
+        mainPanel.removeAll();
+        mainPanel.add(targetPanel);
 
-        this.getContentPane().add(targetPanel);
-    }
-
-    public void popStack(){
-        int i = stack.size();
-
-        this.getContentPane().removeAll();
-        this.getContentPane().add(stack.get(i));
-        this.stack.remove(i);
+        this.revalidate();
+        this.repaint();
     }
 }

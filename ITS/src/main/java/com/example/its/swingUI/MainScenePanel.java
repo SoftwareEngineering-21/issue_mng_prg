@@ -32,7 +32,7 @@ public class MainScenePanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Open MakeProjectFrame");
-			controller.oepnMakeProj();
+			controller.openMakeProj();
 		}
 	}
 
@@ -76,6 +76,10 @@ public class MainScenePanel extends JPanel {
 		ProjectListPanel.removeAll();
 
 		Project[] projectList = controller.getProjectList();
+		if(projectList == null){
+			return;
+		}
+		
 		int size = projectList.length;
 		System.out.println(projectList.length);
 		gbl_ProjectListPanel.rowHeights = new int[size + 1];
@@ -166,6 +170,7 @@ public class MainScenePanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
 				System.out.println("Open ProjectInfo : " + index);
+				controller.openProject(index);
 			}
 		}
 	}

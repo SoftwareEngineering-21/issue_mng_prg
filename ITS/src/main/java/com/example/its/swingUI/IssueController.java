@@ -1,11 +1,15 @@
 package com.example.its.swingUI;
 
 public abstract class IssueController {
-    BaseController baseCon;
-    IssueScenePanel panel;
+    protected BaseController baseCon;
+    protected IssueScenePanel panel;
 
     IssueController(BaseController baseCon){
         this.baseCon = baseCon;
         panel = new IssueScenePanel(this);
+    }
+
+    void loadIssueInfo(){
+        
     }
 }
