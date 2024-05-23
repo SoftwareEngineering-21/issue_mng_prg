@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.its.database.issue.IssueDBMapper">
+
+    <insert id="createIssue" useGeneratedKeys="true" keyProperty="ID">
+        insert INTO IssueDB(title, description, reporter, assignee, fixer, type, priority, status)
+        values (#{title}, #{description}, #{reporter}, #{assignee, jdbcType = VARCHAR}, #{fixer, jdbcType = VARCHAR}, #{type}, #{priority}, #{status})
+    </insert>
+    
+    
+    <select id="readIssue" resultType="com.example.its.dataClassDB.IssueDB">
+        select *
+        from IssueDB
+        where ID=#{ID}
+    </select>
+
+    <select id="readIssueList" resultType="com.example.its.dataClassDB.IssueDB">
+        select *
+        from IssueDB
+        WHERE ID IN (
+        SELECT issueIDFK
+        FROM PIRelationDB
+        WHERE projectIDFK = #{projectIDFK})
+        <if test="reporter != null">
+            AND reporter = #{reporter}
+        </if>
+        <if test="assignee != null">
+            AND assignee = #{assignee}
+        </if>
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        ORDER BY
+        <choose>
+            <when test="sortOrder == 'createdAt'">
+                createdAt
+            </when>
+            <when test="sortOrder == 'status'">
+                status desc
+            </when>
+            <otherwise>
+                createdAt  <!-- 기본 정렬 조건을 설정합니다. -->
+            </otherwise>
+        </choose>
+    </select>
+
+    <update id="updateIssue">
+        UPDATE IssueDB
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="reporter != null">
+                reporter = #{reporter},
+            </if>
+            <if test="assignee != null">
+                assignee = #{assignee},
+            </if>
+            <if test="fixer != null">
+                fixer = #{fixer},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="priority != null">
+                priority = #{priority},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        WHERE ID=#{ID}
+    </update>
+
+    <delete id="deleteIssue">
+        DELETE FROM IssueDB
+        WHERE ID=#{ID}
+    </delete>
+</mapper>

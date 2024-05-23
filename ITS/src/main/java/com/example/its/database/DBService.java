@@ -4,11 +4,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.its.dataClass.Issue;
+import com.example.its.dataClass.IssueID;
 import com.example.its.dataClass.Project;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
 import com.example.its.database.authority.AuthorityDBService;
+import com.example.its.database.issue.ISsueDBService;
+import com.example.its.database.pirelation.PIRelationDBService;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.database.user.UserDBService;
 
@@ -20,6 +24,8 @@ public class DBService {
     private final ProjectDBService projectDBService;
     private final UserDBService userDBService;
     private final AuthorityDBService authDBService;
+    private final ISsueDBService issueDBService;
+    private final PIRelationDBService pIRelationDBService;
 
     //ProjectDB methods
     public ProjectID createProject(String title, String description, UserID adminID){
@@ -82,5 +88,31 @@ public class DBService {
     // public void deleteAuthority(int ID){
     //     authDBService.deleteAuthority(ID);
     // }
+
+
+
+    //Issue methods
+    public IssueID createIssue(ProjectID projectIDFK,String title, String description, UserID reporter, UserID assignee, UserID fixer, int type, int priority, int status){
+        IssueID i = issueDBService.createIssueService(title, description, reporter, assignee, fixer, type, priority, status);
+        pIRelationDBService.createPIRelationService(projectIDFK, i);
+        return i;
+    }
+
+    // TODO comment 도 같이 불러오기...?
+    public Issue readIssue(IssueID issueID){
+        return issueDBService.readIssueService(issueID);
+    }
+
+    public List<Issue> readIssueList(ProjectID projectIDFK, UserID reporter, UserID assignee, Integer status, String sortOrder){
+        return issueDBService.readIssueListService(projectIDFK, reporter, assignee, status, sortOrder);
+    }
+
+    public void updateIssueService(IssueID ID, String title, String description, UserID reporter, UserID assignee, UserID fixer, Integer type, Integer priority, Integer status){
+        issueDBService.updateIssueService(ID, title, description, reporter, assignee, fixer, type, priority, status);
+    }
+
+    public void deleteIssue(IssueID ID){
+        issueDBService.deleteIssueService(ID);
+    }
 
 }
