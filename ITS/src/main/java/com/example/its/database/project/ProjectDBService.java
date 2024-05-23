@@ -40,10 +40,9 @@ public class ProjectDBService {
         return pd;
     }
 
-    // TODO adminId 말고 권한으로 바꾸기
     //read project List
-    public List<Project> readProjectListService(UserID adminID){
-        List<ProjectDB> rslist = manager.readProjectListManager(adminID.getID());
+    public List<Project> readProjectListService(UserID userID){
+        List<ProjectDB> rslist = manager.readProjectListManager(userID.getID());
         List<Project> projects = new ArrayList<>();
         for (ProjectDB projectDB : rslist) {
             projects.add(PDBtoProject(projectDB));

@@ -36,8 +36,8 @@ public class DBService {
         return projectDBService.readProjectService(projectID);
     }
 
-    public List<Project> readProjectList(UserID adminID){
-        return projectDBService.readProjectListService(adminID);
+    public List<Project> readProjectList(UserID userID){
+        return projectDBService.readProjectListService(userID);
     }
 
     public void updateProject(ProjectID projectID, String title, String description){

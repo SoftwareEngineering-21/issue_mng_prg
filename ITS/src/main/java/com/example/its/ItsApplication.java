@@ -7,8 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.example.its.database.DBService;
-import com.example.its.database.comment.CommentDBManager;
-import com.example.its.database.icrelation.ICRelationDBManager;
 import com.example.its.swingUI.TestController;
 
 //@EnableAsync
@@ -30,10 +28,6 @@ public class ItsApplication implements CommandLineRunner {
 
     @Autowired
     DBService serviceDB;
-    @Autowired
-    CommentDBManager manager;
-    @Autowired
-    ICRelationDBManager imanager;
 
     @Override
     public void run(String... args) throws Exception {

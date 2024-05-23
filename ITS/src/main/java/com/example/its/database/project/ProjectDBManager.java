@@ -23,8 +23,8 @@ public class ProjectDBManager {
         return mapper.readProject(ID);
     }
 
-    public List<ProjectDB> readProjectListManager(String adminID){
-        return mapper.readProjectList(adminID);
+    public List<ProjectDB> readProjectListManager(String userID){
+        return mapper.readProjectList(userID);
     }
 
 

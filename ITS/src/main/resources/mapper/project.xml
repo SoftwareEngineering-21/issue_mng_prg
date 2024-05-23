@@ -18,9 +18,14 @@
 
     <!-- TODO where 조건 바꾸기 -->
     <select id="readProjectList" resultType="com.example.its.dataClassDB.ProjectDB">
-        select *
-        from ProjectDB
-        where adminID=#{adminID}
+        SELECT * FROM ProjectDB
+        WHERE adminID = #{userID}
+        UNION
+        SELECT * FROM ProjectDB
+        WHERE ID IN (
+            SELECT DISTINCT projectID
+            FROM AuthorityDB
+            WHERE userID = #{userID})
     </select>
 
     <update id="updateProject">
