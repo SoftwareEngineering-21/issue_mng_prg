@@ -13,7 +13,7 @@ public class MainController {
 
     @GetMapping("/")
     public String root(){
-        return "redirect:/projects";
+        return "redirect:/";
     }
 
     @GetMapping("/demo")

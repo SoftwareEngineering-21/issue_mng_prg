@@ -16,8 +16,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .headers((headers) ->
+                        headers
+                                .frameOptions(frameOptions -> frameOptions.disable())
+                )
+                .csrf(csrf -> csrf.disable());
+
+        http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/**").permitAll() //public 엔드포인트
+                        .requestMatchers("/**").permitAll() //public 엔드포인트'
+                        .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
@@ -25,6 +33,8 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(LogoutConfigurer::permitAll);
+
+
 
         return http.build();
     }

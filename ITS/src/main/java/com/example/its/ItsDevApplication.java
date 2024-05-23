@@ -1,30 +1,41 @@
 package com.example.its;
 
-import java.util.List;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.ActiveProfiles;
 
-import com.example.its.dataClass.Project;
-import com.example.its.dataClass.ProjectID;
-import com.example.its.dataClass.UserID;
-import com.example.its.database.DBService;
-import com.example.its.swingUI.TestController;
+import javax.sql.DataSource;
 
-//@EnableAsync
 @SpringBootApplication
-public class ItsDevApplication {
+@ActiveProfiles("test")
+public class ItsDevApplication implements CommandLineRunner {
+
+    private final DataSource dataSource;
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+    @Autowired
+    public ItsDevApplication(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     public static void main(String[] args) {
-
-        //헤드리스 모드 끄는 함수. 기본 설정//
-        System.setProperty("java.awt.headless", "false");
-        //기본 configuration 종료//
-
         SpringApplication.run(ItsDevApplication.class, args);
-        //TestController controller = context.getBean(TestController.class);
-        //controller.run();
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        try (Connection connection = dataSource.getConnection()) {
+            System.out.println("Url: " + connection.getMetaData().getURL());
+            System.out.println("UserName: " + connection.getMetaData().getUserName());
+        }
+        jdbcTemplate.execute("INSERT INTO Products (prod_name, prod_price) values ('버킷햇', 6900)");
+
     }
 }
