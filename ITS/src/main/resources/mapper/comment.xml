@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.its.database.comment.CommentDBMapper">
+
+    <insert id="createComment" useGeneratedKeys="true" keyProperty="ID">
+        insert INTO CommentDB(text, reporterComment)
+        values (#{comment.text}, #{comment.reporterComment})
+    </insert>
+    
+    
+    <select id="readComment" resultType="com.example.its.dataClassDB.CommentDB">
+        select *
+        from CommentDB
+        where ID=#{ID}
+    </select>
+
+    <select id="readCommentList" resultType="com.example.its.dataClassDB.CommentDB">
+        select *
+        from CommentDB
+        WHERE ID IN (
+        SELECT commentID
+        FROM ICRelationDB
+        WHERE issueID = #{issueID})
+        ORDER BY createdAt
+    </select>
+
+    <update id="updateComment">
+        UPDATE CommentDB
+        SET text=#{text}
+        WHERE ID=#{ID}
+    </update>
+
+    <delete id="deleteComment">
+        DELETE FROM CommentDB
+        WHERE ID=#{ID}
+    </delete>
+</mapper>
