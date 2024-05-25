@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam(value = "ID",required = false)String ID, @RequestParam(value = "password",required = false) String password) {
+    public String login(@RequestParam(value = "ID",required = false)String ID, @RequestParam(value = "password",required = false) String password, Model model) {
         if(MainController.isUserLogin()!= null){
             return MainController.isUserLogin();
         }
@@ -53,8 +53,18 @@ public class UserController {
                 System.out.println("Login Success");
                 return "redirect:/";
             }
+            else{
+                model.addAttribute("validation","fail");
+                return "login";
+            }
         }
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        userService.logout();
+        return "redirect:/";
     }
 
 

@@ -87,6 +87,10 @@
         .card-body{
             height: 100%;
         }
+        .hyperlink{
+            padding-right: 50px;
+            font-weight: bold;
+        }
 
 
     </style>
@@ -96,12 +100,13 @@
 
 </head>
 <body>
-<div class ="logo">
-    <div th:replace="~{logo::logo}" id = 'logo'></div>
-    <script>
-
-    </script>
+<div class="form-group row justify-content-between center-align">
+    <div class ="logo">
+        <div th:replace="~{logo::logo}" id = 'logo'></div>
+    </div>
+    <a th:href="@{/logout}" class="hyperlink">로그아웃</a>
 </div>
+
 <div class="container">
     <div class="row mt-5">
         <div class="col-12">
