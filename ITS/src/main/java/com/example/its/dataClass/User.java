@@ -7,7 +7,4 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class User {
 	private final UserID ID;
-
-
-
 }

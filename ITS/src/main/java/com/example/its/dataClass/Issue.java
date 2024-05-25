@@ -11,9 +11,11 @@ public class Issue {
 	private final String title;
 	private final String description;
 	private final int status;
+
 	private final UserID assignee;
 	private final UserID reporter;
 	private final UserID fixer;
 	private final int priority;
+
 
 }

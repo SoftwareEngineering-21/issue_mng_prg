@@ -10,8 +10,4 @@ public class Project {
 	private final String title;
 	private final String description;
 	private final UserID admin;
-
-
-
-
 }

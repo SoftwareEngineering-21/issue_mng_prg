@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ISsueDBService {
+public class IssueDBService {
     private final IssueDBManager manager;
 
     private Issue IDBtoIssue(IssueDB idb){

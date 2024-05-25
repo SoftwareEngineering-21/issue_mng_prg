@@ -29,11 +29,11 @@ CREATE TABLE ProjectDB
     adminID varchar(45) not null
 );
 
--- DROP TABLE IF EXISTS Products;
---
--- CREATE TABLE Products
--- (
---     prod_id     IDENTITY        PRIMARY KEY,
---     prod_name   VARCHAR(255)    NOT NULL,
---     prod_price  INT             NOT NULL
--- );
+CREATE TABLE AuthorityDB
+(
+    ID int auto_increment primary key ,
+    userID varchar(45) not null,
+    projectID int not null,
+    auth int not null
+
+)

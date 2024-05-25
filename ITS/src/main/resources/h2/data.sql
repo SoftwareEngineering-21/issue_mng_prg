@@ -14,3 +14,7 @@ insert into UserDB (ID, password) VALUES ('test2' ,'$2a$10$ERGJfbqZGecKAUG7ubNHp
 insert into UserDB (ID, password) VALUES ('test3' ,'$2a$10$I9mwBmbU7LuAgPGLGFxasOUbqlfDddKe1wOdGLqCwzPCUtnz/63E2');
 
 insert into ProjectDB(title, description, adminID) VALUES ( 'test1_title','desc','test1' );
+insert into ProjectDB(title, description, adminID) VALUES ( 'test2_title','desc','test2' );
+insert into ProjectDB(title, description, adminID) VALUES ( 'test3_title','desc','test3' );
+
+insert into AuthorityDB(userID, projectID, auth) VALUEs('test1',3,2);

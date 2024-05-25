@@ -26,6 +26,9 @@ public class ProjectDBManager {
     public List<ProjectDB> readProjectListManager(String userID){
         return mapper.readProjectList(userID);
     }
+    public List<ProjectDB> readAdminProjectListManager(String userID){
+        return mapper.readAdminProjectList(userID);
+    }
 
 
     public void updateProjectManager(int ID, String title, String description){

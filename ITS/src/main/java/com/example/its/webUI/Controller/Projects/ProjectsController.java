@@ -24,6 +24,7 @@ public class ProjectsController {
     public String readProjects(Model model) {
         // Add projects to the model
         model.addAttribute("projects", service.readProjects(ID));
+        model.addAttribute("adminProjects", service.readAdminProjects(ID));
         // Return the name of the view (Thymeleaf template)
         return "projects";
     }

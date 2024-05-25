@@ -49,6 +49,14 @@ public class ProjectDBService {
         }
         return projects;
     }
+    public List<Project> readAdminProjectListService(UserID userID){
+        List<ProjectDB> rslist = manager.readAdminProjectListManager(userID.getID());
+        List<Project> projects = new ArrayList<>();
+        for (ProjectDB projectDB : rslist) {
+            projects.add(PDBtoProject(projectDB));
+        }
+        return projects;
+    }
     
     //update projectDB title, description
     public void updateProjectService(ProjectID projectID, String title, String description){
