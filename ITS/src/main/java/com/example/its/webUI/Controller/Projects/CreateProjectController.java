@@ -1,5 +1,6 @@
 package com.example.its.webUI.Controller.Projects;
 
+import com.example.its.status.StatusManager;
 import com.example.its.webUI.Controller.MainController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +17,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CreateProjectController {
 
-    private UserID ID = new UserID("test1");
-
+    private UserID user(){
+        return StatusManager.getInstance().getUser().getID();
+//        return new UserID("test1");
+    }
 
     private final ProjectService projectService;
 
@@ -27,9 +30,8 @@ public class CreateProjectController {
         if(MainController.isUserLogin()== null){
             return "redirect:/";
         }
-        projectService.createProject(ID,title,description);
+        projectService.createProject(user(),title,description);
         return "redirect:/projects";
-        //return ID.getID()+","+title+","+description;
     }
 
 }

@@ -54,6 +54,10 @@ public class UserService{
         }
     }
 
+    public void logout(){
+        StatusManager.getInstance().setUser(null);
+    }
+
     private boolean isAvailable(UserID newUser){
         User user = userDBService.readUserService(newUser);
         if(user == null){
