@@ -12,7 +12,7 @@ public interface ProjectDBMapper {
     //void createProjectDetailDBTable();
     Integer createProject(ProjectDB project);
     ProjectDB readProject(int ID);
-    List<ProjectDB> readProjectList(String adminID);
+    List<ProjectDB> readProjectList(String userID);
     void updateProject(@Param("ID") int ID, @Param("project") ProjectDB project);
     void deleteProject(int ID);
     

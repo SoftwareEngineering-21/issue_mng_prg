@@ -12,7 +12,7 @@ public class ProjectDB {
     private String title;
     private String description;
     private String adminID;
-
+    
     public ProjectDB(String title, String description, String adminID)
     {
         this.title = title;

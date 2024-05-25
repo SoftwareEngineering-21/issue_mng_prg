@@ -27,7 +27,7 @@ public class ProjectDBService {
 
     //create Project
     public ProjectID createProjectService(String title, String description, UserID adminID){
-        Integer temp = manager.createProjectManage(title, description, adminID.getID());
+        Integer temp = manager.createProjectManager(title, description, adminID.getID());
         ProjectID returnID = new ProjectID(temp);
         return returnID;
 
@@ -35,15 +35,14 @@ public class ProjectDBService {
 
     //read one project
     public Project readProjectService(ProjectID projectID){
-        ProjectDB rpd = manager.readProjectManage(projectID.getID());
+        ProjectDB rpd = manager.readProjectManager(projectID.getID());
         Project pd = PDBtoProject(rpd);
         return pd;
     }
 
-    // TODO adminId 말고 권한으로 바꾸기
     //read project List
-    public List<Project> readProjectListService(UserID adminID){
-        List<ProjectDB> rslist = manager.readProjectListManage(adminID.getID());
+    public List<Project> readProjectListService(UserID userID){
+        List<ProjectDB> rslist = manager.readProjectListManager(userID.getID());
         List<Project> projects = new ArrayList<>();
         for (ProjectDB projectDB : rslist) {
             projects.add(PDBtoProject(projectDB));
@@ -53,12 +52,12 @@ public class ProjectDBService {
     
     //update projectDB title, description
     public void updateProjectService(ProjectID projectID, String title, String description){
-        manager.updateProjectManage(projectID.getID(), title, description);
+        manager.updateProjectManager(projectID.getID(), title, description);
     }
 
     // delete projectDB
     public void deleteProjectService(ProjectID projectID){
-        manager.deleteProjectManage(projectID.getID());
+        manager.deleteProjectManager(projectID.getID());
     }
 
 }

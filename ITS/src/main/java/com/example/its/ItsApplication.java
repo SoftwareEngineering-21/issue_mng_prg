@@ -1,7 +1,5 @@
 package com.example.its;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,9 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import com.example.its.dataClass.Project;
-import com.example.its.dataClass.ProjectID;
-import com.example.its.dataClass.UserID;
 import com.example.its.database.DBService;
 import com.example.its.swingUI.TestController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
