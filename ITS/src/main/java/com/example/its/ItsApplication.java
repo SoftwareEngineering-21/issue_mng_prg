@@ -33,15 +33,7 @@ public class ItsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-         String encryptedPassword1 = encoder.encode("test1");
-         String encryptedPassword2 = encoder.encode("test2");
-         String encryptedPassword3 = encoder.encode("test3");
-         System.out.println(encryptedPassword1);
-         System.out.println(encryptedPassword2);
-         System.out.println(encryptedPassword3);
-         System.out.println(encoder.matches("test1", "$2a$10$RuJNZMF5xHF2xkTGnFtuBe3W3XUBH1OafX4ScDtY5f0GKwOzlVyPu"));
-         System.out.println(encoder.matches("test1", encryptedPassword1));
+
     }
 
     

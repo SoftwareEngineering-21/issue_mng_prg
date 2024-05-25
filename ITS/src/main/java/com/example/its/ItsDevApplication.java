@@ -2,7 +2,14 @@ package com.example.its;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
+import com.example.its.dataClass.Project;
+import com.example.its.dataClass.User;
+import com.example.its.dataClass.UserID;
+import com.example.its.database.project.ProjectDBService;
+import com.example.its.database.user.UserDBService;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -17,13 +24,13 @@ import javax.sql.DataSource;
 
 @SpringBootApplication
 @ActiveProfiles("test")
+@RequiredArgsConstructor
 public class ItsDevApplication implements CommandLineRunner {
 
     private final DataSource dataSource;
-    @Autowired
-    public ItsDevApplication(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    private final ProjectDBService service;
+    private final UserDBService userService;
+
 
     public static void main(String[] args) {
         SpringApplication.run(ItsDevApplication.class, args);
@@ -35,5 +42,9 @@ public class ItsDevApplication implements CommandLineRunner {
             System.out.println("Url: " + connection.getMetaData().getURL());
             System.out.println("UserName: " + connection.getMetaData().getUserName());
         }
+        List<Project> p = service.readProjectListService(new UserID("test3"));
+        User u =userService.readUserService(new UserID("test4"));
+        System.out.println(u);
+
     }
 }

@@ -1,5 +1,6 @@
 package com.example.its.webUI.Controller.Projects;
 
+import com.example.its.webUI.Controller.MainController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,9 @@ public class CreateProjectController {
     @PostMapping("/create")
     // @ResponseBody
     public String createProject(@RequestParam("title")String title, @RequestParam("description") String description) {
+        if(MainController.isUserLogin()== null){
+            return "redirect:/";
+        }
         projectService.createProject(ID,title,description);
         return "redirect:/projects";
         //return ID.getID()+","+title+","+description;

@@ -1,5 +1,6 @@
 package com.example.its.database.user;
 
+import com.example.its.dataClass.UserSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -55,8 +56,8 @@ public class UserDBService {
 
     //create User, 중복 겁사는 UI단에서?????
     public UserID createUserService(String ID, String password){
-        String encodedPW = encodePW(password);
-        manager.createUserManager(ID, encodedPW);
+        //String encodedPW = encodePW(password);
+        manager.createUserManager(ID, password);
         User returnID = readUserService(new UserID(ID));
         return returnID.getID();
     }
@@ -64,8 +65,16 @@ public class UserDBService {
     // read user
     public User readUserService(UserID user){
         UserDB rudb = manager.readUserManager(user.getID());
+        if(rudb == null){ return null;}
         return UDBtoUser(rudb);
     }
+
+    public UserSession readUserSessionService(UserID user){
+        UserDB rudb = manager.readUserManager(user.getID());
+        if(rudb == null){ return null;}
+        return new UserSession(rudb.getID(), rudb.getPassword());
+    }
+
 
     //update user's password
     public void updateUserService(UserID userID, String password, String newPW){

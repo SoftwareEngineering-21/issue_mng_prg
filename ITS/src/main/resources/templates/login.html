@@ -9,6 +9,20 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        .logo {
+            margin-top: 20px;
+            font-size: 70px;
+            font-weight: 800;
+            color: #303050;
+            cursor: pointer;
+            text-align: left;
+            padding-left: 15px;
+        }
+        .logo span {
+            font-size: 35px;
+            padding-left: 10px;
+        }
+
         body {
             background-color: #f2f2f2;
         }
@@ -51,7 +65,7 @@
                 <h2 class="text-center mb-4">Login</h2>
                 <div class="mb-2">
                     <!--                    <label for="username" class="form-label">Username</label>-->
-                    <input type="text" class="form-control" id="username" name="username" pattern="[a-zA-Z0-9]+" placeholder="ID">
+                    <input type="text" class="form-control" id="ID" name="ID" pattern="[a-zA-Z0-9]+" placeholder="ID">
                 </div>
                 <div class="mb-1">
                     <!--                    <label for="password" class="form-label">Password</label>-->
