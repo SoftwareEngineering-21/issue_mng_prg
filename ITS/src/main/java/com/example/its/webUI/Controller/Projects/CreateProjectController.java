@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CreateProjectController {
 
-    private UserID ID = new UserID("abcd");
+    private UserID ID = new UserID("test1");
 
 
     private final ProjectService projectService;

@@ -12,7 +12,4 @@ public class Comment {
 	private Timestamp date;
 	private UserID author;
 
-
-
-
 }

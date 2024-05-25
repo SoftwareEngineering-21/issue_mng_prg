@@ -13,7 +13,7 @@ public class MainController {
 
     @GetMapping("/")
     public String root(){
-        return "redirect:/projects";
+        return "redirect:/";
     }
 
     @GetMapping("/demo")
@@ -25,6 +25,11 @@ public class MainController {
     @GetMapping("/test")
     public String test() {
         return "test/testLayout";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 
 

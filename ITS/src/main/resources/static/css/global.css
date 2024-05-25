@@ -17,12 +17,13 @@ body{
     font-size: 35px;
     padding-left: 10px;
 }
-a{
+
+.hyperlink{
     text-decoration-line: none;
     color: #303050;
 }
-a:hover {
+.hyperlink:hover{
     text-decoration: none;
+    color: #303050;
 }
-
 

@@ -1,63 +1,41 @@
-// package com.example.its;
-
-
-
-// import com.example.its.dataClass.Project;
-// import com.example.its.dataClass.User;
-// import com.example.its.database.project.ProjectDBService;
-// import com.example.its.webUI.Controller.Projects.ProjectsController;
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.Test;
-// import org.mockito.*;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.boot.test.context.SpringBootTest;
-// import org.springframework.ui.Model;
-
-// import java.util.ArrayList;
-// import java.util.List;
-
-// import static org.junit.jupiter.api.Assertions.assertEquals;
-// import static org.mockito.Mockito.*;
-
-// @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-// class ProjectsControllerTest {
-
-//     @Autowired
-//     private ItsApplication itsApplication;
-
-//     @Autowired
-//     private ProjectDBService service;
-
-//     @Mock
-//     private Model model;
-
-//     @Autowired
-//     private ProjectsController projectsController;
-
-//     @Captor
-//     private ArgumentCaptor<List<Project>> projectListCaptor;
-
-
-//     @BeforeEach
-//     void setUp() {
-//         MockitoAnnotations.openMocks(this);
-//         User userMock = mock(User.class);
-//         when(userMock.getID());
-//         projectsController.setUser(userMock);
-//         // user 객체를 임의로 초기화
-
-//     }
-
-//     @Test
-//     void readProjects() {
-//         // Controller 메서드 호출
-//         String viewName = projectsController.readProjects(model);
-//         // 검증
-//         //verify(model).addAttribute(eq("projects"), any());
-
-// //        verify(model).addAttribute("projects", new ArrayList<>());
-// //        assertEquals("projects", viewName);
-// //        assertEquals(14 , capturedProjects.size());
-
-//     }
-// }
+//package com.example.its;
+//
+//import java.util.List;
+//
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.CommandLineRunner;
+//import org.springframework.boot.SpringApplication;
+//import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.boot.test.context.SpringBootTest;
+////import org.springframework.context.ConfigurableApplicationContext;
+////
+////import com.example.its.dataClass.Project;
+////import com.example.its.dataClass.ProjectID;
+////import com.example.its.dataClass.UserID;
+////import com.example.its.database.DBService;
+////import com.example.its.swingUI.TestController;
+////import org.springframework.test.context.ActiveProfiles;
+////
+//////@EnableAsync
+////@SpringBootApplication(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+////@ActiveProfiles("test")
+////
+////public class ItsApplicationTests {
+////
+////    public static void main(String[] args) {
+////
+////        //헤드리스 모드 끄는 함수. 기본 설정//
+////        System.setProperty("java.awt.headless", "false");
+////        //기본 configuration 종료//
+////
+////        ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
+////        TestController controller = context.getBean(TestController.class);
+////        //controller.run();
+////    }
+////
+////
+////
+////
+//
+//
+//}
