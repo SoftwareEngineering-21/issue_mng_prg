@@ -1,18 +1,21 @@
 package com.example.its.dataClassDB;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-@Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ICRelationDB {
-    private int issueId;
-    private int commentId;
+    private int ID;
+    private int issueID;
+    private int commentID;
 
-    public ICRelationDB(int issueId, int commentId)
+    public ICRelationDB(int issueID, int commentID)
     {
-        this.issueId = issueId;
-        this.commentId = commentId;
+        this.issueID = issueID;
+        this.commentID = commentID;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.its.mybatis;
+package com.example.its.test;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

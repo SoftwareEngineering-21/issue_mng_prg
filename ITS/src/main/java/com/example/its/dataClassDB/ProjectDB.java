@@ -1,16 +1,18 @@
 package com.example.its.dataClassDB;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-@Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProjectDB {
-    private int id;
+    private int ID;
     private String title;
     private String description;
     private String adminID;
-
+    
     public ProjectDB(String title, String description, String adminID)
     {
         this.title = title;

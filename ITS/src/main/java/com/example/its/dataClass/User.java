@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class User {
-	private final String ID;
-
-
-
+	private final UserID ID;
+	public User(String ID) {
+		this.ID = new UserID(ID);
+	}
 }

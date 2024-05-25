@@ -10,10 +10,12 @@ import com.example.its.dataClassDB.ProjectDB;
 @Mapper
 public interface ProjectDBMapper {
     //void createProjectDetailDBTable();
-    void createProject(ProjectDB project);
-    ProjectDB readProject(int id);
-    List<ProjectDB> readProjectList(String adminId);
-    void updateProject(@Param("id") int id, @Param("project") ProjectDB project);
-    void deleteProject(int id);
+    Integer createProject(ProjectDB project);
+    ProjectDB readProject(int ID);
+    List<ProjectDB> readProjectList(String userID);
+    List<ProjectDB> readAdminProjectList(String userID);
+    void updateProject(@Param("ID") int ID, @Param("project") ProjectDB project);
+    void deleteProject(int ID);
+
     
 }

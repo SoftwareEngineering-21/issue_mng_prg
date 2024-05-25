@@ -1,12 +1,16 @@
 package com.example.its.dataClassDB;
 
-import lombok.Getter;
-import lombok.Setter;
+import java.sql.Timestamp;
 
-@Setter
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class IssueDB {
-    private int id;
+    private int ID;
     private String title;
     private String description;
     private String reporter;
@@ -15,10 +19,10 @@ public class IssueDB {
     private int type;
     private int priority;
     private int status;
-    private String date;
+    private Timestamp createdAt;
 
-    //assignee 있는 생성자
-    public IssueDB(String title, String description, String reporter, String assignee, int type, int priority, int status, String date)
+    //assignee랑 fixer 는 null로 받기
+    public IssueDB(String title, String description, String reporter, String assignee, String fixer, int type, int priority, int status)
     {
         this.title = title;
         this.description = description;
@@ -27,19 +31,6 @@ public class IssueDB {
         this.type = type;
         this.priority = priority;
         this.status = status;
-        this.date = date;
-    }
-
-    //assignee 없는 생성자
-    public IssueDB(String title, String description, String reporter, int type, int priority, int status, String date)
-    {
-        this.title = title;
-        this.description = description;
-        this.reporter = reporter;
-        this.type = type;
-        this.priority = priority;
-        this.status = status;
-        this.date = date;
     }
 
 }

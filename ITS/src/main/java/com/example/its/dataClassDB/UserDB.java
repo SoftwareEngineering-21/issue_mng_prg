@@ -1,18 +1,18 @@
 package com.example.its.dataClassDB;
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Setter
+import lombok.Getter;
+
+
 @Getter
 public class UserDB {
-    private String id;
-    private String pw;
+    private String ID;
+    private String password;
 
-    public UserDB(String id, String pw)
+    public UserDB(String ID, String password)
     {
-        this.id = id;
-        this.pw = pw;
+        this.ID = ID;
+        this.password = password;
     }
 
 

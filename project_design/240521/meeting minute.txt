@@ -1,0 +1,13 @@
+document
+	요구 정의 및 분석
+	-usecase diagram
+	-domain model
+	-system sequence diagram
+	-usecase specification (done)
+	설계
+	-class diagram
+	구현
+	-implementation UML diagram - using specific component, sequence diagram
+
+	OOAD/GRASP 패턴/설계 원칙a
+user project issue comment authority 로부터 buildup

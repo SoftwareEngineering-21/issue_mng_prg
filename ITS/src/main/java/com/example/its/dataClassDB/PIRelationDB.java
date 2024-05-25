@@ -1,18 +1,21 @@
 package com.example.its.dataClassDB;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-@Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PIRelationDB {
-    private int projectId;
-    private int issueId;
+    private int ID;
+    private int projectIDFK;
+    private int issueIDFK;
 
-    public PIRelationDB(int projectId, int issueId)
+    public PIRelationDB(int projectIDFK, int issueIDFK)
     {
-        this.projectId = projectId;
-        this.issueId = issueId;
+        this.projectIDFK = projectIDFK;
+        this.issueIDFK = issueIDFK;
     }
 
 }

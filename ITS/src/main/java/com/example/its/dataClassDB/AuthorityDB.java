@@ -1,21 +1,22 @@
 package com.example.its.dataClassDB;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-@Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuthorityDB {
-    private String userId;
-    private int projectId;
+    private int ID;
+    private String userID;
+    private int projectID;
     private int auth;
 
-    public AuthorityDB(String userId, int projectId, int auth)
+    public AuthorityDB(String userID, int projectID, int auth)
     {
-        this.userId = userId;
-        this.projectId = projectId;
+        this.userID = userID;
+        this.projectID = projectID;
         this.auth = auth;
     }
-
-
 }

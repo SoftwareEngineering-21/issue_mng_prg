@@ -5,6 +5,8 @@ import com.example.its.database.project.ProjectDBService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -12,12 +14,17 @@ public class ProjectService {
 
 	private final ProjectDBService service;
 
-	public void createProject(User ID, String title, String description) {
-
+	public void createProject(UserID ID, String title, String description) {
 		service.createProjectService(title,description,ID);
 	}
 
-	public void readProject(User ID) {}
+	public List<Project> readProjects(UserID ID) {
+        return service.readProjectListService(ID);
+    }
+
+	public List<Project> readAdminProjects(UserID ID) {
+		return service.readAdminProjectListService(ID);
+	}
 
 
 }
