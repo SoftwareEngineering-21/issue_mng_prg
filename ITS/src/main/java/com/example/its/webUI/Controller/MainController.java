@@ -27,6 +27,11 @@ public class MainController {
         return "test/testLayout";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
 
 
 }

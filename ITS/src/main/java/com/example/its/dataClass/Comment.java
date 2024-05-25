@@ -10,7 +10,4 @@ public class Comment {
 	private Date date;
 	private UserID author;
 
-
-
-
 }

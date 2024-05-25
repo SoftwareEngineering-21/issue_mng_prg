@@ -3,6 +3,7 @@ package com.example.its;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.mybatis.spring.annotation.MapperScan;
 
 import javax.sql.DataSource;
 
@@ -18,8 +20,6 @@ import javax.sql.DataSource;
 public class ItsDevApplication implements CommandLineRunner {
 
     private final DataSource dataSource;
-    @Autowired
-    JdbcTemplate jdbcTemplate;
     @Autowired
     public ItsDevApplication(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -35,7 +35,5 @@ public class ItsDevApplication implements CommandLineRunner {
             System.out.println("Url: " + connection.getMetaData().getURL());
             System.out.println("UserName: " + connection.getMetaData().getUserName());
         }
-        jdbcTemplate.execute("INSERT INTO Products (prod_name, prod_price) values ('버킷햇', 6900)");
-
     }
 }
