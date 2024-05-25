@@ -42,12 +42,53 @@
             width: 100%;
 
         }
-        a h5{
+        a h4{
             color: #303050;
+            min-width: 100px;
         }
+        a h6{
+            background-color: #303050;
+            color : #f5f5f5;
+            border-radius: 10px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            text-align: center;
+            max-width: 100px;
+
+         }
+
         .card a:hover{
             text-decoration: none;
         }
+        .btn-custom {
+            background-color: #303050;
+            border-color: #303050;
+            color: #f5f5f5;
+            border-radius: 10px;
+            padding: 10px 20px;
+            text-align: center;
+            display: inline-block;
+
+        }
+        .btn-custom:hover {
+            background-color: #202030;
+            border-color: #202030;
+            color: #f5f5f5;
+        }
+        .center-align {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* 부모 요소의 높이를 100%로 설정 */
+        }
+        .card{
+            min-height: 200px;
+        }
+        .card-body{
+            height: 100%;
+        }
+
+
     </style>
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}">
@@ -71,16 +112,30 @@
                 </div>
             </div>
             <div class="card-container">
-                    <div class="card" th:each="project : ${projects}">
+                    <div class="card" th:each="project : ${adminProjects}">
 
                         <a th:href="@{|/projects/projectid=${project.projectID.getID()}|}">
                             <div class="card-body">
-                                <h5 class="card-title" th:text="${project.title}"></h5>
+                                <div class="form-group row d-flex justify-content-between center-align">
+                                    <h4 class="card-title" th:text="${project.title}"></h4>
+                                    <h6>Admin</h6>
+                                    <a class="btn-custom" th:href="@{|/projects/projectid=${project.projectID.getID()}/admin|}"> manage auth</a>
+                                </div>
+
                             </div>
                         </a>
-
-
                     </div>
+            </div>
+            <div class="card-container">
+                <div class="card" th:each="project : ${projects}">
+
+                    <a th:href="@{|/projects/projectid=${project.projectID.getID()}|}">
+                        <div class="card-body">
+                            <h4 class="card-title" th:text="${project.title}"></h4>
+                        </div>
+                    </a>
+
+                </div>
             </div>
         </div>
     </div>

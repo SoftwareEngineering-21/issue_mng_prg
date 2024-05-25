@@ -22,5 +22,9 @@ public class ProjectService {
         return service.readProjectListService(ID);
     }
 
+	public List<Project> readAdminProjects(UserID ID) {
+		return service.readAdminProjectListService(ID);
+	}
+
 
 }

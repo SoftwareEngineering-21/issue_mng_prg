@@ -11,7 +11,7 @@ import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
 import com.example.its.database.authority.AuthorityDBService;
-import com.example.its.database.issue.ISsueDBService;
+import com.example.its.database.issue.IssueDBService;
 import com.example.its.database.pirelation.PIRelationDBService;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.database.user.UserDBService;
@@ -24,7 +24,7 @@ public class DBService {
     private final ProjectDBService projectDBService;
     private final UserDBService userDBService;
     private final AuthorityDBService authDBService;
-    private final ISsueDBService issueDBService;
+    private final IssueDBService issueDBService;
     private final PIRelationDBService pIRelationDBService;
 
     //ProjectDB methods

@@ -13,7 +13,9 @@ public interface ProjectDBMapper {
     Integer createProject(ProjectDB project);
     ProjectDB readProject(int ID);
     List<ProjectDB> readProjectList(String userID);
+    List<ProjectDB> readAdminProjectList(String userID);
     void updateProject(@Param("ID") int ID, @Param("project") ProjectDB project);
     void deleteProject(int ID);
+
     
 }

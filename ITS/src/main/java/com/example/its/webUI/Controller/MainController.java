@@ -1,7 +1,9 @@
 package com.example.its.webUI.Controller;
+import com.example.its.status.StatusManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -13,7 +15,11 @@ public class MainController {
 
     @GetMapping("/")
     public String root(){
-        return "redirect:/";
+        if(isUserLogin()!=null)
+            return "redirect:/projects";
+        else{
+            return "redirect:/login";
+        }
     }
 
     @GetMapping("/demo")
@@ -27,10 +33,12 @@ public class MainController {
         return "test/testLayout";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
+    public static String isUserLogin(){
+        if(StatusManager.getInstance().getUser()!= null)
+            return "redirect:/";
+        return null;
     }
+
 
 
 

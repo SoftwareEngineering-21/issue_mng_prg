@@ -1,6 +1,8 @@
 package com.example.its.dataClassDB;
 
+
 import lombok.Getter;
+
 
 @Getter
 public class UserDB {

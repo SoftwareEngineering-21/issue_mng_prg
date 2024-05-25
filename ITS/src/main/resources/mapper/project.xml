@@ -16,16 +16,20 @@
         where ID=#{ID}
     </select>
 
-    <!-- TODO where 조건 바꾸기 -->
-    <select id="readProjectList" resultType="com.example.its.dataClassDB.ProjectDB">
+    <select id="readAdminProjectList" resultType="com.example.its.dataClassDB.ProjectDB">
         SELECT * FROM ProjectDB
         WHERE adminID = #{userID}
-        UNION
+    </select>
+
+    <!-- TODO where 조건 바꾸기 -->
+    <select id="readProjectList" resultType="com.example.its.dataClassDB.ProjectDB">
         SELECT * FROM ProjectDB
         WHERE ID IN (
             SELECT DISTINCT projectID
             FROM AuthorityDB
             WHERE userID = #{userID})
+        and not adminID = #{userID}
+
     </select>
 
     <update id="updateProject">
