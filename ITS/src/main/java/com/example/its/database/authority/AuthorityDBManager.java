@@ -13,26 +13,21 @@ import lombok.RequiredArgsConstructor;
 public class AuthorityDBManager {
     private final AuthorityDBMapper authorityDB;
 
-    public Integer createAuthorityManager(String userID, int projectID, int auth){
+    public void createAuthorityManager(String userID, int projectID, int auth){
         AuthorityDB authority = new AuthorityDB(userID, projectID, auth);
         authorityDB.createAuthority(authority);
-        return authority.getID();
-    }
-
-    public AuthorityDB readAuthorityManager(int ID){
-        return authorityDB.readAuthority(ID);
     }
 
     public List<AuthorityDB> readAuthorityListbyProjectManager(int projectID){
         return authorityDB.readAuthorityListbyProject(projectID);
     }
 
-    public List<AuthorityDB> readAuthorityListbyUserManager(String userID){
-        return authorityDB.readAuthorityListbyUser(userID);
+    public List<AuthorityDB> readAuthorityListbyAllManager(String userID, int projectID){
+        return authorityDB.readAuthorityListbyAll(userID, projectID);
     }
 
-    void deleteAuthorityManager(int ID){
-        authorityDB.deleteAuthority(ID);
+    void deleteAuthorityManager(String userID, int projectID, int auth){
+        authorityDB.deleteAuthority(userID, projectID, auth);
     }
     
 }
