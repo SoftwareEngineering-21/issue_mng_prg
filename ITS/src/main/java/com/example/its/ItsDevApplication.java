@@ -1,29 +1,25 @@
 package com.example.its;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.test.context.ActiveProfiles;
 
 import com.example.its.dataClass.Project;
 import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.database.user.UserDBService;
-import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ActiveProfiles;
-import org.mybatis.spring.annotation.MapperScan;
 
-import javax.sql.DataSource;
+import lombok.RequiredArgsConstructor;
 
 @SpringBootApplication
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 @RequiredArgsConstructor
 public class ItsDevApplication implements CommandLineRunner {
 

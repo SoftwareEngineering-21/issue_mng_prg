@@ -8,12 +8,6 @@
         insert INTO AuthorityDB(userID, projectID, auth)
         values (#{userID}, #{projectID}, #{auth})
     </insert>
-    
-    <select id="readAuthority" resultType="com.example.its.dataClassDB.AuthorityDB">
-        select *
-        from AuthorityDB
-        where ID=#{ID}
-    </select>
 
     <select id="readAuthorityListbyProject" resultType="com.example.its.dataClassDB.AuthorityDB">
         select *
@@ -21,14 +15,17 @@
         where projectID=#{projectID}
     </select>
 
-    <select id="readAuthorityListbyUser" resultType="com.example.its.dataClassDB.AuthorityDB">
+    <select id="readAuthorityListbyAll" resultType="com.example.its.dataClassDB.AuthorityDB">
         select *
         from AuthorityDB
         where userID=#{userID}
+        AND projectID=#{projectID}
     </select>
 
     <delete id="deleteAuthority">
         DELETE FROM AuthorityDB
-        WHERE ID=#{ID}
+        WHERE userID=#{userID}
+        AND projectID=#{projectID}
+        AND auth=#{auth}
     </delete>
 </mapper>

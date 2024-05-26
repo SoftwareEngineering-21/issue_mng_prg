@@ -3,16 +3,16 @@ package com.example.its.database.authority;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.example.its.dataClassDB.AuthorityDB;
 
 @Mapper
 public interface AuthorityDBMapper {
-    Integer createAuthority(AuthorityDB authority);
-    AuthorityDB readAuthority(int ID);
+    void createAuthority(AuthorityDB authority);
     List<AuthorityDB> readAuthorityListbyProject(int projectID);
-    List<AuthorityDB> readAuthorityListbyUser(String userID);
-    void deleteAuthority(int ID);
+    List<AuthorityDB> readAuthorityListbyAll(@Param("userID") String userID, @Param("projectID") int projectID);
+    void deleteAuthority(@Param("userID") String userID, @Param("projectID") int projectID, @Param("auth") int auth);
 
     
 }
