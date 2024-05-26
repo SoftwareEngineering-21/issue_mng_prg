@@ -23,6 +23,7 @@ public abstract class ServiceLayer {
 
     //프로젝트 관련
     public abstract Project[] getProjectList();
+    public abstract boolean makeProject(String title, String Desc);
 
     public abstract void addTester(User id);
     public abstract void addPlayer(User id);
@@ -34,7 +35,7 @@ public abstract class ServiceLayer {
 
     //이슈 관련
     public abstract Issue[] getIssueList();
-    public abstract void makeIssue();
+    public abstract boolean makeIssue();
 
 
     //BasePanel 관련
@@ -43,8 +44,9 @@ public abstract class ServiceLayer {
     }
 
     public void runBase(){
-        if(this.baseController.isEmptyMainPanel())
-        this.baseController.run();
+        if(!this.baseController.isEmptyMainPanel()){
+            this.baseController.run();
+        }
     }
 
     public void run(){

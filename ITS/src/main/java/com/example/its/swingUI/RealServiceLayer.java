@@ -15,6 +15,8 @@ import com.example.its.logic.ProjectService;
 
 @Component
 public class RealServiceLayer extends ServiceLayer {
+    private UserID userID;
+
     protected UserService userService;
     protected ProjectService projectService;
     //protected IssueService issueService;
@@ -28,7 +30,15 @@ public class RealServiceLayer extends ServiceLayer {
 
     @Override
     public boolean login(String id, String password) {
-        return userService.login(id, password);
+        if(this.userService == null){
+            return false;
+        }
+
+        if(this.userService.login(id, password)){
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -40,6 +50,21 @@ public class RealServiceLayer extends ServiceLayer {
 
         List<Project> list = projectService.readProjects(new UserID("test"));
         return list.toArray(new Project[list.size()]);
+    }
+
+    @Override
+    public boolean makeProject(String title, String Desc) {
+        if(this.projectService == null){
+            return false;
+        }
+        
+        try{
+            this.projectService.createProject(this.userID, title, Desc);
+        }
+        catch(Exception e){
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -80,12 +105,21 @@ public class RealServiceLayer extends ServiceLayer {
 
     @Override
     public Issue[] getIssueList() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getIssueList'");
+        if(this.projectService == null){
+            return null;
+        }
+
+        List<Issue> issueList = null;
+        //issueList = this.projectService.getIssueList();
+
+        if(issueList == null){
+            return null;
+        }
+        return issueList.toArray(new Issue[issueList.size()]);
     }
 
     @Override
-    public void makeIssue() {
+    public boolean makeIssue() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'makeIssue'");
     }

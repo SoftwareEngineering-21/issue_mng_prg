@@ -19,7 +19,7 @@ public class ProjectSceneController {
         return serviceLayer.getIssueList();
     }
 
-    public void setProjPanel(Project project){
+    public void setProjectPanel(Project project){
         setBasePanel();
         panel.setProjInfo(project);
     }

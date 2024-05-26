@@ -19,6 +19,12 @@ public class TestServiceLayer extends ServiceLayer {
     }
 
     @Override
+    public boolean makeProject(String title, String Desc) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'makeProject'");
+    }
+
+    @Override
     public void addTester(User id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addTester'");
@@ -55,15 +61,15 @@ public class TestServiceLayer extends ServiceLayer {
     }
 
     @Override
-    public void makeIssue() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'makeIssue'");
-    }
-
-    @Override
     public Issue[] getIssueList() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getIssueList'");
+    }
+
+    @Override
+    public boolean makeIssue() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'makeIssue'");
     }
     
 }

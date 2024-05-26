@@ -1,14 +1,25 @@
 package com.example.its.swingUI;
 
-public abstract class MakeProjectController {
-    MakeProjectFrame frame;
-    MainController controller;
+public class MakeProjectController {
+    ServiceLayer serviceLayer;
 
-    MakeProjectController(MainController controller){
-        this.controller = controller;
+    MakeProjectFrame frame;
+
+    MakeProjectController(ServiceLayer serviceLayer){
+        this.serviceLayer = serviceLayer;
+
         frame = new MakeProjectFrame(this);
     }
 
-    public abstract void makeNewProject(String title, String Desc);
-    public abstract void setVisible(boolean isVisible);
+    public void makeNewProject(String title, String desc){
+        this.serviceLayer.makeProject(title, desc);
+    }
+
+    public void run(){
+        frame.setVisible(true);
+    }
+
+    public void dispose(){
+        frame.dispose();
+    }
 }
