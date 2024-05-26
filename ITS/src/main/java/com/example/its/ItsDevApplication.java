@@ -9,12 +9,14 @@ import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.database.user.UserDBService;
+import com.example.its.swingUI.RealLoginContr;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
@@ -34,6 +36,10 @@ public class ItsDevApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(ItsDevApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
+        RealLoginContr controller = context.getBean(RealLoginContr.class);
+
+        controller.run();
     }
 
     @Override

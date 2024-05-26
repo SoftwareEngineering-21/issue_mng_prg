@@ -1,5 +1,6 @@
 package com.example.its;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,14 +10,16 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import com.example.its.database.DBService;
 import com.example.its.swingUI.RealLoginContr;
-import com.example.its.swingUI.TestBaseCon;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //@EnableAsync
 @SpringBootApplication
+@RequiredArgsConstructor
 public class ItsApplication implements CommandLineRunner {
 
+//    @Autowired
+//    public static RealLoginContr realLoginContr;
     public static void main(String[] args) {
 
         //헤드리스 모드 끄는 함수. 기본 설정//
@@ -25,6 +28,7 @@ public class ItsApplication implements CommandLineRunner {
 
         ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
         RealLoginContr controller = context.getBean(RealLoginContr.class);
+
         controller.run();
     }
 

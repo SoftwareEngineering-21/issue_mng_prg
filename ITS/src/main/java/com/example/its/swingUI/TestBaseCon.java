@@ -1,9 +1,12 @@
 package com.example.its.swingUI;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+@Component
 public class TestBaseCon implements BaseController {
     private BaseFrame frame;
     
@@ -11,8 +14,13 @@ public class TestBaseCon implements BaseController {
 
     public TestBaseCon(){
         frame = new BaseFrame();
+
+    }
+
+    @Override
+    public void run(){
         frame.setVisible(true);
-    }    
+    }
     
     @Override
     public void setPanel(JPanel targetPanel){
