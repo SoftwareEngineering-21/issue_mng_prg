@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.its.dataClass.Authority;
+import com.example.its.dataClass.Comment;
+import com.example.its.dataClass.CommentID;
 import com.example.its.dataClass.Issue;
 import com.example.its.dataClass.IssueID;
 import com.example.its.dataClass.Project;
@@ -11,6 +14,8 @@ import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
 import com.example.its.database.authority.AuthorityDBService;
+import com.example.its.database.comment.CommentDBService;
+import com.example.its.database.icrelation.ICRelationDBService;
 import com.example.its.database.issue.IssueDBService;
 import com.example.its.database.pirelation.PIRelationDBService;
 import com.example.its.database.project.ProjectDBService;
@@ -26,6 +31,8 @@ public class DBService {
     private final AuthorityDBService authDBService;
     private final IssueDBService issueDBService;
     private final PIRelationDBService pIRelationDBService;
+    private final CommentDBService commentDBService;
+    private final ICRelationDBService icRelationDBService;
 
     //ProjectDB methods
     public ProjectID createProject(String title, String description, UserID adminID){
@@ -73,21 +80,21 @@ public class DBService {
 
 
     //Authority methods
-    // public int createAuthority(String userID, int projectID, int auth){
-    //     return authDBService.createAuthorityService(userID, projectID, auth);
-    // }
+    public void createAuthority(UserID userID, ProjectID projectID, int auth){
+        authDBService.createAuthorityService(userID, projectID, auth);
+    }
 
-    // public HashMap<String, List<Integer>> readAuthorityListbyProject(ProjectID projectID){
-    //     return authDBService.readAuthorityListbyProjectService(projectID);
-    // }
+    public List<List<UserID>> readAuthorityListbyProject(ProjectID projectID){
+        return authDBService.readAuthorityListbyProjectService(projectID);
+    }
 
-    // public HashMap<Integer, List<Integer>> readAuthorityListbyUser(UserID userID){
-    //     return authDBService.readAuthorityListbyUserService(userID);
-    // }
+    public Authority readAuthorityListbyAll(UserID userID, ProjectID projectID){
+        return authDBService.readAuthorityListbyAllService(userID, projectID);
+    }
 
-    // public void deleteAuthority(int ID){
-    //     authDBService.deleteAuthority(ID);
-    // }
+    public void deleteAuthority(UserID userID, ProjectID projectID, int auth){
+        authDBService.deleteAuthority(userID, projectID, auth);
+    }
 
 
 
@@ -98,7 +105,6 @@ public class DBService {
         return i;
     }
 
-    // TODO comment 도 같이 불러오기...?
     public Issue readIssue(IssueID issueID){
         return issueDBService.readIssueService(issueID);
     }
@@ -117,4 +123,27 @@ public class DBService {
 
 
 
+    //Comment method
+    public CommentID createComment(IssueID issueID, String text, UserID author){
+
+        CommentID newC = commentDBService.createCommentService(text, author);
+        icRelationDBService.createICRelationService(issueID, newC);
+        return newC;
+    }
+
+    public Comment readComment(CommentID commentID){
+        return commentDBService.readCommentService(commentID);
+    }
+
+    public List<Comment> readCommentList(IssueID issueID){
+        return commentDBService.readCommentListService(issueID);
+    }
+    
+    public void updateComment(CommentID commentID, String text){
+        commentDBService.updateCommentService(commentID, text);
+    }
+
+    public void deleteComment(CommentID commentID){
+        commentDBService.deleteCommentService(commentID);
+    }
 }
