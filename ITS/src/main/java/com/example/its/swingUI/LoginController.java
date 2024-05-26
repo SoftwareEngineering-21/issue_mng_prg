@@ -1,28 +1,29 @@
 package com.example.its.swingUI;
 
-import com.example.its.logic.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+public class LoginController {
+    protected ServiceLayer serviceLayer;
+    protected MainController mainController;
 
-
-public abstract class LoginController {
-
-    protected UserService userService;
-    protected BaseController base;
     protected LoginFrame frame;
 
-    public abstract boolean sendLogin(String id, String password);
 
-    @Autowired
-    public LoginController(UserService userService, BaseController base){
-        this.userService = userService;
-        this.base = base;
-        frame = new LoginFrame(this);
+    public LoginController(ServiceLayer serviceLayer){
+        this.serviceLayer = serviceLayer;
+
+        this.mainController = new MainController(this.serviceLayer);
+        this.frame = new LoginFrame(this);
     }
 
-    public abstract void openMainScene();
+    public boolean sendLogin(String id, String password){
+        return this.serviceLayer.login(id, password);
+    }
 
     public void run(){
         this.frame.setVisible(true);
+    }
+
+    public void runMainScene(){
+        this.mainController.setBasePanel();
+        this.serviceLayer.runBase();
     }
 }

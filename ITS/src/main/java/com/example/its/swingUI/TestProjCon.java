@@ -1,21 +1,21 @@
-package com.example.its.swingUI;
+// package com.example.its.swingUI;
 
-import java.util.ArrayList;
+// import java.util.ArrayList;
 
-import com.example.its.dataClass.Issue;
+// import com.example.its.dataClass.Issue;
 
-public class TestProjCon extends ProjSceneController {
-    ArrayList<Issue> issueList = new ArrayList<>();
+// public class TestProjCon extends ProjectSceneController {
+//     ArrayList<Issue> issueList = new ArrayList<>();
 
-    TestProjCon(BaseController baseCon) {
-        super(baseCon);
-    }
+//     TestProjCon(BaseController baseCon) {
+//         super(baseCon);
+//     }
     
-    public Issue[] getIssueList(){
-        if(issueList == null){
-            return null;
-        }
+//     public Issue[] getIssueList(){
+//         if(issueList == null){
+//             return null;
+//         }
 
-        return issueList.toArray(new Issue[issueList.size()]);
-    }
-}
+//         return issueList.toArray(new Issue[issueList.size()]);
+//     }
+// }

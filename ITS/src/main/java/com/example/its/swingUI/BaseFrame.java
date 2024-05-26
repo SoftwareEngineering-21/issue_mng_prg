@@ -60,4 +60,8 @@ public class BaseFrame extends JFrame {
         this.revalidate();
         this.repaint();
     }
+
+	public boolean isEmptyMainPanel(){
+		return mainPanel.getComponentCount() != 1;
+	}
 }

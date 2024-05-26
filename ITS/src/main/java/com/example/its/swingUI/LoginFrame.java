@@ -29,10 +29,12 @@ public class LoginFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(controller.sendLogin(IDTextField.getText(), PasswordTextField.getText())){
-				controller.openMainScene();
+				System.out.println("Success!");
+				controller.runMainScene();
 				frame.dispose();
 			}
 			else{
+				System.out.println("Error : Id or Password is wrong.");
 				// Print Message
 			}
 		}

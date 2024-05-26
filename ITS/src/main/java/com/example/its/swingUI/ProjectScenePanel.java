@@ -24,7 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.BoxLayout;
 
 public class ProjectScenePanel extends JPanel {
-	ProjSceneController controller;
+	ProjectSceneController controller;
 
 	JLabel projecNameLabel;
 	JTextArea projectDescArea;
@@ -37,8 +37,8 @@ public class ProjectScenePanel extends JPanel {
 			
 		}
 	}
-
-    ProjectScenePanel(ProjSceneController controller){
+	
+    ProjectScenePanel(ProjectSceneController controller){
 		this.controller = controller;
 
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

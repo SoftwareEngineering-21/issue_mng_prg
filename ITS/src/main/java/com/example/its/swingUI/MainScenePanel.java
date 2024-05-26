@@ -32,7 +32,7 @@ public class MainScenePanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Open MakeProjectFrame");
-			controller.openMakeProj();
+			controller.runMakeProject();
 		}
 	}
 
@@ -68,8 +68,6 @@ public class MainScenePanel extends JPanel {
 		
 		Component verticalStrut = Box.createVerticalStrut(20);
 		add(verticalStrut, BorderLayout.SOUTH);
-
-		makeProjectList();
 	}
 
 	public void makeProjectList(){
@@ -167,7 +165,7 @@ public class MainScenePanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
 				System.out.println("Open ProjectInfo : " + index);
-				controller.openProject(index);
+				controller.runProjectScene(index);
 			}
 		}
 	}
