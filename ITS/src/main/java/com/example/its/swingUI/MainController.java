@@ -14,7 +14,7 @@ public abstract class MainController {
     public abstract void openMakeProj();
     public abstract void openProject(int index);
 
-    MainController(BaseController baseController){
+    protected MainController(BaseController baseController){
         this.baseController = baseController;
         this.panel = new MainScenePanel(this);
     }

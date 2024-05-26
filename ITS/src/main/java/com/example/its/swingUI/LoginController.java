@@ -1,6 +1,23 @@
 package com.example.its.swingUI;
 
-public interface LoginController {
-    public boolean sendLogin(String id, String password);
-    public void openMainScene();
+public abstract class LoginController {
+    protected BaseController base;
+    protected LoginFrame frame;
+
+    public abstract boolean sendLogin(String id, String password);
+
+    LoginController(){
+        
+    }
+
+    public LoginController(BaseController base){
+        this.base = base;
+        frame = new LoginFrame(this);
+    }
+
+    public abstract void openMainScene();
+
+    public void run(){
+        this.frame.setVisible(true);
+    }
 }

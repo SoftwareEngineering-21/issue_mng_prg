@@ -1,6 +1,10 @@
 package com.example.its.swingUI;
 
-public class TestLoginController implements LoginController {
+public class TestLoginController extends LoginController {
+    TestLoginController(BaseController base) {
+        super(base);
+    }
+
     @Override
     public boolean sendLogin(String id, String password) {
         if(id.isEmpty() || password.isEmpty()){

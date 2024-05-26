@@ -8,7 +8,9 @@ import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.example.its.database.DBService;
-import com.example.its.swingUI.TestController;
+import com.example.its.swingUI.RealLoginContr;
+import com.example.its.swingUI.TestBaseCon;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //@EnableAsync
@@ -22,8 +24,8 @@ public class ItsApplication implements CommandLineRunner {
         //기본 configuration 종료//
 
         ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
-        TestController controller = context.getBean(TestController.class);
-        //controller.run();
+        RealLoginContr controller = context.getBean(RealLoginContr.class);
+        controller.run();
     }
 
     //public TestController controller;

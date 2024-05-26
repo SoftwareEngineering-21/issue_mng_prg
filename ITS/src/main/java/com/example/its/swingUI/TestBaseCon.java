@@ -9,7 +9,7 @@ public class TestBaseCon implements BaseController {
     
     private ArrayList<JPanel> stack = new ArrayList<>();
 
-    TestBaseCon(){
+    public TestBaseCon(){
         frame = new BaseFrame();
         frame.setVisible(true);
     }    
