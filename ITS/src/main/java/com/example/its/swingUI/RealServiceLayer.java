@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.example.its.dataClass.Comment;
 import com.example.its.dataClass.Issue;
+import com.example.its.dataClass.IssueID;
 import com.example.its.dataClass.Project;
+import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
 
@@ -15,7 +18,7 @@ import com.example.its.logic.ProjectService;
 
 @Component
 public class RealServiceLayer extends ServiceLayer {
-    private UserID userID;
+    private UserID userId;
 
     protected UserService userService;
     protected ProjectService projectService;
@@ -42,13 +45,24 @@ public class RealServiceLayer extends ServiceLayer {
     }
 
     @Override
+    public boolean isExistID(String id) {
+        return false;
+    }
+
+    @Override
+    public boolean signUp(String id, String password) {
+        //return userService.createUser(id, password);
+        return true;
+    }
+
+    @Override
     public Project[] getProjectList() {
         if(projectService == null){
             System.out.println("Error! projectService is null");
             return null;
         }
 
-        List<Project> list = projectService.readProjects(new UserID("test"));
+        List<Project> list = projectService.readProjects(userId);
         return list.toArray(new Project[list.size()]);
     }
 
@@ -59,7 +73,7 @@ public class RealServiceLayer extends ServiceLayer {
         }
         
         try{
-            this.projectService.createProject(this.userID, title, Desc);
+            this.projectService.createProject(this.userId, title, Desc);
         }
         catch(Exception e){
             return false;
@@ -68,43 +82,43 @@ public class RealServiceLayer extends ServiceLayer {
     }
 
     @Override
-    public void addTester(User id) {
+    public boolean addTester(User id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addTester'");
     }
 
     @Override
-    public void addPlayer(User id) {
+    public boolean addPlayer(User id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addPlayer'");
     }
 
     @Override
-    public void addDeveloper(User id) {
+    public boolean addDeveloper(User id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addDeveloper'");
     }
 
     @Override
-    public User[] getTesterList() {
+    public User[] getTesterList(ProjectID projectId) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getTesterList'");
     }
 
     @Override
-    public User[] getPlayerList() {
+    public User[] getPlayerList(ProjectID projectId) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getPlayerList'");
     }
 
     @Override
-    public User[] getDeveloperList() {
+    public User[] getDeveloperList(ProjectID projectId) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getDeveloperList'");
     }
 
     @Override
-    public Issue[] getIssueList() {
+    public Issue[] getIssueList(ProjectID projectId) {
         if(this.projectService == null){
             return null;
         }
@@ -119,8 +133,26 @@ public class RealServiceLayer extends ServiceLayer {
     }
 
     @Override
-    public boolean makeIssue() {
+    public boolean makeIssue(String title, String desc) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'makeIssue'");
+    }
+
+    @Override
+    public Comment[] getCommentList(IssueID issueId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCommentList'");
+    }
+
+    @Override
+    public boolean addComment(String desc) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addComment'");
+    }
+
+    @Override
+    public boolean logout() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'logout'");
     }
 }
