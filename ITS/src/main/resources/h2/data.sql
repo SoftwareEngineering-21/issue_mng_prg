@@ -18,3 +18,4 @@ insert into ProjectDB(title, description, adminID) VALUES ( 'test2_title','desc'
 insert into ProjectDB(title, description, adminID) VALUES ( 'test3_title','desc','test3' );
 
 insert into AuthorityDB(userID, projectID, auth) VALUEs('test1',3,2);
+insert into AuthorityDB(userID, projectID, auth) VALUEs('test1',1,2);

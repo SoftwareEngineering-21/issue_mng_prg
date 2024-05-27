@@ -15,14 +15,38 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import lombok.RequiredArgsConstructor;
+
 public class MakeProjectFrame extends JFrame {
-	private SwingGUI gui;
+	private final MakeProjectController controller;
 
     private JTextField titleText;
     private JTextArea decsText;
 
-    MakeProjectFrame(SwingGUI swingGUI){
-		this.gui = swingGUI;
+	class PostButtonAction implements ActionListener{
+		JFrame frame;
+
+		PostButtonAction(JFrame frame){
+			this.frame = frame;
+		}
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Post to Server");
+			if(titleText.getText().length() <= 100){
+				controller.makeNewProject(titleText.getText(), decsText.getText());
+				titleText.setText("");
+				decsText.setText("");
+				frame.dispose();
+			}
+			else{
+				
+			}
+        }
+    }
+
+    MakeProjectFrame(MakeProjectController controller){
+		this.controller = controller;
 
 		setTitle("Make Project");
 		BorderLayout borderLayout = (BorderLayout) this.getContentPane().getLayout();
@@ -73,12 +97,9 @@ public class MakeProjectFrame extends JFrame {
 		getContentPane().add(verticalStrut, BorderLayout.SOUTH);
 	}
 
+	@RequiredArgsConstructor
     class BackButtonAction implements ActionListener{
-		JFrame frame;
-
-		BackButtonAction(JFrame frame){
-			this.frame = frame;
-		}
+		private final JFrame frame;
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -86,20 +107,5 @@ public class MakeProjectFrame extends JFrame {
 			frame.dispose();
         }
         
-    }
-
-    class PostButtonAction implements ActionListener{
-		JFrame frame;
-
-		PostButtonAction(JFrame frame){
-			this.frame = frame;
-		}
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Post to Server");
-			gui.makeNewProject(titleText.getText(), decsText.getText());
-			frame.dispose();
-        }
     }
 }
