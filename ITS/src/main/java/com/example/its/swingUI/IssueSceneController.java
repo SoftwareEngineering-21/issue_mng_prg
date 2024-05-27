@@ -1,10 +1,10 @@
 package com.example.its.swingUI;
 
-public abstract class IssueController {
-    protected BaseController baseCon;
+public abstract class IssueSceneController {
+    protected BaseFrameController baseCon;
     protected IssueScenePanel panel;
 
-    IssueController(BaseController baseCon){
+    IssueSceneController(BaseFrameController baseCon){
         this.baseCon = baseCon;
         panel = new IssueScenePanel(this);
     }

@@ -14,18 +14,17 @@ import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
 
 import com.example.its.logic.UserService;
+import com.example.its.status.StatusManager;
 import com.example.its.logic.ProjectService;
 
 @Component
-public class RealServiceLayer extends ServiceLayer {
-    private UserID userId;
-
+public class MainSwingController extends BaseController {
     protected UserService userService;
     protected ProjectService projectService;
     //protected IssueService issueService;
 
     @Autowired
-    RealServiceLayer(UserService userService, ProjectService projectService){
+    MainSwingController(UserService userService, ProjectService projectService){
         super();
         this.userService = userService;
         this.projectService = projectService;
@@ -62,7 +61,7 @@ public class RealServiceLayer extends ServiceLayer {
             return null;
         }
 
-        List<Project> list = projectService.readProjects(userId);
+        List<Project> list = projectService.readProjects(StatusManager.getInstance().getUser().getID());
         return list.toArray(new Project[list.size()]);
     }
 
@@ -73,7 +72,7 @@ public class RealServiceLayer extends ServiceLayer {
         }
         
         try{
-            this.projectService.createProject(this.userId, title, Desc);
+            this.projectService.createProject(StatusManager.getInstance().getUser().getID(), title, Desc);
         }
         catch(Exception e){
             return false;
@@ -100,25 +99,25 @@ public class RealServiceLayer extends ServiceLayer {
     }
 
     @Override
-    public User[] getTesterList(ProjectID projectId) {
+    public User[] getTesterList() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getTesterList'");
     }
 
     @Override
-    public User[] getPlayerList(ProjectID projectId) {
+    public User[] getPlayerList() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getPlayerList'");
     }
 
     @Override
-    public User[] getDeveloperList(ProjectID projectId) {
+    public User[] getDeveloperList() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getDeveloperList'");
     }
 
     @Override
-    public Issue[] getIssueList(ProjectID projectId) {
+    public Issue[] getIssueList() {
         if(this.projectService == null){
             return null;
         }
@@ -139,12 +138,6 @@ public class RealServiceLayer extends ServiceLayer {
     }
 
     @Override
-    public Comment[] getCommentList(IssueID issueId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCommentList'");
-    }
-
-    @Override
     public boolean addComment(String desc) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addComment'");
@@ -154,5 +147,11 @@ public class RealServiceLayer extends ServiceLayer {
     public boolean logout() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'logout'");
+    }
+
+    @Override
+    public Comment[] getCommentList() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCommentList'");
     }
 }

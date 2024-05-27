@@ -23,7 +23,7 @@ import javax.swing.border.LineBorder;
 import com.example.its.dataClass.User;
 
 public class ProjectAuthPanel extends JPanel {
-	private final ProjAuthController controller;
+	private final ProjAuthSceneController controller;
 
 	private JTextField TesterTextField;
 	private JTextField PlayerTextField;
@@ -33,7 +33,7 @@ public class ProjectAuthPanel extends JPanel {
     private JPanel PlayerInfoListPanel;
     private JPanel DeveloperInfoListPanel;
 
-    ProjectAuthPanel(ProjAuthController controller){
+    ProjectAuthPanel(ProjAuthSceneController controller){
 		this.controller = controller;
 
         JPanel ProjectNamePanel = new JPanel();

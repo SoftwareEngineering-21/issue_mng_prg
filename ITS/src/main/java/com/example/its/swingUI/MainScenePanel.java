@@ -23,7 +23,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MainScenePanel extends JPanel {
-	private final MainController controller;
+	private final MainSceneController controller;
 
 	private JPanel ProjectListPanel;
 	private GridBagLayout gbl_ProjectListPanel;
@@ -36,7 +36,7 @@ public class MainScenePanel extends JPanel {
 		}
 	}
 
-    MainScenePanel(MainController controller){
+    MainScenePanel(MainSceneController controller){
 		this.controller = controller;
 
         setLayout(new BorderLayout(0, 5));

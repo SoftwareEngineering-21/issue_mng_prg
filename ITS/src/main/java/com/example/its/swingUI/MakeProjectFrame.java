@@ -18,7 +18,7 @@ import javax.swing.SwingConstants;
 import lombok.RequiredArgsConstructor;
 
 public class MakeProjectFrame extends JFrame {
-	private final MakeProjectController controller;
+	private final MakeProjectFrameController controller;
 
     private JTextField titleText;
     private JTextArea decsText;
@@ -45,7 +45,7 @@ public class MakeProjectFrame extends JFrame {
         }
     }
 
-    MakeProjectFrame(MakeProjectController controller){
+    MakeProjectFrame(MakeProjectFrameController controller){
 		this.controller = controller;
 
 		setTitle("Make Project");

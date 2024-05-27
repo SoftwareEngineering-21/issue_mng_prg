@@ -2,7 +2,7 @@ package com.example.its.swingUI;
 
 import com.example.its.dataClass.User;
 
-public abstract class ProjAuthController {
+public abstract class ProjAuthSceneController {
     public abstract void addTester(User id);
     public abstract void addPlayer(User id);
     public abstract void addDeveloper(User id);

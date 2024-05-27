@@ -16,7 +16,7 @@ import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.database.user.UserDBService;
-import com.example.its.swingUI.RealServiceLayer;
+import com.example.its.swingUI.MainSwingController;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,7 +33,7 @@ public class ItsDevApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(ItsDevApplication.class, args);
         ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
-        RealServiceLayer controller = context.getBean(RealServiceLayer.class);
+        MainSwingController controller = context.getBean(MainSwingController.class);
 
         controller.run();
     }

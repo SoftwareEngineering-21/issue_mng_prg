@@ -5,10 +5,10 @@ import com.example.its.dataClass.ProjectID;
 
 
 //MainScene을 위한 기능이 담긴 interface입니다. 추후에 다른 이름으로 수정될 수 있습니다.
-public class MainController {
-    private ServiceLayer serviceLayer;
+public class MainSceneController {
+    private BaseController baseController;
 
-    protected MakeProjectController makeProjectController;
+    protected MakeProjectFrameController makeProjectController;
     protected ProjectSceneController projSceneController;
     
     protected MainScenePanel panel;
@@ -16,17 +16,17 @@ public class MainController {
     protected ProjectID[] projectIdList;
 
 
-    protected MainController(ServiceLayer serviceLayer){
-        this.serviceLayer = serviceLayer;
+    protected MainSceneController(BaseController baseController){
+        this.baseController = baseController;
 
-        this.makeProjectController = new MakeProjectController(this.serviceLayer);
-        this.projSceneController = new ProjectSceneController(this.serviceLayer);
+        this.makeProjectController = new MakeProjectFrameController(this.baseController);
+        this.projSceneController = new ProjectSceneController(this.baseController);
 
         this.panel = new MainScenePanel(this);
     }
 
     public Project[] getProjectList(){
-        Project[] list = this.serviceLayer.getProjectList();
+        Project[] list = this.baseController.getProjectList();
         this.projectIdList = new ProjectID[list.length];
         for (int i = 0; i < list.length; i++) {
             this.projectIdList[i] = list[i].getProjectID();
@@ -40,7 +40,7 @@ public class MainController {
     }
     
     public void runProjectScene(int index){
-        Project[] list = this.serviceLayer.getProjectList();
+        Project[] list = this.baseController.getProjectList();
 
         if(list == null){
             System.out.println("Error!");
@@ -60,6 +60,6 @@ public class MainController {
 
     public void setBasePanel(){
         panel.makeProjectList();
-        this.serviceLayer.setBasePanel(panel);
+        this.baseController.setBasePanel(panel);
     }
 }

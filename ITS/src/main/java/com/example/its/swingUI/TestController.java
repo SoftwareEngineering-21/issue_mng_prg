@@ -12,7 +12,8 @@ import com.example.its.dataClass.Comment;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.IssueID;
 
-public class TestServiceLayer extends ServiceLayer {
+@Deprecated
+public class TestController extends BaseController {
     ArrayList<User> userList = new ArrayList<>();
 
     ArrayList<User> testerList = new ArrayList<>();
@@ -81,22 +82,22 @@ public class TestServiceLayer extends ServiceLayer {
     }
 
     @Override
-    public User[] getTesterList(ProjectID projectId) {
+    public User[] getTesterList() {
         return testerList.toArray(new User[testerList.size()]);
     }
 
     @Override
-    public User[] getPlayerList(ProjectID projectId) {
+    public User[] getPlayerList() {
         return playerList.toArray(new User[playerList.size()]);
     }
 
     @Override
-    public User[] getDeveloperList(ProjectID projectId) {
+    public User[] getDeveloperList() {
         return developerList.toArray(new User[developerList.size()]);
     }
 
     @Override
-    public Issue[] getIssueList(ProjectID projectId) {
+    public Issue[] getIssueList() {
                 if(issueList == null){
                     return null;
                 }
@@ -106,12 +107,11 @@ public class TestServiceLayer extends ServiceLayer {
 
     @Override
     public boolean makeIssue(String title, String desc) {
-        issueList.add(new Issue(null, title, desc, 0, userId, userId, userId, 0));
         return true;
     }
 
     @Override
-    public Comment[] getCommentList(IssueID issueId) {
+    public Comment[] getCommentList() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getCommentList'");
     }

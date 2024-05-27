@@ -5,21 +5,21 @@ import com.example.its.dataClass.Project;
 import com.example.its.dataClass.ProjectID;
 
 public class ProjectSceneController {
-    private ServiceLayer serviceLayer;
-    protected IssueController issueController;
+    private BaseController baseController;
+    protected IssueSceneController issueSceneController;
 
     protected ProjectScenePanel panel;
 
     protected ProjectID projectId;
 
-    public ProjectSceneController(ServiceLayer serviceLayer){
-        this.serviceLayer = serviceLayer;
+    public ProjectSceneController(BaseController baseController){
+        this.baseController = baseController;
 
         this.panel = new ProjectScenePanel(this);
     }
 
     public Issue[] getIssueList(){
-        return serviceLayer.getIssueList(projectId);
+        return baseController.getIssueList();
     }
 
     public void setProjectPanel(Project project){
@@ -29,6 +29,6 @@ public class ProjectSceneController {
     }
 
     public void setBasePanel(){
-        this.serviceLayer.setBasePanel(panel);
+        this.baseController.setBasePanel(panel);
     }
 }
