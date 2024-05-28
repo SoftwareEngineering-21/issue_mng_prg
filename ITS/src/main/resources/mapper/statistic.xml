@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.its.database.statistic.StatisticDBMapper">
+
+    <!-- 소유한 모든 프로젝트를 집계한 통계
+단위 시간 동안 올라온 프로젝트별 이슈 개수(줄글로 전체 이슈 개수)
+
+프로젝트 내부에서 확인하는 통계
+단위 시간 동안 올라온 이슈 종류별 개수
+이슈 상태 및 이슈 종류 따른 개발자에게 할당된 이슈 개수
+이슈별 코멘트 개수 (상위 3개 보여주기. or 줄글도 가능)
+이슈 종류에 따른 코멘트 개수(평균치)
+-->
+    <select id="readAllofUploadIssue" resultType="java.util.Map">
+        SELECT
+            projectIDFK as projectID,
+            COUNT(*) as issueCount
+        FROM
+            PIRelationDB
+        WHERE
+            projectIDFK IN
+            <foreach item="projectIDFK" collection="projectIDList" open="(" separator="," close=")">
+                #{projectIDFK}
+            </foreach>
+        AND 
+            issueIDFK IN (
+                SELECT
+                    ID
+                FROM
+                    IssueDB
+                WHERE
+                    createdAt BETWEEN #{startTime} AND #{endTime}
+            )
+        GROUP BY
+            projectIDFK
+        ORDER BY
+            issueCount DESC
+    </select>
+
+</mapper>
