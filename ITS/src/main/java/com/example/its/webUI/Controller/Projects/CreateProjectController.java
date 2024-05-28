@@ -18,8 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class CreateProjectController {
 
     private UserID user(){
-        return StatusManager.getInstance().getUser().getID();
-//        return new UserID("test1");
+        return StatusManager.getInstance().getUser();
     }
 
     private final ProjectService projectService;

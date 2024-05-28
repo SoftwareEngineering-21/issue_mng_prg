@@ -127,11 +127,12 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-12">
+
             <div class = "projectsHeader">
-
                 <h1>Project Authority Manger</h1>
-
             </div>
+
+
             <div class="card-container">
                 <div class="card" >
                     <div class="card-body">
@@ -140,49 +141,35 @@
                     </div>
                 </div>
             </div>
-
-            <div class="card-container">
-                <div class="card card-head">
-                    <div class="card-body table">
-                        <div class=" row d-flex justify-content-between center-align">
-
-                            <h3> tester</h3>
-                            <div class="col-md-9">
-                                <input  id = "tester" class="form-control form-control-custom">
-                            </div>
-                            <div class = "custom">
-                                <a class ="custom" href="/register" >Register</a>
+            <form>
+                <div class="card-container">
+                    <div class="card-head card">
+                        <div class="card-body table">
+                            <div class=" row d-flex justify-content-between center-align">
+                                <h3> tester</h3>
+                                <div class="col-md-9">
+                                    <input  id ="tester" type="text" class="form-control form-control-custom">
+                                </div>
+                                <button type ="submit" class ="custom" >add user</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
+
             <div class="card-container">
-                <div class="card card-custom" >
+                <div class="card-custom card " th:each= "user : ${testList}" >
                     <div class="card-body">
                         <div class=" row d-flex justify-content-between center-align">
-
                             <h3> tester</h3>
                             <div class="custom custom-delete">
-                                <a class ="custom custom-delete" href="/register" >Register</a>
+                                <a class ="custom custom-delete" href="/register" >delete</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card-container">
-                <div class="card card-custom" >
-                    <div class="card-body">
-                        <div class=" row d-flex justify-content-between center-align">
 
-                            <h3> tester</h3>
-                            <div class="custom custom-delete">
-                                <a class ="custom custom-delete" href="/register" >Register</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

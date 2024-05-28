@@ -1,5 +1,14 @@
 package com.example.its.webUI.Controller.Projects;
 
+import com.example.its.dataClass.Authority;
+import com.example.its.dataClass.ProjectID;
+import com.example.its.dataClass.UserID;
+import com.example.its.database.DBService;
+import com.example.its.logic.AuthorityService;
+import com.example.its.status.StatusManager;
+import com.example.its.webUI.Controller.MainController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,13 +16,36 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/projects/admin")
+@RequiredArgsConstructor
 public class ProjectAdminController {
-    @GetMapping("/projectID={projectId}")
-    public String projectAdmin(@PathVariable("projectId") String projectID, Model model) {
-        return "project_admin";
 
+    private final AuthorityService service;
+
+    @GetMapping("/projectid={projectID}")
+    public String projectAdmin(@PathVariable("projectID") int projectID, Model model) {
+        if(MainController.isUserLogin()== null){
+            return "redirect:/";
+        }
+        StatusManager.getInstance().setProject(new ProjectID(projectID));
+        List<List<UserID>> list = service.readAuthorityListbyProject(StatusManager.getInstance().getProject());
+        model.addAttribute("projectID", projectID);
+        model.addAttribute("testerList", list.get(Authority.AuthorityID.TESTER.ordinal()));
+        model.addAttribute("playerList", list.get(Authority.AuthorityID.PLAYER.ordinal()));
+        model.addAttribute("developerList", list.get(Authority.AuthorityID.DEVELOPER.ordinal()));
+        return "project_admin";
+    }
+
+    @GetMapping("/projectid={projectID}/tester={userID}")
+    public String ProjectAdminTester(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) {
+        if(MainController.isUserLogin()== null){
+            return "redirect:/";
+        }
+        service.createAuthority(StatusManager.getInstance().getUser(),StatusManager.getInstance().getProject(), Authority.AuthorityID.TESTER.ordinal());
+        return "redirect:/projectid="+projectID;
     }
 
 }

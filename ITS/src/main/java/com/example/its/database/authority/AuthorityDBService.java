@@ -41,9 +41,6 @@ public class AuthorityDBService {
                 case 2:
                     nowAuthList2.add(new UserID(auth.getUserID()));
                     break;
-
-
-
             }
         }
         nowAllAuthList.add(nowAuthList0);

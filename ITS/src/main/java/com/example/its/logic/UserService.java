@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService{
 
-    private final UserDBService userDBService;
     private final DBService service;
 
 
@@ -50,13 +49,15 @@ public class UserService{
         else{
             String EncodePW = session.getPassword();
             if(isMatch(EncodePW, password)){
-                StatusManager.getInstance().setUser(new User(user.getID()));
+                StatusManager.getInstance().setUser(user);
 
                 return true;
             }
             else return false;
         }
     }
+
+
 
     public void logout(){
         StatusManager.getInstance().setUser(null);
