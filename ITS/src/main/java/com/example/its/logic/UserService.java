@@ -5,6 +5,8 @@ import com.example.its.dataClass.UserID;
 import com.example.its.dataClass.UserSession;
 import com.example.its.database.DBService;
 import com.example.its.database.user.UserDBService;
+import com.example.its.logic.encoder.BCryptEncrypter;
+import com.example.its.logic.encoder.Encryptor;
 import com.example.its.status.StatusManager;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -20,7 +22,7 @@ public class UserService{
     private final DBService service;
 
 
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final Encryptor passwordEncoder;
 
     private String encodePW(String password){
         return passwordEncoder.encode(password);
