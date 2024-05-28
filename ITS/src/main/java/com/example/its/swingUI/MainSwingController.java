@@ -82,38 +82,32 @@ public class MainSwingController extends BaseController {
 
     @Override
     public boolean addTester(User id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addTester'");
+        return true;
     }
 
     @Override
     public boolean addPlayer(User id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addPlayer'");
+        return true;
     }
 
     @Override
     public boolean addDeveloper(User id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addDeveloper'");
+        return true;
     }
 
     @Override
     public User[] getTesterList() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTesterList'");
+        return null;
     }
 
     @Override
     public User[] getPlayerList() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPlayerList'");
+        return null;
     }
 
     @Override
     public User[] getDeveloperList() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDeveloperList'");
+        return null;
     }
 
     @Override
@@ -145,13 +139,37 @@ public class MainSwingController extends BaseController {
 
     @Override
     public boolean logout() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'logout'");
+        userService.logout();
+        return true;
     }
 
     @Override
     public Comment[] getCommentList() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getCommentList'");
+    }
+
+    @Override
+    public boolean deleteTester(User id) {
+        return false;
+    }
+
+    @Override
+    public boolean deletePlayer(User id) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteDeveloper(User id) {
+        return false;
+    }
+
+    @Override
+    public Project[] getAdminProjectList() {
+        List<Project> projects = this.projectService.readAdminProjects(StatusManager.getInstance().getUser().getID());
+        if(projects == null){
+            return null;
+        }
+        return projects.toArray(new Project[projects.size()]);
     }
 }

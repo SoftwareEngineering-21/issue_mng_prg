@@ -1,18 +1,21 @@
 package com.example.its.swingUI;
 
 public class MakeProjectFrameController {
-    BaseController serviceLayer;
+    BaseController baseController;
+    MainSceneController controller;
 
     MakeProjectFrame frame;
 
-    MakeProjectFrameController(BaseController serviceLayer){
-        this.serviceLayer = serviceLayer;
+    MakeProjectFrameController(BaseController baseController, MainSceneController controller){
+        this.baseController = baseController;
+        this.controller = controller;
 
         frame = new MakeProjectFrame(this);
     }
 
     public void makeNewProject(String title, String desc){
-        this.serviceLayer.makeProject(title, desc);
+        this.baseController.makeProject(title, desc);
+        this.controller.makeProjectList();
     }
 
     public void run(){

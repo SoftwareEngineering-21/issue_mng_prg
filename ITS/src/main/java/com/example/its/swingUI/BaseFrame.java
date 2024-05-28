@@ -2,6 +2,8 @@ package com.example.its.swingUI;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -11,9 +13,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class BaseFrame extends JFrame {
+	private BaseFrameController controller;
+
     private JPanel mainPanel;
 
-    BaseFrame(){
+	class LogOutButtonAction implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			controller.logout();
+		}
+	}
+
+    BaseFrame(BaseFrameController controller){
+		this.controller = controller;
+
         this.setLayout(new BorderLayout(0,5));
 		this.setBounds(100, 100, 1000, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,6 +52,7 @@ public class BaseFrame extends JFrame {
 		panel.add(horizontalStrut_5);
 		
 		JButton btnNewButton = new JButton("LogOut");
+		btnNewButton.addActionListener(new LogOutButtonAction());
 		panel.add(btnNewButton);
 		
 		Component horizontalStrut_6 = Box.createHorizontalStrut(20);

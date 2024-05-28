@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import java.awt.Component;
+
+import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
 
@@ -31,14 +33,30 @@ public class ProjectScenePanel extends JPanel {
 
 	JPanel IssueListPanel;
 
-	class NewIssueButtonAction implements ActionListener{
+	class NewIssueButtonAction implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
 		}
 	}
+
+	class StatisticButtonAction implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+		}
+	}
+
+	class settingButtonAction implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			controller.runProjAuthPanel();
+		}
+		
+	}
 	
-    ProjectScenePanel(ProjectSceneController controller){
+    ProjectScenePanel(ProjectSceneController controller) {
 		this.controller = controller;
 
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -72,6 +90,18 @@ public class ProjectScenePanel extends JPanel {
 		projectDescArea.setLineWrap(true);
 		projectDescArea.setEditable(false);;
 		scrollPane.add(projectDescArea);
+
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+		add(buttonPanel);
+
+		JButton statisticButton = new JButton("Statistc");
+		statisticButton.addActionListener(new StatisticButtonAction());
+		buttonPanel.add(statisticButton);
+
+		JButton settingButton = new JButton("Setting");
+		settingButton.addActionListener(new settingButtonAction());
+		buttonPanel.add(settingButton);
 
 		Component verticalStrut = Box.createVerticalStrut(20);
 		add(verticalStrut);
@@ -117,7 +147,7 @@ public class ProjectScenePanel extends JPanel {
 		makeIssueList();
 	}
 
-	void setProjInfo(Project project){
+	void setProjInfo(Project project) {
 		projecNameLabel.setText(project.getTitle());
 		projectDescArea.setText(project.getDescription());
 	}
@@ -126,7 +156,7 @@ public class ProjectScenePanel extends JPanel {
 		Issue[] issueList = controller.getIssueList();
 		int length = 0;
 
-		if(issueList != null){
+		if(issueList != null) {
 			length = issueList.length;
 		}
 
@@ -141,7 +171,7 @@ public class ProjectScenePanel extends JPanel {
 		IssuePanel IssuePanel[] = new IssuePanel[size];
 		for(int i = 0; i < size; i++) {
 			gbl_IssueListPanel.rowHeights[i] = 32;
-			if(i < length){
+			if(i < length) {
 				IssuePanel[i] = new IssuePanel(IssueListPanel, i, issueList[i].getTitle(), issueList[i].getDescription());
 			}
 		}

@@ -4,14 +4,10 @@ import javax.swing.JPanel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.its.dataClass.Comment;
-import com.example.its.dataClass.Issue;
-import com.example.its.dataClass.IssueID;
-import com.example.its.dataClass.Project;
-import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.User;
-import com.example.its.dataClass.UserID;
-import com.example.its.status.StatusManager;
+import com.example.its.dataClass.Project;
+import com.example.its.dataClass.Issue;
+import com.example.its.dataClass.Comment;
 
 public abstract class BaseController {
     protected BaseFrameController baseFrameController;
@@ -19,7 +15,7 @@ public abstract class BaseController {
 
     @Autowired
     protected BaseController() {
-        this.baseFrameController = new BaseFrameController();
+        this.baseFrameController = new BaseFrameController(this);
         this.loginFrameController = new LoginFrameController(this);
     }
 
@@ -32,11 +28,16 @@ public abstract class BaseController {
 
     //프로젝트 관련
     public abstract Project[] getProjectList();
+    public abstract Project[] getAdminProjectList();
     public abstract boolean makeProject(String title, String Desc);
 
     public abstract boolean addTester(User id);
     public abstract boolean addPlayer(User id);
     public abstract boolean addDeveloper(User id);
+
+    public abstract boolean deleteTester(User id);
+    public abstract boolean deletePlayer(User id);
+    public abstract boolean deleteDeveloper(User id);
 
     public abstract User[] getTesterList();
     public abstract User[] getPlayerList();

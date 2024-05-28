@@ -8,19 +8,31 @@ import javax.swing.JPanel;
 
 @Component
 public class BaseFrameController {
+    protected BaseController controller;
+
     private BaseFrame frame;
     private ArrayList<JPanel> stack = new ArrayList<>();
 
-    public BaseFrameController(){
-        this.frame = new BaseFrame();
+    public BaseFrameController(BaseController controller){
+        this.controller = controller;
+
+        this.frame = new BaseFrame(this);
+    }
+
+    public boolean logout(){
+        return controller.logout();
     }
 
     public void run(){
         if(frame == null){
-            this.frame = new BaseFrame();
+            this.frame = new BaseFrame(this);
         }
 
         frame.setVisible(true);
+    }
+
+    public void setVisible(boolean turn){
+        this.frame.setVisible(turn);
     }
     
     public void setPanel(JPanel targetPanel){

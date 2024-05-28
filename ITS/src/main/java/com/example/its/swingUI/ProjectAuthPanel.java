@@ -33,13 +33,46 @@ public class ProjectAuthPanel extends JPanel {
     private JPanel PlayerInfoListPanel;
     private JPanel DeveloperInfoListPanel;
 
+	class PostButtonAction implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		}
+	}
+
+	class AddTesterAction implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			controller.addTester(TesterTextField.getText());
+			setTesterList();
+		}
+	}
+
+	class AddPlayerAction implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			controller.addPlayer(PlayerTextField.getText());
+			setPlayerList();
+		}
+	}
+
+	class AddDeveloperAction implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			controller.addDeveloper(DeveloperTextFeild.getText());
+			setDeveloperList();
+		}
+		
+	}
+
     ProjectAuthPanel(ProjAuthSceneController controller){
 		this.controller = controller;
 
+		setLayout(new BorderLayout());
+
         JPanel ProjectNamePanel = new JPanel();
-		add(ProjectNamePanel, BorderLayout.NORTH);
 		ProjectNamePanel.setLayout(new BoxLayout(ProjectNamePanel, BoxLayout.X_AXIS));
-		
+		add(ProjectNamePanel, BorderLayout.NORTH);
+
 		Component rigidArea = Box.createRigidArea(new Dimension(20, 40));
 		ProjectNamePanel.add(rigidArea);
 		
@@ -49,13 +82,14 @@ public class ProjectAuthPanel extends JPanel {
 		Component horizontalGlue = Box.createHorizontalGlue();
 		ProjectNamePanel.add(horizontalGlue);
 		
-		JButton BackButton = new JButton("Back");
-		ProjectNamePanel.add(BackButton);
+		// JButton BackButton = new JButton("Back");
+		// ProjectNamePanel.add(BackButton);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		ProjectNamePanel.add(horizontalStrut);
 		
 		JButton PostButton = new JButton("Post");
+		PostButton.addActionListener(new PostButtonAction());
 		ProjectNamePanel.add(PostButton);
 		
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
@@ -94,6 +128,7 @@ public class ProjectAuthPanel extends JPanel {
 		Test.add(horizontalStrut_3);
 		
 		JButton TesterAddButton = new JButton("Add");
+		TesterAddButton.addActionListener(new AddTesterAction());
 		Test.add(TesterAddButton);
 		
 		Component horizontalStrut_4 = Box.createHorizontalStrut(20);
@@ -128,8 +163,9 @@ public class ProjectAuthPanel extends JPanel {
 		Component horizontalStrut_3_1 = Box.createHorizontalStrut(20);
 		Player.add(horizontalStrut_3_1);
 		
-		JButton PlayerAddButton_1 = new JButton("Add");
-		Player.add(PlayerAddButton_1);
+		JButton PlayerAddButton = new JButton("Add");
+		PlayerAddButton.addActionListener(new AddPlayerAction());
+		Player.add(PlayerAddButton);
 		
 		Component horizontalStrut_4_1 = Box.createHorizontalStrut(20);
 		Player.add(horizontalStrut_4_1);
@@ -137,12 +173,6 @@ public class ProjectAuthPanel extends JPanel {
 		PlayerInfoListPanel = new JPanel();
 		PlayerInfoListPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		PlayerPanel.add(PlayerInfoListPanel);
-		GridBagLayout gbl_PlayerInfoListPanel = new GridBagLayout();
-		gbl_PlayerInfoListPanel.columnWidths = new int[] {0};
-		gbl_PlayerInfoListPanel.rowHeights = new int[] {30, 30};
-		gbl_PlayerInfoListPanel.columnWeights = new double[]{1.0};
-		gbl_PlayerInfoListPanel.rowWeights = new double[]{0.0, 1.0};
-		PlayerInfoListPanel.setLayout(gbl_PlayerInfoListPanel);
 		
 		JPanel DeveloperPanel = new JPanel();
 		AuthorityPanel.add(DeveloperPanel);
@@ -170,6 +200,7 @@ public class ProjectAuthPanel extends JPanel {
 		Developer.add(horizontalStrut_3_1_1);
 		
 		JButton DeveloperAddButton = new JButton("Add");
+		DeveloperAddButton.addActionListener(new AddDeveloperAction());
 		Developer.add(DeveloperAddButton);
 		
 		Component horizontalStrut_4_1_1 = Box.createHorizontalStrut(20);
@@ -178,42 +209,122 @@ public class ProjectAuthPanel extends JPanel {
 		DeveloperInfoListPanel = new JPanel();
 		DeveloperInfoListPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		DeveloperPanel.add(DeveloperInfoListPanel);
-		GridBagLayout gbl_DeveloperInfoListPanel = new GridBagLayout();
-		gbl_DeveloperInfoListPanel.columnWidths = new int[] {0};
-		gbl_DeveloperInfoListPanel.rowHeights = new int[] {30, 30};
-		gbl_DeveloperInfoListPanel.columnWeights = new double[]{1.0};
-		gbl_DeveloperInfoListPanel.rowWeights = new double[]{0.0, 1.0};
-		DeveloperInfoListPanel.setLayout(gbl_DeveloperInfoListPanel);
-
-        setList();
     }
 
     void setList(){
-		TesterInfoListPanel.removeAll();
-		PlayerInfoListPanel.removeAll();
-		DeveloperInfoListPanel.removeAll();
-
-		User testers[] = controller.getTesterList();
-		GridBagLayout gbl_TesterInfoListPanel = new GridBagLayout();
-		gbl_TesterInfoListPanel.columnWidths = new int[] {0};
-		gbl_TesterInfoListPanel.rowHeights = new int[testers.length];
-		gbl_TesterInfoListPanel.columnWeights = new double[]{1.0};
-		gbl_TesterInfoListPanel.rowWeights = new double[]{1.0, 1.0};
-
-		for(int i = 0; i < testers.length; i++){
-			gbl_TesterInfoListPanel.rowHeights[i] = 30;
-			new TesterInfoPanel(TesterInfoListPanel, "Tester Name", i);
-		}
-		TesterInfoListPanel.setLayout(gbl_TesterInfoListPanel);
-
-
+		setTesterList();
+		setPlayerList();
+		setDeveloperList();
 
         revalidate();
         repaint();
     }
 
+	void setTesterList() {
+		TesterInfoListPanel.removeAll();
+
+		User testers[] = controller.getTesterList();
+		int length = 0;
+
+		if(testers != null){
+			length = testers.length;
+		}
+
+		int size = length > 3 ? length : 3;
+
+		GridBagLayout gbl_TesterInfoListPanel = new GridBagLayout();
+		gbl_TesterInfoListPanel.columnWidths = new int[] {0};
+		gbl_TesterInfoListPanel.rowHeights = new int[size + 1];
+		gbl_TesterInfoListPanel.columnWeights = new double[]{1.0};
+		gbl_TesterInfoListPanel.rowWeights = new double[size + 1];
+		TesterInfoListPanel.setLayout(gbl_TesterInfoListPanel);
+
+		for(int i = 0; i < size; i++){
+			gbl_TesterInfoListPanel.rowHeights[i] = 30;
+			gbl_TesterInfoListPanel.rowWeights[i] = 30;
+			if(i < length){
+				new TesterInfoPanel(TesterInfoListPanel, testers[i].getID().getID(), i);
+			}
+		}
+
+		gbl_TesterInfoListPanel.rowHeights[size] = 30;
+		gbl_TesterInfoListPanel.rowWeights[size] = 30;
+		revalidate();
+        repaint();
+	}
+
+	void setPlayerList() {
+		PlayerInfoListPanel.removeAll();
+
+		User players[] = controller.getPlayerList();
+		int length = 0;
+
+		if(players != null){
+			length = players.length;
+		}
+
+		int size = length > 3 ? length : 3;
+
+		GridBagLayout gbl_PlayerInfoListPanel = new GridBagLayout();
+		gbl_PlayerInfoListPanel.columnWidths = new int[] {0};
+		gbl_PlayerInfoListPanel.rowHeights = new int[size + 1];
+		gbl_PlayerInfoListPanel.columnWeights = new double[]{1.0};
+		gbl_PlayerInfoListPanel.rowWeights = new double[size + 1];
+		PlayerInfoListPanel.setLayout(gbl_PlayerInfoListPanel);
+
+		for(int i = 0; i < size; i++){
+			gbl_PlayerInfoListPanel.rowHeights[i] = 30;
+			gbl_PlayerInfoListPanel.rowWeights[i] = 0;
+			if(i < length) {
+				new PlayerInfoPanel(PlayerInfoListPanel, players[i].getID().getID(), i);
+			}
+		}
+
+		gbl_PlayerInfoListPanel.rowHeights[size] = 0;
+		gbl_PlayerInfoListPanel.rowWeights[size] = Double.MIN_VALUE;
+		revalidate();
+        repaint();
+	}
+
+	void setDeveloperList() {
+		DeveloperInfoListPanel.removeAll();
+		
+		User developers[] = controller.getDeveloperList();
+		int length = 0;
+
+		if(developers != null){
+			length = developers.length;
+		}
+
+		int size = length > 3 ? length : 3;
+		GridBagLayout gbl_DeveloperInfoListPanel = new GridBagLayout();
+		gbl_DeveloperInfoListPanel.columnWidths = new int[] {0};
+		gbl_DeveloperInfoListPanel.rowHeights = new int[size + 1];
+		gbl_DeveloperInfoListPanel.columnWeights = new double[]{1.0};
+		gbl_DeveloperInfoListPanel.rowWeights = new double[size + 1];
+		DeveloperInfoListPanel.setLayout(gbl_DeveloperInfoListPanel);
+
+		for(int i = 0; i < size; i++){
+			gbl_DeveloperInfoListPanel.rowHeights[i] = 30;
+			gbl_DeveloperInfoListPanel.rowWeights[i] = 0;
+			if(i < length){
+				new DeveloperInfoPanel(DeveloperInfoListPanel, developers[i].getID().getID(), i);
+			}
+		}
+
+		gbl_DeveloperInfoListPanel.rowHeights[size] = 0;
+		gbl_DeveloperInfoListPanel.rowWeights[size] = Double.MIN_VALUE;
+
+		revalidate();
+        repaint();
+	}
+
     class TesterInfoPanel extends JPanel{
+		int index;
+
         TesterInfoPanel(JPanel ListPanel, String name, int index){
+			this.index = index;
+
             setBorder(new LineBorder(new Color(0, 0, 0)));
             GridBagConstraints gbc_TesterInfoPanel = new GridBagConstraints();
             gbc_TesterInfoPanel.insets = new Insets(5, 0, 0, 0);
@@ -243,13 +354,19 @@ public class ProjectAuthPanel extends JPanel {
         class DeleteTesterAction implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent e) {
-
+				if(controller.deleteTester(index)){
+					System.out.println("Complete Delete");
+				}
             }
         }
     }
 
     class PlayerInfoPanel extends JPanel{
+		int index;
+
         PlayerInfoPanel(JPanel ListPanel, String name, int index){
+			this.index = index;
+
             setBorder(new LineBorder(new Color(0, 0, 0)));
             GridBagConstraints gbc_PlayerInfoPanel = new GridBagConstraints();
             gbc_PlayerInfoPanel.insets = new Insets(5, 0, 0, 0);
@@ -279,13 +396,19 @@ public class ProjectAuthPanel extends JPanel {
         class DeletePlayerAction implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent e) {
-
+				if(controller.deletePlayer(index)){
+					System.out.println("Complete Delete");
+				}
             }
         }
     }
 
     class DeveloperInfoPanel extends JPanel{
+		int index;
+		
         DeveloperInfoPanel(JPanel ListPanel, String name, int index){
+			this.index = index;
+
             setBorder(new LineBorder(new Color(0, 0, 0)));
             GridBagConstraints gbc_DeveloperInfoPanel = new GridBagConstraints();
             gbc_DeveloperInfoPanel.fill = GridBagConstraints.BOTH;
@@ -315,7 +438,9 @@ public class ProjectAuthPanel extends JPanel {
         class DeleteDeveloperAction implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent e) {
-
+				if(controller.deleteDeveloper(index)){
+					System.out.println("Complete Delete");
+				}
             }
             
         }

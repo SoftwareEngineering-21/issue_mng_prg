@@ -22,6 +22,10 @@ public class LoginFrameController {
         this.frame.setVisible(true);
     }
 
+    public void setVisible(boolean turn){
+        this.frame.setVisible(turn);
+    }
+
     public void runMainScene(){
         this.mainSceneController.setBasePanel();
         this.baseController.runBase();
