@@ -29,7 +29,7 @@ public class MainController {
     }
 
     @GetMapping("/test")
-    public String test() {
+    public String test(@RequestParam(name = "tester", required = false)String tester  ) {
         return "test/testLayout";
     }
 
