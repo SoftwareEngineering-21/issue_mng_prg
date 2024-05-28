@@ -124,11 +124,16 @@
         }
         function redirectWithDeveloper(event){
             event.preventDefault();
-            var developerValue = document.getElementById("player").value;
+            var developerValue = document.getElementById("developer").value;
 
             var projectID = [[${projectID}]];
             window.location.href = "/projects/admin/projectid=" + projectID + "/developer=" + developerValue;
         }
+    </script>
+    <script th:inline="javascript">
+        var success = [[${success}]];
+        if(!success)
+            alert("권한 추가 실패 : 유저 아이디를 확인해주세요.");
     </script>
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}">
@@ -228,7 +233,7 @@
                                 <div class="col-md-9">
                                     <input id ="developer" type="text" class="form-control form-control-custom"/>
                                 </div>
-                                <button type="submit" onclick="redirectWithTester(event)" class ="custom" >add user</button>
+                                <button type="submit" onclick="redirectWithDeveloper(event)" class ="custom" >add user</button>
                             </div>
                         </form>
 

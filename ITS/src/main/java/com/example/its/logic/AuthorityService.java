@@ -26,10 +26,13 @@ public class AuthorityService {
         }
     }
 
-    public void createAuthority(UserID userID, ProjectID projectID, Authority.AuthorityID authority){
+    public boolean createAuthority(UserID userID, ProjectID projectID, Authority.AuthorityID authority){
+        if(service.readUser(userID)==null) return false;
         EnumSet<Authority.AuthorityID> auth = service.readAuthorityListbyAll(userID, projectID).getAuthority();
         if(!auth.contains(authority)){
             service.createAuthority(userID, projectID, authority.ordinal());
+            return true;
         }
+        return false;
     }
 }

@@ -14,10 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,6 +29,7 @@ public class ProjectAdminController {
     @GetMapping("projectid={projectID}/deletetester={userID}")
     public String projectAdminDeleteTester(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) throws LoginException {
         MainController.isUserLogin();
+        StatusManager.getInstance().setProject(new ProjectID(projectID));
         service.deleteAuthority(new UserID(userID),StatusManager.getInstance().getProject(), Authority.AuthorityID.TESTER);
         return "redirect:/projects/admin/projectid="+projectID;
     }
@@ -39,6 +37,16 @@ public class ProjectAdminController {
     @GetMapping("project={projectID}/deleteplayer={userID}")
     public String projectAdminDeletePlayer(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) throws LoginException {
         MainController.isUserLogin();
+        StatusManager.getInstance().setProject(new ProjectID(projectID));
+        service.deleteAuthority(new UserID(userID),StatusManager.getInstance().getProject(), Authority.AuthorityID.PLAYER);
+        return "redirect:/projects/admin/projectid="+projectID;
+    }
+
+    @GetMapping("projectid={projectID}/deletedeveloper={userID}")
+    public String projectAdminDeleteDeveloper(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) throws LoginException {
+        MainController.isUserLogin();
+        StatusManager.getInstance().setProject(new ProjectID(projectID));
+        service.deleteAuthority(new UserID(userID),StatusManager.getInstance().getProject(), Authority.AuthorityID.DEVELOPER);
         return "redirect:/projects/admin/projectid="+projectID;
     }
 
@@ -46,15 +54,32 @@ public class ProjectAdminController {
     public String projectAdminTester(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) throws LoginException {
         MainController.isUserLogin();
         StatusManager.getInstance().setProject(new ProjectID(projectID));
-        service.createAuthority(new UserID(userID),StatusManager.getInstance().getProject(), Authority.AuthorityID.TESTER);
-        return "redirect:/projects/admin/projectid="+projectID;
+        boolean success = service.createAuthority(new UserID(userID),StatusManager.getInstance().getProject(), Authority.AuthorityID.TESTER);
+        return "redirect:/projects/admin/projectid="+projectID+"?success="+success;
+    }
+
+    @GetMapping("/projectid={projectID}/player={userID}")
+    public String projectAdminPlayer(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) throws LoginException {
+        MainController.isUserLogin();
+        StatusManager.getInstance().setProject(new ProjectID(projectID));
+        boolean success = service.createAuthority(new UserID(userID),StatusManager.getInstance().getProject(), Authority.AuthorityID.PLAYER);
+        return "redirect:/projects/admin/projectid="+projectID+"?success="+success;
+    }
+
+    @GetMapping("/projectid={projectID}/developer={userID}")
+    public String projectAdminDeveloper(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) throws LoginException {
+        MainController.isUserLogin();
+        StatusManager.getInstance().setProject(new ProjectID(projectID));
+        boolean success= service.createAuthority(new UserID(userID),StatusManager.getInstance().getProject(), Authority.AuthorityID.DEVELOPER);
+        return "redirect:/projects/admin/projectid="+projectID+"?success="+success;
     }
 
     @GetMapping("/projectid={projectID}")
-    public String projectAdmin(@PathVariable("projectID") int projectID, Model model) throws LoginException {
+    public String projectAdmin(@PathVariable("projectID") int projectID,@RequestParam(value = "success", required = false)boolean success, Model model) throws LoginException {
         MainController.isUserLogin();
         StatusManager.getInstance().setProject(new ProjectID(projectID));
         List<List<UserID>> list = service.readAuthorityListbyProject(StatusManager.getInstance().getProject());
+        model.addAttribute("success", success);
         model.addAttribute("projectID", projectID);
         model.addAttribute("project",projectService.readProject(StatusManager.getInstance().getProject()));
         model.addAttribute("testerList", list.get(Authority.AuthorityID.TESTER.ordinal()));
