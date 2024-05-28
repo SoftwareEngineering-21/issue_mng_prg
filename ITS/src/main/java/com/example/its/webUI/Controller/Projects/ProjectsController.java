@@ -24,7 +24,7 @@ public class ProjectsController {
 
     //TODO update to production function
     private UserID user(){
-        return StatusManager.getInstance().getUser().getID();
+        return StatusManager.getInstance().getUser();
 //        return new UserID("test1");
     }
 

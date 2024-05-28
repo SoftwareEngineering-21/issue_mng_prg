@@ -1,6 +1,7 @@
 package com.example.its.logic;
 
 import com.example.its.dataClass.*;
+import com.example.its.database.DBService;
 import com.example.its.database.project.ProjectDBService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,18 +13,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjectService {
 
-	private final ProjectDBService service;
+	private final DBService service;
 
 	public void createProject(UserID ID, String title, String description) {
-		service.createProjectService(title,description,ID);
+		service.createProject(title,description,ID);
 	}
 
 	public List<Project> readProjects(UserID ID) {
-        return service.readProjectListService(ID);
+        return service.readProjectList(ID);
     }
 
 	public List<Project> readAdminProjects(UserID ID) {
-		return service.readAdminProjectListService(ID);
+		return service.readAdminProjectList(ID);
 	}
 
 

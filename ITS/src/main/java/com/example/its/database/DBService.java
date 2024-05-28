@@ -2,17 +2,9 @@ package com.example.its.database;
 
 import java.util.List;
 
+import com.example.its.dataClass.*;
 import org.springframework.stereotype.Service;
 
-import com.example.its.dataClass.Authority;
-import com.example.its.dataClass.Comment;
-import com.example.its.dataClass.CommentID;
-import com.example.its.dataClass.Issue;
-import com.example.its.dataClass.IssueID;
-import com.example.its.dataClass.Project;
-import com.example.its.dataClass.ProjectID;
-import com.example.its.dataClass.User;
-import com.example.its.dataClass.UserID;
 import com.example.its.database.authority.AuthorityDBService;
 import com.example.its.database.comment.CommentDBService;
 import com.example.its.database.icrelation.ICRelationDBService;
@@ -47,6 +39,8 @@ public class DBService {
         return projectDBService.readProjectListService(userID);
     }
 
+    public List<Project> readAdminProjectList(UserID userID){return projectDBService.readAdminProjectListService(userID);}
+
     public void updateProject(ProjectID projectID, String title, String description){
         projectDBService.updateProjectService(projectID, title, description);
     }
@@ -65,8 +59,12 @@ public class DBService {
         return userDBService.createUserService(ID, password);
     }
 
-    public User readUserService(UserID user){
+    public User readUser(UserID user){
         return userDBService.readUserService(user);
+    }
+
+    public UserSession readUserSession(UserID userID){
+        return userDBService.readUserSessionService(userID);
     }
 
     public void updateUserService(UserID userID, String password, String newPW){
