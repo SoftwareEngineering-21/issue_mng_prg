@@ -106,12 +106,17 @@
             height: 50px!important;
             font-size: 20px !important;
         }
-
-
-
-
-
     </style>
+    <script>
+        function redirectWithTester(event){
+            event.preventDefault();
+            var testerValue = document.getElementById("tester").value;
+
+            var projectID = [[${projectID}]];
+            window.location.href = "/projects/admin/projectid=" + projectID + "/tester=" + testerValue;
+
+        }
+    </script>
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -120,9 +125,7 @@
 <body>
 <div class ="logo">
     <div th:replace="~{logo::logo}" id = 'logo'></div>
-    <script>
 
-    </script>
 </div>
 <div class="container">
     <div class="row mt-5">
@@ -141,29 +144,32 @@
                     </div>
                 </div>
             </div>
-            <form>
+
                 <div class="card-container">
                     <div class="card-head card">
                         <div class="card-body table">
-                            <div class=" row d-flex justify-content-between center-align">
-                                <h3> tester</h3>
-                                <div class="col-md-9">
-                                    <input  id ="tester" type="text" class="form-control form-control-custom">
+                            <form>
+                                <div class=" row d-flex justify-content-between center-align">
+                                    <h3> tester</h3>
+                                    <div class="col-md-9">
+                                        <input id ="tester" type="text" class="form-control form-control-custom"/>
+                                    </div>
+                                    <button type="submit" onclick="redirectWithTester(event)" class ="custom" >add user</button>
                                 </div>
-                                <button type ="submit" class ="custom" >add user</button>
-                            </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>
-            </form>
+
 
             <div class="card-container">
-                <div class="card-custom card " th:each= "user : ${testList}" >
+                <div class="card-custom card " th:each= "tester: ${testerList}" >
                     <div class="card-body">
                         <div class=" row d-flex justify-content-between center-align">
-                            <h3> tester</h3>
+                            <h3 th:text = "${tester.getID()}"></h3>
                             <div class="custom custom-delete">
-                                <a class ="custom custom-delete" href="/register" >delete</a>
+                                <a class ="custom custom-delete" th:href="@{|/projects/admin/projectid=${projectID}/deletetester=${tester.getID()}|}">delete</a>
                             </div>
                         </div>
                     </div>
