@@ -20,18 +20,13 @@ public class ProjectsController{
 
     private final ProjectService service;
 
-    @Setter
-    private UserID ID ;
-
-    //TODO update to production function
     private UserID user(){
         return StatusManager.getInstance().getUser();
-//        return new UserID("test1");
     }
 
     @GetMapping("/projects")
     public String readProjects(Model model) throws LoginException {
-        MainController.isUser();
+        MainController.isUserLogin();
         // Add projects to the model
         model.addAttribute("projects", service.readProjects(user()));
         model.addAttribute("adminProjects", service.readAdminProjects(user()));
@@ -40,10 +35,8 @@ public class ProjectsController{
     }
 
     @GetMapping("/projects/create")
-    public String createProject() {
-        if(MainController.isUserLogin()== null){
-            return "redirect:/";
-        }
+    public String createProject() throws LoginException {
+        MainController.isUserLogin();
         return "create_project";
     }
 }

@@ -10,4 +10,10 @@ public class GlobalExceptionHandler {
         System.out.println("LoginException: Login session expired");
         return "redirect:/";
     }
+
+    @ExceptionHandler(LoginUnrequiredException.class)
+    public String loginUnrequiredException(LoginUnrequiredException ex) {
+        System.out.println("LoginUnrequiredException: Login not required.");
+        return "redirect:/";
+    }
 }

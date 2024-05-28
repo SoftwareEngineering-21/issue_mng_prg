@@ -8,6 +8,7 @@ import com.example.its.database.DBService;
 import com.example.its.logic.AuthorityService;
 import com.example.its.logic.ProjectService;
 import com.example.its.status.StatusManager;
+import com.example.its.webUI.Controller.Exception.LoginException;
 import com.example.its.webUI.Controller.MainController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,34 +30,29 @@ public class ProjectAdminController {
     private final ProjectService projectService;
 
     @GetMapping("projectid={projectID}/deletetester={userID}")
-    public String projectAdminDeleteTester(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) {
-        if(MainController.isUserLogin()== null){
-            return "redirect:/";
-        }
+    public String projectAdminDeleteTester(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) throws LoginException {
+        MainController.isUserLogin();
         service.deleteAuthority(new UserID(userID),StatusManager.getInstance().getProject(), Authority.AuthorityID.TESTER);
         return "redirect:/projects/admin/projectid="+projectID;
     }
 
     @GetMapping("project={projectID}/deleteplayer={userID}")
-    public String projectAdminDeletePlayer(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) {
+    public String projectAdminDeletePlayer(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) throws LoginException {
+        MainController.isUserLogin();
         return "redirect:/projects/admin/projectid="+projectID;
     }
 
     @GetMapping("/projectid={projectID}/tester={userID}")
-    public String projectAdminTester(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) {
-        if(MainController.isUserLogin()== null){
-            return "redirect:/";
-        }
+    public String projectAdminTester(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) throws LoginException {
+        MainController.isUserLogin();
         StatusManager.getInstance().setProject(new ProjectID(projectID));
         service.createAuthority(new UserID(userID),StatusManager.getInstance().getProject(), Authority.AuthorityID.TESTER);
         return "redirect:/projects/admin/projectid="+projectID;
     }
 
     @GetMapping("/projectid={projectID}")
-    public String projectAdmin(@PathVariable("projectID") int projectID, Model model) {
-        if(MainController.isUserLogin()== null){
-            return "redirect:/";
-        }
+    public String projectAdmin(@PathVariable("projectID") int projectID, Model model) throws LoginException {
+        MainController.isUserLogin();
         StatusManager.getInstance().setProject(new ProjectID(projectID));
         List<List<UserID>> list = service.readAuthorityListbyProject(StatusManager.getInstance().getProject());
         model.addAttribute("projectID", projectID);

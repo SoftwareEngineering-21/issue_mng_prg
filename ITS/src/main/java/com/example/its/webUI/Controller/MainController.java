@@ -1,6 +1,7 @@
 package com.example.its.webUI.Controller;
 import com.example.its.status.StatusManager;
 import com.example.its.webUI.Controller.Exception.LoginException;
+import com.example.its.webUI.Controller.Exception.LoginUnrequiredException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +13,7 @@ public class MainController {
 
     @GetMapping("/")
     public String root(){
-        if(isUserLogin()!=null)
+        if(StatusManager.getInstance().getUser()!=null)
             return "redirect:/projects";
         else{
             return "redirect:/login";
@@ -30,16 +31,15 @@ public class MainController {
         return "test/testLayout";
     }
 
-    public static String isUserLogin(){
-        if(StatusManager.getInstance().getUser()!= null)
-            return "redirect:/";
-        return null;
-    }
-
-    public static void isUser() throws LoginException {
+    public static void isUserLogin() throws LoginException {
         if(StatusManager.getInstance().getUser()== null)
             throw new LoginException();
 
+    }
+
+    public static void isLoginAvailable()throws LoginUnrequiredException{
+        if(StatusManager.getInstance().getUser()!=null)
+            throw new LoginUnrequiredException();
     }
 
 
