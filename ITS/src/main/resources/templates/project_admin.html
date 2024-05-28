@@ -114,7 +114,20 @@
 
             var projectID = [[${projectID}]];
             window.location.href = "/projects/admin/projectid=" + projectID + "/tester=" + testerValue;
+        }
+        function redirectWithPlayer(event){
+            event.preventDefault();
+            var playerValue = document.getElementById("player").value;
 
+            var projectID = [[${projectID}]];
+            window.location.href = "/projects/admin/projectid=" + projectID + "/player=" + playerValue;
+        }
+        function redirectWithDeveloper(event){
+            event.preventDefault();
+            var developerValue = document.getElementById("player").value;
+
+            var projectID = [[${projectID}]];
+            window.location.href = "/projects/admin/projectid=" + projectID + "/developer=" + developerValue;
         }
     </script>
 
@@ -139,37 +152,96 @@
             <div class="card-container">
                 <div class="card" >
                     <div class="card-body">
-                        <h2 class="card-title"> title</h2>
-                        <h5 class="card-description"> desc</h5>
+                        <h2 class="card-title" th:text="${project.getTitle()}"></h2>
+                        <h5 class="card-description" th:text="${project.getDescription()}"></h5>
                     </div>
                 </div>
             </div>
 
-                <div class="card-container">
-                    <div class="card-head card">
-                        <div class="card-body table">
-                            <form>
-                                <div class=" row d-flex justify-content-between center-align">
-                                    <h3> tester</h3>
-                                    <div class="col-md-9">
-                                        <input id ="tester" type="text" class="form-control form-control-custom"/>
-                                    </div>
-                                    <button type="submit" onclick="redirectWithTester(event)" class ="custom" >add user</button>
+            <!--Tester-->
+            <div class="card-container">
+                <div class="card-head card">
+                    <div class="card-body table">
+                        <form>
+                            <div class=" row d-flex justify-content-between center-align">
+                                <h3> tester</h3>
+                                <div class="col-md-9">
+                                    <input id ="tester" type="text" class="form-control form-control-custom"/>
                                 </div>
-                            </form>
+                                <button type="submit" onclick="redirectWithTester(event)" class ="custom" >add user</button>
+                            </div>
+                        </form>
 
-                        </div>
                     </div>
                 </div>
-
-
+            </div>
             <div class="card-container">
                 <div class="card-custom card " th:each= "tester: ${testerList}" >
                     <div class="card-body">
                         <div class=" row d-flex justify-content-between center-align">
                             <h3 th:text = "${tester.getID()}"></h3>
                             <div class="custom custom-delete">
-                                <a class ="custom custom-delete" th:href="@{|/projects/admin/projectid=${projectID}/deletetester=${tester.getID()}|}">delete</a>
+                                <a class ="custom custom-delete" th:href="@{|/projects/admin/projectid=${projectID}/deletedeveloper=${tester.getID()}|}">delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--player-->
+                <div class="card-container">
+                    <div class="card-head card">
+                        <div class="card-body table">
+                            <form>
+                                <div class=" row d-flex justify-content-between center-align">
+                                    <h3> player</h3>
+                                    <div class="col-md-9">
+                                        <input id ="player" type="text" class="form-control form-control-custom"/>
+                                    </div>
+                                    <button type="submit" onclick="redirectWithPlayer(event)" class ="custom" >add user</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            <div class="card-container">
+                <div class="card-custom card " th:each= "player: ${playerList}" >
+                    <div class="card-body">
+                        <div class=" row d-flex justify-content-between center-align">
+                            <h3 th:text = "${player.getID()}"></h3>
+                            <div class="custom custom-delete">
+                                <a class ="custom custom-delete" th:href="@{|/projects/admin/projectid=${projectID}/deletePlayer=${player.getID()}|}">delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--developer-->
+            <div class="card-container">
+                <div class="card-head card">
+                    <div class="card-body table">
+                        <form>
+                            <div class=" row d-flex justify-content-between center-align">
+                                <h3> developer</h3>
+                                <div class="col-md-9">
+                                    <input id ="developer" type="text" class="form-control form-control-custom"/>
+                                </div>
+                                <button type="submit" onclick="redirectWithTester(event)" class ="custom" >add user</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-container">
+                <div class="card-custom card " th:each= "developer: ${developerList}" >
+                    <div class="card-body">
+                        <div class=" row d-flex justify-content-between center-align">
+                            <h3 th:text = "${developer.getID()}"></h3>
+                            <div class="custom custom-delete">
+                                <a class ="custom custom-delete" th:href="@{|/projects/admin/projectid=${projectID}/deletedeveloper=${developer.getID()}|}">delete</a>
                             </div>
                         </div>
                     </div>

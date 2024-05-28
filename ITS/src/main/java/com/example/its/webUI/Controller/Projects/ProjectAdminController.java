@@ -6,6 +6,7 @@ import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
 import com.example.its.database.DBService;
 import com.example.its.logic.AuthorityService;
+import com.example.its.logic.ProjectService;
 import com.example.its.status.StatusManager;
 import com.example.its.webUI.Controller.MainController;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ import java.util.List;
 public class ProjectAdminController {
 
     private final AuthorityService service;
+    private final ProjectService projectService;
 
     @GetMapping("projectid={projectID}/deletetester={userID}")
     public String projectAdminDeleteTester(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) {
@@ -32,6 +34,11 @@ public class ProjectAdminController {
             return "redirect:/";
         }
         service.deleteAuthority(new UserID(userID),StatusManager.getInstance().getProject(), Authority.AuthorityID.TESTER);
+        return "redirect:/projects/admin/projectid="+projectID;
+    }
+
+    @GetMapping("project={projectID}/deleteplayer={userID}")
+    public String projectAdminDeletePlayer(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) {
         return "redirect:/projects/admin/projectid="+projectID;
     }
 
@@ -52,8 +59,8 @@ public class ProjectAdminController {
         }
         StatusManager.getInstance().setProject(new ProjectID(projectID));
         List<List<UserID>> list = service.readAuthorityListbyProject(StatusManager.getInstance().getProject());
-        System.out.println(list.get(Authority.AuthorityID.TESTER.ordinal()).size());
         model.addAttribute("projectID", projectID);
+        model.addAttribute("project",projectService.readProject(StatusManager.getInstance().getProject()));
         model.addAttribute("testerList", list.get(Authority.AuthorityID.TESTER.ordinal()));
         model.addAttribute("playerList", list.get(Authority.AuthorityID.PLAYER.ordinal()));
         model.addAttribute("developerList", list.get(Authority.AuthorityID.DEVELOPER.ordinal()));

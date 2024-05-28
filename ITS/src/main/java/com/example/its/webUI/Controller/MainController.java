@@ -1,13 +1,10 @@
 package com.example.its.webUI.Controller;
 import com.example.its.status.StatusManager;
+import com.example.its.webUI.Controller.Exception.LoginException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Controller
@@ -37,6 +34,12 @@ public class MainController {
         if(StatusManager.getInstance().getUser()!= null)
             return "redirect:/";
         return null;
+    }
+
+    public static void isUser() throws LoginException {
+        if(StatusManager.getInstance().getUser()== null)
+            throw new LoginException();
+
     }
 
 

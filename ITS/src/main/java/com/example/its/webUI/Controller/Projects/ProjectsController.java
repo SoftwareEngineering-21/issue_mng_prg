@@ -1,6 +1,7 @@
 package com.example.its.webUI.Controller.Projects;
 
 import com.example.its.status.StatusManager;
+import com.example.its.webUI.Controller.Exception.LoginException;
 import com.example.its.webUI.Controller.MainController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,7 @@ import lombok.Setter;
 
 @Controller
 @RequiredArgsConstructor
-public class ProjectsController {
+public class ProjectsController{
 
 
     private final ProjectService service;
@@ -29,10 +30,8 @@ public class ProjectsController {
     }
 
     @GetMapping("/projects")
-    public String readProjects(Model model) {
-        if(MainController.isUserLogin()== null){
-            return "redirect:/";
-        }
+    public String readProjects(Model model) throws LoginException {
+        MainController.isUser();
         // Add projects to the model
         model.addAttribute("projects", service.readProjects(user()));
         model.addAttribute("adminProjects", service.readAdminProjects(user()));
