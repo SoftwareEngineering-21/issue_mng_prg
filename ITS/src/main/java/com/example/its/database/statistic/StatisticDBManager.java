@@ -12,12 +12,24 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class StatisticDBManager {
     private final StatisticDBMapper mapper;
-    public List<Map<String, Object>> readAllofUploadIssueManager(List<Integer> projectIDList, Timestamp startTime, Timestamp endTime){
-        return mapper.readAllofUploadIssue(projectIDList, startTime, endTime);
+    public List<Map<String, Object>> countAllofUploadIssueManager(List<Integer> projectIDList, Timestamp startTime, Timestamp endTime){
+        return mapper.countAllofUploadIssue(projectIDList, startTime, endTime);
     }
 
-    public List<Map<String, Object>> readAllTypeIssueManager(int projectIDFK, Timestamp startTime,Timestamp endTime){
-        return mapper.readAllTypeIssue(projectIDFK, startTime, endTime);
+    public List<Map<String, Object>> countAllTypeIssueManager(int projectIDFK, Timestamp startTime,Timestamp endTime){
+        return mapper.countAllTypeIssue(projectIDFK, startTime, endTime);
+    }
+
+    public List<Map<String, Object>> countIssuesByAssigneeManager(int projectIDFK, Integer type, Integer status){
+        return mapper.countIssuesByAssignee(projectIDFK, type, status);
+    }
+
+    public List<Map<String, Object>> count3MostCommentinIssueManager(int projectIDFK){
+        return mapper.count3MostCommentinIssue(projectIDFK);
+    }
+
+    public List<Map<String, Object>> countAvgofCommentManager(int projectIDFK){
+        return mapper.countAvgofComment(projectIDFK);
     }
     
 }
