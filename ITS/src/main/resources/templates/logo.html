@@ -5,7 +5,18 @@
     ITS<span>issue tracking system</span>
 </div>
 
+<div th:fragment="logowith" >
+    <div class="form-group row justify-content-between center-align">
+        <div class ="logo">
+            <div th:replace="~{logo::logo}" id = 'logo'></div>
+        </div>
+        <div>
+            <a th:href="@{/userinfo}" class="hyperlink">유저 정보</a>
+            <a th:href="@{/logout}" class="hyperlink">로그아웃</a>
+        </div>
 
+    </div>
+</div>
 
 </body>
 </html>

@@ -97,7 +97,7 @@ public class DBService {
 
 
     //Issue methods
-    public IssueID createIssue(ProjectID projectIDFK,String title, String description, UserID reporter, UserID assignee, UserID fixer, int type, int priority, int status){
+    public IssueID createIssue(ProjectID projectIDFK,String title, String description, UserID reporter, UserID assignee, UserID fixer, Issue.TypeID type, Issue.PriorityID priority, Issue.StatusID status){
         IssueID i = issueDBService.createIssueService(title, description, reporter, assignee, fixer, type, priority, status);
         pIRelationDBService.createPIRelationService(projectIDFK, i);
         return i;
