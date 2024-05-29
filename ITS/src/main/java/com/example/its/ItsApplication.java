@@ -10,7 +10,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import com.example.its.database.DBService;
 import com.example.its.swingUI.MainSwingController;
-import com.example.its.swingUI.TestController;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -27,9 +26,9 @@ public class ItsApplication implements CommandLineRunner {
         System.setProperty("java.awt.headless", "false");
         //기본 configuration 종료//
 
-        //ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
-        //MainSwingController controller = context.getBean(MainSwingController.class);
-        TestController controller = new TestController();
+        ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
+        MainSwingController controller = context.getBean(MainSwingController.class);
+
         controller.run();
     }
 
