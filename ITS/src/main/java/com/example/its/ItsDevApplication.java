@@ -16,7 +16,7 @@ import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.database.user.UserDBService;
-import com.example.its.swingUI.RealServiceLayer;
+import com.example.its.swingUI.MainSwingController;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.test.context.ActiveProfiles;

@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -51,9 +55,16 @@ public class BaseFrame extends JFrame {
 		this.getContentPane().add(UserInfoPanel, BorderLayout.NORTH);
 		UserInfoPanel.setLayout(new BoxLayout(UserInfoPanel, BoxLayout.X_AXIS));
 		
+		Component horizontalStrut = Box.createHorizontalStrut(20);
+		UserInfoPanel.add(horizontalStrut);
+
+		JButton BackButton = new JButton("<-");
+		BackButton.addActionListener(new BackButtonAction());
+		UserInfoPanel.add(BackButton);
+
 		Component horizontalGlue = Box.createHorizontalGlue();
 		UserInfoPanel.add(horizontalGlue);
-		
+
 		Component horizontalStrut_4 = Box.createHorizontalStrut(20);
 		UserInfoPanel.add(horizontalStrut_4);
 		
@@ -68,6 +79,7 @@ public class BaseFrame extends JFrame {
 		panel.add(horizontalStrut_5);
 		
 		JButton btnNewButton = new JButton("LogOut");
+		btnNewButton.addActionListener(new LogOutButtonAction());
 		panel.add(btnNewButton);
 		
 		Component horizontalStrut_6 = Box.createHorizontalStrut(20);
@@ -92,5 +104,17 @@ public class BaseFrame extends JFrame {
 
 	public boolean isEmptyMainPanel(){
 		return mainPanel.getComponentCount() != 1;
+	}
+
+	public boolean isFull(){
+		return mainPanel.getComponentCount() > 0;
+	}
+
+	public JPanel getMainPanel(){
+		if(mainPanel.getComponentCount() != 1){
+			return null;
+		}
+
+		return (JPanel)mainPanel.getComponent(0);
 	}
 }

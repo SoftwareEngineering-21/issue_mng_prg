@@ -5,6 +5,7 @@ import com.example.its.dataClass.UserID;
 import com.example.its.dataClass.Issue.PriorityID;
 import com.example.its.dataClass.Issue.StatusID;
 import com.example.its.dataClass.Issue.TypeID;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 import com.example.its.dataClass.Project;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.Issue;

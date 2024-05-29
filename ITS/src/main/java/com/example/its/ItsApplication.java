@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.example.its.database.DBService;
-import com.example.its.swingUI.RealServiceLayer;
+import com.example.its.swingUI.MainSwingController;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -27,7 +27,7 @@ public class ItsApplication implements CommandLineRunner {
         //기본 configuration 종료//
 
         ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
-        RealServiceLayer controller = context.getBean(RealServiceLayer.class);
+        MainSwingController controller = context.getBean(MainSwingController.class);
 
         controller.run();
     }

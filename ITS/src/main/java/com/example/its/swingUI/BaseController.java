@@ -1,8 +1,8 @@
 package com.example.its.swingUI;
 
-import org.springframework.stereotype.Component;
+import javax.swing.JPanel;
 
-import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.its.dataClass.User;
 import com.example.its.dataClass.Project;
@@ -21,39 +21,50 @@ public abstract class BaseController {
         this.loginFrameController = new LoginFrameController(this);
     }
 
+    //유저 관련
+    public abstract boolean isExistID(String id);
+    public abstract boolean signUp(String id, String password);
+
+    public abstract boolean login(String id, String password);
+    public abstract boolean logout();
+
+    //프로젝트 관련
+    public abstract Project[] getProjectList();
+    public abstract Project[] getAdminProjectList();
+    public abstract boolean makeProject(String title, String Desc);
+
+    public abstract boolean addTester(User id);
+    public abstract boolean addPlayer(User id);
+    public abstract boolean addDeveloper(User id);
+
+    public abstract boolean deleteTester(User id);
+    public abstract boolean deletePlayer(User id);
+    public abstract boolean deleteDeveloper(User id);
+
+    public abstract User[] getTesterList();
+    public abstract User[] getPlayerList();
+    public abstract User[] getDeveloperList();
+
+    //이슈 관련
+    public abstract Issue[] getIssueList();
+    public abstract boolean makeIssue(String title, String desc, int Priority);
+
+    //코멘트 관련
+    public abstract Comment[] getCommentList();
+    public abstract boolean addComment(String desc);
+
+    //BasePanel 관련
+    public void setBasePanel(JPanel panel){
+        this.baseFrameController.setPanel(panel);
+    }
+
+    public void runBase(){
+        if(!this.baseFrameController.isEmptyMainPanel()){
+            this.baseFrameController.run();
+        }
+    }
+
     public void run(){
-        if(frame == null){
-            this.frame = new BaseFrame();
-        }
-
-        frame.setVisible(true);
-    }
-    
-    public void setPanel(JPanel targetPanel){
-        if(targetPanel == null){
-            return;
-        }
-        
-        stack.add((JPanel)frame.getContentPane().getComponent(0));
-
-        frame.setPanel(targetPanel);
-        
-        frame.revalidate();
-        frame.repaint();
-    }
-
-    public void popStack(){
-        int i = stack.size() - 1;
-        if(i < 0){
-            return;
-        }
-
-        frame.getContentPane().removeAll();
-        frame.getContentPane().add(stack.get(i));
-        this.stack.remove(i);
-    }
-
-    public boolean isEmptyMainPanel(){
-        return frame.isEmptyMainPanel();
+        this.loginFrameController.run();
     }
 }
