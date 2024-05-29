@@ -1,7 +1,10 @@
 package com.example.its.database;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import com.example.its.dataClass.Authority;
@@ -20,6 +23,7 @@ import com.example.its.database.icrelation.ICRelationDBService;
 import com.example.its.database.issue.IssueDBService;
 import com.example.its.database.pirelation.PIRelationDBService;
 import com.example.its.database.project.ProjectDBService;
+import com.example.its.database.statistic.StatisticDBService;
 import com.example.its.database.user.UserDBService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,6 +38,7 @@ public class DBService {
     private final PIRelationDBService pIRelationDBService;
     private final CommentDBService commentDBService;
     private final ICRelationDBService icRelationDBService;
+    private final StatisticDBService statisticDBService;
 
     //ProjectDB methods
     public ProjectID createProject(String title, String description, UserID adminID){
@@ -156,5 +161,29 @@ public class DBService {
 
     public void deleteComment(CommentID commentID){
         commentDBService.deleteCommentService(commentID);
+    }
+
+
+
+    //Statistic method
+    // read all count of issue from each project
+    public List<Pair<ProjectID, Integer>> readAllofUploadIssue(UserID userID, Timestamp startTime, Timestamp endTime){
+        List<Project> admin = projectDBService.readAdminProjectListService(userID);
+        List<Project> notAdmin = projectDBService.readProjectListService(userID);
+        List<ProjectID> projectIDList = new ArrayList<>();
+
+        for(Project p : admin){
+            projectIDList.add(p.getProjectID());
+        }
+        for(Project p : notAdmin){
+            projectIDList.add(p.getProjectID());
+        }
+
+        return statisticDBService.readAllofUploadIssueService(projectIDList, startTime, endTime);
+    }
+
+    //read issue count with type in same project
+    public List<Pair<Integer, Integer>> readAllTypeIssue(ProjectID projectIDFK, Timestamp startTime, Timestamp endTime){
+        return statisticDBService.readAllTypeIssueService(projectIDFK, startTime, endTime);
     }
 }
