@@ -61,7 +61,7 @@ public class MainSwingController extends BaseController {
             return null;
         }
 
-        List<Project> list = projectService.readProjects(StatusManager.getInstance().getUser().getID());
+        List<Project> list = projectService.readProjects(StatusManager.getInstance().getUser());
         return list.toArray(new Project[list.size()]);
     }
 
@@ -72,7 +72,7 @@ public class MainSwingController extends BaseController {
         }
         
         try{
-            this.projectService.createProject(StatusManager.getInstance().getUser().getID(), title, Desc);
+            this.projectService.createProject(StatusManager.getInstance().getUser(), title, Desc);
         }
         catch(Exception e){
             return false;
@@ -166,7 +166,7 @@ public class MainSwingController extends BaseController {
 
     @Override
     public Project[] getAdminProjectList() {
-        List<Project> projects = this.projectService.readAdminProjects(StatusManager.getInstance().getUser().getID());
+        List<Project> projects = this.projectService.readAdminProjects(StatusManager.getInstance().getUser());
         if(projects == null){
             return null;
         }

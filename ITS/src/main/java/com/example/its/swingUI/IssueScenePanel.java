@@ -26,17 +26,19 @@ public class IssueScenePanel extends JPanel {
 	private JLabel IssueName;
 	private JTextArea IssueDescription;
 
+	private JPanel CommentListPanel;
+
 	class ModifiyButtonAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
+			//controller
 		}
 	}
 
 	class PostButtonAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
+			//controller
 		}
 	}
 
@@ -90,35 +92,31 @@ public class IssueScenePanel extends JPanel {
 		IssueDescription.setRows(5);
 		IssueDescription.setLineWrap(true);
 		scrollPane_1.setViewportView(IssueDescription);
-		
-		int size = 10;
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
-		
-		JPanel CommentListPanel = new JPanel();
-		scrollPane.setViewportView(CommentListPanel);
-		GridBagLayout gbl_CommentListPanel = new GridBagLayout();
-		gbl_CommentListPanel.columnWidths = new int[]{0, 0};
-		gbl_CommentListPanel.rowHeights = new int[size];
-		gbl_CommentListPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_CommentListPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0};
-		CommentListPanel.setLayout(gbl_CommentListPanel);
-		
 
-		CommentPanel commentPanel[] = new CommentPanel[size];
-		for(int i = 0; i < size; i++) {
-			commentPanel[i] = new CommentPanel("Writer" + i, "");
-			commentPanel[i].addGbcPanel(CommentListPanel, i);
-			gbl_CommentListPanel.rowHeights[i] = 50;
-		}
-		
+		CommentListPanel = new JPanel();
+		scrollPane.setViewportView(CommentListPanel);
 		
 		JPanel WriteCommentPanel = new JPanel();
-		add(WriteCommentPanel, BorderLayout.SOUTH);
 		WriteCommentPanel.setLayout(new BorderLayout(0, 0));
+		add(WriteCommentPanel, BorderLayout.SOUTH);
+
+		JPanel commnetInputPanel = new JPanel();
+		commnetInputPanel.setLayout(new BoxLayout(commnetInputPanel, BoxLayout.X_AXIS));
+		WriteCommentPanel.add(commnetInputPanel, BorderLayout.NORTH);
 		
+		Component horizontalStrut_5 = Box.createHorizontalStrut(20);
+		commnetInputPanel.add(horizontalStrut_5);
+		
+		JLabel commentInputLabel = new JLabel("Comment Input");
+		commnetInputPanel.add(commentInputLabel);
+		
+		Component horizontalGlue_3 = Box.createHorizontalGlue();
+		commnetInputPanel.add(horizontalGlue_3);
+
 		JScrollPane scrollPane_3 = new JScrollPane();
-		WriteCommentPanel.add(scrollPane_3);
+		WriteCommentPanel.add(scrollPane_3, BorderLayout.CENTER);
 		
 		JTextArea WriteCommentArea = new JTextArea();
 		WriteCommentArea.setRows(5);
@@ -138,7 +136,27 @@ public class IssueScenePanel extends JPanel {
 		
 		Component horizontalStrut_7 = Box.createHorizontalStrut(20);
 		PostButtonPanel.add(horizontalStrut_7);
+	}
 
+	public void makeCommentList() {
+
+		int length = 0;
+
+		int size = length > 5 ? length : 5;
+
+		GridBagLayout gbl_CommentListPanel = new GridBagLayout();
+		gbl_CommentListPanel.columnWidths = new int[]{0, 0};
+		gbl_CommentListPanel.rowHeights = new int[size];
+		gbl_CommentListPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_CommentListPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0};
+		CommentListPanel.setLayout(gbl_CommentListPanel);
+		
+		CommentPanel commentPanel[] = new CommentPanel[size];
+		for(int i = 0; i < size; i++) {
+			commentPanel[i] = new CommentPanel("Writer" + i, "");
+			commentPanel[i].addGbcPanel(CommentListPanel, i);
+			gbl_CommentListPanel.rowHeights[i] = 50;
+		}
 	}
 
 	public void setIssueInfo(Issue issue){

@@ -2,6 +2,9 @@ package com.example.its.swingUI;
 
 import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
+import com.example.its.dataClass.Issue.PriorityID;
+import com.example.its.dataClass.Issue.StatusID;
+import com.example.its.dataClass.Issue.TypeID;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 import com.example.its.dataClass.Project;
 import com.example.its.dataClass.ProjectID;
@@ -14,6 +17,8 @@ import com.example.its.dataClass.Comment;
 
 @Deprecated
 public class TestController extends BaseController {
+    User user;
+
     ArrayList<User> userList = new ArrayList<>();
 
     ArrayList<User> testerList = new ArrayList<User>();
@@ -46,11 +51,14 @@ public class TestController extends BaseController {
         if(id.isEmpty() || password.isEmpty()){
             return false;
         }
+
+        user = new User(new UserID(id));
         return true;
     }
 
     @Override
     public boolean logout() {
+        user = null;
         return true;
     }
 
@@ -118,8 +126,7 @@ public class TestController extends BaseController {
 
     @Override
     public boolean makeIssue(String title, String desc, int priority) {
-        issueList.add(new Issue(new IssueID(issueList.size()), title, desc, 
-            0, null, new UserID("Wow"), null, priority));
+        issueList.add(new Issue(new IssueID(issueList.size()), title, desc, StatusID.OPEN, TypeID.TASK, PriorityID.MAJOR, null, user.getID(), null));
         return true;
     }
 

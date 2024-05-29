@@ -20,7 +20,12 @@ public class BaseFrameController {
     }
 
     public boolean logout(){
-        return controller.logout();
+        boolean result = controller.logout();
+        if(result){
+            this.frame.dispose();
+            controller.run();
+        }
+        return result;
     }
 
     public void run(){
@@ -39,8 +44,10 @@ public class BaseFrameController {
         if(targetPanel == null){
             return;
         }
-        
-        stack.add((JPanel)frame.getContentPane().getComponent(0));
+
+        if(frame.isFull()){
+            stack.add(frame.getMainPanel());
+        }
 
         frame.setPanel(targetPanel);
         
@@ -49,17 +56,24 @@ public class BaseFrameController {
     }
 
     public void popStack(){
-        int i = stack.size() - 1;
-        if(i < 0){
+        int i = stack.size();
+        if(i < 1){
             return;
         }
 
-        frame.getContentPane().removeAll();
-        frame.getContentPane().add(stack.get(i));
-        this.stack.remove(i);
+        frame.setPanel(stack.get(i - 1));
+        
+        frame.revalidate();
+        frame.repaint();
+
+        this.stack.remove(i - 1);
     }
 
     public boolean isEmptyMainPanel(){
         return frame.isEmptyMainPanel();
+    }
+
+    public void runUserInfo() {
+
     }
 }

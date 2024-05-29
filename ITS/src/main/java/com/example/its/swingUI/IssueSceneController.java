@@ -15,8 +15,13 @@ public class IssueSceneController {
         
     }
 
+    Issue[] getIssueList() {
+        return null;
+    }
+
     void setProjectPanel(Issue issue){ 
         this.panel.setIssueInfo(issue);
+        this.panel.makeCommentList();
         this.baseController.setBasePanel(panel);
     }
 }
