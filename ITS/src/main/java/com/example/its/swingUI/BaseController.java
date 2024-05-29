@@ -4,15 +4,21 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
+import com.example.its.dataClass.User;
+import com.example.its.dataClass.Project;
+import com.example.its.dataClass.Issue;
+import com.example.its.dataClass.Comment;
+import org.springframework.stereotype.Component;
 
-@Component
-public class BaseController {
-    private BaseFrame frame;
-    private ArrayList<JPanel> stack = new ArrayList<>();
 
-    public BaseController(){
-        this.frame = new BaseFrame();
+public abstract class BaseController {
+    protected BaseFrameController baseFrameController;
+    protected LoginFrameController loginFrameController;
+
+
+    protected BaseController() {
+        this.baseFrameController = new BaseFrameController(this);
+        this.loginFrameController = new LoginFrameController(this);
     }
 
     public void run(){

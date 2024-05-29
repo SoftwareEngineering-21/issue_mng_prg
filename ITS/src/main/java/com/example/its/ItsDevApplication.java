@@ -19,9 +19,10 @@ import com.example.its.database.user.UserDBService;
 import com.example.its.swingUI.RealServiceLayer;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootApplication
-//@ActiveProfiles("test")
+@ActiveProfiles("test")
 @RequiredArgsConstructor
 public class ItsDevApplication implements CommandLineRunner {
 
@@ -31,9 +32,11 @@ public class ItsDevApplication implements CommandLineRunner {
 
 
     public static void main(String[] args) {
-        SpringApplication.run(ItsDevApplication.class, args);
-        ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
-        RealServiceLayer controller = context.getBean(RealServiceLayer.class);
+        //헤드리스 모드 끄는 함수. 기본 설정//
+        System.setProperty("java.awt.headless", "false");
+        //기본 configuration 종료//
+        ConfigurableApplicationContext context = SpringApplication.run(ItsDevApplication.class, args);
+        MainSwingController controller = context.getBean(MainSwingController.class);
 
         controller.run();
     }
