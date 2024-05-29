@@ -13,7 +13,7 @@
 이슈별 코멘트 개수 (상위 3개 보여주기. or 줄글도 가능)
 이슈 종류에 따른 코멘트 개수(평균치)
 -->
-    <select id="readAllofUploadIssue" resultType="java.util.Map">
+    <select id="countAllofUploadIssue" resultType="java.util.Map">
         SELECT
             projectIDFK as projectID,
             CO UNT(*) as issueCount
@@ -36,11 +36,12 @@
         GROUP BY
             projectIDFK
         ORDER BY
-            issueCount DESC
+            issueCount DESC,
+            projectIDFK ASC
     </select>
 
 
-    <select id="readAllTypeIssue" resultType="java.util.Map">
+    <select id="countAllTypeIssue" resultType="java.util.Map">
         SELECT
             type,
             COUNT(*) as count
@@ -60,4 +61,67 @@
         type ASC
     </select>
 
+    <select id="countIssuesByAssignee" resultType="java.util.Map">
+        SELECT
+            assignee,
+            COUNT(*) AS count
+        FROM
+            IssueDB
+        WHERE
+            ID IN (
+                SELECT issueIDFK
+                FROM PIRelationDB
+                WHERE projectIDFK = #{projectIDFK}
+            )
+            AND assignee IS NOT NULL
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="type != null">
+                AND type = #{type}
+            </if>
+        GROUP BY
+            assignee
+        ORDER BY
+            count DESC,
+            assignee ASC
+    </select>
+
+
+    <select id="count3MostCommentinIssue"  resultType="java.util.Map">
+        SELECT
+            issueID,
+            COUNT(commentID) AS count
+        FROM ICRelationDB
+        WHERE issueID IN (
+            SELECT issueIDFK
+            FROM PIRelationDB
+            WHERE projectIDFK = #{projectIDFK}
+        )
+        GROUP BY issueID
+        ORDER BY count DESC
+        LIMIT 3
+    </select>
+        
+    <select id="countAvgofComment" resultType="java.util.Map">
+        SELECT
+            type,
+            AVG(commentCount) AS avgCount
+        FROM
+            (SELECT
+                issueID,
+                COUNT(commentID) AS commentCount
+            FROM
+                ICRelationDB
+            WHERE
+                issueID IN (
+                    SELECT issueIDFK
+                    FROM PIRelationDB
+                    WHERE projectIDFK = #{projectIDFK})
+            GROUP BY issueID) AS commentCounts
+        JOIN
+            IssueDB ON ID = commentCounts.issueID
+        GROUP BY type
+        ORDER BY avgCount DESC, type ASC
+    </select>
 </mapper>
