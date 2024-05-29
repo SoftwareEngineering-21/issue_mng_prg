@@ -26,6 +26,10 @@ public class AuthorityDBManager {
         return authorityDB.readAuthorityListbyAll(userID, projectID);
     }
 
+    public List<AuthorityDB> readAuthorityListbyAuthinPManager(int projectID, int auth){
+        return authorityDB.readAuthorityListbyAuthinP(projectID, auth);
+    }
+
     void deleteAuthorityManager(String userID, int projectID, int auth){
         authorityDB.deleteAuthority(userID, projectID, auth);
     }

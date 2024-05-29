@@ -2,8 +2,8 @@ package com.example.its.status;
 
 import com.example.its.dataClass.Authority;
 import com.example.its.dataClass.Issue;
-import com.example.its.dataClass.Project;
-import com.example.its.dataClass.User;
+import com.example.its.dataClass.ProjectID;
+import com.example.its.dataClass.UserID;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,8 +17,8 @@ public class StatusManager {
         }
         return instance;
     }
-    private User user;
-    private Project project;
+    private UserID user;
+    private ProjectID project;
     private Authority authority;
     private Issue issue;
 

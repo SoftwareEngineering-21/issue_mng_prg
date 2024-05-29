@@ -38,7 +38,7 @@ public class AuthorityDBService {
                 case 1:
                     nowAuthList1.add(new UserID(auth.getUserID()));
                     break;
-                    case 2:
+                case 2:
                     nowAuthList2.add(new UserID(auth.getUserID()));
                     break;
             }
@@ -69,6 +69,15 @@ public class AuthorityDBService {
         }
         return authEnumSet;
 
+    }
+
+    public List<UserID> readAuthorityListbyAuthinPService(ProjectID projectID, int auth){
+        List<AuthorityDB> authList = manager.readAuthorityListbyAuthinPManager(projectID.getID() ,auth);
+        List<UserID> userList = new ArrayList<>();
+        for (AuthorityDB eachAuth : authList){
+            userList.add(new UserID(eachAuth.getUserID()));
+        }
+        return userList;
     }
     
     //delete auth

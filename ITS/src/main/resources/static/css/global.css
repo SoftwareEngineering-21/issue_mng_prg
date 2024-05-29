@@ -21,9 +21,27 @@ body{
 .hyperlink{
     text-decoration-line: none;
     color: #303050;
+    align-content: center;
 }
 .hyperlink:hover{
     text-decoration: none;
     color: #303050;
 }
+.form-group.row {
+    align-items: center;
+
+}
+.projectsHeader{
+    display : flex;
+    justify-content: left;
+    align-items: center;
+}
+.projectsHeader h1{
+    padding-bottom: 20px;
+
+    font-size: 36px;
+    font-weight: bold;
+    color: #303050;
+}
+
 

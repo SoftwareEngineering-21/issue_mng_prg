@@ -1,23 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--    <link rel="icon" type="image/x-icon" href="../static/favicon.ico">-->
-    <title>ITS SYSTEM</title>
+    <title>Issues</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        .list-group-header{
+            background-color : #f2f2f2;
+        }
         .projectsHeader{
             display : flex;
-            justify-content: space-between; /* 아이템을 양쪽 끝으로 정렬 */
+            justify-content: left;
             align-items: center;
         }
         .projectsHeader h1{
             padding-bottom: 20px;
+
             font-size: 36px;
             font-weight: bold;
             color: #303050;
         }
-        .projectsHeader p{
+        .list-group-item{
+            min-height: 100px;
+        }
+        .hyperlink{
+            padding-right: 50px;
+            font-weight: bold;
+        }
+        .center-align {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* 부모 요소의 높이를 100%로 설정 */
+        }
+        .issue-attribute
+        {
+            padding: 0px 10px;
+        }
+        .list-group{
+            color: #202030;
+        }
+        p{
             background-color: #303050;
             border-radius: 5px;
             padding: 5px 10px;
@@ -25,69 +50,74 @@
             color: #f5f5f5;
             cursor: pointer;
         }
-        .card {
-            padding: 30px;
-            margin: 10px 0;
-            border: 5px solid #303050;
-            border-radius: 15px !important;
-            width: 100%;
-            max-width: 1200px;
-            color: #303050;
-            cursor: pointer;
-        }
-        .card-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-
-        }
-        a h5{
-            color: #303050;
-        }
-        .card a:hover{
-            text-decoration: none;
-        }
     </style>
-
-    <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
 </head>
 <body>
-<div class ="logo">
-    <div th:replace="~{logo::logo}" id = 'logo'></div>
-    <script>
-
-    </script>
-</div>
-<div class="container">
-    <div class="row mt-5">
-        <div class="col-12">
-            <div class = "projectsHeader">
-                <h1>Projects</h1>
-                <div  onclick="window.location.href='/projects/create'">
-                    <p>New Project</p>
-                </div>
-            </div>
-            <div class="card-container">
-                <div class="card" th:each="project : ${projects}">
-
-                    <a th:href="@{|/projects/projectid=${project.projectID.getID()}|}">
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${project.title}"></h5>
-                        </div>
-                    </a>
-
-
-                </div>
-            </div>
-        </div>
+<div class="form-group row justify-content-between center-align">
+    <div class ="logo">
+        <div th:replace="~{logo::logo}" id = 'logo'></div>
     </div>
-</div>
+    <div>
+        <a th:href="@{/userinfo}" class="hyperlink">유저 정보</a>
+        <a th:href="@{/logout}" class="hyperlink">로그아웃</a>
+    </div>
 
+</div>
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class = "projectsHeader">
+            <h1>Issues</h1>
+
+        </div>
+        <div  onclick="window.location.href='/projects/create'">
+            <p>New Issue</p>
+        </div>
+
+    </div>
+    <ul class="list-group">
+        <li class="list-group-header list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <h5 class="mb-0">Issue name</h5>
+            </div>
+            <div class = "row center-align">
+                <h5 class ="issue-attribute"> QYd</h5>
+                <h5 class ="issue-attribute"> QYd</h5>
+            </div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <h6 class="mb-0">feat : create authDB read by auth&project</h6>
+                <small>#79 by Jeong-In-Lee was merged 12 hours ago</small>
+            </div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <h6 class="mb-0">feat: StatusManger change</h6>
+                <small>#78 by rahamaman was merged 13 hours ago</small>
+            </div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <h6 class="mb-0">Edit Usecase</h6>
+                <small>#75 by CloudNru was merged yesterday</small>
+            </div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <h6 class="mb-0">Swing Connect DB</h6>
+                <small>#74 by CloudNru was merged 2 days ago</small>
+            </div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <h6 class="mb-0">feat : change CRUD with authrity DTO and complete DBService</h6>
+                <small>#73 by Jeong-In-Lee was merged 3 days ago</small>
+            </div>
+        </li>
+    </ul>
+</div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

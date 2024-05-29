@@ -11,6 +11,7 @@ public class Authority{
     public void addAuthority(AuthorityID authorityID){
         authority.add(authorityID);
     }
+    public void removeAuthority(AuthorityID authorityID){authority.remove(authorityID);}
     public void resetAuthority(){authority.clear();}
 
 }

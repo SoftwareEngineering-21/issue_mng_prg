@@ -93,6 +93,7 @@
         }
 
 
+
     </style>
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}">
@@ -104,7 +105,11 @@
     <div class ="logo">
         <div th:replace="~{logo::logo}" id = 'logo'></div>
     </div>
-    <a th:href="@{/logout}" class="hyperlink">로그아웃</a>
+    <div>
+        <a th:href="@{/userinfo}" class="hyperlink">유저 정보</a>
+        <a th:href="@{/logout}" class="hyperlink">로그아웃</a>
+    </div>
+
 </div>
 
 <div class="container">
@@ -124,7 +129,7 @@
                                 <div class="form-group row d-flex justify-content-between center-align">
                                     <h4 class="card-title" th:text="${project.title}"></h4>
                                     <h6>Admin</h6>
-                                    <a class="btn-custom" th:href="@{|/projects/projectid=${project.projectID.getID()}/admin|}"> manage auth</a>
+                                    <a class="btn-custom" th:href="@{|/projects/admin/projectid=${project.projectID.getID()}?success=true|}"> manage auth</a>
                                 </div>
 
                             </div>

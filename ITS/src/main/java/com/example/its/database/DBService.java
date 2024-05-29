@@ -13,6 +13,7 @@ import com.example.its.dataClass.Project;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
+import com.example.its.dataClass.UserSession;
 import com.example.its.database.authority.AuthorityDBService;
 import com.example.its.database.comment.CommentDBService;
 import com.example.its.database.icrelation.ICRelationDBService;
@@ -47,6 +48,8 @@ public class DBService {
         return projectDBService.readProjectListService(userID);
     }
 
+    public List<Project> readAdminProjectList(UserID userID){return projectDBService.readAdminProjectListService(userID);}
+
     public void updateProject(ProjectID projectID, String title, String description){
         projectDBService.updateProjectService(projectID, title, description);
     }
@@ -65,8 +68,12 @@ public class DBService {
         return userDBService.createUserService(ID, password);
     }
 
-    public User readUserService(UserID user){
+    public User readUser(UserID user){
         return userDBService.readUserService(user);
+    }
+
+    public UserSession readUserSession(UserID userID){
+        return userDBService.readUserSessionService(userID);
     }
 
     public void updateUserService(UserID userID, String password, String newPW){
@@ -92,6 +99,10 @@ public class DBService {
         return authDBService.readAuthorityListbyAllService(userID, projectID);
     }
 
+    public List<UserID> readAuthorityListbyAuthinP(ProjectID projectID, int auth){
+        return authDBService.readAuthorityListbyAuthinPService(projectID, auth);
+    }
+
     public void deleteAuthority(UserID userID, ProjectID projectID, int auth){
         authDBService.deleteAuthority(userID, projectID, auth);
     }
@@ -99,7 +110,7 @@ public class DBService {
 
 
     //Issue methods
-    public IssueID createIssue(ProjectID projectIDFK,String title, String description, UserID reporter, UserID assignee, UserID fixer, int type, int priority, int status){
+    public IssueID createIssue(ProjectID projectIDFK,String title, String description, UserID reporter, UserID assignee, UserID fixer, Issue.TypeID type, Issue.PriorityID priority, Issue.StatusID status){
         IssueID i = issueDBService.createIssueService(title, description, reporter, assignee, fixer, type, priority, status);
         pIRelationDBService.createPIRelationService(projectIDFK, i);
         return i;
