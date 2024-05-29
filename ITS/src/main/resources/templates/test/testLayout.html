@@ -38,6 +38,10 @@
         .issue-attribute
         {
             padding: 0px 10px;
+            min-width: 90px;
+            min-height: 50px;
+            align-content: center;
+            justify-content: center;
         }
         .list-group{
             color: #202030;
@@ -50,7 +54,37 @@
             color: #f5f5f5;
             cursor: pointer;
         }
+        .flex{
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding-right: 10px;
+            min-height: 70px;
+            flex: 0 1 auto;
+            align-content: center;
+            width:90%
+        }
+        .flex_container {
+            min-height: 70px;
+
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+        }
+        .issue-name{
+            display: flex!important;
+        }
+        .issue-attributes{
+            min-height: 50px;
+        }
     </style>
+    <script>
+        function changeStatus(){
+
+        }
+
+    </script>
 </head>
 <body>
 <div class="form-group row justify-content-between center-align">
@@ -64,10 +98,13 @@
 
 </div>
 <div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex justify-content-between align-items-center mb-3 ">
         <div class = "projectsHeader">
             <h1>Issues</h1>
 
+        </div>
+        <div  onclick="">
+            <p>New Issue</p>
         </div>
         <div  onclick="window.location.href='/projects/create'">
             <p>New Issue</p>
@@ -75,43 +112,54 @@
 
     </div>
     <ul class="list-group">
-        <li class="list-group-header list-group-item d-flex justify-content-between align-items-center">
-            <div>
-                <h5 class="mb-0">Issue name</h5>
+        <li class="issue-name list-group-header list-group-item d-flex align-items-center">
+
+            <h5 class=" align-items-center flex">Issue name</h5>
+            <div class = "row flex-nowrap issue-attributes">
+                <h6 class ="d-flex issue-attribute align-items-center justify-content-center">assignee</h6>
+                <h6 class ="d-flex issue-attribute align-items-center justify-content-center">reporter</h6>
+                <h6 class ="d-flex issue-attribute align-items-center justify-content-center">fixer</h6>
+                <h6 class ="d-flex issue-attribute align-items-center justify-content-center">priority</h6>
+                <h6 class ="d-flex  issue-attribute align-items-center justify-content-center">type</h6>
+                <h6 class ="d-flex  issue-attribute align-items-center justify-content-center">status</h6>
             </div>
-            <div class = "row center-align">
-                <h5 class ="issue-attribute"> QYd</h5>
-                <h5 class ="issue-attribute"> QYd</h5>
+        </li>
+        <li class="issue-name list-group-item d-flex align-items-center">
+
+            <h5 class=" align-items-center flex">Issue name is veryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy long</h5>
+            <div class = "row flex-nowrap issue-attributes">
+                <h6 class ="d-flex issue-attribute align-items-center justify-content-center">assignee</h6>
+                <h6 class ="d-flex issue-attribute align-items-center justify-content-center">assignee</h6>
+                <h6 class ="d-flex issue-attribute align-items-center justify-content-center">assignee</h6>
+                <h6 class ="d-flex issue-attribute align-items-center justify-content-center">assignee</h6>
+                <h6 class ="d-flex issue-attribute align-items-center justify-content-center">assignee</h6>
+                <h6 class ="d-flex issue-attribute align-items-center justify-content-center">assignee</h6>
             </div>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-                <h6 class="mb-0">feat : create authDB read by auth&project</h6>
-                <small>#79 by Jeong-In-Lee was merged 12 hours ago</small>
+                <h5 class="issue-attribute">feat : create authDB read by auth&project</h5>
+
             </div>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-                <h6 class="mb-0">feat: StatusManger change</h6>
-                <small>#78 by rahamaman was merged 13 hours ago</small>
+                <h5 class="issue-attribute">feat: StatusManger change</h5>
             </div>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-                <h6 class="mb-0">Edit Usecase</h6>
-                <small>#75 by CloudNru was merged yesterday</small>
+                <h5 class="issue-attribute">Edit Usecase</h5>
             </div>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-                <h6 class="mb-0">Swing Connect DB</h6>
-                <small>#74 by CloudNru was merged 2 days ago</small>
+                <h5 class="issue-attribute">Swing Connect DB</h5>
             </div>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-                <h6 class="mb-0">feat : change CRUD with authrity DTO and complete DBService</h6>
-                <small>#73 by Jeong-In-Lee was merged 3 days ago</small>
+                <h5 class="issue-attribute">feat : change CRUD with authrity DTO and complete DBService</h5>
             </div>
         </li>
     </ul>
