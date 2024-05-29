@@ -6,6 +6,8 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -17,7 +19,25 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
 public class IssueScenePanel extends JPanel {
-    IssueScenePanel(){
+	private final IssueController controller;
+
+	class ModifiyButtonAction implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+		}
+	}
+
+	class PostButtonAction implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+		}
+	}
+
+    IssueScenePanel(IssueController controller){
+		this.controller = controller;
+
 		setLayout(new BorderLayout(0, 5));
 		
 		JPanel ModifyIssueButtonButtonPanel = new JPanel();
@@ -33,6 +53,7 @@ public class IssueScenePanel extends JPanel {
 		ModifiyButtonPanel.add(horizontalGlue_1);
 		
 		JButton ModifyButton = new JButton("Modify");
+		ModifyButton.addActionListener(new ModifiyButtonAction());
 		ModifiyButtonPanel.add(ModifyButton);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
@@ -107,6 +128,7 @@ public class IssueScenePanel extends JPanel {
 		PostButtonPanel.add(horizontalGlue_5);
 		
 		JButton PostButton = new JButton("Post");
+		PostButton.addActionListener(new PostButtonAction());
 		PostButtonPanel.add(PostButton);
 		
 		Component horizontalStrut_7 = Box.createHorizontalStrut(20);

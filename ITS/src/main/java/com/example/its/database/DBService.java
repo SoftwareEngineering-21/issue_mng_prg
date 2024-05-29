@@ -2,9 +2,18 @@ package com.example.its.database;
 
 import java.util.List;
 
-import com.example.its.dataClass.*;
 import org.springframework.stereotype.Service;
 
+import com.example.its.dataClass.Authority;
+import com.example.its.dataClass.Comment;
+import com.example.its.dataClass.CommentID;
+import com.example.its.dataClass.Issue;
+import com.example.its.dataClass.IssueID;
+import com.example.its.dataClass.Project;
+import com.example.its.dataClass.ProjectID;
+import com.example.its.dataClass.User;
+import com.example.its.dataClass.UserID;
+import com.example.its.dataClass.UserSession;
 import com.example.its.database.authority.AuthorityDBService;
 import com.example.its.database.comment.CommentDBService;
 import com.example.its.database.icrelation.ICRelationDBService;
@@ -88,6 +97,10 @@ public class DBService {
 
     public Authority readAuthorityListbyAll(UserID userID, ProjectID projectID){
         return authDBService.readAuthorityListbyAllService(userID, projectID);
+    }
+
+    public List<UserID> readAuthorityListbyAuthinP(ProjectID projectID, int auth){
+        return authDBService.readAuthorityListbyAuthinPService(projectID, auth);
     }
 
     public void deleteAuthority(UserID userID, ProjectID projectID, int auth){

@@ -1,6 +1,6 @@
 package com.example.its.swingUI;
 
-import com.example.its.dataClassDB.ProjectDB;
+import com.example.its.dataClass.Project;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -21,16 +21,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 public class MainScenePanel extends JPanel {
-	SwingGUI integratedGUI;
+	private final MainController controller;
 
-	JPanel ProjectListPanel;
-	GridBagLayout gbl_ProjectListPanel;
+	private JPanel ProjectListPanel;
+	private GridBagLayout gbl_ProjectListPanel;
 
-    MainScenePanel(SwingGUI main){
-		this.integratedGUI = main;
+	class NewProjectButtonAction implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Open MakeProjectFrame");
+			controller.runMakeProject();
+		}
+	}
+
+    MainScenePanel(MainController controller){
+		this.controller = controller;
 
         setLayout(new BorderLayout(0, 5));
 		
@@ -42,8 +49,8 @@ public class MainScenePanel extends JPanel {
 		NewProjectButtonPanel.add(horizontalGlue_1);
 		
 		JButton NewProjectButton = new JButton("New");
-		NewProjectButtonPanel.add(NewProjectButton);
 		NewProjectButton.addActionListener(new NewProjectButtonAction());
+		NewProjectButtonPanel.add(NewProjectButton);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		NewProjectButtonPanel.add(horizontalStrut);
@@ -61,16 +68,18 @@ public class MainScenePanel extends JPanel {
 		
 		Component verticalStrut = Box.createVerticalStrut(20);
 		add(verticalStrut, BorderLayout.SOUTH);
-
-		makeProjectList();
 	}
 
-	void makeProjectList(){
+	public void makeProjectList(){
 		ProjectListPanel.removeAll();
 
-		ArrayList<ProjectDB> projectList = integratedGUI.getProjectList();
-		int size = projectList.size();
-		System.out.println(projectList.size());
+		Project[] projectList = controller.getProjectList();
+		if(projectList == null){
+			return;
+		}
+		
+		int size = projectList.length;
+		System.out.println(projectList.length);
 		gbl_ProjectListPanel.rowHeights = new int[size + 1];
 		gbl_ProjectListPanel.rowWeights = new double[size + 1];
 
@@ -80,8 +89,7 @@ public class MainScenePanel extends JPanel {
 			gbl_ProjectListPanel.rowHeights[i] = 100;
 			gbl_ProjectListPanel.rowWeights[i] = 0;
 
-			projectPanel[i] = new ProjectPanel(i, projectList.get(i).getTitle());
-			projectPanel[i].addGbcPanel(ProjectListPanel, i);
+			projectPanel[i] = new ProjectPanel(ProjectListPanel, i, projectList[i].getTitle());
 		}
 		System.out.println(projectPanel.length);
 		gbl_ProjectListPanel.rowHeights[size] = 0;
@@ -94,11 +102,11 @@ public class MainScenePanel extends JPanel {
 	class ProjectPanel extends JPanel {
 		int index;
 
-		ProjectPanel(int index, String title){
-			this(index, title, "New");
+		ProjectPanel(JPanel GbcPanel,int index, String title){
+			this(GbcPanel, index, title, "New");
 		}
 
-		ProjectPanel(int index, String title, String Authority){
+		ProjectPanel(JPanel GbcPanel, int index, String title, String Authority){
 			this.index = index;
 
 			setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -142,9 +150,7 @@ public class MainScenePanel extends JPanel {
 			add(horizontalGlue_2);
 
 			addMouseListener(new ProjectPanelAction());
-		}
-		
-		void addGbcPanel(JPanel GbcPanel, int index) {
+			
 			GridBagConstraints gbc_ProjectPanel = new GridBagConstraints();
 			gbc_ProjectPanel.fill = GridBagConstraints.BOTH;
 			gbc_ProjectPanel.weightx = 1;
@@ -159,15 +165,8 @@ public class MainScenePanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
 				System.out.println("Open ProjectInfo : " + index);
+				controller.runProjectScene(index);
 			}
-		}
-	}
-
-	class NewProjectButtonAction implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.out.println("Open MakeProjectFrame");
-			integratedGUI.callMakeProjecFrame();
 		}
 	}
 }
