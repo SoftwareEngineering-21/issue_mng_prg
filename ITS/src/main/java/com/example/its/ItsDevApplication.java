@@ -31,6 +31,8 @@ public class ItsDevApplication implements CommandLineRunner {
 
 
     public static void main(String[] args) {
+        System.setProperty("java.awt.headless", "false");
+
         SpringApplication.run(ItsDevApplication.class, args);
         ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
         MainSwingController controller = context.getBean(MainSwingController.class);
