@@ -23,7 +23,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MainScenePanel extends JPanel {
-	private final MainController controller;
+	private final MainSceneController controller;
 
 	private JPanel ProjectListPanel;
 	private GridBagLayout gbl_ProjectListPanel;
@@ -36,7 +36,7 @@ public class MainScenePanel extends JPanel {
 		}
 	}
 
-    MainScenePanel(MainController controller){
+    MainScenePanel(MainSceneController controller){
 		this.controller = controller;
 
         setLayout(new BorderLayout(0, 5));
@@ -73,27 +73,36 @@ public class MainScenePanel extends JPanel {
 	public void makeProjectList(){
 		ProjectListPanel.removeAll();
 
+		Project[] adminProjectList = controller.getAdminProjectList();
+		if(adminProjectList == null){
+			return;
+		}
+
 		Project[] projectList = controller.getProjectList();
 		if(projectList == null){
 			return;
 		}
-		
-		int size = projectList.length;
 		System.out.println(projectList.length);
-		gbl_ProjectListPanel.rowHeights = new int[size + 1];
-		gbl_ProjectListPanel.rowWeights = new double[size + 1];
+		gbl_ProjectListPanel.rowHeights = new int[adminProjectList.length + projectList.length + 1];
+		gbl_ProjectListPanel.rowWeights = new double[adminProjectList.length + projectList.length + 1];
 
-
-		ProjectPanel projectPanel[] = new ProjectPanel[size];
-		for(int i = 0; i < size; i++) {
+		for(int i = 0; i < adminProjectList.length; i++) {
 			gbl_ProjectListPanel.rowHeights[i] = 100;
 			gbl_ProjectListPanel.rowWeights[i] = 0;
 
-			projectPanel[i] = new ProjectPanel(ProjectListPanel, i, projectList[i].getTitle());
+			new ProjectPanel(ProjectListPanel, i, adminProjectList[i].getTitle(), true);
 		}
-		System.out.println(projectPanel.length);
-		gbl_ProjectListPanel.rowHeights[size] = 0;
-		gbl_ProjectListPanel.rowWeights[size] = Double.MIN_VALUE;
+
+		for(int i = 0; i < projectList.length; i++) {
+			gbl_ProjectListPanel.rowHeights[i + adminProjectList.length] = 100;
+			gbl_ProjectListPanel.rowWeights[i + adminProjectList.length] = 0;
+
+			new ProjectPanel(ProjectListPanel, i + adminProjectList.length, 
+				projectList[i + adminProjectList.length].getTitle(), false);
+		}
+
+		gbl_ProjectListPanel.rowHeights[adminProjectList.length + projectList.length] = 0;
+		gbl_ProjectListPanel.rowWeights[adminProjectList.length + projectList.length] = Double.MIN_VALUE;
 		
 		revalidate();
 		repaint();
@@ -102,11 +111,7 @@ public class MainScenePanel extends JPanel {
 	class ProjectPanel extends JPanel {
 		int index;
 
-		ProjectPanel(JPanel GbcPanel,int index, String title){
-			this(GbcPanel, index, title, "New");
-		}
-
-		ProjectPanel(JPanel GbcPanel, int index, String title, String Authority){
+		ProjectPanel(JPanel GbcPanel, int index, String title, boolean isAdmin){
 			this.index = index;
 
 			setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -128,21 +133,23 @@ public class MainScenePanel extends JPanel {
 			Component verticalGlue_1 = Box.createVerticalGlue();
 			AthorityAreaPanel.add(verticalGlue_1);
 			
-			JPanel AuthorityPanel = new JPanel();
-			AuthorityPanel.setBackground(new Color(192, 192, 192));
-			AuthorityPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-			AthorityAreaPanel.add(AuthorityPanel);
-			AuthorityPanel.setLayout(new BoxLayout(AuthorityPanel, BoxLayout.LINE_AXIS));
-			
-			Component horizontalStrut_3 = Box.createHorizontalStrut(20);
-			AuthorityPanel.add(horizontalStrut_3);
-			
-			JLabel AuthorityName = new JLabel(Authority);
-			AuthorityPanel.add(AuthorityName);
-			
-			Component horizontalStrut_7 = Box.createHorizontalStrut(20);
-			AuthorityPanel.add(horizontalStrut_7);
-			
+			if(isAdmin){
+				JPanel AuthorityPanel = new JPanel();
+				AuthorityPanel.setBackground(new Color(192, 192, 192));
+				AuthorityPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+				AthorityAreaPanel.add(AuthorityPanel);
+				AuthorityPanel.setLayout(new BoxLayout(AuthorityPanel, BoxLayout.LINE_AXIS));
+				
+				Component horizontalStrut_3 = Box.createHorizontalStrut(20);
+				AuthorityPanel.add(horizontalStrut_3);
+				
+				JLabel AuthorityName = new JLabel("Admin");
+				AuthorityPanel.add(AuthorityName);
+				
+				Component horizontalStrut_7 = Box.createHorizontalStrut(20);
+				AuthorityPanel.add(horizontalStrut_7);
+			}
+
 			Component verticalGlue = Box.createVerticalGlue();
 			AthorityAreaPanel.add(verticalGlue);
 			

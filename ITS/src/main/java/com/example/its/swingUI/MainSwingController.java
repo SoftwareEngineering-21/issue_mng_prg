@@ -5,24 +5,26 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.example.its.dataClass.Comment;
 import com.example.its.dataClass.Issue;
+import com.example.its.dataClass.IssueID;
 import com.example.its.dataClass.Project;
+import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
 
 import com.example.its.logic.UserService;
+import com.example.its.status.StatusManager;
 import com.example.its.logic.ProjectService;
 
 @Component
-public class RealServiceLayer extends ServiceLayer {
-    private UserID userID;
-
+public class MainSwingController extends BaseController {
     protected UserService userService;
     protected ProjectService projectService;
     //protected IssueService issueService;
 
     @Autowired
-    RealServiceLayer(UserService userService, ProjectService projectService){
+    MainSwingController(UserService userService, ProjectService projectService){
         super();
         this.userService = userService;
         this.projectService = projectService;
@@ -42,13 +44,24 @@ public class RealServiceLayer extends ServiceLayer {
     }
 
     @Override
+    public boolean isExistID(String id) {
+        return false;
+    }
+
+    @Override
+    public boolean signUp(String id, String password) {
+        //return userService.createUser(id, password);
+        return true;
+    }
+
+    @Override
     public Project[] getProjectList() {
         if(projectService == null){
             System.out.println("Error! projectService is null");
             return null;
         }
 
-        List<Project> list = projectService.readProjects(new UserID("test"));
+        List<Project> list = projectService.readProjects(StatusManager.getInstance().getUser());
         return list.toArray(new Project[list.size()]);
     }
 
@@ -59,7 +72,7 @@ public class RealServiceLayer extends ServiceLayer {
         }
         
         try{
-            this.projectService.createProject(this.userID, title, Desc);
+            this.projectService.createProject(StatusManager.getInstance().getUser(), title, Desc);
         }
         catch(Exception e){
             return false;
@@ -68,39 +81,33 @@ public class RealServiceLayer extends ServiceLayer {
     }
 
     @Override
-    public void addTester(User id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addTester'");
+    public boolean addTester(User id) {
+        return true;
     }
 
     @Override
-    public void addPlayer(User id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addPlayer'");
+    public boolean addPlayer(User id) {
+        return true;
     }
 
     @Override
-    public void addDeveloper(User id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addDeveloper'");
+    public boolean addDeveloper(User id) {
+        return true;
     }
 
     @Override
     public User[] getTesterList() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTesterList'");
+        return null;
     }
 
     @Override
     public User[] getPlayerList() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPlayerList'");
+        return null;
     }
 
     @Override
     public User[] getDeveloperList() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDeveloperList'");
+        return null;
     }
 
     @Override
@@ -119,8 +126,50 @@ public class RealServiceLayer extends ServiceLayer {
     }
 
     @Override
-    public boolean makeIssue() {
+    public boolean makeIssue(String title, String desc, int priority) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'makeIssue'");
+    }
+
+    @Override
+    public boolean addComment(String desc) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addComment'");
+    }
+
+    @Override
+    public boolean logout() {
+        userService.logout();
+        return true;
+    }
+
+    @Override
+    public Comment[] getCommentList() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCommentList'");
+    }
+
+    @Override
+    public boolean deleteTester(User id) {
+        return false;
+    }
+
+    @Override
+    public boolean deletePlayer(User id) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteDeveloper(User id) {
+        return false;
+    }
+
+    @Override
+    public Project[] getAdminProjectList() {
+        List<Project> projects = this.projectService.readAdminProjects(StatusManager.getInstance().getUser());
+        if(projects == null){
+            return null;
+        }
+        return projects.toArray(new Project[projects.size()]);
     }
 }

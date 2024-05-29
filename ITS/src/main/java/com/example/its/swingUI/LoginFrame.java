@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 import lombok.RequiredArgsConstructor;
 
 public class LoginFrame extends JFrame {
-	private final LoginController controller;
+	private final LoginFrameController controller;
 
 	private JTextField IDTextField;
 	private JTextField PasswordTextField;
@@ -40,7 +40,7 @@ public class LoginFrame extends JFrame {
 		}
     }
 
-    public LoginFrame(LoginController controller){
+    public LoginFrame(LoginFrameController controller){
 		this.controller = controller;
 
 		setTitle("Login");

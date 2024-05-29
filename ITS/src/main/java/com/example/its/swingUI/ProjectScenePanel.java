@@ -7,9 +7,13 @@ import java.awt.Insets;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 import java.awt.Component;
+
+import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
 
@@ -31,14 +35,30 @@ public class ProjectScenePanel extends JPanel {
 
 	JPanel IssueListPanel;
 
-	class NewIssueButtonAction implements ActionListener{
+	class NewIssueButtonAction implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			controller.runMakeIssue();
+		}
+	}
+
+	class StatisticButtonAction implements ActionListener {
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
 		}
 	}
+
+	class settingButtonAction implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			controller.runProjAuthPanel();
+		}
+		
+	}
 	
-    ProjectScenePanel(ProjectSceneController controller){
+    ProjectScenePanel(ProjectSceneController controller) {
 		this.controller = controller;
 
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -72,6 +92,18 @@ public class ProjectScenePanel extends JPanel {
 		projectDescArea.setLineWrap(true);
 		projectDescArea.setEditable(false);;
 		scrollPane.add(projectDescArea);
+
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+		add(buttonPanel);
+
+		JButton statisticButton = new JButton("Statistc");
+		statisticButton.addActionListener(new StatisticButtonAction());
+		buttonPanel.add(statisticButton);
+
+		JButton settingButton = new JButton("Setting");
+		settingButton.addActionListener(new settingButtonAction());
+		buttonPanel.add(settingButton);
 
 		Component verticalStrut = Box.createVerticalStrut(20);
 		add(verticalStrut);
@@ -114,23 +146,30 @@ public class ProjectScenePanel extends JPanel {
 		IssueListPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		scrollPane1.setViewportView(IssueListPanel);
 
-		makeIssueList();
+		GridBagLayout gbl_IssueListPanel = new GridBagLayout();
+		gbl_IssueListPanel.columnWidths = new int[] {0};
+		gbl_IssueListPanel.rowHeights = new int[] { 32, 32, 32, 32, 32, 32, 32, 32 };
+		gbl_IssueListPanel.columnWeights = new double[]{1.0};
+		gbl_IssueListPanel.rowWeights = new double[]{0.0};
+		IssueListPanel.setLayout(gbl_IssueListPanel);
 	}
 
-	void setProjInfo(Project project){
+	void setProjInfo(Project project) {
 		projecNameLabel.setText(project.getTitle());
 		projectDescArea.setText(project.getDescription());
 	}
 
 	void makeIssueList(){
+		IssueListPanel.removeAll();
+
 		Issue[] issueList = controller.getIssueList();
 		int length = 0;
 
-		if(issueList != null){
+		if(issueList != null) {
 			length = issueList.length;
 		}
 
-		int size = length > 10 ? length : 10;
+		int size = length > 8 ? length : 8;
 		GridBagLayout gbl_IssueListPanel = new GridBagLayout();
 		gbl_IssueListPanel.columnWidths = new int[] {0};
 		gbl_IssueListPanel.rowHeights = new int[size];
@@ -141,18 +180,33 @@ public class ProjectScenePanel extends JPanel {
 		IssuePanel IssuePanel[] = new IssuePanel[size];
 		for(int i = 0; i < size; i++) {
 			gbl_IssueListPanel.rowHeights[i] = 32;
-			if(i < length){
-				IssuePanel[i] = new IssuePanel(IssueListPanel, i, issueList[i].getTitle(), issueList[i].getDescription());
+			if(i < length) {
+				String result;
+				switch(issueList[i].getStatus()){
+					default : 
+						result = "New";
+						break;
+				}
+				IssuePanel[i] = new IssuePanel(IssueListPanel, i, issueList[i].getTitle(), result);
 			}
 		}
+
+		revalidate();
+		repaint();
 	}
 	
 	class IssuePanel extends JPanel{
+		int index;
+
 		IssuePanel(JPanel GbcPanel, int index){
 			this(GbcPanel, index, "IssueName", "New");
 		}
 		
 		IssuePanel(JPanel GbcPanel, int index, String name, String state){
+			this.index = index;
+
+			addMouseListener(new OpenIssueAction());
+
 			setBorder(new LineBorder(new Color(0, 0, 0)));
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 			
@@ -179,5 +233,14 @@ public class ProjectScenePanel extends JPanel {
 			gbc_IssuePanel.gridy = index;
 			GbcPanel.add(this, gbc_IssuePanel);
 		}
+
+		class OpenIssueAction extends MouseAdapter {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				System.out.println("Open ProjectInfo : " + index);
+				controller.runIssueScene(index);
+			}
+		} 
 	}
 }

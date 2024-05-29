@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  */
 @Deprecated
 public class SwingGUI {
-    MainController controller;
+    MainSceneController controller;
 
     JFrame window;
     JFrame additionalFrame;
