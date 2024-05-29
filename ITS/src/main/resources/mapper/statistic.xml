@@ -16,7 +16,7 @@
     <select id="readAllofUploadIssue" resultType="java.util.Map">
         SELECT
             projectIDFK as projectID,
-            COUNT(*) as issueCount
+            CO UNT(*) as issueCount
         FROM
             PIRelationDB
         WHERE
@@ -24,7 +24,7 @@
             <foreach item="projectIDFK" collection="projectIDList" open="(" separator="," close=")">
                 #{projectIDFK}
             </foreach>
-        AND 
+        AND
             issueIDFK IN (
                 SELECT
                     ID
@@ -37,6 +37,27 @@
             projectIDFK
         ORDER BY
             issueCount DESC
+    </select>
+
+
+    <select id="readAllTypeIssue" resultType="java.util.Map">
+        SELECT
+            type,
+            COUNT(*) as count
+        FROM
+            IssueDB
+        WHERE
+            ID IN (
+                SELECT issueIDFK
+                FROM PIRelationDB
+                WHERE projectIDFK = #{projectIDFK}
+            )
+            AND createdAt BETWEEN #{startTime} AND #{endTime}
+        GROUP BY
+            type
+        ORDER BY
+        count DESC,
+        type ASC
     </select>
 
 </mapper>

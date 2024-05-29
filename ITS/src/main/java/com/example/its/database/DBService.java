@@ -166,7 +166,7 @@ public class DBService {
 
 
     //Statistic method
-    //TODO projectLIst 넣어주기 (userID 받아서)
+    // read all count of issue from each project
     public List<Pair<ProjectID, Integer>> readAllofUploadIssue(UserID userID, Timestamp startTime, Timestamp endTime){
         List<Project> admin = projectDBService.readAdminProjectListService(userID);
         List<Project> notAdmin = projectDBService.readProjectListService(userID);
@@ -180,5 +180,10 @@ public class DBService {
         }
 
         return statisticDBService.readAllofUploadIssueService(projectIDList, startTime, endTime);
+    }
+
+    //read issue count with type in same project
+    public List<Pair<Integer, Integer>> readAllTypeIssue(ProjectID projectIDFK, Timestamp startTime, Timestamp endTime){
+        return statisticDBService.readAllTypeIssueService(projectIDFK, startTime, endTime);
     }
 }

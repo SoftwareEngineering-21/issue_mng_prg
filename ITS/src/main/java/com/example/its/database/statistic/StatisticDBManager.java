@@ -15,5 +15,9 @@ public class StatisticDBManager {
     public List<Map<String, Object>> readAllofUploadIssueManager(List<Integer> projectIDList, Timestamp startTime, Timestamp endTime){
         return mapper.readAllofUploadIssue(projectIDList, startTime, endTime);
     }
+
+    public List<Map<String, Object>> readAllTypeIssueManager(int projectIDFK, Timestamp startTime,Timestamp endTime){
+        return mapper.readAllTypeIssue(projectIDFK, startTime, endTime);
+    }
     
 }

@@ -47,4 +47,27 @@ public class StatisticDBService {
         return result;
     }
     
+
+    public List<Pair<Integer, Integer>> readAllTypeIssueService(ProjectID projectIDFK, Timestamp startTime, Timestamp endTime){
+        List<Pair<Integer, Integer>> result = new ArrayList<>();
+        List<Map<String, Object>> idbList = manager.readAllTypeIssueManager(projectIDFK.getID(), startTime, endTime);
+        
+        List<Integer> processedType = new ArrayList<>();
+        for (Map<String, Object> idb : idbList){
+            int tempType = (int) idb.get("type");
+            processedType.add(tempType);
+            long openCount = (long) idb.get("count");
+            int tempCount =(int) openCount;
+            Pair<Integer, Integer> temp = Pair.of(tempType, tempCount);
+            result.add(temp);
+        }
+
+        for (int i=0; i<5; i++){
+            if (!processedType.contains(i)){
+                Pair<Integer, Integer> temp = Pair.of(i, 0);
+                result.add(temp);
+            }
+        }
+        return result;
+    }
 }
