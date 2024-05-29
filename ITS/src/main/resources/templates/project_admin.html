@@ -18,6 +18,12 @@
             font-weight: bold;
             color: #303050;
         }
+        .center-align {
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             height: 100%; /* 부모 요소의 높이를 100%로 설정 */
+         }
         .projectsHeader p{
             background-color: #303050;
             border-radius: 5px;
@@ -92,7 +98,7 @@
             color:#f5f5f5;
         }
         .form-group.row {
-            align-items: center; /* 세로 중앙 정렬 */
+            align-items: center;
 
         }
         .form-group{
@@ -105,6 +111,11 @@
         .form-control-custom{
             height: 50px!important;
             font-size: 20px !important;
+        }
+
+        .hyperlink{
+            padding-right: 50px;
+            font-weight: bold;
         }
     </style>
     <script>
@@ -141,8 +152,14 @@
 
 </head>
 <body>
-<div class ="logo">
-    <div th:replace="~{logo::logo}" id = 'logo'></div>
+<div class="form-group row justify-content-between center-align">
+    <div class ="logo">
+        <div th:replace="~{logo::logo}" id = 'logo'></div>
+    </div>
+    <div>
+        <a th:href="@{/userinfo}" class="hyperlink">유저 정보</a>
+        <a th:href="@{/logout}" class="hyperlink">로그아웃</a>
+    </div>
 
 </div>
 <div class="container">
