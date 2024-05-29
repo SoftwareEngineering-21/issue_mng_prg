@@ -7,6 +7,8 @@ import java.awt.Insets;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 import java.awt.Component;
@@ -36,7 +38,7 @@ public class ProjectScenePanel extends JPanel {
 	class NewIssueButtonAction implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			controller.runMakeIssue();
 		}
 	}
 
@@ -144,7 +146,12 @@ public class ProjectScenePanel extends JPanel {
 		IssueListPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		scrollPane1.setViewportView(IssueListPanel);
 
-		makeIssueList();
+		GridBagLayout gbl_IssueListPanel = new GridBagLayout();
+		gbl_IssueListPanel.columnWidths = new int[] {0};
+		gbl_IssueListPanel.rowHeights = new int[] { 32, 32, 32, 32, 32, 32, 32, 32 };
+		gbl_IssueListPanel.columnWeights = new double[]{1.0};
+		gbl_IssueListPanel.rowWeights = new double[]{0.0};
+		IssueListPanel.setLayout(gbl_IssueListPanel);
 	}
 
 	void setProjInfo(Project project) {
@@ -153,6 +160,8 @@ public class ProjectScenePanel extends JPanel {
 	}
 
 	void makeIssueList(){
+		IssueListPanel.removeAll();
+
 		Issue[] issueList = controller.getIssueList();
 		int length = 0;
 
@@ -160,7 +169,7 @@ public class ProjectScenePanel extends JPanel {
 			length = issueList.length;
 		}
 
-		int size = length > 10 ? length : 10;
+		int size = length > 8 ? length : 8;
 		GridBagLayout gbl_IssueListPanel = new GridBagLayout();
 		gbl_IssueListPanel.columnWidths = new int[] {0};
 		gbl_IssueListPanel.rowHeights = new int[size];
@@ -172,17 +181,32 @@ public class ProjectScenePanel extends JPanel {
 		for(int i = 0; i < size; i++) {
 			gbl_IssueListPanel.rowHeights[i] = 32;
 			if(i < length) {
-				IssuePanel[i] = new IssuePanel(IssueListPanel, i, issueList[i].getTitle(), issueList[i].getDescription());
+				String result;
+				switch(issueList[i].getStatus()){
+					default : 
+						result = "New";
+						break;
+				}
+				IssuePanel[i] = new IssuePanel(IssueListPanel, i, issueList[i].getTitle(), result);
 			}
 		}
+
+		revalidate();
+		repaint();
 	}
 	
 	class IssuePanel extends JPanel{
+		int index;
+
 		IssuePanel(JPanel GbcPanel, int index){
 			this(GbcPanel, index, "IssueName", "New");
 		}
 		
 		IssuePanel(JPanel GbcPanel, int index, String name, String state){
+			this.index = index;
+
+			addMouseListener(new OpenIssueAction());
+
 			setBorder(new LineBorder(new Color(0, 0, 0)));
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 			
@@ -209,5 +233,14 @@ public class ProjectScenePanel extends JPanel {
 			gbc_IssuePanel.gridy = index;
 			GbcPanel.add(this, gbc_IssuePanel);
 		}
+
+		class OpenIssueAction extends MouseAdapter {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				System.out.println("Open ProjectInfo : " + index);
+				controller.runIssueScene(index);
+			}
+		} 
 	}
 }

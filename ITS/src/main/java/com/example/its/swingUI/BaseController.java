@@ -45,7 +45,7 @@ public abstract class BaseController {
 
     //이슈 관련
     public abstract Issue[] getIssueList();
-    public abstract boolean makeIssue(String title, String desc);
+    public abstract boolean makeIssue(String title, String desc, int Priority);
 
     //코멘트 관련
     public abstract Comment[] getCommentList();

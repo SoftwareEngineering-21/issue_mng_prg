@@ -1,5 +1,7 @@
 package com.example.its.swingUI;
 
+import com.example.its.dataClass.Issue;
+
 public class IssueSceneController {
     protected BaseController baseController;
     protected IssueScenePanel panel;
@@ -11,5 +13,10 @@ public class IssueSceneController {
 
     void loadIssueInfo(){
         
+    }
+
+    void setProjectPanel(Issue issue){ 
+        this.panel.setIssueInfo(issue);
+        this.baseController.setBasePanel(panel);
     }
 }

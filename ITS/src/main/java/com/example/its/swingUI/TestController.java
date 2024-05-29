@@ -2,9 +2,11 @@ package com.example.its.swingUI;
 
 import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 import com.example.its.dataClass.Project;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.Issue;
+import com.example.its.dataClass.IssueID;
 
 import java.util.ArrayList;
 
@@ -21,6 +23,7 @@ public class TestController extends BaseController {
     ArrayList<Project> projectList = new ArrayList<Project>();
     ArrayList<Project> adminProjectList = new ArrayList<Project>();
     ArrayList<Issue> issueList = new ArrayList<Issue>();
+    ArrayList<ArrayList<Comment>> commentList = new ArrayList<ArrayList<Comment>>();
 
     @Override
     public boolean isExistID(String id) {
@@ -106,15 +109,17 @@ public class TestController extends BaseController {
 
     @Override
     public Issue[] getIssueList() {
-                if(issueList == null){
-                    return null;
-                }
-        
-                return issueList.toArray(new Issue[issueList.size()]);
+            if(issueList == null){
+                return null;
+            }
+    
+            return issueList.toArray(new Issue[issueList.size()]);
     }
 
     @Override
-    public boolean makeIssue(String title, String desc) {
+    public boolean makeIssue(String title, String desc, int priority) {
+        issueList.add(new Issue(new IssueID(issueList.size()), title, desc, 
+            0, null, new UserID("Wow"), null, priority));
         return true;
     }
 

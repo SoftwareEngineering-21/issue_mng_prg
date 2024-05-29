@@ -126,7 +126,7 @@ public class MainSwingController extends BaseController {
     }
 
     @Override
-    public boolean makeIssue(String title, String desc) {
+    public boolean makeIssue(String title, String desc, int priority) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'makeIssue'");
     }

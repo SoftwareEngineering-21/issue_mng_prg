@@ -18,8 +18,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
+import com.example.its.dataClass.Issue;
+
 public class IssueScenePanel extends JPanel {
 	private final IssueSceneController controller;
+
+	private JLabel IssueName;
+	private JTextArea IssueDescription;
 
 	class ModifiyButtonAction implements ActionListener{
 		@Override
@@ -71,7 +76,7 @@ public class IssueScenePanel extends JPanel {
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 		IssueNamePanel.add(horizontalStrut_1);
 		
-		JLabel IssueName = new JLabel("IssueName");
+		IssueName = new JLabel();
 		IssueNamePanel.add(IssueName);
 		
 		Component horizontalGlue_2 = Box.createHorizontalGlue();
@@ -80,7 +85,7 @@ public class IssueScenePanel extends JPanel {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		IssueDescriptionPanel.add(scrollPane_1, BorderLayout.SOUTH);
 		
-		JTextArea IssueDescription = new JTextArea();
+		IssueDescription = new JTextArea();
 		IssueDescription.setEditable(false);
 		IssueDescription.setRows(5);
 		IssueDescription.setLineWrap(true);
@@ -134,6 +139,11 @@ public class IssueScenePanel extends JPanel {
 		Component horizontalStrut_7 = Box.createHorizontalStrut(20);
 		PostButtonPanel.add(horizontalStrut_7);
 
+	}
+
+	public void setIssueInfo(Issue issue){
+		IssueName.setText(issue.getTitle());
+		IssueDescription.setText(issue.getDescription());
 	}
 	
 	class CommentPanel extends JPanel {
