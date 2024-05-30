@@ -22,9 +22,6 @@
             font-weight: bold;
             color: #303050;
         }
-        .list-group-item{
-            min-height: 100px;
-        }
         .hyperlink{
             padding-right: 50px;
             font-weight: bold;
@@ -35,17 +32,6 @@
             justify-content: center;
             height: 100%; /* 부모 요소의 높이를 100%로 설정 */
         }
-        .issue-attribute
-        {
-            padding: 0px 10px;
-            width: 90px;
-            min-height: 50px;
-            align-content: center;
-            justify-content: center;
-        }
-        .list-group{
-            color: #202030;
-        }
         p{
             background-color: #303050;
             border-radius: 5px;
@@ -53,108 +39,37 @@
             font-size : 20px;
             color: #f5f5f5;
             cursor: pointer;
+
         }
-        .flex{
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            padding-right: 10px;
-            min-height: 70px;
-            flex: 0 1 auto;
+        .user-context{
+            width: 200px;
+        }
+        .user-context-field{
+            width:50%;
+        }
+        .btn-custom {
+            background-color: #303050;
+            border-color: #303050;
+            color: #f5f5f5;
+            min-width: 80px;
+            min-height: 40px;
+            border-radius: 8px;
             align-content: center;
-            width:90%
+            justify-content: center;
+            margin-top: 10px;
+            text-align: center;
         }
-        .flex_container {
-            min-height: 70px;
+        .btn-custom:hover {
+             background-color: #202030;
+             border-color: #202030;
+             color: #f5f5f5;
+            text-decoration: none;
+        }
+        .custom{
+            align-items: center;
+        }
 
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
 
-        }
-        .issue-name{
-            display: flex!important;
-        }
-        .issue-attributes{
-            min-height: 50px;
-        }
-        .status-new{
-            color:#f5f5f5;
-            background-color: #216e40;
-            border-radius: 15px;
-            padding: 5px 10px;
-            font-weight: 500;
-        }
-        .status-reopen{
-            color:#f5f5f5;
-            background-color: #216e40;
-            border-radius: 15px;
-            padding: 5px 10px;
-            font-weight: 500;
-        }
-        .status-progress{
-            color:#f5f5f5;
-            background-color: #d5a00c;
-            border-radius: 15px;
-            padding: 5px 10px;
-            font-weight: 500;
-        }
-        .status-resolved{
-            color:#f5f5f5;
-            background-color: #403080;
-            border-radius: 15px;
-            padding: 5px 10px;
-            font-weight: 500;
-        }
-        .status-closed{
-            color:#f5f5f5;
-            background-color: #902a2a;
-            border-radius: 15px;
-            padding: 5px 10px;
-            font-weight: 500;
-        }
-        .priority-trivial{
-            color:#f5f5f5;
-            background-color: #d8c69d;
-            border-radius: 15px;
-            padding: 5px 10px;
-            font-weight: 500;
-        }
-        .priority-minor{
-            color:#f5f5f5;
-            background-color: #bf9a84;
-            border-radius: 15px;
-            padding: 5px 10px;
-            font-weight: 500;
-        }
-        .priority-major{
-            color:#f5f5f5;
-            background-color: #a35838;
-            border-radius: 15px;
-            padding: 5px 10px;
-            font-weight: 500;
-        }
-        .priority-critical{
-            color:#f5f5f5;
-            background-color: #a34438;
-            border-radius: 15px;
-            padding: 5px 10px;
-            font-weight: 500;
-        }
-        .priority-blocker{
-            color:#f5f5f5;
-            background-color: #902a2a;
-            border-radius: 15px;
-            padding: 5px 10px;
-            font-weight: 500;
-        }
-        .type{
-            color:#f5f5f5;
-            background-color: #606060;
-            border-radius: 15px;
-            padding: 5px 10px;
-            font-weight: 500;
-        }
     </style>
     <script>
         function changeStatus(){
@@ -171,100 +86,69 @@
     <div>
         <a th:href="@{/userinfo}" class="hyperlink">유저 정보</a>
         <a th:href="@{/logout}" class="hyperlink">로그아웃</a>
+
     </div>
+</div>
+
+
+<div class="container mt-5">
+    <div class="card-container mb-3">
+        <div class="card" >
+            <div class="card-body">
+                <div>
+                    <div class ="row justify-content-between pr-5 pl-2">
+                        <h2 class="card-title">test</h2>
+                        <a class = "btn-custom">modify</a>
+                    </div>
+
+                    <h5 class="card-description">test desc</h5>
+
+                </div>
+                <div class ="top-align justify-content-end">
+                    <h6 class ="ml-1 mr-3 type">closed</h6>
+                    <h6 class ="ml-1 mr-3 priority">closed</h6>
+                    <h6 class ="ml-1 mr-3 status">closed</h6>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="card-container mb-5">
+        <div class="card " >
+            <div class="card-body">
+
+                <div class="pt-2 row justify-content-between">
+                    <div>
+                        <h4 class="mb-8">Contributors</h4>
+                        <div class ="d-flex justify-content-between align-items-center ">
+                            <h5 class = "user-context align-items-center pb-2">reporter</h5>
+                            <input type="text" class="form-control " readonly>
+                        </div>
+                        <div class ="d-flex justify-content-between align-items-center ">
+                            <h5 class = "user-context align-items-center pb-2">assignee</h5>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+                        <div class =" d-flex justify-content-between align-items-center ">
+                            <h5 class = "user-context">fixer</h5>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class = "d-flex justify-content-center  custom text-center pr-5">
+                        <div>
+                            <h1 class = "">Number of Comments</h1>
+                            <h2 class ="pt-3 ">153 comments</h2>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </div>
-<div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-3 ">
-        <div class = "projectsHeader">
-            <h1>Issues</h1>
 
-        </div>
-
-        <div  onclick="window.location.href='/projects/create'">
-            <p>New Issue</p>
-        </div>
-
-    </div>
-    <ul class="list-group">
-        <li class="issue-name list-group-header list-group-item d-flex align-items-center">
-
-            <h5 class=" align-items-center flex">Issue name</h5>
-            <div class = "row flex-nowrap issue-attributes">
-                <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                    <h6>assignee</h6>
-                </div>
-                <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                    <h6>reporter</h6>
-                </div>
-                <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                    <h6>fixer</h6>
-                </div>
-                <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                    <h6>priority</h6>
-                </div>
-                <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                    <h6>type</h6>
-                </div>
-                <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                    <h6>status</h6>
-                </div>
-
-            </div>
-        </li>
-        <div class="issue-set">
-            <li class="issue-name list-group-item d-flex align-items-center">
-                <h5 class=" align-items-center flex">Issue name is veryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy long</h5>
-                <div class = "row flex-nowrap issue-attributes">
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="status-new">new</h6>
-                    </div>
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="status-closed">closed</h6>
-                    </div>
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="status-resolved">resolved</h6>
-                    </div>
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="status-progress">progress</h6>
-                    </div>
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="status-reopen">reopen</h6>
-                    </div>
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="status-new">new</h6>
-                    </div>
-                </div>
-            </li>
-            <li class="issue-name list-group-item d-flex align-items-center">
-                <h5 class=" align-items-center flex">Issue name is veryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy long</h5>
-                <div class = "row flex-nowrap issue-attributes">
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="priority-trivial">trivial</h6>
-                    </div>
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="priority-minor">minor</h6>
-                    </div>
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="priority-major">major</h6>
-                    </div>
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="priority-critical">critical</h6>
-                    </div>
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="type">blocker</h6>
-                    </div>
-
-
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="status-new">new</h6>
-                    </div>
-                </div>
-            </li>
-        </div>
-
-
-    </ul>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

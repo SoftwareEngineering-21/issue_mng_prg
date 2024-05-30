@@ -1,8 +1,7 @@
 package com.example.its.webUI.Controller;
 import com.example.its.status.StatusManager;
-import com.example.its.webUI.Controller.Exception.LoginRequiredException;
-import com.example.its.webUI.Controller.Exception.LoginUnrequiredException;
-import lombok.NonNull;
+import com.example.its.logic.Exception.LoginRequiredException;
+import com.example.its.logic.Exception.LoginUnrequiredException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
