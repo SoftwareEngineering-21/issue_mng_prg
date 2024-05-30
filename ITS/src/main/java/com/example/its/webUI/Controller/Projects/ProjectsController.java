@@ -1,7 +1,7 @@
 package com.example.its.webUI.Controller.Projects;
 
 import com.example.its.status.StatusManager;
-import com.example.its.webUI.Controller.Exception.LoginRequiredException;
+import com.example.its.logic.Exception.LoginRequiredException;
 import com.example.its.webUI.Controller.MainController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

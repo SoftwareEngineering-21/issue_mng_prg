@@ -1,5 +1,8 @@
 package com.example.its.webUI.Controller.Exception;
 
+import com.example.its.logic.Exception.LoginFailureException;
+import com.example.its.logic.Exception.LoginRequiredException;
+import com.example.its.logic.Exception.LoginUnrequiredException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 

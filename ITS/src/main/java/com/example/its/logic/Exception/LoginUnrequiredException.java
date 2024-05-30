@@ -1,4 +1,4 @@
-package com.example.its.webUI.Controller.Exception;
+package com.example.its.logic.Exception;
 
 public class LoginUnrequiredException extends Exception {
 }

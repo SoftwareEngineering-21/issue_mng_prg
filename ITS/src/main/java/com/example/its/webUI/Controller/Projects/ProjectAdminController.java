@@ -6,7 +6,7 @@ import com.example.its.dataClass.UserID;
 import com.example.its.logic.AuthorityService;
 import com.example.its.logic.ProjectService;
 import com.example.its.status.StatusManager;
-import com.example.its.webUI.Controller.Exception.LoginRequiredException;
+import com.example.its.logic.Exception.LoginRequiredException;
 import com.example.its.webUI.Controller.MainController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
