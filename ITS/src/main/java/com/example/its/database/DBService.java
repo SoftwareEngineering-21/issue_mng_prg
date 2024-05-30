@@ -1,7 +1,11 @@
 package com.example.its.database;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import com.example.its.dataClass.Authority;
@@ -20,6 +24,7 @@ import com.example.its.database.icrelation.ICRelationDBService;
 import com.example.its.database.issue.IssueDBService;
 import com.example.its.database.pirelation.PIRelationDBService;
 import com.example.its.database.project.ProjectDBService;
+import com.example.its.database.statistic.StatisticDBService;
 import com.example.its.database.user.UserDBService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,6 +39,7 @@ public class DBService {
     private final PIRelationDBService pIRelationDBService;
     private final CommentDBService commentDBService;
     private final ICRelationDBService icRelationDBService;
+    private final StatisticDBService statisticDBService;
 
     //ProjectDB methods
     public ProjectID createProject(String title, String description, UserID adminID){
@@ -157,4 +163,59 @@ public class DBService {
     public void deleteComment(CommentID commentID){
         commentDBService.deleteCommentService(commentID);
     }
+
+
+
+    //Statistic method
+    // read all count of issue from each project
+    public List<Pair<ProjectID, Integer>> countAllofUploadIssue(UserID userID, Timestamp startTime, Timestamp endTime){
+        List<Project> admin = projectDBService.readAdminProjectListService(userID);
+        List<Project> notAdmin = projectDBService.readProjectListService(userID);
+        List<ProjectID> projectIDList = new ArrayList<>();
+
+        for(Project p : admin){
+            projectIDList.add(p.getProjectID());
+        }
+        for(Project p : notAdmin){
+            projectIDList.add(p.getProjectID());
+        }
+
+        return statisticDBService.countAllofUploadIssueService(projectIDList, startTime, endTime);
+    }
+
+    //read issue count with type in same project
+    public List<Pair<Issue.TypeID, Integer>> countAllTypeIssue(ProjectID projectIDFK, Timestamp startTime, Timestamp endTime){
+        return statisticDBService.countAllTypeIssueService(projectIDFK, startTime, endTime);
+    }
+
+    // read issue count about assignee with status and type
+    public List<Pair<UserID, Integer>> countIssuesByAssignee(ProjectID projectIDFK, Integer type, Integer status){
+        List<Pair<UserID, Integer>> result = statisticDBService.countIssuesByAssigneeService(projectIDFK, type, status);
+        List<UserID> allDev = authDBService.readAuthorityListbyAuthinPService(projectIDFK, 1);
+
+        List<UserID> processedUserID = new ArrayList<>();
+        for (Pair<UserID, Integer> pre : result){
+            processedUserID.add(pre.getFirst());
+        }
+
+        for (UserID i : allDev){
+            if (!processedUserID.contains(i)){
+                Pair<UserID, Integer> temp = Pair.of(i, 0);
+                result.add(temp);
+            }
+        }
+
+        return result;
+    }
+
+    public List<Pair<Integer, Integer>> count3MostCommentinIssue(ProjectID projectIDFK){
+        return statisticDBService.count3MostCommentinIssueService(projectIDFK);
+    }
+
+    public List<Pair<Issue.TypeID, BigDecimal>> countAvgofComment(ProjectID projectIDFK){
+        return statisticDBService.countAvgofCommentService(projectIDFK);
+    }
+
+
+
 }

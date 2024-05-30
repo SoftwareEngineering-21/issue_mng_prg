@@ -3,9 +3,13 @@ package com.example.its.database.issue;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.its.dataClass.*;
 import org.springframework.stereotype.Service;
 
+import com.example.its.dataClass.EnumUtility;
+import com.example.its.dataClass.Issue;
+import com.example.its.dataClass.IssueID;
+import com.example.its.dataClass.ProjectID;
+import com.example.its.dataClass.UserID;
 import com.example.its.dataClassDB.IssueDB;
 
 import lombok.RequiredArgsConstructor;
@@ -20,7 +24,9 @@ public class IssueDBService {
     }
 
     public IssueID createIssueService(String title, String description, UserID reporter, UserID assignee, UserID fixer, Issue.TypeID type, Issue.PriorityID priority, Issue.StatusID status){
-        Integer temp = manager.createIssueManager(title, description, description, title, description, type.ordinal(), priority.ordinal(), status.ordinal());
+        String fixerID = (fixer != null) ? fixer.getID() : null;
+        String assigneeID = (assignee != null) ? assignee.getID() : null;
+        Integer temp = manager.createIssueManager(title, description, reporter.getID(), assigneeID, fixerID, type.ordinal(), priority.ordinal(), status.ordinal());
         IssueID issueID = new IssueID(temp);
         return issueID;
     }
@@ -43,7 +49,10 @@ public class IssueDBService {
     }
 
     public void updateIssueService(IssueID ID, String title, String description, UserID reporter, UserID assignee, UserID fixer, Integer type, Integer priority, Integer status){
-        manager.updateIssueManager(ID.getID(), title, description, reporter.getID(), assignee.getID(), fixer.getID(), type, priority, status);
+        String reporterID = (reporter != null) ? reporter.getID() : null;
+        String fixerID = (fixer != null) ? fixer.getID() : null;
+        String assigneeID = (assignee != null) ? assignee.getID() : null;
+        manager.updateIssueManager(ID.getID(), title, description, reporterID, assigneeID, fixerID, type, priority, status);
     }
 
     public void deleteIssueService(IssueID ID){
