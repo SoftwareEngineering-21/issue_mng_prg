@@ -2,16 +2,11 @@ package com.example.its.swingUI;
 
 import java.util.List;
 
+import com.example.its.dataClass.*;
+import com.example.its.logic.AuthorityService;
+import com.example.its.webUI.Controller.Exception.LoginFailureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.example.its.dataClass.Comment;
-import com.example.its.dataClass.Issue;
-import com.example.its.dataClass.IssueID;
-import com.example.its.dataClass.Project;
-import com.example.its.dataClass.ProjectID;
-import com.example.its.dataClass.User;
-import com.example.its.dataClass.UserID;
 
 import com.example.its.logic.UserService;
 import com.example.its.status.StatusManager;
@@ -23,42 +18,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainSwingController extends BaseController {
     protected UserService userService;
     protected ProjectService projectService;
+    protected AuthorityService authorityService;
     //protected IssueService issueService;
 
-    protected final StatusManager statusManager;
-
     @Autowired
-    MainSwingController(UserService userService, ProjectService projectService,StatusManager statusManager){
-        super();
+    MainSwingController(UserService userService, ProjectService projectService,StatusManager statusManager, AuthorityService authorityService){
+        super(statusManager);
         this.userService = userService;
         this.projectService = projectService;
-        this.statusManager = statusManager;
+        this.authorityService = authorityService;
     }
 
     @Override
     public boolean login(String id, String password) {
-        // TODO 수정 부탁드립니다
-
-//        if(this.userService == null){
-//            return false;
-//        }
-//
-//        if(this.userService.login(id, password)){
-//            return true;
-//        }
-//
-//        return false;
+        try{
+            UserID user = userService.login(id, password);
+            statusManager.setUser(user);
+        }
+        catch (LoginFailureException e) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public boolean isExistID(String id) {
-        return false;
+        return userService.validateUser(id);
     }
 
     @Override
     public boolean signUp(String id, String password) {
-        //return userService.createUser(id, password);
+        userService.createUser(id, password);
         return true;
     }
 
@@ -70,7 +60,7 @@ public class MainSwingController extends BaseController {
         }
 
         List<Project> list = projectService.readProjects(statusManager.getUser());
-        return list.toArray(new Project[list.size()]);
+        return list.toArray(new Project[] {});
     }
 
     @Override
@@ -78,44 +68,70 @@ public class MainSwingController extends BaseController {
         if(this.projectService == null){
             return false;
         }
-        
-        try{
-            this.projectService.createProject(statusManager.getUser(), title, Desc);
+
+        this.projectService.createProject(statusManager.getUser(), title, Desc);
+        return true;
+    }
+
+    @Override
+    public Project getProject(ProjectID projectId) {
+        return this.projectService.readProject(projectId);
+    }
+
+    @Override
+    public Project openProject(ProjectID projectId) {
+        return null;
+    }
+
+    @Override
+    public boolean addTester(UserID id) {
+        return this.authorityService.createAuthority(id,
+                statusManager.getProject(), Authority.AuthorityID.TESTER);
+    }
+
+    @Override
+    public boolean addPlayer(UserID id) {
+        return this.authorityService.createAuthority(id,
+                statusManager.getProject(), Authority.AuthorityID.PLAYER);
+    }
+
+    @Override
+    public boolean addDeveloper(UserID id) {
+        return this.authorityService.createAuthority(id,
+                statusManager.getProject(), Authority.AuthorityID.DEVELOPER);
+    }
+
+    @Override
+    public UserID[] getTesterList() {
+        List<List<UserID>> users =
+                this.authorityService.readAuthorityListbyProject(this.statusManager.getProject());
+        if(users == null){
+            return null;
         }
-        catch(Exception e){
-            return false;
+
+        return users.get(Authority.AuthorityID.TESTER.ordinal()).toArray(new UserID[] {});
+    }
+
+    @Override
+    public UserID[] getPlayerList() {
+        List<List<UserID>> users =
+                this.authorityService.readAuthorityListbyProject(this.statusManager.getProject());
+        if(users == null){
+            return null;
         }
-        return true;
+
+        return users.get(Authority.AuthorityID.PLAYER.ordinal()).toArray(new UserID[] {});
     }
 
     @Override
-    public boolean addTester(User id) {
-        return true;
-    }
+    public UserID[] getDeveloperList() {
+        List<List<UserID>> users =
+            this.authorityService.readAuthorityListbyProject(this.statusManager.getProject());
+        if(users == null){
+            return null;
+        }
 
-    @Override
-    public boolean addPlayer(User id) {
-        return true;
-    }
-
-    @Override
-    public boolean addDeveloper(User id) {
-        return true;
-    }
-
-    @Override
-    public User[] getTesterList() {
-        return null;
-    }
-
-    @Override
-    public User[] getPlayerList() {
-        return null;
-    }
-
-    @Override
-    public User[] getDeveloperList() {
-        return null;
+        return users.get(Authority.AuthorityID.DEVELOPER.ordinal()).toArray(new UserID[] {});
     }
 
     @Override
@@ -130,7 +146,7 @@ public class MainSwingController extends BaseController {
         if(issueList == null){
             return null;
         }
-        return issueList.toArray(new Issue[issueList.size()]);
+        return issueList.toArray(new Issue[]{});
     }
 
     @Override
@@ -158,18 +174,21 @@ public class MainSwingController extends BaseController {
     }
 
     @Override
-    public boolean deleteTester(User id) {
-        return false;
+    public boolean deleteTester(UserID id) {
+        this.authorityService.deleteAuthority(id, statusManager.getProject(), Authority.AuthorityID.TESTER);
+        return true;
     }
 
     @Override
-    public boolean deletePlayer(User id) {
-        return false;
+    public boolean deletePlayer(UserID id) {
+        this.authorityService.deleteAuthority(id, statusManager.getProject(), Authority.AuthorityID.PLAYER);
+        return true;
     }
 
     @Override
-    public boolean deleteDeveloper(User id) {
-        return false;
+    public boolean deleteDeveloper(UserID id) {
+        this.authorityService.deleteAuthority(id, statusManager.getProject(), Authority.AuthorityID.DEVELOPER);
+        return true;
     }
 
     @Override
@@ -178,6 +197,6 @@ public class MainSwingController extends BaseController {
         if(projects == null){
             return null;
         }
-        return projects.toArray(new Project[projects.size()]);
+        return projects.toArray(new Project[]{});
     }
 }

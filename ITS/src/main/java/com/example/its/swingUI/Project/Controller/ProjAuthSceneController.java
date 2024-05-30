@@ -1,14 +1,16 @@
-package com.example.its.swingUI.Project;
+package com.example.its.swingUI.Project.Controller;
 
 import com.example.its.dataClass.User;
+import com.example.its.dataClass.UserID;
 import com.example.its.swingUI.BaseController;
+import com.example.its.swingUI.Project.ProjectAuthPanel;
 
 public class ProjAuthSceneController {
     BaseController baseController;
 
-    User testers[];
-    User players[];
-    User developers[];
+    UserID[] testers;
+    UserID[] players;
+    UserID[] developers;
 
     ProjectAuthPanel panel;
 
@@ -19,28 +21,28 @@ public class ProjAuthSceneController {
     }
 
     public boolean addTester(String id){
-        return baseController.addTester(new User(id));
+        return baseController.addTester(new UserID(id));
     }
 
     public boolean addPlayer(String id){
-        return baseController.addPlayer(new User(id));
+        return baseController.addPlayer(new UserID(id));
     }   
 
     public boolean addDeveloper(String id){
-        return baseController.addDeveloper(new User(id));
+        return baseController.addDeveloper(new UserID(id));
     }
 
-    public User[] getTesterList(){
+    public UserID[] getTesterList(){
         this.testers = baseController.getTesterList();
         return this.testers;
     }
 
-    public User[] getPlayerList(){
+    public UserID[] getPlayerList(){
         this.players = baseController.getPlayerList();
         return this.players;
     }
 
-    public User[] getDeveloperList(){
+    public UserID[] getDeveloperList(){
         this.developers = baseController.getDeveloperList();;
         return this.developers;
     }

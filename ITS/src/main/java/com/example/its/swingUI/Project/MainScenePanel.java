@@ -1,6 +1,7 @@
 package com.example.its.swingUI.Project;
 
 import com.example.its.dataClass.Project;
+import com.example.its.swingUI.Project.Controller.MainSceneController;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -36,7 +37,7 @@ public class MainScenePanel extends JPanel {
 		}
 	}
 
-    MainScenePanel(MainSceneController controller){
+    public MainScenePanel(MainSceneController controller){
 		this.controller = controller;
 
         setLayout(new BorderLayout(0, 5));

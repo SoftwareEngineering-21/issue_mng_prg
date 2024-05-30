@@ -1,28 +1,24 @@
 package com.example.its.swingUI;
 
-import com.example.its.dataClass.User;
-import com.example.its.dataClass.UserID;
+import com.example.its.dataClass.*;
 import com.example.its.dataClass.Issue.PriorityID;
 import com.example.its.dataClass.Issue.StatusID;
 import com.example.its.dataClass.Issue.TypeID;
-import com.example.its.dataClass.Project;
-import com.example.its.dataClass.ProjectID;
-import com.example.its.dataClass.Issue;
-import com.example.its.dataClass.IssueID;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
-
-import com.example.its.dataClass.Comment;
 
 @Deprecated
 public class TestController extends BaseController {
     User user;
+    ProjectID projectId;
+    IssueID issueId;
 
-    ArrayList<User> userList = new ArrayList<>();
+    ArrayList<UserID> userList = new ArrayList<>();
 
-    ArrayList<User> testerList = new ArrayList<User>();
-    ArrayList<User> playerList = new ArrayList<User>();
-    ArrayList<User> developerList = new ArrayList<User>();
+    ArrayList<UserID> testerList = new ArrayList<UserID>();
+    ArrayList<UserID> playerList = new ArrayList<UserID>();
+    ArrayList<UserID> developerList = new ArrayList<UserID>();
 
     ArrayList<Project> projectList = new ArrayList<Project>();
     ArrayList<Project> adminProjectList = new ArrayList<Project>();
@@ -31,8 +27,8 @@ public class TestController extends BaseController {
 
     @Override
     public boolean isExistID(String id) {
-        for (User user : userList) {
-            if(user.getID().getID() == id){
+        for (UserID user : userList) {
+            if(user.getID() == id){
                 return true;
             }
         }
@@ -41,7 +37,7 @@ public class TestController extends BaseController {
 
     @Override
     public boolean signUp(String id, String password) {
-        userList.add(new User(new UserID(id)));
+        userList.add(new UserID(id));
         return true;
     }
 
@@ -73,45 +69,60 @@ public class TestController extends BaseController {
     }
 
     @Override
-    public boolean addTester(User id) {
+    public Project getProject(ProjectID projectId) {
+        if(projectList == null){
+            return null;
+        }
+
+        for(Project project : projectList){
+            if(project.getProjectID() == projectId){
+                return project;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public boolean addTester(UserID id) {
         testerList.add(id);
         return true;
     }
 
     @Override
-    public boolean addPlayer(User id) {
+    public boolean addPlayer(UserID id) {
         playerList.add(id);
         return true;
     }
 
     @Override
-    public boolean addDeveloper(User id) {
+    public boolean addDeveloper(UserID id) {
         developerList.add(id);
         return true;
     }
 
     @Override
-    public User[] getTesterList() {
+    public UserID[] getTesterList() {
         if(testerList.size() <= 0) {
             return null;
         }
-        return testerList.toArray(new User[testerList.size()]);
+        return testerList.toArray(new UserID[]{});
     }
 
     @Override
-    public User[] getPlayerList() {
+    public UserID[] getPlayerList() {
         if(playerList.size() <= 0) {
             return null;
         }
-        return playerList.toArray(new User[playerList.size()]);
+        return playerList.toArray(new UserID[] {});
     }
 
     @Override
-    public User[] getDeveloperList() {
+    public UserID[] getDeveloperList() {
         if(developerList.size() <= 0) {
             return null;
         }
-        return developerList.toArray(new User[developerList.size()]);
+        return developerList.toArray(new UserID[] {});
     }
 
     @Override
@@ -120,7 +131,7 @@ public class TestController extends BaseController {
                 return null;
             }
     
-            return issueList.toArray(new Issue[issueList.size()]);
+            return issueList.toArray(new Issue[]{});
     }
 
     @Override
@@ -131,36 +142,55 @@ public class TestController extends BaseController {
 
     @Override
     public Comment[] getCommentList() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCommentList'");
+        for(int i = 0; i < issueList.size(); i++){
+            if(issueList.get(i).getID() == issueId){
+                return commentList.get(i).toArray(new Comment[] {});
+            }
+        }
+
+        return null;
     }
 
     @Override
     public boolean addComment(String desc) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addComment'");
+        int index = -1;
+        for(int i = 0; i < issueList.size(); i++){
+            if(issueList.get(i).getID() == issueId){
+                index = i;
+                break;
+            }
+        }
+        if(index == -1){
+            return false;
+        }
+
+        while(commentList.size() <= index){
+            commentList.add(new ArrayList<>());
+        }
+
+        return commentList.get(index).add(new Comment(new CommentID(index), desc, null, this.user.getID()));
     }
 
     @Override
-    public boolean deleteTester(User id) {
+    public boolean deleteTester(UserID id) {
         testerList.remove(id);
         return true;
     }
 
     @Override
-    public boolean deletePlayer(User id) {
+    public boolean deletePlayer(UserID id) {
         playerList.remove(id);
         return true;
     }
 
     @Override
-    public boolean deleteDeveloper(User id) {
+    public boolean deleteDeveloper(UserID id) {
         developerList.remove(id);
         return true;
     }
 
     @Override
     public Project[] getAdminProjectList() {
-        return adminProjectList.toArray(new Project[adminProjectList.size()]);
+        return adminProjectList.toArray(new Project[] {});
     }
 }

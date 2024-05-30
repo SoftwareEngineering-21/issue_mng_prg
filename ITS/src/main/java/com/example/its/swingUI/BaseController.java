@@ -2,22 +2,20 @@ package com.example.its.swingUI;
 
 import javax.swing.JPanel;
 
+import com.example.its.dataClass.*;
+import com.example.its.status.StatusManager;
 import com.example.its.swingUI.Login.LoginFrameController;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.example.its.dataClass.User;
-import com.example.its.dataClass.Project;
-import com.example.its.dataClass.Issue;
-import com.example.its.dataClass.Comment;
-import org.springframework.stereotype.Component;
 
 
 public abstract class BaseController {
     protected BaseFrameController baseFrameController;
     protected LoginFrameController loginFrameController;
 
+    protected final StatusManager statusManager;
 
-    protected BaseController() {
+    protected BaseController(StatusManager statusManager) {
+        this.statusManager = statusManager;
+
         this.baseFrameController = new BaseFrameController(this);
         this.loginFrameController = new LoginFrameController(this);
     }
@@ -33,18 +31,20 @@ public abstract class BaseController {
     public abstract Project[] getProjectList();
     public abstract Project[] getAdminProjectList();
     public abstract boolean makeProject(String title, String Desc);
+    public abstract Project getProject(ProjectID projectId);
+    public abstract Project openProject(ProjectID projectId);
 
-    public abstract boolean addTester(User id);
-    public abstract boolean addPlayer(User id);
-    public abstract boolean addDeveloper(User id);
+    public abstract boolean addTester(UserID id);
+    public abstract boolean addPlayer(UserID id);
+    public abstract boolean addDeveloper(UserID id);
 
-    public abstract boolean deleteTester(User id);
-    public abstract boolean deletePlayer(User id);
-    public abstract boolean deleteDeveloper(User id);
+    public abstract boolean deleteTester(UserID id);
+    public abstract boolean deletePlayer(UserID id);
+    public abstract boolean deleteDeveloper(UserID id);
 
-    public abstract User[] getTesterList();
-    public abstract User[] getPlayerList();
-    public abstract User[] getDeveloperList();
+    public abstract UserID[] getTesterList();
+    public abstract UserID[] getPlayerList();
+    public abstract UserID[] getDeveloperList();
 
     //이슈 관련
     public abstract Issue[] getIssueList();

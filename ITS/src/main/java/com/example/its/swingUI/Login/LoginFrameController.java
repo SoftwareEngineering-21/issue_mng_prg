@@ -1,7 +1,7 @@
 package com.example.its.swingUI.Login;
 
 import com.example.its.swingUI.BaseController;
-import com.example.its.swingUI.Project.MainSceneController;
+import com.example.its.swingUI.Project.Controller.MainSceneController;
 
 public class LoginFrameController {
     protected BaseController baseController;

@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
 import com.example.its.dataClass.Issue;
+import com.example.its.swingUI.Issue.Controller.IssueSceneController;
 
 public class IssueScenePanel extends JPanel {
 	private final IssueSceneController controller;
@@ -42,7 +43,7 @@ public class IssueScenePanel extends JPanel {
 		}
 	}
 
-    IssueScenePanel(IssueSceneController controller){
+    public IssueScenePanel(IssueSceneController controller){
 		this.controller = controller;
 
 		setLayout(new BorderLayout(0, 5));
@@ -102,18 +103,18 @@ public class IssueScenePanel extends JPanel {
 		WriteCommentPanel.setLayout(new BorderLayout(0, 0));
 		add(WriteCommentPanel, BorderLayout.SOUTH);
 
-		JPanel commnetInputPanel = new JPanel();
-		commnetInputPanel.setLayout(new BoxLayout(commnetInputPanel, BoxLayout.X_AXIS));
-		WriteCommentPanel.add(commnetInputPanel, BorderLayout.NORTH);
+		JPanel commentInputPanel = new JPanel();
+		commentInputPanel.setLayout(new BoxLayout(commentInputPanel, BoxLayout.X_AXIS));
+		WriteCommentPanel.add(commentInputPanel, BorderLayout.NORTH);
 		
 		Component horizontalStrut_5 = Box.createHorizontalStrut(20);
-		commnetInputPanel.add(horizontalStrut_5);
+		commentInputPanel.add(horizontalStrut_5);
 		
 		JLabel commentInputLabel = new JLabel("Comment Input");
-		commnetInputPanel.add(commentInputLabel);
+		commentInputPanel.add(commentInputLabel);
 		
 		Component horizontalGlue_3 = Box.createHorizontalGlue();
-		commnetInputPanel.add(horizontalGlue_3);
+		commentInputPanel.add(horizontalGlue_3);
 
 		JScrollPane scrollPane_3 = new JScrollPane();
 		WriteCommentPanel.add(scrollPane_3, BorderLayout.CENTER);

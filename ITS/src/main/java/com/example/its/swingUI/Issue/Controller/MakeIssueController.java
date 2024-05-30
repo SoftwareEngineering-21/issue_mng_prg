@@ -1,7 +1,8 @@
-package com.example.its.swingUI.Issue;
+package com.example.its.swingUI.Issue.Controller;
 
 import com.example.its.swingUI.BaseController;
-import com.example.its.swingUI.Project.ProjectSceneController;
+import com.example.its.swingUI.Issue.MakeIssueFrame;
+import com.example.its.swingUI.Project.Controller.ProjectSceneController;
 
 public class MakeIssueController {
     BaseController baseController;
@@ -9,7 +10,7 @@ public class MakeIssueController {
 
     MakeIssueFrame frame;
     
-    MakeIssueController(BaseController baseController, ProjectSceneController projectSceneController) {
+    public MakeIssueController(BaseController baseController, ProjectSceneController projectSceneController) {
         this.baseController = baseController;
         this.projectSceneController = projectSceneController;
 

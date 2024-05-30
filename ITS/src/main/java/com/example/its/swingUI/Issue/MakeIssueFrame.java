@@ -1,5 +1,7 @@
 package com.example.its.swingUI.Issue;
 
+import com.example.its.swingUI.Issue.Controller.MakeIssueController;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -41,7 +43,7 @@ public class MakeIssueFrame extends JFrame {
         }        
     }
     
-    MakeIssueFrame(MakeIssueController controller){
+    public MakeIssueFrame(MakeIssueController controller){
         this.controller = controller;
 		BorderLayout borderLayout = (BorderLayout) this.getContentPane().getLayout();
 		borderLayout.setVgap(5);

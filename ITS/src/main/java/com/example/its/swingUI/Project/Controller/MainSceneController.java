@@ -1,13 +1,14 @@
-package com.example.its.swingUI.Project;
+package com.example.its.swingUI.Project.Controller;
 
 import com.example.its.dataClass.Project;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.swingUI.BaseController;
+import com.example.its.swingUI.Project.MainScenePanel;
 
 
 //MainScene을 위한 기능이 담긴 interface입니다. 추후에 다른 이름으로 수정될 수 있습니다.
 public class MainSceneController {
-    private BaseController baseController;
+    private final BaseController baseController;
 
     protected MakeProjectFrameController makeProjectController;
     protected ProjectSceneController projSceneController;
@@ -18,7 +19,7 @@ public class MainSceneController {
     protected ProjectID[] projectIdList;
 
 
-    protected MainSceneController(BaseController baseController){
+    public MainSceneController(BaseController baseController){
         this.baseController = baseController;
 
         this.makeProjectController = new MakeProjectFrameController(this.baseController, this);
@@ -52,9 +53,10 @@ public class MainSceneController {
     }
     
     public void runProjectScene(int index){
+        Project target = null;
+
         if(adminProjectIdList.length > index){
             Project[] adminList = this.baseController.getAdminProjectList();
-
             if(adminList == null){
                 System.out.println("Error!");
                 return;
@@ -62,15 +64,13 @@ public class MainSceneController {
 
             for (Project project : adminList) {
                 if(project.getProjectID().getID() == this.adminProjectIdList[index].getID()){
-                    this.makeProjectController.dispose();
-                    this.projSceneController.setProjectPanel(project);
-                    return;
+                    target = project;
+                    break;
                 }
             }
         }
         else{
             Project[] list = this.baseController.getProjectList();
-
             if(list == null){
                 System.out.println("Error!");
                 return;
@@ -78,14 +78,19 @@ public class MainSceneController {
 
             for(Project project : list) {
                 if(project.getProjectID().getID() == this.projectIdList[index - adminProjectIdList.length].getID()){
-                    this.makeProjectController.dispose();
-                    this.projSceneController.setProjectPanel(project);
-                    return;
+                    target = project;
+                    break;
                 }
             }
         }
 
-        System.out.println("There is no project in DB");
+        if(target != null){
+            this.makeProjectController.dispose();
+            this.projSceneController.setProjectPanel(target);
+        }
+        else{
+            System.out.println("There is no project in DB");
+        }
     }
 
     public void setBasePanel(){
