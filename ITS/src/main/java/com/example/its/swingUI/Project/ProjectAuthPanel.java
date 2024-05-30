@@ -1,4 +1,4 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Project;
 
 import java.awt.Color;
 import java.awt.BorderLayout;

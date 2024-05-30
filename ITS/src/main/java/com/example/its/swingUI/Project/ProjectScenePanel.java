@@ -1,4 +1,4 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Project;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import java.awt.Component;
 
-import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
 

@@ -1,4 +1,4 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Login;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;

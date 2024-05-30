@@ -1,4 +1,6 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Project;
+
+import com.example.its.swingUI.BaseController;
 
 public class MakeProjectFrameController {
     BaseController baseController;

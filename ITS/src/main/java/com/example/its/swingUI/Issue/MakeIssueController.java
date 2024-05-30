@@ -1,4 +1,7 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Issue;
+
+import com.example.its.swingUI.BaseController;
+import com.example.its.swingUI.Project.ProjectSceneController;
 
 public class MakeIssueController {
     BaseController baseController;

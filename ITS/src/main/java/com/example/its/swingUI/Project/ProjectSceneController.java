@@ -1,8 +1,11 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Project;
 
 import com.example.its.dataClass.Issue;
 import com.example.its.dataClass.IssueID;
 import com.example.its.dataClass.Project;
+import com.example.its.swingUI.BaseController;
+import com.example.its.swingUI.Issue.IssueSceneController;
+import com.example.its.swingUI.Issue.MakeIssueController;
 
 public class ProjectSceneController {
     private BaseController baseController;

@@ -1,6 +1,7 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Issue;
 
 import com.example.its.dataClass.Issue;
+import com.example.its.swingUI.BaseController;
 
 public class IssueSceneController {
     protected BaseController baseController;

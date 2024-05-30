@@ -2,6 +2,7 @@ package com.example.its.swingUI;
 
 import javax.swing.JPanel;
 
+import com.example.its.swingUI.Login.LoginFrameController;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.its.dataClass.User;

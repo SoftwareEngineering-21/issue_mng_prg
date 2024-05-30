@@ -1,6 +1,7 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Project;
 
 import com.example.its.dataClass.User;
+import com.example.its.swingUI.BaseController;
 
 public class ProjAuthSceneController {
     BaseController baseController;
