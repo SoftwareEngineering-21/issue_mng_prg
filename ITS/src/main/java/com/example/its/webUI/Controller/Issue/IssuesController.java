@@ -5,6 +5,7 @@ import com.example.its.dataClass.Project;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.logic.Exception.LoginRequiredException;
 import com.example.its.logic.IssueService;
+import com.example.its.logic.ProjectService;
 import com.example.its.status.StatusManager;
 import com.example.its.webUI.Controller.MainController;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class IssuesController {
 
     private final StatusManager statusManager;
     private final IssueService issueService;
+    private final ProjectService projectService;
 
     @GetMapping("/projectid={projectID}")
     public String issues(@PathVariable("projectID") int projectID, Model model) throws LoginRequiredException {
@@ -30,6 +32,7 @@ public class IssuesController {
         model.addAttribute("issueList", issueService.readIssueList(new ProjectID(projectID),null,null,null,null));
         model.addAttribute("projectID", projectID);
         model.addAttribute("issueListNum", issueService.readIssueList(new ProjectID(projectID),null,null,null,null).size());
+        model.addAttribute("project", projectService.readProject(new ProjectID(projectID)));
         return "issues";
     }
 

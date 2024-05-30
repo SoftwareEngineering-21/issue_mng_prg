@@ -43,7 +43,7 @@
             <otherwise>
                 ID DESC <!-- 기본 정렬 조건을 설정합니다. -->
             </otherwise>
-        </choose>
+        </choose>    
     </select>
 
     <update id="updateIssue">

@@ -21,7 +21,6 @@ public class IssueService {
      * @param sortOrder null -> desc, createdAt, status
      */
     public List<Issue> readIssueList(ProjectID projectID, UserID reporter, UserID assignee, Integer status, String sortOrder){
-        System.out.println(sortOrder);
         return service.readIssueList(projectID,reporter, assignee,status,sortOrder);
     }
 

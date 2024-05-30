@@ -29,4 +29,4 @@ insert into IssueDB(title, description, reporter,assignee, type, priority, statu
 
 insert into PIRelationDB(projectIDFK,issueIDFK) VALUES (1,1);
 insert into PIRelationDB(projectIDFK,issueIDFK) VALUES (1,2);
-insert into PIRelationDB(projectIDFK,issueIDFK) VALUES (1,3);
+insert into PIRelationDB(projectIDFK,issueIDFK,createdAt) VALUES (1,3,'1996-05-31 12:34:56');

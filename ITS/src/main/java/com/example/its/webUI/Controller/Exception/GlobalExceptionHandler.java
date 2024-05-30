@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
     @ExceptionHandler(LoginRequiredException.class)
     public String loginException(LoginRequiredException ex) {
-        System.out.println("LoginException: Login session expired");
+        System.out.println("Login Exception: Login session expired");
         return "redirect:/";
     }
 
     @ExceptionHandler(LoginUnrequiredException.class)
     public String loginUnrequiredException(LoginUnrequiredException ex) {
-        System.out.println("LoginUnrequiredException: Login not required.");
+        System.out.println("Login Unrequired Exception: Login not required.");
         return "redirect:/";
     }
 
