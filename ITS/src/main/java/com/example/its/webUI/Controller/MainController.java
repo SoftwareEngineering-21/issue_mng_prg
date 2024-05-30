@@ -1,7 +1,9 @@
 package com.example.its.webUI.Controller;
 import com.example.its.status.StatusManager;
-import com.example.its.webUI.Controller.Exception.LoginException;
+import com.example.its.webUI.Controller.Exception.LoginRequiredException;
 import com.example.its.webUI.Controller.Exception.LoginUnrequiredException;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,11 +11,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
+@RequiredArgsConstructor
 public class MainController {
 
+    private final StatusManager statusManager;
     @GetMapping("/")
     public String root(){
-        if(StatusManager.getInstance().getUser()!=null)
+        if(statusManager.getUser()!=null)
             return "redirect:/projects";
         else{
             return "redirect:/login";
@@ -31,14 +35,14 @@ public class MainController {
         return "test/testLayout";
     }
 
-    public static void isUserLogin() throws LoginException {
-        if(StatusManager.getInstance().getUser()== null)
-            throw new LoginException();
+    public static void isUserLogin(StatusManager statusManager) throws LoginRequiredException {
+        if(statusManager.getUser()== null)
+            throw new LoginRequiredException();
 
     }
 
-    public static void isLoginAvailable()throws LoginUnrequiredException{
-        if(StatusManager.getInstance().getUser()!=null)
+    public static void isLoginAvailable(StatusManager statusManager)throws LoginUnrequiredException{
+        if(statusManager.getUser()!=null)
             throw new LoginUnrequiredException();
     }
 

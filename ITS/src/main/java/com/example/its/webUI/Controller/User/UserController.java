@@ -1,7 +1,9 @@
 package com.example.its.webUI.Controller.User;
 
+import com.example.its.dataClass.UserID;
 import com.example.its.logic.UserService;
 import com.example.its.status.StatusManager;
+import com.example.its.webUI.Controller.Exception.LoginFailureException;
 import com.example.its.webUI.Controller.Exception.LoginUnrequiredException;
 import com.example.its.webUI.Controller.MainController;
 import com.sun.tools.javac.Main;
@@ -17,10 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
 
     private final UserService userService;
+    private final StatusManager statusManager;
 
     @GetMapping("/register")
     public String handleRegisterRequest(@RequestParam(name = "ID", required = false) String ID, @RequestParam(name = "password", required = false) String password, Model model) throws LoginUnrequiredException {
-        MainController.isLoginAvailable();
+        MainController.isLoginAvailable(statusManager);
         if (ID != null && password != null) {
             userService.createUser(ID, password);
             return "redirect:/login";
@@ -41,23 +44,28 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam(value = "ID", required = false) String ID, @RequestParam(value = "password", required = false) String password, Model model) throws LoginUnrequiredException {
-        MainController.isLoginAvailable();
+    public String login(@RequestParam(value = "ID", required = false) String ID, @RequestParam(value = "password", required = false) String password, Model model) throws LoginUnrequiredException, LoginFailureException {
+        MainController.isLoginAvailable(statusManager);
         if (ID != null && password != null) {
-            if (userService.login(ID, password)) {
-                System.out.println("Login Success");
+            try {
+                UserID id = userService.login(ID, password);
+                statusManager.setUser(id);
                 return "redirect:/";
-            } else {
-                model.addAttribute("validation", "fail");
+            }
+            catch(LoginFailureException e) {
+                model.addAttribute("validation","fail");
                 return "login";
             }
+
+
         }
+
         return "login";
     }
 
     @GetMapping("/logout")
     public String logout() {
-        userService.logout();
+        statusManager.setUser(null);
         return "redirect:/";
     }
 

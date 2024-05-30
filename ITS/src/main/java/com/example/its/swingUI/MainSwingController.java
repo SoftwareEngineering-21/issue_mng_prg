@@ -16,30 +16,39 @@ import com.example.its.dataClass.UserID;
 import com.example.its.logic.UserService;
 import com.example.its.status.StatusManager;
 import com.example.its.logic.ProjectService;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Component
+@RequestMapping
 public class MainSwingController extends BaseController {
     protected UserService userService;
     protected ProjectService projectService;
     //protected IssueService issueService;
 
-    MainSwingController(UserService userService, ProjectService projectService){
+    protected final StatusManager statusManager;
+
+    @Autowired
+    MainSwingController(UserService userService, ProjectService projectService,StatusManager statusManager){
         super();
         this.userService = userService;
         this.projectService = projectService;
+        this.statusManager = statusManager;
     }
 
     @Override
     public boolean login(String id, String password) {
-        if(this.userService == null){
-            return false;
-        }
+        // TODO 수정 부탁드립니다
 
-        if(this.userService.login(id, password)){
-            return true;
-        }
-
-        return false;
+//        if(this.userService == null){
+//            return false;
+//        }
+//
+//        if(this.userService.login(id, password)){
+//            return true;
+//        }
+//
+//        return false;
+        return true;
     }
 
     @Override
@@ -60,7 +69,7 @@ public class MainSwingController extends BaseController {
             return null;
         }
 
-        List<Project> list = projectService.readProjects(StatusManager.getInstance().getUser());
+        List<Project> list = projectService.readProjects(statusManager.getUser());
         return list.toArray(new Project[list.size()]);
     }
 
@@ -71,7 +80,7 @@ public class MainSwingController extends BaseController {
         }
         
         try{
-            this.projectService.createProject(StatusManager.getInstance().getUser(), title, Desc);
+            this.projectService.createProject(statusManager.getUser(), title, Desc);
         }
         catch(Exception e){
             return false;
@@ -138,7 +147,7 @@ public class MainSwingController extends BaseController {
 
     @Override
     public boolean logout() {
-        userService.logout();
+        statusManager.setUser(null);
         return true;
     }
 
@@ -165,7 +174,7 @@ public class MainSwingController extends BaseController {
 
     @Override
     public Project[] getAdminProjectList() {
-        List<Project> projects = this.projectService.readAdminProjects(StatusManager.getInstance().getUser());
+        List<Project> projects = this.projectService.readAdminProjects(statusManager.getUser());
         if(projects == null){
             return null;
         }

@@ -9,12 +9,14 @@ import com.example.its.dataClass.User;
 import com.example.its.dataClass.Project;
 import com.example.its.dataClass.Issue;
 import com.example.its.dataClass.Comment;
+import org.springframework.stereotype.Component;
+
 
 public abstract class BaseController {
     protected BaseFrameController baseFrameController;
     protected LoginFrameController loginFrameController;
 
-    @Autowired
+
     protected BaseController() {
         this.baseFrameController = new BaseFrameController(this);
         this.loginFrameController = new LoginFrameController(this);

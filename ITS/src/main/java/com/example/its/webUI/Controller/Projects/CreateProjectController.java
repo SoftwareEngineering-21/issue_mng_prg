@@ -1,7 +1,7 @@
 package com.example.its.webUI.Controller.Projects;
 
 import com.example.its.status.StatusManager;
-import com.example.its.webUI.Controller.Exception.LoginException;
+import com.example.its.webUI.Controller.Exception.LoginRequiredException;
 import com.example.its.webUI.Controller.MainController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,16 +18,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CreateProjectController {
 
+    private final StatusManager statusManager;
     private UserID user(){
-        return StatusManager.getInstance().getUser();
+        return statusManager.getUser();
     }
 
     private final ProjectService projectService;
 
     @PostMapping("/create")
     // @ResponseBody
-    public String createProject(@RequestParam("title")String title, @RequestParam("description") String description) throws LoginException {
-        MainController.isUserLogin();
+    public String createProject(@RequestParam("title")String title, @RequestParam("description") String description) throws LoginRequiredException {
+        MainController.isUserLogin(statusManager);
         projectService.createProject(user(),title,description);
         return "redirect:/projects";
     }

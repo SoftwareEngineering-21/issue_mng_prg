@@ -101,7 +101,7 @@
 
 </head>
 <body>
-<div class="form-group row justify-content-between center-align">
+<div class="logo-container form-group row justify-content-between center-align">
     <div class ="logo">
         <div th:replace="~{logo::logo}" id = 'logo'></div>
     </div>
@@ -115,7 +115,7 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-12">
-            <div class = "projectsHeader">
+            <div class = "projectsHeader justify-content-between">
                 <h1>Projects</h1>
                 <div  onclick="window.location.href='/projects/create'">
                     <p>New Project</p>
@@ -131,7 +131,6 @@
                                     <h6>Admin</h6>
                                     <a class="btn-custom" th:href="@{|/projects/admin/projectid=${project.projectID.getID()}?success=true|}"> manage auth</a>
                                 </div>
-
                             </div>
                         </a>
                     </div>

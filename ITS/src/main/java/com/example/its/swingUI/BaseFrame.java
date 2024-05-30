@@ -1,5 +1,7 @@
 package com.example.its.swingUI;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -14,10 +16,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+@org.springframework.stereotype.Component
 public class BaseFrame extends JFrame {
-	private BaseFrameController controller;
+	private final BaseFrameController controller;
 
-    private JPanel mainPanel;
+    private final JPanel mainPanel;
 
 	class BackButtonAction implements ActionListener {
 		@Override
@@ -40,6 +43,7 @@ public class BaseFrame extends JFrame {
 		}
 	}
 
+	@Autowired
     BaseFrame(BaseFrameController controller){
 		this.controller = controller;
 

@@ -53,9 +53,12 @@
     </script>
 </head>
 <body>
-<div class ="logo">
-    <div th:replace="~{logo::logo}"></div>
+<div class="logo-container">
+    <div class ="logo">
+        <div th:replace="~{logo::logo}"></div>
+    </div>
 </div>
+
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -63,7 +66,7 @@
                 <h2 class="text-center mb-4">Login</h2>
                 <div class="mb-2">
                     <!--                    <label for="username" class="form-label">Username</label>-->
-                    <input type="text" class="form-control" id="ID" name="ID" pattern="[a-zA-Z0-9]+" placeholder="ID">
+                    <input type="text" class="form-control" id="ID" name="ID" pattern="[a-zA-Z0-9]+" required maxlength="8" placeholder="ID">
                 </div>
                 <div class="mb-1">
                     <!--                    <label for="password" class="form-label">Password</label>-->

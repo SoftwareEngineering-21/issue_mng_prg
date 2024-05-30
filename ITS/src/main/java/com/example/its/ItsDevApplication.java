@@ -19,6 +19,7 @@ import com.example.its.database.user.UserDBService;
 import com.example.its.swingUI.MainSwingController;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootApplication
 @ActiveProfiles("test")
@@ -31,13 +32,13 @@ public class ItsDevApplication implements CommandLineRunner {
 
 
     public static void main(String[] args) {
+        //헤드리스 모드 끄는 함수. 기본 설정//
         System.setProperty("java.awt.headless", "false");
-
-        SpringApplication.run(ItsDevApplication.class, args);
-        ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
+        //기본 configuration 종료//
+        ConfigurableApplicationContext context = SpringApplication.run(ItsDevApplication.class, args);
         MainSwingController controller = context.getBean(MainSwingController.class);
 
-        controller.run();
+//        controller.run();
     }
 
     @Override

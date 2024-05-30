@@ -1,7 +1,7 @@
 package com.example.its.webUI.Controller.Projects;
 
 import com.example.its.status.StatusManager;
-import com.example.its.webUI.Controller.Exception.LoginException;
+import com.example.its.webUI.Controller.Exception.LoginRequiredException;
 import com.example.its.webUI.Controller.MainController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +11,6 @@ import com.example.its.dataClass.UserID;
 import com.example.its.logic.ProjectService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,14 +18,15 @@ public class ProjectsController{
 
 
     private final ProjectService service;
+    private final StatusManager statusManager;
 
     private UserID user(){
-        return StatusManager.getInstance().getUser();
+        return statusManager.getUser();
     }
 
     @GetMapping("/projects")
-    public String readProjects(Model model) throws LoginException {
-        MainController.isUserLogin();
+    public String readProjects(Model model) throws LoginRequiredException {
+        MainController.isUserLogin(statusManager);
         // Add projects to the model
         model.addAttribute("projects", service.readProjects(user()));
         model.addAttribute("adminProjects", service.readAdminProjects(user()));
@@ -35,8 +35,8 @@ public class ProjectsController{
     }
 
     @GetMapping("/projects/create")
-    public String createProject() throws LoginException {
-        MainController.isUserLogin();
+    public String createProject() throws LoginRequiredException {
+        MainController.isUserLogin(statusManager);
         return "create_project";
     }
 }
