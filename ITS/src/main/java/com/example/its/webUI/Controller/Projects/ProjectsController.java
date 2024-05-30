@@ -18,14 +18,15 @@ public class ProjectsController{
 
 
     private final ProjectService service;
+    private final StatusManager statusManager;
 
     private UserID user(){
-        return StatusManager.getInstance().getUser();
+        return statusManager.getUser();
     }
 
     @GetMapping("/projects")
     public String readProjects(Model model) throws LoginRequiredException {
-        MainController.isUserLogin();
+        MainController.isUserLogin(statusManager);
         // Add projects to the model
         model.addAttribute("projects", service.readProjects(user()));
         model.addAttribute("adminProjects", service.readAdminProjects(user()));
@@ -35,7 +36,7 @@ public class ProjectsController{
 
     @GetMapping("/projects/create")
     public String createProject() throws LoginRequiredException {
-        MainController.isUserLogin();
+        MainController.isUserLogin(statusManager);
         return "create_project";
     }
 }

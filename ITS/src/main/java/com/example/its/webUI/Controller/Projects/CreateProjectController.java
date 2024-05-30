@@ -18,8 +18,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CreateProjectController {
 
+    private final StatusManager statusManager;
     private UserID user(){
-        return StatusManager.getInstance().getUser();
+        return statusManager.getUser();
     }
 
     private final ProjectService projectService;
@@ -27,7 +28,7 @@ public class CreateProjectController {
     @PostMapping("/create")
     // @ResponseBody
     public String createProject(@RequestParam("title")String title, @RequestParam("description") String description) throws LoginRequiredException {
-        MainController.isUserLogin();
+        MainController.isUserLogin(statusManager);
         projectService.createProject(user(),title,description);
         return "redirect:/projects";
     }
