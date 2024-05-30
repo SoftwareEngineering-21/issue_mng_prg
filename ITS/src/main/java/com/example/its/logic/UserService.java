@@ -53,8 +53,7 @@ public class UserService{
         else{
             String EncodePW = session.getPassword();
             if(isMatch(EncodePW, password)){
-                //StatusManager.getInstance().setUser(user);
-
+                
                 return user;
             }
             throw new LoginFailureException();
@@ -62,10 +61,6 @@ public class UserService{
     }
 
 
-    @Deprecated
-    public void logout(){
-        StatusManager.getInstance().setUser(null);
-    }
 
     private boolean isAvailable(UserID newUser){
         User user = service.readUser(newUser);

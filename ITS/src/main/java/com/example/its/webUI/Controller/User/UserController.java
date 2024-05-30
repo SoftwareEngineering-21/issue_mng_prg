@@ -19,10 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
 
     private final UserService userService;
+    private final StatusManager statusManager;
 
     @GetMapping("/register")
     public String handleRegisterRequest(@RequestParam(name = "ID", required = false) String ID, @RequestParam(name = "password", required = false) String password, Model model) throws LoginUnrequiredException {
-        MainController.isLoginAvailable();
+        MainController.isLoginAvailable(statusManager);
         if (ID != null && password != null) {
             userService.createUser(ID, password);
             return "redirect:/login";
@@ -44,26 +45,27 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(@RequestParam(value = "ID", required = false) String ID, @RequestParam(value = "password", required = false) String password, Model model) throws LoginUnrequiredException, LoginFailureException {
-        MainController.isLoginAvailable();
+        MainController.isLoginAvailable(statusManager);
         if (ID != null && password != null) {
             try {
                 UserID id = userService.login(ID, password);
-                StatusManager.getInstance().setUser(id);
+                statusManager.setUser(id);
                 return "redirect:/";
-            } finally {
+            }
+            catch(LoginFailureException e) {
                 model.addAttribute("validation","fail");
                 return "login";
             }
 
+
         }
 
-        model.addAttribute("validation","fail");
         return "login";
     }
 
     @GetMapping("/logout")
     public String logout() {
-        StatusManager.getInstance().setUser(null);
+        statusManager.setUser(null);
         return "redirect:/";
     }
 

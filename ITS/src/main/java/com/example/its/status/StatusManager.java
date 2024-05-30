@@ -6,17 +6,13 @@ import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.UserID;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
+@Component
 public class StatusManager {
-    private static StatusManager instance;
-    public static StatusManager getInstance() {
-        if(instance == null) {
-             instance= new StatusManager();
-        }
-        return instance;
-    }
+
     private UserID user;
     private ProjectID project;
     private Authority authority;
