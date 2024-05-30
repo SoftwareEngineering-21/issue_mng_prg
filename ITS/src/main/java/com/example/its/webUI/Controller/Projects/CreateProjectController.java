@@ -1,7 +1,7 @@
 package com.example.its.webUI.Controller.Projects;
 
 import com.example.its.status.StatusManager;
-import com.example.its.webUI.Controller.Exception.LoginException;
+import com.example.its.webUI.Controller.Exception.LoginRequiredException;
 import com.example.its.webUI.Controller.MainController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +26,7 @@ public class CreateProjectController {
 
     @PostMapping("/create")
     // @ResponseBody
-    public String createProject(@RequestParam("title")String title, @RequestParam("description") String description) throws LoginException {
+    public String createProject(@RequestParam("title")String title, @RequestParam("description") String description) throws LoginRequiredException {
         MainController.isUserLogin();
         projectService.createProject(user(),title,description);
         return "redirect:/projects";

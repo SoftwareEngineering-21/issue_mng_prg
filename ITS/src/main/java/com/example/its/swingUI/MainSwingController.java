@@ -32,15 +32,18 @@ public class MainSwingController extends BaseController {
 
     @Override
     public boolean login(String id, String password) {
-        if(this.userService == null){
-            return false;
-        }
+        // TODO 수정 부탁드립니다
 
-        if(this.userService.login(id, password)){
-            return true;
-        }
-
-        return false;
+//        if(this.userService == null){
+//            return false;
+//        }
+//
+//        if(this.userService.login(id, password)){
+//            return true;
+//        }
+//
+//        return false;
+        return true;
     }
 
     @Override

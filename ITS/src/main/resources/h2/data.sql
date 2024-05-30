@@ -20,3 +20,7 @@ insert into ProjectDB(title, description, adminID) VALUES ( 'test3_title','desc'
 insert into AuthorityDB(userID, projectID, auth) VALUES('test1',3,2);
 insert into AuthorityDB(userID, projectID, auth) VALUES('test1',1,2);
 insert into AuthorityDB(userID, projectID, auth) VALUES('test3',1,0);
+
+
+insert into IssueDB(title, description, reporter, type, priority, status) VALUES ('issue1', 'text1', 'test2',2,4,3);
+insert into IssueDB(title, description, reporter, type, priority, status) VALUES ('issue2', 'text2', 'test3',1,2,3);
