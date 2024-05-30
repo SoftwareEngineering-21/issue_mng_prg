@@ -48,5 +48,14 @@ CREATE TABLE IssueDB
     type int not null ,
     priority int not null,
     status int not null ,
-    createAt timestamp not null default current_timestamp
+    createdAt timestamp not null default current_timestamp
 );
+
+CREATE TABLE PIRelationDB
+(
+    ID int not null auto_increment primary key ,
+    projectIDFK int not null,
+    issueIDFK int not null,
+    createdAt timestamp not null default current_timestamp
+);
+

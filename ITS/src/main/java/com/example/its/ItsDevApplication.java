@@ -47,9 +47,6 @@ public class ItsDevApplication implements CommandLineRunner {
             System.out.println("Url: " + connection.getMetaData().getURL());
             System.out.println("UserName: " + connection.getMetaData().getUserName());
         }
-        List<Project> p = service.readProjectListService(new UserID("test3"));
-        User u =userService.readUserService(new UserID("test4"));
-        System.out.println(u);
 
     }
 }

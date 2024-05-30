@@ -34,14 +34,14 @@
         </if>
         ORDER BY
         <choose>
-            <when test="sortOrder == 'createdAt'">
-                createdAt
+            <when test="sortOrder = 'createdAt'">
+                createdAt DESC
             </when>
-            <when test="sortOrder == 'status'">
-                status desc
+            <when test="sortOrder = 'status'">
+                status DESC
             </when>
             <otherwise>
-                createdAt desc <!-- 기본 정렬 조건을 설정합니다. -->
+                ID DESC <!-- 기본 정렬 조건을 설정합니다. -->
             </otherwise>
         </choose>
     </select>

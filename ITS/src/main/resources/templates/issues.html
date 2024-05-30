@@ -155,13 +155,101 @@
             padding: 5px 10px;
             font-weight: 500;
         }
+        .issue-title{
+            cursor: pointer;
+            text-decoration-line: none;
+            color: #303050;
+            align-content: center;
+        }
+        .issue-title:hover{
+            cursor: pointer;
+            text-decoration-line: none;
+            color: #303050;
+            align-content: center;
+        }
     </style>
     <script>
-        function changeStatus(){
+        document.addEventListener("DOMContentLoaded",function (){
+            var comps = document.querySelectorAll(".priority");
+            comps.forEach(function (comp){
+                switch(comp.innerText){
+                    case '0':
+                        comp.classList.add('priority-blocker');
+                        comp.innerText = 'blocker';
+                        break;
+                    case '1':
+                        comp.classList.add('priority-critical');
+                        comp.innerText = 'critical';
+                        break;
+                    case '2':
+                        comp.classList.add('priority-major');
+                        comp.innerText = 'major';
+                        break;
+                    case '3':
+                        comp.classList.add('priority-minor');
+                        comp.innerText = 'minor';
+                        break;
+                    case '4':
+                        comp.classList.add('priority-trivial');
+                        comp.innerText = 'trivial';
+                        break;
+                    default:
+                        break;
+                }
 
-        }
-
+            })
+            comps = document.querySelectorAll(".status");
+            comps.forEach(function (comp) {
+                switch (comp.innerText) {
+                    case '0':
+                        comp.classList.add('status-new');
+                        comp.innerText = 'new';
+                        break;
+                    case '1':
+                        comp.classList.add('status-progress');
+                        comp.innerText = 'progress';
+                        break;
+                    case '2':
+                        comp.classList.add('status-resolved');
+                        comp.innerText = 'resolved';
+                        break;
+                    case '3':
+                        comp.classList.add('status-reopen');
+                        comp.innerText = 'reopen';
+                        break;
+                    case '4':
+                        comp.classList.add('status-closed');
+                        comp.innerText = 'closed';
+                        break;
+                    default:
+                        break;
+                }
+            })
+            comps = document.querySelectorAll(".type");
+            comps.forEach(function (comp) {
+                switch (comp.innerText) {
+                    case '0':
+                        comp.innerText = 'bug';
+                        break;
+                    case '1':
+                        comp.innerText = 'improve';
+                        break;
+                    case '2':
+                        comp.innerText = 'feat';
+                        break;
+                    case '3':
+                        comp.innerText = 'task';
+                        break;
+                    case '4':
+                        comp.innerText = 'story';
+                        break;
+                    default:
+                        break;
+                }
+            })
+        });
     </script>
+
 </head>
 <body>
 <div class="logo-container form-group row justify-content-between center-align">
@@ -212,52 +300,30 @@
 
             </div>
         </li>
-        <div class="issue-set">
+        <div class="issue-set" th:each ="issue,iterStat : ${issueList}">
             <li class="issue-name list-group-item d-flex align-items-center">
-                <h5 class=" align-items-center flex">Issue name is veryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy long</h5>
+                <a class="issue-title align-items-center flex" th:href = "@{|/project/projectid=${projectID}/issueid=${issue.getID().ID}|}">
+                    <h5 th:text = "${issue.title}" ></h5>
+                </a>
+
                 <div class = "row flex-nowrap issue-attributes">
                     <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="status-new">new</h6>
+                        <h6 th:text = "${issue.getAssignee() ==null ? '' : issue.getAssignee().getID()}"></h6>
                     </div>
                     <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="status-closed">closed</h6>
+                        <h6 th:text = "${issue.getReporter() == null ? '' : issue.getReporter().getID()}"></h6>
                     </div>
                     <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="status-resolved">resolved</h6>
+                        <h6 th:text = "${issue.getFixer()==null? '':issue.getFixer().getID()}"></h6>
                     </div>
                     <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="status-progress">progress</h6>
+                        <h6 class = "priority" th:text = "${issue.getPriority().ordinal()}"></h6>
                     </div>
                     <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="status-reopen">reopen</h6>
+                        <h6 class="type" th:text = "${issue.getPriority().ordinal()}"></h6>
                     </div>
                     <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="status-new">new</h6>
-                    </div>
-                </div>
-            </li>
-            <li class="issue-name list-group-item d-flex align-items-center">
-                <h5 class=" align-items-center flex">Issue name is veryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy long</h5>
-                <div class = "row flex-nowrap issue-attributes">
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="priority-trivial">trivial</h6>
-                    </div>
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="priority-minor">minor</h6>
-                    </div>
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="priority-major">major</h6>
-                    </div>
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="priority-critical">critical</h6>
-                    </div>
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="type">blocker</h6>
-                    </div>
-
-
-                    <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="status-new">new</h6>
+                        <h6 class="status" th:text = "${issue.getStatus().ordinal()}"></h6>
                     </div>
                 </div>
             </li>

@@ -55,10 +55,7 @@ public class UserController {
                 model.addAttribute("validation","fail");
                 return "login";
             }
-
-
         }
-
         return "login";
     }
 
