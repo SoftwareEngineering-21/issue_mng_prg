@@ -1,6 +1,6 @@
 package com.example.its.webUI.Controller;
 import com.example.its.status.StatusManager;
-import com.example.its.webUI.Controller.Exception.LoginException;
+import com.example.its.webUI.Controller.Exception.LoginRequiredException;
 import com.example.its.webUI.Controller.Exception.LoginUnrequiredException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,9 +31,9 @@ public class MainController {
         return "test/testLayout";
     }
 
-    public static void isUserLogin() throws LoginException {
+    public static void isUserLogin() throws LoginRequiredException {
         if(StatusManager.getInstance().getUser()== null)
-            throw new LoginException();
+            throw new LoginRequiredException();
 
     }
 

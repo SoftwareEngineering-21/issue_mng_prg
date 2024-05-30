@@ -8,9 +8,11 @@ import com.example.its.database.user.UserDBService;
 import com.example.its.logic.encoder.BCryptEncrypter;
 import com.example.its.logic.encoder.Encryptor;
 import com.example.its.status.StatusManager;
+import com.example.its.webUI.Controller.Exception.LoginFailureException;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ public class UserService{
 
 
     private final Encryptor passwordEncoder;
+    private final SmartInitializingSingleton loadBalancedRestTemplateInitializerDeprecated;
 
     private String encodePW(String password){
         return passwordEncoder.encode(password);
@@ -42,23 +45,24 @@ public class UserService{
         return isAvailable(new UserID(ID));
     }
 
-    public boolean login(String ID, String password){
+
+    public UserID login(String ID, String password) throws LoginFailureException {
         UserID user = new UserID(ID);
         UserSession session = service.readUserSession(user);
-        if (session == null) return false;
+        if (session == null) throw new LoginFailureException();
         else{
             String EncodePW = session.getPassword();
             if(isMatch(EncodePW, password)){
-                StatusManager.getInstance().setUser(user);
+                //StatusManager.getInstance().setUser(user);
 
-                return true;
+                return user;
             }
-            else return false;
+            throw new LoginFailureException();
         }
     }
 
 
-
+    @Deprecated
     public void logout(){
         StatusManager.getInstance().setUser(null);
     }

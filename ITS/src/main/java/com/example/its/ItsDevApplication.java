@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-//import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.example.its.dataClass.Project;
@@ -38,7 +38,7 @@ public class ItsDevApplication implements CommandLineRunner {
         ConfigurableApplicationContext context = SpringApplication.run(ItsDevApplication.class, args);
         MainSwingController controller = context.getBean(MainSwingController.class);
 
-        controller.run();
+//        controller.run();
     }
 
     @Override

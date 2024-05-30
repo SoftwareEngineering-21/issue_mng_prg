@@ -43,9 +43,10 @@ CREATE TABLE IssueDB
     title varchar(100) not null ,
     description text not null ,
     reporter varchar(45) not null ,
-    assignee varchar(45) not null,
+    assignee varchar(45) default null,
     fixer varchar(45) default null,
     type int not null ,
+    priority int not null,
     status int not null ,
     createAt timestamp not null default current_timestamp
 );

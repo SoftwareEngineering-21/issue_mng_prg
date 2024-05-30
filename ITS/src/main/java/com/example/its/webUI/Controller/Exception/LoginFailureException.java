@@ -1,5 +1,4 @@
 package com.example.its.webUI.Controller.Exception;
 
-public class LoginException extends Exception {
-
+public class LoginFailureException extends Exception{
 }
