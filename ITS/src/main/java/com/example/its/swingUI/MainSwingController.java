@@ -23,7 +23,6 @@ public class MainSwingController extends BaseController {
     protected ProjectService projectService;
     //protected IssueService issueService;
 
-    @Autowired
     MainSwingController(UserService userService, ProjectService projectService){
         super();
         this.userService = userService;

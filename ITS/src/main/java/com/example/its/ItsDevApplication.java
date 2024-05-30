@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-//import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.example.its.dataClass.Project;
@@ -21,7 +21,7 @@ import com.example.its.swingUI.MainSwingController;
 import lombok.RequiredArgsConstructor;
 
 @SpringBootApplication
-//@ActiveProfiles("test")
+@ActiveProfiles("test")
 @RequiredArgsConstructor
 public class ItsDevApplication implements CommandLineRunner {
 
