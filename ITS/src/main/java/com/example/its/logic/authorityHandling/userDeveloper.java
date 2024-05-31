@@ -3,7 +3,7 @@ package com.example.its.logic.authorityHandling;
 import com.example.its.dataClass.Issue;
 import com.example.its.dataClass.UserID;
 
-public class UserDeveloper implements UserAuth {
+public class userDeveloper implements userAuth {
 
     @Override
     public boolean isAvailable(Issue issue, UserID current, UserID assignee) {

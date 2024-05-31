@@ -4,7 +4,7 @@ package com.example.its.logic.authorityHandling;
 import com.example.its.dataClass.Issue;
 import com.example.its.dataClass.UserID;
 
-public class UserPlayer implements UserAuth {
+public class userPlayer implements userAuth {
 
     /**
      *
