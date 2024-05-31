@@ -1,4 +1,4 @@
-package com.example.its.status;
+package com.example.its.state;
 
 import com.example.its.dataClass.Authority;
 import com.example.its.dataClass.Issue;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class StatusManager {
+public class StateManager {
 
     private UserID user;
     private ProjectID project;

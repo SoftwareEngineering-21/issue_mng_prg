@@ -7,14 +7,11 @@ import org.springframework.stereotype.Component;
 
 import com.example.its.dataClass.Comment;
 import com.example.its.dataClass.Issue;
-import com.example.its.dataClass.IssueID;
 import com.example.its.dataClass.Project;
-import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.User;
-import com.example.its.dataClass.UserID;
 
 import com.example.its.logic.UserService;
-import com.example.its.status.StatusManager;
+import com.example.its.state.StateManager;
 import com.example.its.logic.ProjectService;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,14 +22,14 @@ public class MainSwingController extends BaseController {
     protected ProjectService projectService;
     //protected IssueService issueService;
 
-    protected final StatusManager statusManager;
+    protected final StateManager stateManager;
 
     @Autowired
-    MainSwingController(UserService userService, ProjectService projectService,StatusManager statusManager){
+    MainSwingController(UserService userService, ProjectService projectService, StateManager stateManager){
         super();
         this.userService = userService;
         this.projectService = projectService;
-        this.statusManager = statusManager;
+        this.stateManager = stateManager;
     }
 
     @Override
@@ -69,7 +66,7 @@ public class MainSwingController extends BaseController {
             return null;
         }
 
-        List<Project> list = projectService.readProjects(statusManager.getUser());
+        List<Project> list = projectService.readProjects(stateManager.getUser());
         return list.toArray(new Project[list.size()]);
     }
 
@@ -80,7 +77,7 @@ public class MainSwingController extends BaseController {
         }
         
         try{
-            this.projectService.createProject(statusManager.getUser(), title, Desc);
+            this.projectService.createProject(stateManager.getUser(), title, Desc);
         }
         catch(Exception e){
             return false;
@@ -147,7 +144,7 @@ public class MainSwingController extends BaseController {
 
     @Override
     public boolean logout() {
-        statusManager.setUser(null);
+        stateManager.setUser(null);
         return true;
     }
 
@@ -174,7 +171,7 @@ public class MainSwingController extends BaseController {
 
     @Override
     public Project[] getAdminProjectList() {
-        List<Project> projects = this.projectService.readAdminProjects(statusManager.getUser());
+        List<Project> projects = this.projectService.readAdminProjects(stateManager.getUser());
         if(projects == null){
             return null;
         }
