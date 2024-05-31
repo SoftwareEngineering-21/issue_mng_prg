@@ -1,7 +1,6 @@
 package com.example.its.state;
 
 import com.example.its.dataClass.*;
-import com.example.its.logic.authorityHandling.UserAuth;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;

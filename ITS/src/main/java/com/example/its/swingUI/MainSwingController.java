@@ -174,7 +174,7 @@ public class MainSwingController extends BaseController {
 
     @Override
     public Issue getIssue(IssueID id) {
-        return issueService.readIssueById(id);
+        return issueService.readIssue(id);
     }
 
     @Override
