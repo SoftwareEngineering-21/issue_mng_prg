@@ -60,7 +60,7 @@ public class DBService {
         projectDBService.updateProjectService(projectID, title, description);
     }
 
-    public void deleteProjectService(ProjectID projectID){
+    public void deleteProject(ProjectID projectID){
         projectDBService.deleteProjectService(projectID);
     }
 
@@ -81,7 +81,7 @@ public class DBService {
 
 
 
-    public void deleteUserSerivce(UserID userID){
+    public void deleteUser(UserID userID){
         userDBService.deleteUserSerivce(userID);
     }
 
@@ -133,7 +133,7 @@ public class DBService {
         return issueDBService.readIssueListService(projectIDFK, reporter, assignee, status, sortOrder);
     }
 
-    public void updateIssueService(IssueID ID, String title, String description, UserID reporter, UserID assignee, UserID fixer, Integer type, Integer priority, Integer status){
+    public void updateIssue(IssueID ID, String title, String description, UserID reporter, UserID assignee, UserID fixer, Integer type, Integer priority, Integer status){
         issueDBService.updateIssueService(ID, title, description, reporter, assignee, fixer, type, priority, status);
     }
 
