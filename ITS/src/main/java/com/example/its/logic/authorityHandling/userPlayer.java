@@ -21,7 +21,7 @@ public class userPlayer implements userAuth {
     }
 
     @Override
-    public void perform(Issue.StatusID status, Issue.PriorityID priority, Issue.TypeID type, UserID reporter, UserID assignee, UserID fixer) {
+    public void perform(Issue.StatusID state, Issue.PriorityID priority, Issue.TypeID type, UserID reporter, UserID assignee, UserID fixer) {
 
     }
 }

@@ -1,4 +1,4 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Login;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -35,6 +36,7 @@ public class LoginFrame extends JFrame {
 			}
 			else{
 				System.out.println("Error : Id or Password is wrong.");
+				JOptionPane.showMessageDialog(null, "Id or Password is wrong.");
 				// Print Message
 			}
 		}

@@ -16,15 +16,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class IssueService {
     private final DBService service;
+
     /**
      * @param projectID not null
      * @param reporter nullable
      * @param assignee nullable
      * @param status nullable
-     * @param sortOrder nul l -> desc, createdAt, status
+     * @param sortOrder null -> desc, createdAt, status
      */
-    public List<Issue> readIssueList(ProjectID projectID, UserID reporter, UserID assignee, Integer status, String sortOrder){
-        return service.readIssueList(projectID,reporter, assignee,status,sortOrder);
+    public List<Issue> readIssueList(ProjectID projectID, UserID reporter, UserID assignee, Issue.StatusID status, String sortOrder){
+        return service.readIssueList(projectID,reporter, assignee, status == null ? null : status.ordinal(),sortOrder);
+    }
+
+    public void createIssue(ProjectID projectID, String title, String desc, UserID reporter, Issue.TypeID type, Issue.PriorityID priority) {
+        service.createIssue(projectID, title, desc, null, null, null, type, priority, Issue.StatusID.NEW);
     }
 
     public Issue readIssue(IssueID issueID){
