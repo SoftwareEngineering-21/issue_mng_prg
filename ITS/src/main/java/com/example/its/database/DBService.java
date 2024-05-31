@@ -65,10 +65,7 @@ public class DBService {
     }
 
 
-    //UserDB methods
-    public Boolean checkRightPW(UserID userID, String inputPW){
-        return userDBService.checkRightPWService(userID, inputPW);
-    }
+
 
     public UserID createUser(String ID, String password){
         return userDBService.createUserService(ID, password);
@@ -82,9 +79,7 @@ public class DBService {
         return userDBService.readUserSessionService(userID);
     }
 
-    public void updateUserService(UserID userID, String password, String newPW){
-        userDBService.updateUserService(userID, password, newPW);
-    }
+
 
     public void deleteUserSerivce(UserID userID){
         userDBService.deleteUserSerivce(userID);

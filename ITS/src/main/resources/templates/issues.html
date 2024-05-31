@@ -118,18 +118,22 @@
                         comp.innerText = 'new';
                         break;
                     case '1':
-                        comp.classList.add('status-progress');
-                        comp.innerText = 'progress';
+                        comp.classList.add('status-assigned');
+                        comp.innerText = 'assigned';
                         break;
                     case '2':
+                        comp.classList.add('status-fixed');
+                        comp.innerText = 'fixed';
+                        break;
+                    case '3':
                         comp.classList.add('status-resolved');
                         comp.innerText = 'resolved';
                         break;
-                    case '3':
+                    case '4':
                         comp.classList.add('status-reopen');
                         comp.innerText = 'reopen';
                         break;
-                    case '4':
+                    case '5':
                         comp.classList.add('status-closed');
                         comp.innerText = 'closed';
                         break;

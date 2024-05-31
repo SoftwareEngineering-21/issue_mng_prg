@@ -15,8 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserDBService {
     @Autowired //밑에 final 로 만들고 지우기?
-    private UserDBManager manager;
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final UserDBManager manager;
 
     //UserDB DTO to User DTO
     private User UDBtoUser(UserDB udb){
@@ -24,34 +23,6 @@ public class UserDBService {
         return newU;
     }
 
-    // password encode
-    private String encodePW(String password){
-        String encryptedPassword = passwordEncoder.encode(password);
-        return encryptedPassword;
-    }
-
-    // password decode
-    private Boolean decodePW(String passwordDB, String inputPW){
-        boolean isPasswordMatch = passwordEncoder.matches(inputPW, passwordDB);
-        return isPasswordMatch;
-    }
-
-    //id pw check
-    public Boolean checkRightPWService(UserID userID, String inputPW){
-
-            UserDB currentUserDB = manager.readUserManager(userID.getID());
-            if(currentUserDB == null){
-                System.out.println("user id is not exist");
-                return false;
-            }
-            // TODO id & pw맞는거 없으면 customized error 반환
-            if (decodePW(currentUserDB.getPassword(), inputPW)){return true;}
-            else {
-                System.out.println("pw is not correct");
-                return false;
-            }
-
-        }
 
 
     //create User, 중복 겁사는 UI단에서?????
@@ -76,12 +47,7 @@ public class UserDBService {
     }
 
 
-    //update user's password
-    public void updateUserService(UserID userID, String password, String newPW){
-        if(checkRightPWService(userID, newPW)){
-            manager.updateUserManager(userID.getID(), encodePW(newPW));
-        }
-    }
+
 
     //delete user
     public void deleteUserSerivce(UserID userID){
