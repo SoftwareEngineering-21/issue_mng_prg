@@ -13,6 +13,10 @@ public abstract class BaseController {
 
     protected final StateManager stateManager;
 
+    protected UserID userID() { return this.stateManager.getUser();}
+    protected ProjectID projectID() { return this.stateManager.getProject();}
+    protected IssueID issueID() { return this.stateManager.getIssue();}
+
     protected BaseController(StateManager statusManager) {
         this.stateManager = statusManager;
 

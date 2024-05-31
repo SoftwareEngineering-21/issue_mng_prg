@@ -29,7 +29,7 @@ public class ProjectSceneController {
     }
 
     public Issue[] getIssueList(){
-        Issue issues[] = baseController.getIssueList();
+        Issue[] issues = baseController.getIssueList();
         if(issues == null){
             return null;
         }
@@ -70,18 +70,17 @@ public class ProjectSceneController {
         this.panel.makeIssueList();
     }
 
-    public void runIssueScene(int index) {
+    public boolean runIssueScene(int index) {
         if(issueIDs == null || index >= issueIDs.length || index < 0) {
-            return;
+            return false;
         }
-        
-        Issue issues[] = this.baseController.getIssueList();
-        for (Issue issue : issues) {
-            if(issue.getID().getID() == issueIDs[index].getID()) {
-                this.makeIssueController.dispose();
-                this.issueSceneController.setProjectPanel(issue);
-                return;
-            }
+
+        Issue issue = this.baseController.openIssue(issueIDs[index]);
+        if(issue == null) {
+            return false;
         }
+        this.makeIssueController.dispose();
+        this.issueSceneController.setBasePanel(issue);
+        return true;
     }
 }

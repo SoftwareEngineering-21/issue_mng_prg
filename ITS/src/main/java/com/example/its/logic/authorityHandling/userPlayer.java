@@ -4,7 +4,7 @@ package com.example.its.logic.authorityHandling;
 import com.example.its.dataClass.Issue;
 import com.example.its.dataClass.UserID;
 
-public class userPlayer implements userAuth {
+public class UserPlayer implements UserAuth {
 
     /**
      *
@@ -21,7 +21,7 @@ public class userPlayer implements userAuth {
     }
 
     @Override
-    public void perform(Issue.StatusID status, Issue.PriorityID priority, Issue.TypeID type, UserID reporter, UserID assignee, UserID fixer) {
+    public void perform(Issue.StatusID state, Issue.PriorityID priority, Issue.TypeID type, UserID reporter, UserID assignee, UserID fixer) {
 
     }
 }
