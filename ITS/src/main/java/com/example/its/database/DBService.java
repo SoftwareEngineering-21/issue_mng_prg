@@ -220,5 +220,11 @@ public class DBService {
     }
 
 
+    // recommend dev
+    public UserID recommendDev(ProjectID projectID, Issue.StatusID status, Issue.TypeID type){
+        List<Pair<UserID, Integer>> statistic = countIssuesByAssignee(projectID, status.ordinal(), type.ordinal());
+        return statistic.get(0).getFirst();
+    }
+
 
 }
