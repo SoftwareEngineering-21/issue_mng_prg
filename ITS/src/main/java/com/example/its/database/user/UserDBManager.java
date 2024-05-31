@@ -20,6 +20,7 @@ public class UserDBManager {
         return userDB.readUser(ID);
     }
 
+    @Deprecated
     public void updateUserManager(String ID, String password){
         userDB.updateUser(ID, password);
     }

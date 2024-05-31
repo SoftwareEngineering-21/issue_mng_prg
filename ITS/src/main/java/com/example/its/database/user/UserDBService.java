@@ -1,12 +1,11 @@
 package com.example.its.database.user;
 
-import com.example.its.dataClass.UserSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
+import com.example.its.dataClass.UserSession;
 import com.example.its.dataClassDB.UserDB;
 
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserDBService {
-    @Autowired //밑에 final 로 만들고 지우기?
-    private UserDBManager manager;
+    private final UserDBManager manager;
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     //UserDB DTO to User DTO
@@ -25,18 +23,21 @@ public class UserDBService {
     }
 
     // password encode
+    @Deprecated
     private String encodePW(String password){
         String encryptedPassword = passwordEncoder.encode(password);
         return encryptedPassword;
     }
 
     // password decode
+    @Deprecated
     private Boolean decodePW(String passwordDB, String inputPW){
         boolean isPasswordMatch = passwordEncoder.matches(inputPW, passwordDB);
         return isPasswordMatch;
     }
 
     //id pw check
+    @Deprecated
     public Boolean checkRightPWService(UserID userID, String inputPW){
 
             UserDB currentUserDB = manager.readUserManager(userID.getID());
@@ -54,9 +55,8 @@ public class UserDBService {
         }
 
 
-    //create User, 중복 겁사는 UI단에서?????
+    //create User
     public UserID createUserService(String ID, String password){
-        //String encodedPW = encodePW(password);
         manager.createUserManager(ID, password);
         User returnID = readUserService(new UserID(ID));
         return returnID.getID();
@@ -77,8 +77,9 @@ public class UserDBService {
 
 
     //update user's password
+    @Deprecated
     public void updateUserService(UserID userID, String password, String newPW){
-        if(checkRightPWService(userID, newPW)){
+        if(checkRightPWService(userID, password)){
             manager.updateUserManager(userID.getID(), encodePW(newPW));
         }
     }

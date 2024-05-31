@@ -9,7 +9,6 @@ import com.example.its.dataClassDB.ProjectDB;
 
 @Mapper
 public interface ProjectDBMapper {
-    //void createProjectDetailDBTable();
     Integer createProject(ProjectDB project);
     ProjectDB readProject(int ID);
     List<ProjectDB> readProjectList(String userID);

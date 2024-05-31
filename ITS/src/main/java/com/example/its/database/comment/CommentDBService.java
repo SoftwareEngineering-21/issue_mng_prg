@@ -29,7 +29,6 @@ public class CommentDBService {
     }
 
 
-    // 이후에 안쓰이면 지우기
     public Comment readCommentService(CommentID commentID){
         CommentDB cdb = manager.readCommentManager(commentID.getID());
         Comment c = CDBtoComment(cdb);

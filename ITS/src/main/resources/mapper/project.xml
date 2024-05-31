@@ -21,7 +21,6 @@
         WHERE adminID = #{userID}
     </select>
 
-    <!-- TODO where 조건 바꾸기 -->
     <select id="readProjectList" resultType="com.example.its.dataClassDB.ProjectDB">
         SELECT * FROM ProjectDB
         WHERE ID IN (
