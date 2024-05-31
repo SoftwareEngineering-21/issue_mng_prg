@@ -170,3 +170,13 @@ body{
 }
 
 
+.card-np {
+    padding: 30px;
+    margin: 10px 0;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 15px !important;
+    width: 100%;
+    max-width: 1200px;
+    color: #303050;
+
+}

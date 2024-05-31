@@ -4,9 +4,13 @@ import com.example.its.logic.Exception.LoginRequiredException;
 import com.example.its.logic.Exception.LoginUnrequiredException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 @Controller
@@ -30,7 +34,8 @@ public class MainController {
     }
 
     @GetMapping("/test")
-    public String test(@RequestParam(name = "tester", required = false)String tester  ) {
+    public String test(@RequestParam(name = "tester", required = false)String tester , Model model ) {
+        model.addAttribute("toggle", Arrays.asList("a", "b"));
         return "test/testLayout";
     }
 
