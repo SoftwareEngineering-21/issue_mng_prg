@@ -1,5 +1,7 @@
 package com.example.its;
 
+import com.example.its.status.StatusManager;
+import com.example.its.swingUI.TestController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -26,8 +28,8 @@ public class ItsApplication implements CommandLineRunner {
         //기본 configuration 종료//
 
         ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
-        MainSwingController controller = context.getBean(MainSwingController.class);
-
+        //ainSwingController controller = context.getBean(MainSwingController.class);
+        TestController controller = new TestController(new StatusManager());
         controller.run();
     }
 

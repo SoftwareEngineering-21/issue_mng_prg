@@ -17,8 +17,8 @@ public class MakeIssueController {
         frame = new MakeIssueFrame(this);
     }
 
-    public boolean MakeIssue(String title, String desc, int priority){
-        boolean result = this.baseController.makeIssue(title, desc, priority);
+    public boolean MakeIssue(String title, String desc, int type, int priority){
+        boolean result = this.baseController.makeIssue(title, desc, type, priority);
         this.projectSceneController.makeIssueList();
         return result;
     }

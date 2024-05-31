@@ -5,6 +5,8 @@ import com.example.its.dataClass.Issue;
 import com.example.its.swingUI.BaseController;
 import com.example.its.swingUI.Issue.IssueScenePanel;
 
+import java.util.List;
+
 public class IssueSceneController {
     protected BaseController baseController;
     protected IssueScenePanel panel;
@@ -14,15 +16,7 @@ public class IssueSceneController {
         panel = new IssueScenePanel(this);
     }
 
-    void loadIssueInfo(){
-        
-    }
-
-    Issue[] getIssueList() {
-        return null;
-    }
-
-    public void setProjectPanel(Issue issue){
+    public void setProjectPanel(Issue issue) {
         this.panel.setIssueInfo(issue);
         this.panel.makeCommentList();
         this.baseController.setBasePanel(panel);
@@ -30,5 +24,13 @@ public class IssueSceneController {
 
     public Comment[] getCommentList() {
         return this.baseController.getCommentList();
+    }
+
+    public boolean addComment(String desc) {
+        if(this.baseController.addComment(desc)){
+            this.panel.makeCommentList();
+            return true;
+        }
+        return false;
     }
 }

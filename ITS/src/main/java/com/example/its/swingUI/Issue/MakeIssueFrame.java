@@ -24,6 +24,7 @@ public class MakeIssueFrame extends JFrame {
 	private JTextField issueTitleField;
     private JTextArea issueDescArea;
     private JComboBox priorityComboBox;
+	private JComboBox taskComboBox;
 
     class BackButtonAction implements ActionListener {
         @Override
@@ -35,7 +36,7 @@ public class MakeIssueFrame extends JFrame {
     class PostButtonAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(controller.MakeIssue(issueTitleField.getText(), issueDescArea.getText(), priorityComboBox.getSelectedIndex())) {
+            if(controller.MakeIssue(issueTitleField.getText(), issueDescArea.getText(), taskComboBox.getSelectedIndex(), priorityComboBox.getSelectedIndex())) {
                 issueTitleField.setText("");
                 issueDescArea.setText("");
                 dispose();
@@ -125,24 +126,48 @@ public class MakeIssueFrame extends JFrame {
 		
 		issueDescArea = new JTextArea();
 		descPanel.add(issueDescArea);
-		
+
+		JPanel comboBoxPanel = new JPanel();
+		CenterPanel.add(comboBoxPanel, BorderLayout.SOUTH);
+		comboBoxPanel.setLayout(new BoxLayout(comboBoxPanel, BoxLayout.Y_AXIS));
+
+		JPanel panel3 = new JPanel();
+		comboBoxPanel.add(panel3);
+		panel3.setLayout(new BoxLayout(panel3, BoxLayout.X_AXIS));
+
+		Component horizontalStrut7 = Box.createHorizontalStrut(20);
+		panel3.add(horizontalStrut7);
+
+		JLabel taskLabel = new JLabel("Task");
+		panel3.add(taskLabel);
+
+		Component horizontalStrut8 = Box.createHorizontalStrut(20);
+		panel3.add(horizontalStrut8);
+
+		String[] task = new String[]{ "BUG", "IMPROVEMENT", "NEW_FEATURE", "TASK", "STORY" };
+		taskComboBox = new JComboBox(task);
+		panel3.add(taskComboBox);
+
+		Component horizontalStrut9 = Box.createHorizontalStrut(20);
+		panel3.add(horizontalStrut9);
+
 		JPanel panel = new JPanel();
-		CenterPanel.add(panel, BorderLayout.SOUTH);
+		comboBoxPanel.add(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		
+
 		Component horizontalStrut_6 = Box.createHorizontalStrut(20);
 		panel.add(horizontalStrut_6);
-		
+
 		JLabel PriorityLabel = new JLabel("Priority");
 		panel.add(PriorityLabel);
-		
+
 		Component horizontalStrut_7 = Box.createHorizontalStrut(20);
 		panel.add(horizontalStrut_7);
-		
-        String[] priority = new String[]{ "Major", "Minor", "Blocker", "Critical", "Trivial" };
+
+		String[] priority = new String[]{ "Major", "Minor", "Blocker", "Critical", "Trivial" };
 		priorityComboBox = new JComboBox(priority);
 		panel.add(priorityComboBox);
-		
+
 		Component horizontalStrut_8 = Box.createHorizontalStrut(20);
 		panel.add(horizontalStrut_8);
     }

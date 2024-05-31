@@ -34,6 +34,10 @@ public abstract class BaseController {
     public abstract Project getProject(ProjectID projectId);
     public abstract Project openProject(ProjectID projectId);
 
+    public void closeProject() {
+        this.statusManager.setProject(null);
+    }
+
     public abstract boolean addTester(UserID id);
     public abstract boolean addPlayer(UserID id);
     public abstract boolean addDeveloper(UserID id);
@@ -48,7 +52,13 @@ public abstract class BaseController {
 
     //이슈 관련
     public abstract Issue[] getIssueList();
-    public abstract boolean makeIssue(String title, String desc, int Priority);
+    public abstract boolean makeIssue(String title, String desc, int type, int priority);
+    public abstract Issue getIssue(IssueID id);
+    public abstract Issue openIssue(IssueID id);
+
+    public void closeIssue() {
+        this.statusManager.setIssue(null);
+    }
 
     //코멘트 관련
     public abstract Comment[] getCommentList();

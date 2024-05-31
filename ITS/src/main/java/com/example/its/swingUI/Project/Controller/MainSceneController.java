@@ -52,44 +52,23 @@ public class MainSceneController {
         this.makeProjectController.run();
     }
     
-    public void runProjectScene(int index){
+    public boolean runProjectScene(int index){
         Project target = null;
 
         if(adminProjectIdList.length > index){
-            Project[] adminList = this.baseController.getAdminProjectList();
-            if(adminList == null){
-                System.out.println("Error!");
-                return;
-            }
-
-            for (Project project : adminList) {
-                if(project.getProjectID().getID() == this.adminProjectIdList[index].getID()){
-                    target = project;
-                    break;
-                }
-            }
+            target = this.baseController.openProject(adminProjectIdList[index]);
         }
         else{
-            Project[] list = this.baseController.getProjectList();
-            if(list == null){
-                System.out.println("Error!");
-                return;
-            }
-
-            for(Project project : list) {
-                if(project.getProjectID().getID() == this.projectIdList[index - adminProjectIdList.length].getID()){
-                    target = project;
-                    break;
-                }
-            }
+            target = this.baseController.openProject(projectIdList[index - adminProjectIdList.length]);
         }
 
         if(target != null){
             this.makeProjectController.dispose();
             this.projSceneController.setProjectPanel(target);
+            return true;
         }
         else{
-            System.out.println("There is no project in DB");
+            return false;
         }
     }
 

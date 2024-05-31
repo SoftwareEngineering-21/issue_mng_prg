@@ -80,6 +80,11 @@ public class MainSwingController extends BaseController {
 
     @Override
     public Project openProject(ProjectID projectId) {
+        Project project = getProject(projectId);
+        if(project != null){
+            this.statusManager.setProject(projectId);
+            return project;
+        }
         return null;
     }
 
@@ -150,9 +155,19 @@ public class MainSwingController extends BaseController {
     }
 
     @Override
-    public boolean makeIssue(String title, String desc, int priority) {
+    public boolean makeIssue(String title, String desc, int type, int priority) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'makeIssue'");
+    }
+
+    @Override
+    public Issue getIssue(IssueID id) {
+        return null;
+    }
+
+    @Override
+    public Issue openIssue(IssueID id) {
+        return null;
     }
 
     @Override

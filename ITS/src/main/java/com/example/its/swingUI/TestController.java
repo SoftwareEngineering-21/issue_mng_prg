@@ -4,16 +4,13 @@ import com.example.its.dataClass.*;
 import com.example.its.dataClass.Issue.PriorityID;
 import com.example.its.dataClass.Issue.StatusID;
 import com.example.its.dataClass.Issue.TypeID;
+import com.example.its.status.StatusManager;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 @Deprecated
 public class TestController extends BaseController {
-    User user;
-    ProjectID projectId;
-    IssueID issueId;
-
     ArrayList<UserID> userList = new ArrayList<>();
 
     ArrayList<UserID> testerList = new ArrayList<UserID>();
@@ -23,7 +20,11 @@ public class TestController extends BaseController {
     ArrayList<Project> projectList = new ArrayList<Project>();
     ArrayList<Project> adminProjectList = new ArrayList<Project>();
     ArrayList<Issue> issueList = new ArrayList<Issue>();
-    ArrayList<ArrayList<Comment>> commentList = new ArrayList<ArrayList<Comment>>();
+    ArrayList<Comment> commentList = new ArrayList<>();
+
+    public TestController(StatusManager statusManager) {
+        super(statusManager);
+    }
 
     @Override
     public boolean isExistID(String id) {
@@ -47,39 +48,54 @@ public class TestController extends BaseController {
             return false;
         }
 
-        user = new User(new UserID(id));
+        this.statusManager.setUser(new UserID(id));
         return true;
     }
 
     @Override
     public boolean logout() {
-        user = null;
+        this.statusManager.setUser(null);
         return true;
     }
 
     @Override
     public Project[] getProjectList() {
-        return this.projectList.toArray(new Project[projectList.size()]);
+        return this.projectList.toArray(new Project[] {});
     }
 
     @Override
     public boolean makeProject(String title, String Desc) {
-        adminProjectList.add(new Project(new ProjectID(adminProjectList.size()), title, Desc, null));
+        adminProjectList.add(new Project(new ProjectID(adminProjectList.size()), title, Desc, statusManager.getUser()));
         return true;
     }
 
     @Override
     public Project getProject(ProjectID projectId) {
-        if(projectList == null){
-            return null;
+        if(adminProjectList != null){
+            for(Project project : adminProjectList){
+                if(project.getProjectID() == projectId){
+                    return project;
+                }
+            }
         }
-
-        for(Project project : projectList){
-            if(project.getProjectID() == projectId){
-                return project;
+        if(projectList != null){
+            for(Project project : projectList){
+                if(project.getProjectID() == projectId){
+                    return project;
+                }
             }
         }
 
+        return null;
+    }
+
+    @Override
+    public Project openProject(ProjectID projectId) {
+        Project project = getProject(projectId);
+        if(project != null){
+            this.statusManager.setProject(projectId);
+            return project;
+        }
         return null;
     }
 
@@ -135,16 +151,18 @@ public class TestController extends BaseController {
     }
 
     @Override
-    public boolean makeIssue(String title, String desc, int priority) {
-        issueList.add(new Issue(new IssueID(issueList.size()), title, desc, StatusID.OPEN, TypeID.TASK, PriorityID.MAJOR, null, user.getID(), null));
+    public boolean makeIssue(String title, String desc, int type, int priority) {
+        issueList.add(new Issue(new IssueID(issueList.size()), title, desc, StatusID.OPEN, TypeID.values()[type], PriorityID.values()[priority], null, statusManager.getUser(), null));
         return true;
     }
 
     @Override
-    public Comment[] getCommentList() {
-        for(int i = 0; i < issueList.size(); i++){
-            if(issueList.get(i).getID() == issueId){
-                return commentList.get(i).toArray(new Comment[] {});
+    public Issue getIssue(IssueID id) {
+        if(issueList != null)   {
+            for(Issue issue : issueList){
+                if(issue.getID() == id){
+                    return issue;
+                }
             }
         }
 
@@ -152,23 +170,27 @@ public class TestController extends BaseController {
     }
 
     @Override
+    public Issue openIssue(IssueID id) {
+        Issue issue = getIssue(id);
+        if(issue != null){
+            this.statusManager.setIssue(issue);
+            return issue;
+        }
+        return null;
+    }
+
+    @Override
+    public Comment[] getCommentList() {
+        if(commentList == null){
+            return null;
+        }
+        return commentList.toArray(new Comment[]{});
+    }
+
+    @Override
     public boolean addComment(String desc) {
-        int index = -1;
-        for(int i = 0; i < issueList.size(); i++){
-            if(issueList.get(i).getID() == issueId){
-                index = i;
-                break;
-            }
-        }
-        if(index == -1){
-            return false;
-        }
-
-        while(commentList.size() <= index){
-            commentList.add(new ArrayList<>());
-        }
-
-        return commentList.get(index).add(new Comment(new CommentID(index), desc, null, this.user.getID()));
+        commentList.add(new Comment(new CommentID(commentList.size()), desc, new Timestamp(System.currentTimeMillis()), statusManager.getUser()));
+        return true;
     }
 
     @Override
