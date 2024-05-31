@@ -125,7 +125,7 @@ public class TestController extends BaseController {
 
     @Override
     public boolean makeIssue(String title, String desc, int priority) {
-        issueList.add(new Issue(new IssueID(issueList.size()), title, desc, StatusID.OPEN, TypeID.TASK, PriorityID.MAJOR, null, user.getID(), null));
+        issueList.add(new Issue(new IssueID(issueList.size()), title, desc, StatusID.NEW, TypeID.TASK, PriorityID.MAJOR, null, user.getID(), null));
         return true;
     }
 

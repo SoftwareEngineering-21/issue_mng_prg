@@ -60,9 +60,16 @@ body{
     padding: 5px 10px;
     font-weight: 500;
 }
-.status-progress{
+.status-assigned{
     color:#f5f5f5;
     background-color: #d5a00c;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+.status-fixed{
+    color:#f5f5f5;
+    background-color: #403080;
     border-radius: 15px;
     padding: 5px 10px;
     font-weight: 500;

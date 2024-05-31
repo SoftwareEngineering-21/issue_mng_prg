@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 public class Issue {
 	public enum TypeID {BUG, IMPROVEMENT, NEW_FEATURE, TASK, STORY};
 	public enum PriorityID {BLOCKER, CRITICAL, MAJOR, MINOR, TRIVIAL};
-	public enum StatusID {OPEN, INPROGRESS, RESOLVED, REOPENED, CLOSED};
+	public enum StatusID {NEW, ASSIGNED, FIXED, RESOLVED, REOPENED, CLOSED};
 
 
 	private final IssueID ID;
