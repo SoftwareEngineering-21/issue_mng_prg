@@ -1,14 +1,16 @@
 package com.example.its.logic;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.example.its.dataClass.Issue;
 import com.example.its.dataClass.IssueID;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.UserID;
 import com.example.its.database.DBService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -26,11 +28,16 @@ public class IssueService {
         return service.readIssueList(projectID,reporter, assignee, status == null ? null : status.ordinal(),sortOrder);
     }
 
-    public Issue readIssueById(IssueID issueId) {
-        return service.readIssue(issueId);
-    }
-
     public void createIssue(ProjectID projectID, String title, String desc, UserID reporter, Issue.TypeID type, Issue.PriorityID priority) {
         service.createIssue(projectID, title, desc, null, null, null, type, priority, Issue.StatusID.NEW);
     }
+
+    public Issue readIssue(IssueID issueID){
+        return service.readIssue(issueID);
+    }
+
+    public UserID recommendDeveloper(ProjectID projectID, Issue.StatusID status, Issue.TypeID type){
+        return service.recommendDev(projectID, status, type);
+    }
+
 }
