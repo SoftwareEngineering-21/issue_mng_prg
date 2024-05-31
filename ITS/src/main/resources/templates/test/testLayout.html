@@ -58,6 +58,8 @@
             justify-content: center;
             margin-top: 10px;
             text-align: center;
+            padding: 0px 20px;
+            font-size : 22px;
 
         }
         .btn-custom:hover {
@@ -100,6 +102,32 @@
             padding:0px 30px;
 
         }
+        .card-np-cm-new{
+            border: 1px solid rgba(0, 0, 0, .125);
+            border-radius: 15px !important;
+            width: 100%;
+            max-width: 1200px;
+            color: #303050;
+            padding-left:  30px;
+            padding-right: 30px;
+            padding-top: 20px;
+
+        }
+        .line {
+            width: 4px;
+            height: 50px; /* Adjust the height as needed */
+            background-color: black;
+            margin-left: 10%;
+        }
+        .custom-btn{
+            background-color: #303050;
+            color:#f5f5f5;
+            padding: 10px 15px;
+            font-size: 18px;
+            border-radius: 8px;
+            align-items: center;
+            align-content: center!important;
+        }
 
 
     </style>
@@ -137,16 +165,16 @@
 
                 </div>
                 <div class ="top-align justify-content-end pt-5">
-                    <h6 class ="ml-1 mr-3 type">closed</h6>
-                    <h6 class ="ml-1 mr-3 priority">closed</h6>
-                    <h6 class ="ml-1 mr-3 status">closed</h6>
+                    <h6 class ="ml-1 mr-3 type">bug</h6>
+                    <h6 class ="ml-1 mr-3 priority-critical">critical</h6>
+                    <h6 class ="ml-1 mr-3 status status-resolved">resolved</h6>
                 </div>
             </div>
 
         </div>
     </div>
-    <div class="card-container mb-5">
-        <div class="card-np" >
+    <div class="card-container">
+        <div class="card-np-cm" >
             <div class="card-body">
 
                 <div class="pt-2 row justify-content-between">
@@ -184,6 +212,8 @@
         </div>
     </div>
 
+    <div class ="line"></div>
+
     <div class = "card-container">
         <div class = "card-np-cm">
             <div class="card-body">
@@ -198,7 +228,21 @@
             </div>
         </div>
     </div>
+    <div class ="line"></div>
+    <div class = "card-container pb-5">
+        <div class = "card-np-cm-new">
+            <div class="card-body">
+                <div class = "form-group pb-1">
+                    <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+                </div>
+                <div class = "d-flex justify-content-end">
+                    <button type="submit"  class ="btn btn-custom" >add user</button>
+                </div>
 
+            </div>
+
+        </div>
+    </div>
 
 </div>
 
