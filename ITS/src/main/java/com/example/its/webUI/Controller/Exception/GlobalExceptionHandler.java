@@ -1,5 +1,8 @@
 package com.example.its.webUI.Controller.Exception;
 
+import com.example.its.logic.Exception.LoginFailureException;
+import com.example.its.logic.Exception.LoginRequiredException;
+import com.example.its.logic.Exception.LoginUnrequiredException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -7,13 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
     @ExceptionHandler(LoginRequiredException.class)
     public String loginException(LoginRequiredException ex) {
-        System.out.println("LoginException: Login session expired");
+        System.out.println("Login Exception: Login session expired");
         return "redirect:/";
     }
 
     @ExceptionHandler(LoginUnrequiredException.class)
     public String loginUnrequiredException(LoginUnrequiredException ex) {
-        System.out.println("LoginUnrequiredException: Login not required.");
+        System.out.println("Login Unrequired Exception: Login not required.");
         return "redirect:/";
     }
 

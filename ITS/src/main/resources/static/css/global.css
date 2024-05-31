@@ -46,5 +46,143 @@ body{
     font-weight: bold;
     color: #303050;
 }
+.status-new{
+    color:#f5f5f5;
+    background-color: #216e40;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+.status-reopen{
+    color:#f5f5f5;
+    background-color: #216e40;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+.status-assigned{
+    color:#f5f5f5;
+    background-color: #d5a00c;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+.status-fixed{
+    color:#f5f5f5;
+    background-color: #403080;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+.status-resolved{
+    color:#f5f5f5;
+    background-color: #403080;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+.status-closed{
+    color:#f5f5f5;
+    background-color: #902a2a;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+.priority-trivial{
+    color:#f5f5f5;
+    background-color: #d8c69d;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+.priority-minor{
+    color:#f5f5f5;
+    background-color: #bf9a84;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+.priority-major{
+    color:#f5f5f5;
+    background-color: #a35838;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+.priority-critical{
+    color:#f5f5f5;
+    background-color: #a34438;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+.priority-blocker{
+    color:#f5f5f5;
+    background-color: #902a2a;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+.type{
+    color:#f5f5f5;
+    background-color: #606060;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+.issue-title{
+    cursor: pointer;
+    text-decoration-line: none;
+    color: #303050;
+    align-content: center;
+}
+.issue-title:hover{
+    cursor: pointer;
+    text-decoration-line: none;
+    color: #303050;
+    align-content: center;
+}
+.card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+}
+.card-body h5{
+    padding-top: 20px;
+    color: #303050;
+}
+.card {
+    padding: 30px;
+    margin: 10px 0;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 15px !important;
+    width: 100%;
+    max-width: 1200px;
+    color: #303050;
+    cursor: pointer;
+
+}
+.center-align {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* 부모 요소의 높이를 100%로 설정 */
+}
+.top-align{
+    display: flex;
+    align-items: flex-start;
+    height: 100%; /* 부모 요소의 높이를 100%로 설정 */
+}
 
 
+.card-np {
+    padding: 30px;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 15px !important;
+    width: 100%;
+    max-width: 1200px;
+    color: #303050;
+
+}

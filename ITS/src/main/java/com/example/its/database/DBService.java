@@ -59,16 +59,13 @@ public class DBService {
     public void updateProject(ProjectID projectID, String title, String description){
         projectDBService.updateProjectService(projectID, title, description);
     }
-    
+
     public void deleteProjectService(ProjectID projectID){
         projectDBService.deleteProjectService(projectID);
     }
 
 
-    //UserDB methods
-    public Boolean checkRightPW(UserID userID, String inputPW){
-        return userDBService.checkRightPWService(userID, inputPW);
-    }
+
 
     public UserID createUser(String ID, String password){
         return userDBService.createUserService(ID, password);
@@ -82,9 +79,7 @@ public class DBService {
         return userDBService.readUserSessionService(userID);
     }
 
-    public void updateUserService(UserID userID, String password, String newPW){
-        userDBService.updateUserService(userID, password, newPW);
-    }
+
 
     public void deleteUserSerivce(UserID userID){
         userDBService.deleteUserSerivce(userID);
@@ -126,7 +121,15 @@ public class DBService {
         return issueDBService.readIssueService(issueID);
     }
 
+    /**
+     * @param projectIDFK not null
+     * @param reporter nullable
+     * @param assignee nullable
+     * @param status nullable
+     * @param sortOrder null -> desc, createdAt, status
+     */
     public List<Issue> readIssueList(ProjectID projectIDFK, UserID reporter, UserID assignee, Integer status, String sortOrder){
+        System.out.println(sortOrder);
         return issueDBService.readIssueListService(projectIDFK, reporter, assignee, status, sortOrder);
     }
 
@@ -155,7 +158,7 @@ public class DBService {
     public List<Comment> readCommentList(IssueID issueID){
         return commentDBService.readCommentListService(issueID);
     }
-    
+
     public void updateComment(CommentID commentID, String text){
         commentDBService.updateCommentService(commentID, text);
     }

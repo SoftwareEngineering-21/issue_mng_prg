@@ -1,19 +1,3 @@
--- CREATE TABLE "UserDB" (
---                           "ID" varchar(45) NOT NULL PRIMARY KEY,
---                           "password" VARCHAR(100) NOT NULL
--- );
---
---
--- CREATE TABLE "ProjectDB" (
---                              "ID" INT AUTO_INCREMENT PRIMARY KEY,
---                              "title" VARCHAR(100) NOT NULL,
---                              "description" TEXT NOT NULL,
---                              "adminID" varchar(45) NOT NULL,
---                              CONSTRAINT `FK_ProjectDB_UserDB` FOREIGN KEY ("adminID") REFERENCES "UserDB" ("ID") ON DELETE CASCADE ON UPDATE CASCADE
--- );
---
---
---
 
 CREATE TABLE UserDB
 (
@@ -48,5 +32,14 @@ CREATE TABLE IssueDB
     type int not null ,
     priority int not null,
     status int not null ,
-    createAt timestamp not null default current_timestamp
+    createdAt timestamp not null default current_timestamp
 );
+
+CREATE TABLE PIRelationDB
+(
+    ID int not null auto_increment primary key ,
+    projectIDFK int not null,
+    issueIDFK int not null,
+    createdAt timestamp not null default current_timestamp
+);
+

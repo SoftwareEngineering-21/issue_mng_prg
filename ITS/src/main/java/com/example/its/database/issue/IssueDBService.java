@@ -20,15 +20,14 @@ public class IssueDBService {
     private final IssueDBManager manager;
 
     private Issue IDBtoIssue(IssueDB idb){
-        return new Issue(new IssueID(idb.getID()), idb.getTitle(), idb.getDescription(), EnumUtility.fromValue(Issue.StatusID.class,idb.getStatus()),EnumUtility.fromValue(Issue.TypeID.class, idb.getType()), EnumUtility.fromValue(Issue.PriorityID.class, idb.getPriority()),new UserID(idb.getAssignee()), new UserID(idb.getReporter()),new UserID(idb.getFixer()));
+        return new Issue(new IssueID(idb.getID()), idb.getTitle(), idb.getDescription(), EnumUtility.fromValue(Issue.StatusID.class,idb.getStatus()),EnumUtility.fromValue(Issue.TypeID.class, idb.getType()), EnumUtility.fromValue(Issue.PriorityID.class, idb.getPriority()),(idb.getAssignee()!= null) ? new UserID(idb.getAssignee()):null , new UserID(idb.getReporter()),(idb.getFixer()!=null)? new UserID(idb.getFixer()): null);
     }
 
     public IssueID createIssueService(String title, String description, UserID reporter, UserID assignee, UserID fixer, Issue.TypeID type, Issue.PriorityID priority, Issue.StatusID status){
         String fixerID = (fixer != null) ? fixer.getID() : null;
         String assigneeID = (assignee != null) ? assignee.getID() : null;
         Integer temp = manager.createIssueManager(title, description, reporter.getID(), assigneeID, fixerID, type.ordinal(), priority.ordinal(), status.ordinal());
-        IssueID issueID = new IssueID(temp);
-        return issueID;
+        return new IssueID(temp);
     }
 
     public Issue readIssueService(IssueID issueID){
@@ -36,8 +35,10 @@ public class IssueDBService {
         return IDBtoIssue(idb);
     }
 
+
     public List<Issue> readIssueListService(ProjectID projectIDFK, UserID reporter, UserID assignee, Integer status, String sortOrder){
-        List<IssueDB> iList = manager.readIssueListManager(projectIDFK.getID(), reporter.getID(), assignee.getID(), status, sortOrder);
+        List<IssueDB> iList = manager.readIssueListManager(projectIDFK.getID(), (reporter!=null)?reporter.getID():null, (assignee != null) ? assignee.getID() : null, status, sortOrder);
+        System.out.println(sortOrder);
         if(iList==null || iList.isEmpty()){
             return null;
         }

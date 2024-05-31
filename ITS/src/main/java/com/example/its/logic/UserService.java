@@ -4,16 +4,10 @@ import com.example.its.dataClass.User;
 import com.example.its.dataClass.UserID;
 import com.example.its.dataClass.UserSession;
 import com.example.its.database.DBService;
-import com.example.its.database.user.UserDBService;
-import com.example.its.logic.encoder.BCryptEncrypter;
 import com.example.its.logic.encoder.Encryptor;
-import com.example.its.status.StatusManager;
-import com.example.its.webUI.Controller.Exception.LoginFailureException;
+import com.example.its.logic.Exception.LoginFailureException;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.SmartInitializingSingleton;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service

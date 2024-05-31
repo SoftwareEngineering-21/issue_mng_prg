@@ -23,6 +23,8 @@ public class IssueDBManager {
         return mapper.readIssue(ID);
     }
 
+
+    //SortOrder : if null - desc, createdAt, status
     public List<IssueDB> readIssueListManager(int projectIDFK, String reporter, String assignee, Integer status, String sortOrder){
         return mapper.readIssueList(projectIDFK, reporter, assignee, status, sortOrder);
     }
