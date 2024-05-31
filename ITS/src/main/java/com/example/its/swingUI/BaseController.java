@@ -3,7 +3,7 @@ package com.example.its.swingUI;
 import javax.swing.JPanel;
 
 import com.example.its.dataClass.*;
-import com.example.its.status.StatusManager;
+import com.example.its.state.StateManager;
 import com.example.its.swingUI.Login.LoginFrameController;
 
 
@@ -11,10 +11,10 @@ public abstract class BaseController {
     protected BaseFrameController baseFrameController;
     protected LoginFrameController loginFrameController;
 
-    protected final StatusManager statusManager;
+    protected final StateManager stateManager;
 
-    protected BaseController(StatusManager statusManager) {
-        this.statusManager = statusManager;
+    protected BaseController(StateManager statusManager) {
+        this.stateManager = statusManager;
 
         this.baseFrameController = new BaseFrameController(this);
         this.loginFrameController = new LoginFrameController(this);
@@ -35,7 +35,7 @@ public abstract class BaseController {
     public abstract Project openProject(ProjectID projectId);
 
     public void closeProject() {
-        this.statusManager.setProject(null);
+        this.stateManager.setProject(null);
     }
 
     public abstract boolean addTester(UserID id);
@@ -57,7 +57,7 @@ public abstract class BaseController {
     public abstract Issue openIssue(IssueID id);
 
     public void closeIssue() {
-        this.statusManager.setIssue(null);
+        this.stateManager.setIssue(null);
     }
 
     //코멘트 관련

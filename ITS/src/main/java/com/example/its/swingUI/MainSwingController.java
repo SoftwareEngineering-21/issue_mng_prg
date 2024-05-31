@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.example.its.dataClass.*;
 import com.example.its.logic.AuthorityService;
-import com.example.its.webUI.Controller.Exception.LoginFailureException;
+import com.example.its.logic.Exception.LoginFailureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,8 +22,8 @@ public class MainSwingController extends BaseController {
     //protected IssueService issueService;
 
     @Autowired
-    MainSwingController(UserService userService, ProjectService projectService,StatusManager statusManager, AuthorityService authorityService){
-        super(statusManager);
+    MainSwingController(UserService userService, ProjectService projectService,StateManager stateManager, AuthorityService authorityService){
+        super(stateManager);
         this.userService = userService;
         this.projectService = projectService;
         this.authorityService = authorityService;
@@ -33,7 +33,7 @@ public class MainSwingController extends BaseController {
     public boolean login(String id, String password) {
         try{
             UserID user = userService.login(id, password);
-            statusManager.setUser(user);
+            stateManager.setUser(user);
         }
         catch (LoginFailureException e) {
             return false;
@@ -59,7 +59,7 @@ public class MainSwingController extends BaseController {
             return null;
         }
 
-        List<Project> list = projectService.readProjects(statusManager.getUser());
+        List<Project> list = projectService.readProjects(stateManager.getUser());
         return list.toArray(new Project[] {});
     }
 
@@ -69,7 +69,7 @@ public class MainSwingController extends BaseController {
             return false;
         }
 
-        this.projectService.createProject(statusManager.getUser(), title, Desc);
+        this.projectService.createProject(stateManager.getUser(), title, Desc);
         return true;
     }
 
@@ -82,7 +82,7 @@ public class MainSwingController extends BaseController {
     public Project openProject(ProjectID projectId) {
         Project project = getProject(projectId);
         if(project != null){
-            this.statusManager.setProject(projectId);
+            this.stateManager.setProject(projectId);
             return project;
         }
         return null;
@@ -91,25 +91,25 @@ public class MainSwingController extends BaseController {
     @Override
     public boolean addTester(UserID id) {
         return this.authorityService.createAuthority(id,
-                statusManager.getProject(), Authority.AuthorityID.TESTER);
+                stateManager.getProject(), Authority.AuthorityID.TESTER);
     }
 
     @Override
     public boolean addPlayer(UserID id) {
         return this.authorityService.createAuthority(id,
-                statusManager.getProject(), Authority.AuthorityID.PLAYER);
+                stateManager.getProject(), Authority.AuthorityID.PLAYER);
     }
 
     @Override
     public boolean addDeveloper(UserID id) {
         return this.authorityService.createAuthority(id,
-                statusManager.getProject(), Authority.AuthorityID.DEVELOPER);
+                stateManager.getProject(), Authority.AuthorityID.DEVELOPER);
     }
 
     @Override
     public UserID[] getTesterList() {
         List<List<UserID>> users =
-                this.authorityService.readAuthorityListbyProject(this.statusManager.getProject());
+                this.authorityService.readAuthorityListbyProject(this.stateManager.getProject());
         if(users == null){
             return null;
         }
@@ -120,7 +120,7 @@ public class MainSwingController extends BaseController {
     @Override
     public UserID[] getPlayerList() {
         List<List<UserID>> users =
-                this.authorityService.readAuthorityListbyProject(this.statusManager.getProject());
+                this.authorityService.readAuthorityListbyProject(this.stateManager.getProject());
         if(users == null){
             return null;
         }
@@ -131,7 +131,7 @@ public class MainSwingController extends BaseController {
     @Override
     public UserID[] getDeveloperList() {
         List<List<UserID>> users =
-            this.authorityService.readAuthorityListbyProject(this.statusManager.getProject());
+            this.authorityService.readAuthorityListbyProject(this.stateManager.getProject());
         if(users == null){
             return null;
         }
@@ -190,19 +190,19 @@ public class MainSwingController extends BaseController {
 
     @Override
     public boolean deleteTester(UserID id) {
-        this.authorityService.deleteAuthority(id, statusManager.getProject(), Authority.AuthorityID.TESTER);
+        this.authorityService.deleteAuthority(id, stateManager.getProject(), Authority.AuthorityID.TESTER);
         return true;
     }
 
     @Override
     public boolean deletePlayer(UserID id) {
-        this.authorityService.deleteAuthority(id, statusManager.getProject(), Authority.AuthorityID.PLAYER);
+        this.authorityService.deleteAuthority(id, stateManager.getProject(), Authority.AuthorityID.PLAYER);
         return true;
     }
 
     @Override
     public boolean deleteDeveloper(UserID id) {
-        this.authorityService.deleteAuthority(id, statusManager.getProject(), Authority.AuthorityID.DEVELOPER);
+        this.authorityService.deleteAuthority(id, stateManager.getProject(), Authority.AuthorityID.DEVELOPER);
         return true;
     }
 

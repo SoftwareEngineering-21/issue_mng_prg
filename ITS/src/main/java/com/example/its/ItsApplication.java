@@ -1,6 +1,6 @@
 package com.example.its;
 
-import com.example.its.status.StatusManager;
+import com.example.its.state.StateManager;
 import com.example.its.swingUI.TestController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class ItsApplication implements CommandLineRunner {
 
         ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
         //ainSwingController controller = context.getBean(MainSwingController.class);
-        TestController controller = new TestController(new StatusManager());
+        TestController controller = new TestController(new StateManager());
         controller.run();
     }
 

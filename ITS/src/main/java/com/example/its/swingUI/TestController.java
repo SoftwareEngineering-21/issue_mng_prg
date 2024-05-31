@@ -4,7 +4,7 @@ import com.example.its.dataClass.*;
 import com.example.its.dataClass.Issue.PriorityID;
 import com.example.its.dataClass.Issue.StatusID;
 import com.example.its.dataClass.Issue.TypeID;
-import com.example.its.status.StatusManager;
+import com.example.its.state.StateManager;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -22,8 +22,8 @@ public class TestController extends BaseController {
     ArrayList<Issue> issueList = new ArrayList<Issue>();
     ArrayList<Comment> commentList = new ArrayList<>();
 
-    public TestController(StatusManager statusManager) {
-        super(statusManager);
+    public TestController(StateManager stateManager) {
+        super(stateManager);
     }
 
     @Override
@@ -48,13 +48,13 @@ public class TestController extends BaseController {
             return false;
         }
 
-        this.statusManager.setUser(new UserID(id));
+        this.stateManager.setUser(new UserID(id));
         return true;
     }
 
     @Override
     public boolean logout() {
-        this.statusManager.setUser(null);
+        this.stateManager.setUser(null);
         return true;
     }
 
@@ -65,7 +65,7 @@ public class TestController extends BaseController {
 
     @Override
     public boolean makeProject(String title, String Desc) {
-        adminProjectList.add(new Project(new ProjectID(adminProjectList.size()), title, Desc, statusManager.getUser()));
+        adminProjectList.add(new Project(new ProjectID(adminProjectList.size()), title, Desc, stateManager.getUser()));
         return true;
     }
 
@@ -93,7 +93,7 @@ public class TestController extends BaseController {
     public Project openProject(ProjectID projectId) {
         Project project = getProject(projectId);
         if(project != null){
-            this.statusManager.setProject(projectId);
+            this.stateManager.setProject(projectId);
             return project;
         }
         return null;
@@ -152,7 +152,7 @@ public class TestController extends BaseController {
 
     @Override
     public boolean makeIssue(String title, String desc, int type, int priority) {
-        issueList.add(new Issue(new IssueID(issueList.size()), title, desc, StatusID.OPEN, TypeID.values()[type], PriorityID.values()[priority], null, statusManager.getUser(), null));
+        issueList.add(new Issue(new IssueID(issueList.size()), title, desc, StatusID.NEW, TypeID.values()[type], PriorityID.values()[priority], null, stateManager.getUser(), null));
         return true;
     }
 
@@ -173,7 +173,7 @@ public class TestController extends BaseController {
     public Issue openIssue(IssueID id) {
         Issue issue = getIssue(id);
         if(issue != null){
-            this.statusManager.setIssue(issue);
+            this.stateManager.setIssue(issue);
             return issue;
         }
         return null;
@@ -189,7 +189,7 @@ public class TestController extends BaseController {
 
     @Override
     public boolean addComment(String desc) {
-        commentList.add(new Comment(new CommentID(commentList.size()), desc, new Timestamp(System.currentTimeMillis()), statusManager.getUser()));
+        commentList.add(new Comment(new CommentID(commentList.size()), desc, new Timestamp(System.currentTimeMillis()), stateManager.getUser()));
         return true;
     }
 
