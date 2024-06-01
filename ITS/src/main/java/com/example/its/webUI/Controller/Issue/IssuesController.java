@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.its.dataClass.IssueID;
 import com.example.its.dataClass.ProjectID;
+import com.example.its.logic.CommentService;
 import com.example.its.logic.IssueService;
 import com.example.its.logic.ProjectService;
 import com.example.its.logic.Exception.LoginRequiredException;
@@ -25,6 +26,8 @@ public class IssuesController {
     private final StateManager stateManager;
     private final IssueService issueService;
     private final ProjectService projectService;
+    private final CommentService commentService;
+    
 
     @GetMapping("/projectid={projectID}")
     public String issues(@PathVariable("projectID") int projectID, Model model) throws LoginRequiredException {
@@ -47,6 +50,7 @@ public class IssuesController {
         model.addAttribute("projectID", projectID);
         model.addAttribute("issueID", issueID);
         model.addAttribute("issue", issueService.readIssue(new IssueID(issueID)));
+        model.addAttribute("commentList", commentService.readCommentsByIssueID(stateManager.getIssue()));
         
         return "issue";
     }
