@@ -168,7 +168,7 @@ public class MainSwingController extends BaseController {
         catch (Exception e) {
             return false;
         }
-        this.issueService.createIssue(projectID(), title, desc, userID(), _type, _priority);
+        //this.issueService.createIssue(projectID(), title, desc, userID(), _type, _priority);
         return true;
     }
 
