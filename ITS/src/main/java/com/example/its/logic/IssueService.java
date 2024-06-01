@@ -1,14 +1,21 @@
 package com.example.its.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.its.dataClass.Authority;
+import com.example.its.dataClass.Authority.AuthorityID;
 import com.example.its.dataClass.Issue;
 import com.example.its.dataClass.IssueID;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.UserID;
 import com.example.its.database.DBService;
+import com.example.its.logic.authorityHandling.userAuth;
+import com.example.its.logic.authorityHandling.userDeveloper;
+import com.example.its.logic.authorityHandling.userPlayer;
+import com.example.its.logic.authorityHandling.userTester;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,10 +35,15 @@ public class IssueService {
         return service.readIssueList(projectID,reporter, assignee, status == null ? null : status.ordinal(),sortOrder);
     }
 
-    public void createIssue(ProjectID projectID, String title, String desc, UserID reporter, Issue.TypeID type, Issue.PriorityID priority) {
-        IssueID p = service.createIssue(projectID, title, desc, null, null, null, type, priority, Issue.StatusID.NEW);
-        String commentDesc = reporter.getID() + "make issue";
-        service.createComment(p, commentDesc, reporter);
+    public void createIssue(List<userAuth> authes,String commentText, ProjectID projectID, String title, String desc, UserID reporter, Issue.TypeID type, Issue.PriorityID priority) {
+        for (userAuth a : authes){
+            if(a.isAvailable(null, reporter, null)){
+                Issue newI = a.perform(null, priority, type, reporter, null, null);
+                IssueID issueID = service.createIssue(projectID, title, desc, newI.getReporter(), null, null, newI.getType(), newI.getPriority(), newI.getStatus());
+                String commentDesc = reporter.getID() + "create issue\n"+commentText;
+                service.createComment(issueID, commentDesc, reporter);
+            }
+        }
 
     }
 
@@ -39,15 +51,40 @@ public class IssueService {
         return service.readIssue(issueID);
     }
 
-    public UserID recommendDeveloper(ProjectID projectID, Issue.StatusID status, Issue.TypeID type){
-        return service.recommendDev(projectID, status, type);
+    public UserID recommendDeveloper(ProjectID projectID, Issue.TypeID type){
+        return service.recommendDev(projectID, Issue.StatusID.CLOSED, type);
     }
 
-    // TODO 고민해볼 것 - user 권한 검사하는건 controller 역할? 그렇다면 이 주석 지우고 update 기능 그대로 쓰면 됨.
-    public void updateIssue(UserID author, IssueID issueID, String title, String description, UserID reporter, UserID assignee, UserID fixer, Issue.TypeID type, Issue.PriorityID priority, Issue.StatusID status){
-        service.updateIssue(issueID, title, description, reporter, assignee, fixer, type == null ? null : type.ordinal(), priority == null ? null : priority.ordinal(), status == null ? null : status.ordinal());
-        String commentDesc = reporter.getID() + "update issue";
-        service.createComment(issueID, commentDesc, author);
+    public void updateIssue(List<userAuth> authes,String commentText, UserID author, IssueID issueID, String title, String description, UserID reporter, UserID assignee, UserID fixer, Issue.TypeID type, Issue.PriorityID priority, Issue.StatusID status){
+        Issue preIssue = service.readIssue(issueID);
+        for(userAuth a : authes){
+            if(a.isAvailable(preIssue, null, assignee)){
+                Issue updateI = a.perform(status, priority, type, reporter, assignee, fixer);
+                service.updateIssue(issueID, title, description, updateI.getReporter(), updateI.getAssignee(), updateI.getFixer() == null ? null : updateI.getFixer(), updateI.getType().ordinal(), updateI.getPriority().ordinal(), updateI.getStatus().ordinal());
+                String commentDesc = reporter.getID() + "update issue" + commentText;
+                service.createComment(issueID, commentDesc, author);
+            }
+
+        }
+        
+    }
+
+    public List<userAuth> makeAuthList(ProjectID projectID, UserID userID){
+        Authority a = service.readAuthorityListbyAll(userID, projectID);
+        List<userAuth> returnAuthes = new ArrayList<>();
+        
+        if(a.getAuthority().contains(AuthorityID.PLAYER)){
+            returnAuthes.add(new userPlayer());
+        }
+        if(a.getAuthority().contains(AuthorityID.DEVELOPER)){
+            returnAuthes.add(new userDeveloper());
+        }
+        if(a.getAuthority().contains(AuthorityID.TESTER)){
+            returnAuthes.add(new userTester());
+        }
+
+        return returnAuthes;
+        
     }
 
 }

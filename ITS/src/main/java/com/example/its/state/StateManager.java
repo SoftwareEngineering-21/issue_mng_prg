@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.example.its.dataClass.Authority;
 import com.example.its.dataClass.CommentID;
 import com.example.its.dataClass.IssueID;
 import com.example.its.dataClass.ProjectID;
@@ -21,7 +20,7 @@ public class StateManager {
 
     private UserID user;
     private ProjectID project;
-    private Authority authority;
+    //private Authority authority;
     private IssueID issue;
     private CommentID comment;
     private List<userAuth> userAuthes;
