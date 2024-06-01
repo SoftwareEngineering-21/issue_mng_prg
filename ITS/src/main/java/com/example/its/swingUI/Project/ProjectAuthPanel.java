@@ -1,4 +1,4 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Project;
 
 import java.awt.Color;
 import java.awt.BorderLayout;
@@ -20,18 +20,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-import com.example.its.dataClass.User;
+import com.example.its.dataClass.UserID;
+import com.example.its.swingUI.Project.Controller.ProjAuthSceneController;
 
 public class ProjectAuthPanel extends JPanel {
 	private final ProjAuthSceneController controller;
 
-	private JTextField TesterTextField;
-	private JTextField PlayerTextField;
-	private JTextField DeveloperTextFeild;
+	private final JTextField TesterTextField;
+	private final JTextField PlayerTextField;
+	private final JTextField DeveloperTextFeild;
 
-    private JPanel TesterInfoListPanel; 
-    private JPanel PlayerInfoListPanel;
-    private JPanel DeveloperInfoListPanel;
+    private final JPanel TesterInfoListPanel;
+    private final JPanel PlayerInfoListPanel;
+    private final JPanel DeveloperInfoListPanel;
 
 	class PostButtonAction implements ActionListener {
 		@Override
@@ -64,7 +65,7 @@ public class ProjectAuthPanel extends JPanel {
 		
 	}
 
-    ProjectAuthPanel(ProjAuthSceneController controller){
+    public ProjectAuthPanel(ProjAuthSceneController controller){
 		this.controller = controller;
 
 		setLayout(new BorderLayout());
@@ -211,7 +212,7 @@ public class ProjectAuthPanel extends JPanel {
 		DeveloperPanel.add(DeveloperInfoListPanel);
     }
 
-    void setList(){
+    public void setList(){
 		setTesterList();
 		setPlayerList();
 		setDeveloperList();
@@ -220,17 +221,17 @@ public class ProjectAuthPanel extends JPanel {
         repaint();
     }
 
-	void setTesterList() {
+	public void setTesterList() {
 		TesterInfoListPanel.removeAll();
 
-		User testers[] = controller.getTesterList();
+		UserID testers[] = controller.getTesterList();
 		int length = 0;
 
 		if(testers != null){
 			length = testers.length;
 		}
 
-		int size = length > 3 ? length : 3;
+		int size = Math.max(length, 3);
 
 		GridBagLayout gbl_TesterInfoListPanel = new GridBagLayout();
 		gbl_TesterInfoListPanel.columnWidths = new int[] {0};
@@ -243,7 +244,7 @@ public class ProjectAuthPanel extends JPanel {
 			gbl_TesterInfoListPanel.rowHeights[i] = 30;
 			gbl_TesterInfoListPanel.rowWeights[i] = 30;
 			if(i < length){
-				new TesterInfoPanel(TesterInfoListPanel, testers[i].getID().getID(), i);
+				new TesterInfoPanel(TesterInfoListPanel, testers[i].getID(), i);
 			}
 		}
 
@@ -253,17 +254,17 @@ public class ProjectAuthPanel extends JPanel {
         repaint();
 	}
 
-	void setPlayerList() {
+	public void setPlayerList() {
 		PlayerInfoListPanel.removeAll();
 
-		User players[] = controller.getPlayerList();
+		UserID players[] = controller.getPlayerList();
 		int length = 0;
 
 		if(players != null){
 			length = players.length;
 		}
 
-		int size = length > 3 ? length : 3;
+		int size = Math.max(length, 3);
 
 		GridBagLayout gbl_PlayerInfoListPanel = new GridBagLayout();
 		gbl_PlayerInfoListPanel.columnWidths = new int[] {0};
@@ -276,7 +277,7 @@ public class ProjectAuthPanel extends JPanel {
 			gbl_PlayerInfoListPanel.rowHeights[i] = 30;
 			gbl_PlayerInfoListPanel.rowWeights[i] = 0;
 			if(i < length) {
-				new PlayerInfoPanel(PlayerInfoListPanel, players[i].getID().getID(), i);
+				new PlayerInfoPanel(PlayerInfoListPanel, players[i].getID(), i);
 			}
 		}
 
@@ -286,17 +287,17 @@ public class ProjectAuthPanel extends JPanel {
         repaint();
 	}
 
-	void setDeveloperList() {
+	public void setDeveloperList() {
 		DeveloperInfoListPanel.removeAll();
 		
-		User developers[] = controller.getDeveloperList();
+		UserID developers[] = controller.getDeveloperList();
 		int length = 0;
 
 		if(developers != null){
 			length = developers.length;
 		}
 
-		int size = length > 3 ? length : 3;
+		int size = Math.max(length, 3);
 		GridBagLayout gbl_DeveloperInfoListPanel = new GridBagLayout();
 		gbl_DeveloperInfoListPanel.columnWidths = new int[] {0};
 		gbl_DeveloperInfoListPanel.rowHeights = new int[size + 1];
@@ -308,7 +309,7 @@ public class ProjectAuthPanel extends JPanel {
 			gbl_DeveloperInfoListPanel.rowHeights[i] = 30;
 			gbl_DeveloperInfoListPanel.rowWeights[i] = 0;
 			if(i < length){
-				new DeveloperInfoPanel(DeveloperInfoListPanel, developers[i].getID().getID(), i);
+				new DeveloperInfoPanel(DeveloperInfoListPanel, developers[i].getID(), i);
 			}
 		}
 
@@ -319,7 +320,7 @@ public class ProjectAuthPanel extends JPanel {
         repaint();
 	}
 
-    class TesterInfoPanel extends JPanel{
+    public class TesterInfoPanel extends JPanel{
 		int index;
 
         TesterInfoPanel(JPanel ListPanel, String name, int index){

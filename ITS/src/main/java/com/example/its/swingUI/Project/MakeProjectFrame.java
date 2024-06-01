@@ -1,4 +1,4 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Project;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -15,6 +15,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.example.its.swingUI.Project.Controller.MakeProjectFrameController;
 import lombok.RequiredArgsConstructor;
 
 public class MakeProjectFrame extends JFrame {
@@ -45,7 +46,7 @@ public class MakeProjectFrame extends JFrame {
         }
     }
 
-    MakeProjectFrame(MakeProjectFrameController controller){
+    public MakeProjectFrame(MakeProjectFrameController controller){
 		this.controller = controller;
 
 		setTitle("Make Project");

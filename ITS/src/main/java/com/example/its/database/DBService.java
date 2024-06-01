@@ -60,7 +60,7 @@ public class DBService {
         projectDBService.updateProjectService(projectID, title, description);
     }
 
-    public void deleteProjectService(ProjectID projectID){
+    public void deleteProject(ProjectID projectID){
         projectDBService.deleteProjectService(projectID);
     }
 
@@ -81,7 +81,7 @@ public class DBService {
 
 
 
-    public void deleteUserSerivce(UserID userID){
+    public void deleteUser(UserID userID){
         userDBService.deleteUserSerivce(userID);
     }
 
@@ -133,7 +133,7 @@ public class DBService {
         return issueDBService.readIssueListService(projectIDFK, reporter, assignee, status, sortOrder);
     }
 
-    public void updateIssueService(IssueID ID, String title, String description, UserID reporter, UserID assignee, UserID fixer, Integer type, Integer priority, Integer status){
+    public void updateIssue(IssueID ID, String title, String description, UserID reporter, UserID assignee, UserID fixer, Integer type, Integer priority, Integer status){
         issueDBService.updateIssueService(ID, title, description, reporter, assignee, fixer, type, priority, status);
     }
 
@@ -219,6 +219,14 @@ public class DBService {
         return statisticDBService.countAvgofCommentService(projectIDFK);
     }
 
+
+    // recommend dev
+    public UserID recommendDev(ProjectID projectID, Issue.StatusID status, Issue.TypeID type){
+        int intStatus  = (status != null) ? status.ordinal() : null;
+        int intType  = (type != null) ? type.ordinal() : null;
+        List<Pair<UserID, Integer>> statistic = countIssuesByAssignee(projectID, intStatus, intType);
+        return statistic.get(0).getFirst();
+    }
 
 
 }

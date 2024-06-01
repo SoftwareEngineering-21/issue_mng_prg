@@ -2,60 +2,55 @@ package com.example.its.swingUI;
 
 import java.util.List;
 
+import com.example.its.dataClass.*;
+import com.example.its.logic.*;
+import com.example.its.logic.Exception.LoginFailureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.its.dataClass.Comment;
-import com.example.its.dataClass.Issue;
-import com.example.its.dataClass.Project;
-import com.example.its.dataClass.User;
-
-import com.example.its.logic.UserService;
 import com.example.its.state.StateManager;
-import com.example.its.logic.ProjectService;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Component
 @RequestMapping
 public class MainSwingController extends BaseController {
     protected UserService userService;
+    protected AuthorityService authorityService;
     protected ProjectService projectService;
-    //protected IssueService issueService;
-
-    protected final StateManager stateManager;
+    protected IssueService issueService;
+    protected CommentService commentService;
 
     @Autowired
-    MainSwingController(UserService userService, ProjectService projectService, StateManager stateManager){
-        super();
+    MainSwingController(StateManager stateManager, UserService userService, AuthorityService authorityService,
+                        ProjectService projectService, IssueService issueService, CommentService commentService) {
+        super(stateManager);
         this.userService = userService;
+        this.authorityService = authorityService;
         this.projectService = projectService;
-        this.stateManager = stateManager;
+        this.issueService = issueService;
+        this.commentService = commentService;
     }
 
     @Override
     public boolean login(String id, String password) {
-        // TODO 수정 부탁드립니다
-
-//        if(this.userService == null){
-//            return false;
-//        }
-//
-//        if(this.userService.login(id, password)){
-//            return true;
-//        }
-//
-//        return false;
+        try{
+            UserID user = userService.login(id, password);
+            stateManager.setUser(user);
+        }
+        catch (LoginFailureException e) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public boolean isExistID(String id) {
-        return false;
+        return userService.validateUser(id);
     }
 
     @Override
     public boolean signUp(String id, String password) {
-        //return userService.createUser(id, password);
+        userService.createUser(id, password);
         return true;
     }
 
@@ -66,8 +61,8 @@ public class MainSwingController extends BaseController {
             return null;
         }
 
-        List<Project> list = projectService.readProjects(stateManager.getUser());
-        return list.toArray(new Project[list.size()]);
+        List<Project> list = projectService.readProjects(userID());
+        return list.toArray(new Project[] {});
     }
 
     @Override
@@ -75,44 +70,76 @@ public class MainSwingController extends BaseController {
         if(this.projectService == null){
             return false;
         }
-        
-        try{
-            this.projectService.createProject(stateManager.getUser(), title, Desc);
+
+        this.projectService.createProject(userID(), title, Desc);
+        return true;
+    }
+
+    @Override
+    public Project getProject(ProjectID projectId) {
+        return this.projectService.readProject(projectId);
+    }
+
+    @Override
+    public Project openProject(ProjectID projectId) {
+        Project project = getProject(projectId);
+        if(project != null){
+            this.stateManager.setProject(projectId);
+            this.stateManager.setAuthority(authorityService.getAuthorityThisProject(this.stateManager.getUser(), projectId));
+            return project;
         }
-        catch(Exception e){
-            return false;
+        return null;
+    }
+
+    @Override
+    public boolean addTester(UserID id) {
+        return this.authorityService.createAuthority(id,
+                stateManager.getProject(), Authority.AuthorityID.TESTER);
+    }
+
+    @Override
+    public boolean addPlayer(UserID id) {
+        return this.authorityService.createAuthority(id,
+                stateManager.getProject(), Authority.AuthorityID.PLAYER);
+    }
+
+    @Override
+    public boolean addDeveloper(UserID id) {
+        return this.authorityService.createAuthority(id,
+                stateManager.getProject(), Authority.AuthorityID.DEVELOPER);
+    }
+
+    @Override
+    public UserID[] getTesterList() {
+        List<List<UserID>> users =
+                this.authorityService.readAuthorityListbyProject(this.stateManager.getProject());
+        if(users == null){
+            return null;
         }
-        return true;
+
+        return users.get(Authority.AuthorityID.TESTER.ordinal()).toArray(new UserID[] {});
     }
 
     @Override
-    public boolean addTester(User id) {
-        return true;
+    public UserID[] getPlayerList() {
+        List<List<UserID>> users =
+                this.authorityService.readAuthorityListbyProject(this.stateManager.getProject());
+        if(users == null){
+            return null;
+        }
+
+        return users.get(Authority.AuthorityID.PLAYER.ordinal()).toArray(new UserID[] {});
     }
 
     @Override
-    public boolean addPlayer(User id) {
-        return true;
-    }
+    public UserID[] getDeveloperList() {
+        List<List<UserID>> users =
+            this.authorityService.readAuthorityListbyProject(this.stateManager.getProject());
+        if(users == null){
+            return null;
+        }
 
-    @Override
-    public boolean addDeveloper(User id) {
-        return true;
-    }
-
-    @Override
-    public User[] getTesterList() {
-        return null;
-    }
-
-    @Override
-    public User[] getPlayerList() {
-        return null;
-    }
-
-    @Override
-    public User[] getDeveloperList() {
-        return null;
+        return users.get(Authority.AuthorityID.DEVELOPER.ordinal()).toArray(new UserID[] {});
     }
 
     @Override
@@ -121,25 +148,49 @@ public class MainSwingController extends BaseController {
             return null;
         }
 
-        List<Issue> issueList = null;
-        //issueList = this.projectService.getIssueList();
+        List<Issue> issueList = this.issueService.readIssueList(projectID(), null, null, null, null);
 
         if(issueList == null){
             return null;
         }
-        return issueList.toArray(new Issue[issueList.size()]);
+        return issueList.toArray(new Issue[]{});
     }
 
     @Override
-    public boolean makeIssue(String title, String desc, int priority) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'makeIssue'");
+    public boolean makeIssue(String title, String desc, int type, int priority) {
+        Issue.TypeID _type;
+        Issue.PriorityID _priority;
+
+        try {
+            _type=   Issue.TypeID.values()[type];
+            _priority = Issue.PriorityID.values()[priority];
+        }
+        catch (Exception e) {
+            return false;
+        }
+        this.issueService.createIssue(projectID(), title, desc, userID(), _type, _priority);
+        return true;
+    }
+
+    @Override
+    public Issue getIssue(IssueID id) {
+        return issueService.readIssue(id);
+    }
+
+    @Override
+    public Issue openIssue(IssueID id) {
+        Issue target = getIssue(id);
+        if(target != null){
+            this.stateManager.setIssue(target.getID());
+            return target;
+        }
+        return null;
     }
 
     @Override
     public boolean addComment(String desc) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addComment'");
+        this.commentService.createComment(this.stateManager.getUser(), this.stateManager.getIssue(), desc);
+        return true;
     }
 
     @Override
@@ -150,23 +201,33 @@ public class MainSwingController extends BaseController {
 
     @Override
     public Comment[] getCommentList() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCommentList'");
+        if(this.commentService == null){
+            return null;
+        }
+
+        List<Comment> list = this.commentService.readCommentsByIssueID(this.stateManager.getIssue());
+        if(list == null){
+            return null;
+        }
+        return list.toArray(new Comment[] {});
     }
 
     @Override
-    public boolean deleteTester(User id) {
-        return false;
+    public boolean deleteTester(UserID id) {
+        this.authorityService.deleteAuthority(id, stateManager.getProject(), Authority.AuthorityID.TESTER);
+        return true;
     }
 
     @Override
-    public boolean deletePlayer(User id) {
-        return false;
+    public boolean deletePlayer(UserID id) {
+        this.authorityService.deleteAuthority(id, stateManager.getProject(), Authority.AuthorityID.PLAYER);
+        return true;
     }
 
     @Override
-    public boolean deleteDeveloper(User id) {
-        return false;
+    public boolean deleteDeveloper(UserID id) {
+        this.authorityService.deleteAuthority(id, stateManager.getProject(), Authority.AuthorityID.DEVELOPER);
+        return true;
     }
 
     @Override
@@ -175,6 +236,6 @@ public class MainSwingController extends BaseController {
         if(projects == null){
             return null;
         }
-        return projects.toArray(new Project[projects.size()]);
+        return projects.toArray(new Project[]{});
     }
 }

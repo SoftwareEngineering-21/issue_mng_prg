@@ -1,16 +1,12 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Project;
 
 import com.example.its.dataClass.Project;
+import com.example.its.swingUI.Project.Controller.MainSceneController;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.border.LineBorder;
@@ -36,7 +32,7 @@ public class MainScenePanel extends JPanel {
 		}
 	}
 
-    MainScenePanel(MainSceneController controller){
+    public MainScenePanel(MainSceneController controller){
 		this.controller = controller;
 
         setLayout(new BorderLayout(0, 5));
@@ -172,7 +168,9 @@ public class MainScenePanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
 				System.out.println("Open ProjectInfo : " + index);
-				controller.runProjectScene(index);
+				if(!controller.runProjectScene(index)){
+					JOptionPane.showMessageDialog(null, "Can not Open Project.");
+				}
 			}
 		}
 	}
