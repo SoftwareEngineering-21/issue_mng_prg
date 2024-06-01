@@ -1,4 +1,8 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Issue.Controller;
+
+import com.example.its.swingUI.BaseController;
+import com.example.its.swingUI.Issue.MakeIssueFrame;
+import com.example.its.swingUI.Project.Controller.ProjectSceneController;
 
 public class MakeIssueController {
     BaseController baseController;
@@ -6,15 +10,15 @@ public class MakeIssueController {
 
     MakeIssueFrame frame;
     
-    MakeIssueController(BaseController baseController, ProjectSceneController projectSceneController) {
+    public MakeIssueController(BaseController baseController, ProjectSceneController projectSceneController) {
         this.baseController = baseController;
         this.projectSceneController = projectSceneController;
 
         frame = new MakeIssueFrame(this);
     }
 
-    public boolean MakeIssue(String title, String desc, int priority){
-        boolean result = this.baseController.makeIssue(title, desc, priority);
+    public boolean MakeIssue(String title, String desc, int type, int priority){
+        boolean result = this.baseController.makeIssue(title, desc, type, priority);
         this.projectSceneController.makeIssueList();
         return result;
     }

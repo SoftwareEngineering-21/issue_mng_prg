@@ -1,4 +1,4 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Issue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,16 +9,12 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 
+import com.example.its.dataClass.Comment;
 import com.example.its.dataClass.Issue;
+import com.example.its.swingUI.Issue.Controller.IssueSceneController;
 
 public class IssueScenePanel extends JPanel {
 	private final IssueSceneController controller;
@@ -26,6 +22,7 @@ public class IssueScenePanel extends JPanel {
 	private JLabel IssueName;
 	private JTextArea IssueDescription;
 
+	private JTextArea WriteCommentArea;
 	private JPanel CommentListPanel;
 
 	class ModifiyButtonAction implements ActionListener{
@@ -38,11 +35,13 @@ public class IssueScenePanel extends JPanel {
 	class PostButtonAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//controller
+			if(!controller.addComment(WriteCommentArea.getText())){
+				JOptionPane.showMessageDialog(null, "Can not add comment");
+			}
 		}
 	}
 
-    IssueScenePanel(IssueSceneController controller){
+    public IssueScenePanel(IssueSceneController controller){
 		this.controller = controller;
 
 		setLayout(new BorderLayout(0, 5));
@@ -102,23 +101,23 @@ public class IssueScenePanel extends JPanel {
 		WriteCommentPanel.setLayout(new BorderLayout(0, 0));
 		add(WriteCommentPanel, BorderLayout.SOUTH);
 
-		JPanel commnetInputPanel = new JPanel();
-		commnetInputPanel.setLayout(new BoxLayout(commnetInputPanel, BoxLayout.X_AXIS));
-		WriteCommentPanel.add(commnetInputPanel, BorderLayout.NORTH);
+		JPanel commentInputPanel = new JPanel();
+		commentInputPanel.setLayout(new BoxLayout(commentInputPanel, BoxLayout.X_AXIS));
+		WriteCommentPanel.add(commentInputPanel, BorderLayout.NORTH);
 		
 		Component horizontalStrut_5 = Box.createHorizontalStrut(20);
-		commnetInputPanel.add(horizontalStrut_5);
+		commentInputPanel.add(horizontalStrut_5);
 		
 		JLabel commentInputLabel = new JLabel("Comment Input");
-		commnetInputPanel.add(commentInputLabel);
+		commentInputPanel.add(commentInputLabel);
 		
 		Component horizontalGlue_3 = Box.createHorizontalGlue();
-		commnetInputPanel.add(horizontalGlue_3);
+		commentInputPanel.add(horizontalGlue_3);
 
 		JScrollPane scrollPane_3 = new JScrollPane();
 		WriteCommentPanel.add(scrollPane_3, BorderLayout.CENTER);
 		
-		JTextArea WriteCommentArea = new JTextArea();
+		WriteCommentArea = new JTextArea();
 		WriteCommentArea.setRows(5);
 		WriteCommentArea.setLineWrap(true);
 		scrollPane_3.setViewportView(WriteCommentArea);
@@ -139,24 +138,37 @@ public class IssueScenePanel extends JPanel {
 	}
 
 	public void makeCommentList() {
+		CommentListPanel.removeAll();
 
+		Comment[] comments = this.controller.getCommentList();
 		int length = 0;
+		if(comments != null) {
+			length = comments.length;
+		}
 
 		int size = length > 5 ? length : 5;
 
 		GridBagLayout gbl_CommentListPanel = new GridBagLayout();
 		gbl_CommentListPanel.columnWidths = new int[]{0, 0};
-		gbl_CommentListPanel.rowHeights = new int[size];
+		gbl_CommentListPanel.rowHeights = new int[size + 1];
 		gbl_CommentListPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_CommentListPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0};
+		gbl_CommentListPanel.rowWeights = new double[size + 1];
 		CommentListPanel.setLayout(gbl_CommentListPanel);
 		
-		CommentPanel commentPanel[] = new CommentPanel[size];
+		CommentPanel[] commentPanel = new CommentPanel[size];
 		for(int i = 0; i < size; i++) {
-			commentPanel[i] = new CommentPanel("Writer" + i, "");
-			commentPanel[i].addGbcPanel(CommentListPanel, i);
 			gbl_CommentListPanel.rowHeights[i] = 50;
+
+			if(i < length) {
+				commentPanel[i] = new CommentPanel(CommentListPanel, comments[i].getAuthor().getID(), comments[i].getText(), i);
+			}
 		}
+
+		gbl_CommentListPanel.rowHeights[size] = 0;
+		gbl_CommentListPanel.rowWeights[size] = Double.MIN_VALUE;
+
+		revalidate();
+		repaint();
 	}
 
 	public void setIssueInfo(Issue issue){
@@ -165,11 +177,7 @@ public class IssueScenePanel extends JPanel {
 	}
 	
 	class CommentPanel extends JPanel {
-		CommentPanel(){
-			this("WriterName", "");
-		}
-		
-		CommentPanel(String writerName, String commentText){
+		CommentPanel(JPanel GbcPanel, String writerName, String commentText, int index){
 			setBorder(new LineBorder(new Color(0, 0, 0)));
 			setLayout(new BorderLayout(0, 0));
 			
@@ -192,9 +200,7 @@ public class IssueScenePanel extends JPanel {
 			CommenTextArea.setEditable(false);
 			CommenTextArea.setRows(1);
 			add(CommenTextArea, BorderLayout.CENTER);
-		}
-		
-		void addGbcPanel(JPanel GbcPanel, int index) {
+
 			GridBagConstraints gbc_CommentPanel = new GridBagConstraints();
 			gbc_CommentPanel.insets = new Insets(0, 0, 5, 0);
 			gbc_CommentPanel.fill = GridBagConstraints.BOTH;

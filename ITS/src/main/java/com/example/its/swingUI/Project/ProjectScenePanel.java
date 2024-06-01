@@ -1,4 +1,4 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Project;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
@@ -13,12 +13,12 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import java.awt.Component;
 
-import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
 
 import com.example.its.dataClass.Issue;
 import com.example.its.dataClass.Project;
+import com.example.its.swingUI.Project.Controller.ProjectSceneController;
 
 import java.awt.Color;
 import javax.swing.JButton;
@@ -58,7 +58,7 @@ public class ProjectScenePanel extends JPanel {
 		
 	}
 	
-    ProjectScenePanel(ProjectSceneController controller) {
+    public ProjectScenePanel(ProjectSceneController controller) {
 		this.controller = controller;
 
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -154,12 +154,13 @@ public class ProjectScenePanel extends JPanel {
 		IssueListPanel.setLayout(gbl_IssueListPanel);
 	}
 
-	void setProjInfo(Project project) {
+	public void setProjInfo(Project project) {
 		projecNameLabel.setText(project.getTitle());
 		projectDescArea.setText(project.getDescription());
+		makeIssueList();
 	}
 
-	void makeIssueList(){
+	public void makeIssueList(){
 		IssueListPanel.removeAll();
 
 		Issue[] issueList = controller.getIssueList();

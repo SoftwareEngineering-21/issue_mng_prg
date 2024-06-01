@@ -1,4 +1,7 @@
-package com.example.its.swingUI;
+package com.example.its.swingUI.Login;
+
+import com.example.its.swingUI.BaseController;
+import com.example.its.swingUI.Project.Controller.MainSceneController;
 
 public class LoginFrameController {
     protected BaseController baseController;
@@ -22,12 +25,10 @@ public class LoginFrameController {
         this.frame.setVisible(true);
     }
 
-    public void setVisible(boolean turn){
-        this.frame.setVisible(turn);
-    }
-
     public void runMainScene(){
         this.mainSceneController.setBasePanel();
         this.baseController.runBase();
+
+        this.frame.dispose();
     }
 }

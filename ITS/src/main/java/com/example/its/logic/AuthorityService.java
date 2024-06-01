@@ -1,6 +1,7 @@
 package com.example.its.logic;
 
 import com.example.its.dataClass.Authority;
+import com.example.its.dataClass.Project;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.UserID;
 import com.example.its.database.DBService;
@@ -34,5 +35,20 @@ public class AuthorityService {
             return true;
         }
         return false;
+    }
+
+    public Authority getAuthorityThisProject(UserID userID, ProjectID projectID) {
+        if(service.readUser(userID)==null) return null;
+
+        Project project = service.readProject(projectID);
+        if(project==null) return null;
+        if(project.getAdmin() == userID) {
+            Authority authEnumSet = new Authority();
+            authEnumSet.addAuthority(Authority.AuthorityID.DEVELOPER);
+            authEnumSet.addAuthority(Authority.AuthorityID.PLAYER);
+            authEnumSet.addAuthority(Authority.AuthorityID.TESTER);
+            return authEnumSet;
+        }
+        return service.readAuthorityListbyAll(userID, projectID);
     }
 }

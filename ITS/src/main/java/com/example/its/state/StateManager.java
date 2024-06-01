@@ -1,12 +1,17 @@
 package com.example.its.state;
 
-import com.example.its.dataClass.Authority;
-import com.example.its.dataClass.Issue;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import com.example.its.dataClass.CommentID;
+import com.example.its.dataClass.IssueID;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.UserID;
+import com.example.its.logic.authorityHandling.userAuth;
+
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
@@ -15,7 +20,9 @@ public class StateManager {
 
     private UserID user;
     private ProjectID project;
-    private Authority authority;
-    private Issue issue;
+    //private Authority authority;
+    private IssueID issue;
+    private CommentID comment;
+    private List<userAuth> userAuthes;
 
 }

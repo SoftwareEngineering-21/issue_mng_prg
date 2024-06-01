@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.EnumSet;
 @Getter
 public class Authority{
-    public enum AuthorityID{ PLAYER, DEVELOPER, TESTER}
+    public enum AuthorityID{ PLAYER, DEVELOPER, TESTER }
     public EnumSet<AuthorityID> authority = EnumSet.noneOf(AuthorityID.class);
 
     public void addAuthority(AuthorityID authorityID){
