@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Statistic</title>
+    <title>통계</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -91,7 +91,6 @@
             padding-right: 50px;
             font-weight: bold;
         }
-
         .sidebar {
             height: 100%;
             width: 250px;
@@ -102,7 +101,6 @@
             background-color: #f8f9fa;
             padding-top: 20px;
         }
-
         .sidebar a {
             padding: 10px;
             text-decoration: none;
@@ -110,23 +108,34 @@
             color: #000000;
             display: block;
         }
-
         .sidebar a:hover {
             background-color: #e9ecef;
         }
-
         .sidebar a.active {
             background-color: #495057;
             color: white;
         }
-
         .input-container {
             margin-top: 20px;
             margin-bottom: 20px;
         }
-
         .btn-container {
             margin-top: 20px;
+        }
+        #link-category-1 {
+            font-size: 13px;
+        }
+        #link-category-2 {
+            font-size: 13px;
+        }
+        #link-category-3 {
+            font-size: 13px;
+        }
+        #link-category-4 {
+            font-size: 13px;
+        }
+        #link-category-5 {
+            font-size: 13px;
         }
     </style>
 </head>
@@ -141,26 +150,54 @@
     </div>
     <div class="container-fluid mt-5">
         <div class="row">
-            <!-- Sidebar -->
+            <!-- 사이드바 -->
             <div class="col-2">
-                <div class="sidebar" style="position: fixed; height: 100%; width: 200px; background-color: #f8f9fa; padding-top: 20px;">
+                <div class="sidebar" style="position: fixed; height: 100%; width: 350px; background-color: #f8f9fa; padding-top: 20px; margin-top: 50px;">
                     <h5>프로젝트 전체 통계</h5>
-                    <a href="#" onclick="updateGraph('Category 1')" id="link-category-1">Category 1</a>
+                    <a href="#" onclick="updateGraph('Category 1')" id="link-category-1">단위 시간동안 올라온 프로젝트별 이슈 개수</a>
                     <h5>프로젝트별 통계</h5>
-                    <a href="#" onclick="updateGraph('Category 2')" id="link-category-2">Category 2</a>
-                    <a href="#" onclick="updateGraph('Category 3')" id="link-category-3">Category 3</a>
-                    <a href="#" onclick="updateGraph('Category 4')" id="link-category-4">Category 4</a>
-                    <a href="#" onclick="updateGraph('Category 5')" id="link-category-5">Category 5</a>
+                    <a href="#" onclick="updateGraph('Category 2')" id="link-category-2">단위 시간동안 올라온 이슈 type별 개수</a>
+                    <a href="#" onclick="updateGraph('Category 3')" id="link-category-3">이슈 status, type에 따른 개발자에게 할당된 이슈 개수</a>
+                    <a href="#" onclick="updateGraph('Category 4')" id="link-category-4">이슈 별 코멘트 개수 (상위 3개)</a>
+                    <a href="#" onclick="updateGraph('Category 5')" id="link-category-5">이슈 type에 따른 평균 코멘트 개수</a>
                 </div>
             </div>
-            <!-- Graph -->
+            <!-- 그래프 -->
             <div class="col-10">
                 <div class="row justify-content-center">
                     <div class="col-md-8">
-                        <canvas id="myChart" style="width: 60%; height: 100%;"></canvas>
-                        <!-- 추가된 입력 필드와 버튼 -->
-                        <div class="input-container">
-                            <input type="text" id="inputValue" class="form-control" placeholder="값을 입력하세요">
+                        <canvas id="myChart" style="width: 70%; height: 70%; display: none;"></canvas>
+                        <!-- Category 1 입력 필드 -->
+                        <div id="category-1-inputs" class="input-container" style="display: block;">
+                            <h5>Category 1 입력</h5>
+                            <label for="startDate1">시작 날짜:</label>
+                            <input type="date" id="startDate1" class="form-control" required>
+                            <label for="startTime1">시작 시간:</label>
+                            <input type="time" id="startTime1" class="form-control" step="1" required>
+                            <label for="endDate1">종료 날짜:</label>
+                            <input type="date" id="endDate1" class="form-control" required>
+                            <label for="endTime1">종료 시간:</label>
+                            <input type="time" id="endTime1" class="form-control" step="1" required>
+                        </div>
+                        <!-- Category 2 입력 필드 -->
+                        <div id="category-2-inputs" class="input-container" style="display: none;">
+                            <h5>Category 2 입력</h5>
+                            <!-- Category 2에 대한 입력 필드를 여기에 추가하세요 -->
+                        </div>
+                        <!-- Category 3 입력 필드 -->
+                        <div id="category-3-inputs" class="input-container" style="display: none;">
+                            <h5>Category 3 입력</h5>
+                            <!-- Category 3에 대한 입력 필드를 여기에 추가하세요 -->
+                        </div>
+                        <!-- Category 4 입력 필드 -->
+                        <div id="category-4-inputs" class="input-container" style="display: none;">
+                            <h5>Category 4 입력</h5>
+                            <!-- Category 4에 대한 입력 필드를 여기에 추가하세요 -->
+                        </div>
+                        <!-- Category 5 입력 필드 -->
+                        <div id="category-5-inputs" class="input-container" style="display: none;">
+                            <h5>Category 5 입력</h5>
+                            <!-- Category 5에 대한 입력 필드를 여기에 추가하세요 -->
                         </div>
                         <div class="btn-container">
                             <button id="updateButton" class="btn btn-primary btn-block" onclick="sendData()">업데이트</button>
@@ -177,7 +214,7 @@
     <script>
         var categoryData = {
             "Category 1": {
-                data: [10, 20, 30, 40, 50],
+                data: [5, 3, 4, 2, 10],
                 labels: ["Red", "Blue", "Yellow", "Green", "Purple"]
             },
             "Category 2": {
@@ -205,7 +242,7 @@
         var data = {
             labels: initialLabels,
             datasets: [{
-                label: 'Example Data',
+                label: '예시 데이터',
                 data: initialData,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -232,9 +269,9 @@
             options: {
                 title: {
                     display: true,
-                    text: 'My Chart Title',
+                    text: '통계',
                     fontSize: 20,
-                    fontColor: 'blue'
+                    fontColor: 'black'
                 },
                 scales: {
                     yAxes: [{
@@ -253,6 +290,7 @@
             myChart.data.labels = categoryData[category].labels;
             myChart.update();
             updateActiveLink();
+            showCategoryInputs(category);
         }
 
         function updateActiveLink() {
@@ -263,14 +301,36 @@
             document.getElementById('link-' + currentCategory.toLowerCase().replace(' ', '-')).classList.add('active');
         }
 
+        function showCategoryInputs(category) {
+            var inputContainers = document.querySelectorAll('.input-container');
+            inputContainers.forEach(function(container) {
+                container.style.display = 'none';
+            });
+            document.getElementById(category.toLowerCase().replace(' ', '-') + '-inputs').style.display = 'block';
+            document.getElementById('myChart').style.display = 'none'; // 차트를 처음에 숨기기
+        }
+
         function sendData() {
-            var value = document.getElementById("inputValue").value;
+            var startDate = document.getElementById("startDate1").value;
+            var startTime = document.getElementById("startTime1").value;
+            var endDate = document.getElementById("endDate1").value;
+            var endTime = document.getElementById("endTime1").value;
+
+            if (!startDate || !startTime || !endDate || !endTime) {
+                alert("모든 필드를 입력해 주세요.");
+                return;
+            }
+
+            var startDateTime = startDate + " " + startTime;
+            var endDateTime = endDate + " " + endTime;
+
             $.ajax({
                 url: "/updateGraph",
                 method: "POST",
-                data: { category: currentCategory, value: value },
+                data: { category: currentCategory, startTime: startDateTime, endTime: endDateTime },
                 success: function(response) {
                     updateGraph(currentCategory);
+                    document.getElementById('myChart').style.display = 'block'; // 데이터가 수신된 후 차트 표시
                 },
                 error: function(xhr, status, error) {
                     console.error(xhr.responseText);
@@ -278,8 +338,10 @@
             });
         }
 
-        // Initialize the first category as active
+        // 첫 번째 카테고리를 초기 활성화 상태로 설정
         updateActiveLink();
+        showCategoryInputs(currentCategory);
+
     </script>
 </body>
 </html>
