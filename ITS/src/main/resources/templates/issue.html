@@ -133,6 +133,7 @@
     </style>
     <script>
         document.addEventListener("DOMContentLoaded",function (){
+
             var comps = document.querySelectorAll(".priority");
             comps.forEach(function (comp){
                 switch(comp.innerText){
@@ -214,6 +215,8 @@
                         break;
                 }
             })
+            var success = [[${success}]];
+            if(!success) alert("접근 오류 : 권한을 확인해주세요");
         });
     </script>
     <script>
@@ -250,14 +253,14 @@
                 <div>
                     <div class ="row justify-content-between pr-5 pl-2">
                         <h2 class="card-title" th:text = "${issue.title}"></h2>
-                        <a th:href = "@{|http://localhost:8080/projects/issue/modify/projectid=${projectID}/issueid=${issueID}|}" class = "btn-custom">modify</a>
+                        <a th:href = "@{|/projects/modify/projectid=${projectID}/issueid=${issueID}|}" class = "btn-custom">modify</a>
                     </div>
 
                     <h5 class="card-description" th:text = "${issue.description}"></h5>
 
                 </div>
                 <div class ="top-align justify-content-end pt-5">
-                    <h6 class ="ml-1 mr-3 type" th:text = "${issue.getType().ordinal()}"></h6>
+                    <h6 class ="ml-1 mr-3 type type" th:text = "${issue.getType().ordinal()}"></h6>
                     <h6 class ="ml-1 mr-3 priority" th:text = "${issue.getPriority().ordinal()}"></h6>
                     <h6 class ="ml-1 mr-3 status status" th:text = "${issue.getStatus().ordinal()}"></h6>
                 </div>
