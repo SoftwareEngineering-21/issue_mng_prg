@@ -57,13 +57,13 @@ public class IssuesController {
         model.addAttribute("commentList", commentService.readCommentsByIssueID(stateManager.getIssue()));
         return "issue";
     }
-    @GetMapping("/projectid={projectID}/issueid={issueID}/create={comment}")
-    public String addComment(@PathVariable("projectID") int projectID, @PathVariable("issueID") int issueID,@PathVariable("comment") String comment) throws LoginRequiredException {
-        MainController.isUserLogin(stateManager);
-        stateManager.setProject(new ProjectID(projectID));
-        stateManager.setIssue(new IssueID(issueID));
-        commentService.createComment(stateManager.getUser(), stateManager.getIssue(), comment,commentService.getCurrentDate());
-        return "redirect:/projects/projectidc="+projectID+"/issueid="+issueID;
+
+
+    @GetMapping("/projects/issue/modify/projectid={projectID}/issueid={issueID}")
+    public String modifyIssue(){
+        return "";
+
     }
+
 
 }
