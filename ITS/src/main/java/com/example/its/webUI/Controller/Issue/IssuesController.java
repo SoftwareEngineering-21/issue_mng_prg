@@ -1,6 +1,9 @@
 package com.example.its.webUI.Controller.Issue;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,8 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.its.dataClass.Issue;
+import com.example.its.dataClass.Issue.StatusID;
 import com.example.its.dataClass.IssueID;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.logic.CommentService;
@@ -20,6 +24,7 @@ import com.example.its.state.StateManager;
 import com.example.its.webUI.Controller.MainController;
 
 import lombok.RequiredArgsConstructor;
+
 
 @Controller
 @RequestMapping("/projects")
@@ -64,6 +69,27 @@ public class IssuesController {
         return "";
 
     }
+
+    @GetMapping("/issue/create/projectid={projectID}")
+    public String createIssue(@PathVariable("projectID") int projectID, Model model) throws LoginRequiredException {
+        MainController.isUserLogin(stateManager);
+        model.addAttribute("projectID", projectID);
+        model.addAttribute("reporter", stateManager.getUser().getID());
+        model.addAttribute("typeList", Issue.TypeID.values());
+        model.addAttribute("priorityList", Issue.PriorityID.values());
+        List<StatusID> statusList = Arrays.asList(StatusID.NEW);
+        model.addAttribute("statusList", statusList);
+        return "issue_create";
+    }
+
+    @PostMapping("/issue/create")
+    public String postMethodName(@RequestParam("title")String title, @RequestParam("description") String description, @RequestParam("type") Issue.TypeID type, @RequestParam("priority") Issue.PriorityID priority,@RequestParam("status") Issue.StatusID status, @RequestParam("comment") String comment) throws LoginRequiredException{
+        MainController.isUserLogin(stateManager);
+        issueService.createIssue(stateManager.getUserAuthes(), comment, stateManager.getProject(), title, description, stateManager.getUser(), type, priority, commentService.getCurrentDate());
+        return "redirect:/projects/projectid="+stateManager.getProject().getID();
+    }
+    
+    
 
 
 }
