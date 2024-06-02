@@ -54,5 +54,5 @@ CREATE TABLE ICRelationDB
 (
     ID int not null auto_increment primary key ,
     issueID int not null,
-    CommentID int not null
+    commentID int not null
 );

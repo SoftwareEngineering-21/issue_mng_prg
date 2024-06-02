@@ -26,32 +26,32 @@ insert into IssueDB(title, description, reporter,assignee, type, priority, statu
 
 insert into PIRelationDB(projectIDFK,issueIDFK) VALUES (1,1);
 insert into PIRelationDB(projectIDFK,issueIDFK) VALUES (1,2);
-insert into PIRelationDB(projectIDFK,issueIDFK,createdAt) VALUES (1,3,'2022-05-31 12:34:56');
-insert into PIRelationDB(projectIDFK,issueIDFK,createdAt) VALUES (1,4,'2023-05-31 12:34:56');
-insert into PIRelationDB(projectIDFK,issueIDFK,createdAt) VALUES (1,5,'2024-05-31 12:34:56');
+insert into PIRelationDB(projectIDFK,issueIDFK) VALUES (1,3);
+insert into PIRelationDB(projectIDFK,issueIDFK) VALUES (1,4);
+insert into PIRelationDB(projectIDFK,issueIDFK) VALUES (1,5);
 
 
-insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment1', 'test1');
-insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment1-1', 'test2');
-insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment2-1', 'test4');
-insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment2-2', 'test1');
-insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment2-3', 'test3');
-insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment3', 'test3');
-insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment3-1', 'test1');
-insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment4', 'test4');
-insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment4-1', 'test1');
-insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment5', 'test1');
-insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment5-1', 'test4');
+insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment1', 'test1','2022-05-31 12:34:56');
+insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment1-1', 'test2','2023-05-31 12:34:56');
+insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment2-1', 'test4','2023-05-31 12:34:56');
+insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment2-2', 'test1','2023-05-31 12:34:56');
+insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment2-3', 'test3','2023-05-31 12:34:56');
+insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment3', 'test3','2023-05-31 12:34:56');
+insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment3-1', 'test1','2023-05-31 12:34:56');
+insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment4', 'test4','2023-05-31 12:34:56');
+insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment4-1', 'test1','2023-05-31 12:34:56');
+insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment5', 'test1','2023-05-31 12:34:56');
+insert into CommentDB(text, reporterComment, createdAt) VALUES ('comment5-1', 'test4','2023-05-31 12:34:56');
 
 
-insert into ICRelationDB(issueID, commentID, createdAt) VALUES (1, 1);
-insert into ICRelationDB(issueID, commentID, createdAt) VALUES (1, 2);
-insert into ICRelationDB(issueID, commentID, createdAt) VALUES (2, 3);
-insert into ICRelationDB(issueID, commentID, createdAt) VALUES (2, 4);
-insert into ICRelationDB(issueID, commentID, createdAt) VALUES (2, 5);
-insert into ICRelationDB(issueID, commentID, createdAt) VALUES (3, 6);
-insert into ICRelationDB(issueID, commentID, createdAt) VALUES (3, 7);
-insert into ICRelationDB(issueID, commentID, createdAt) VALUES (4, 8);
-insert into ICRelationDB(issueID, commentID, createdAt) VALUES (4, 9);
-insert into ICRelationDB(issueID, commentID, createdAt) VALUES (5, 10);
-insert into ICRelationDB(issueID, commentID, createdAt) VALUES (5, 11);
+insert into ICRelationDB(issueID, commentID) VALUES (1, 1);
+insert into ICRelationDB(issueID, commentID) VALUES (1, 2);
+insert into ICRelationDB(issueID, commentID) VALUES (2, 3);
+insert into ICRelationDB(issueID, commentID) VALUES (2, 4);
+insert into ICRelationDB(issueID, commentID) VALUES (2, 5);
+insert into ICRelationDB(issueID, commentID) VALUES (3, 6);
+insert into ICRelationDB(issueID, commentID) VALUES (3, 7);
+insert into ICRelationDB(issueID, commentID) VALUES (4, 8);
+insert into ICRelationDB(issueID, commentID) VALUES (4, 9);
+insert into ICRelationDB(issueID, commentID) VALUES (5, 10);
+insert into ICRelationDB(issueID, commentID) VALUES (5, 11);
