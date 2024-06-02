@@ -5,7 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.its.dataClass.IssueID;
 import com.example.its.dataClass.ProjectID;
@@ -50,9 +53,18 @@ public class IssuesController {
         model.addAttribute("projectID", projectID);
         model.addAttribute("issueID", issueID);
         model.addAttribute("issue", issueService.readIssue(new IssueID(issueID)));
+        model.addAttribute("coomentCount", commentService.readCommentsByIssueID(stateManager.getIssue()).size());
         model.addAttribute("commentList", commentService.readCommentsByIssueID(stateManager.getIssue()));
-        
         return "issue";
+    }
+
+    @PostMapping("/issues/comments/add")
+    public String addComment(@RequestParam("text") String text, RedirectAttributes redirectAttributes) {
+        //MainController.isUserLogin(stateManager);
+        commentService.createComment(stateManager.getUser(), stateManager.getIssue(), text);
+        redirectAttributes.addAttribute("projectID", stateManager.getProject().getID());
+        redirectAttributes.addAttribute("issueID", stateManager.getIssue().getID());
+        return "redirect:/projects/projectid={projectID}/issueid={issueID}";
     }
 
 }
