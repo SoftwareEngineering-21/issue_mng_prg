@@ -7,21 +7,21 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .list-group-header{
-            background-color : #f2f2f2;
+        .list-group-header {
+            background-color: #f2f2f2;
         }
-        .projectsHeader{
-            display : flex;
+        .projectsHeader {
+            display: flex;
             justify-content: left;
             align-items: center;
         }
-        .projectsHeader h1{
+        .projectsHeader h1 {
             padding-bottom: 20px;
             font-size: 36px;
             font-weight: bold;
             color: #303050;
         }
-        .hyperlink{
+        .hyperlink {
             padding-right: 50px;
             font-weight: bold;
         }
@@ -31,19 +31,19 @@
             justify-content: center;
             height: 100%;
         }
-        p{
+        p {
             background-color: #303050;
             border-radius: 5px;
             padding: 5px 10px;
-            font-size : 20px;
+            font-size: 20px;
             color: #f5f5f5;
             cursor: pointer;
         }
-        .user-context{
+        .user-context {
             width: 200px;
         }
-        .user-context-field{
-            width:50%;
+        .user-context-field {
+            width: 50%;
         }
         .btn-custom {
             background-color: #303050;
@@ -57,7 +57,7 @@
             margin-top: 10px;
             text-align: center;
             padding: 0px 20px;
-            font-size : 22px;
+            font-size: 22px;
         }
         .btn-custom:hover {
             background-color: #202030;
@@ -66,10 +66,10 @@
             text-decoration: none;
             cursor: pointer;
         }
-        .custom{
+        .custom {
             align-items: center;
         }
-        .flex{
+        .flex {
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -77,14 +77,14 @@
             min-height: 70px;
             flex: 0 1 auto;
             align-content: center;
-            width:90%;
+            width: 90%;
         }
-        .display_flex{
+        .display_flex {
             display: flex;
         }
-        .n-white{
+        .n-white {
             white-space: normal;
-            word-break:break-all;
+            word-break: break-all;
         }
         .hyperlink {
             justify-content: left;
@@ -108,10 +108,7 @@
             color: #000000;
             display: block;
         }
-        .sidebar a:hover {
-            background-color: #e9ecef;
-        }
-        .sidebar a.active {
+        .sidebar a:hover, .sidebar a.active {
             background-color: #495057;
             color: white;
         }
@@ -125,23 +122,11 @@
         #link-category-1 {
             font-size: 13px;
         }
-        #link-category-2 {
-            font-size: 13px;
-        }
-        #link-category-3 {
-            font-size: 13px;
-        }
-        #link-category-4 {
-            font-size: 13px;
-        }
-        #link-category-5 {
-            font-size: 13px;
-        }
     </style>
 </head>
 <body>
     <div class="logo-container form-group row justify-content-between center-align">
-        <div class ="logo">
+        <div class="logo">
             <div th:replace="~{logo::logo}" id='logo'></div>
         </div>
         <div>
@@ -154,62 +139,30 @@
             <div class="col-2">
                 <div class="sidebar" style="position: fixed; height: 100%; width: 350px; background-color: #f8f9fa; padding-top: 20px; margin-top: 50px;">
                     <h5>프로젝트 전체 통계</h5>
-                    <a href="#" onclick="updateGraph('Category 1')" id="link-category-1">단위 시간동안 올라온 프로젝트별 이슈 개수</a>
-                    <h5>프로젝트별 통계</h5>
-                    <a href="#" onclick="updateGraph('Category 2')" id="link-category-2">단위 시간동안 올라온 이슈 type별 개수</a>
-                    <a href="#" onclick="updateGraph('Category 3')" id="link-category-3">이슈 status, type에 따른 개발자에게 할당된 이슈 개수</a>
-                    <a href="#" onclick="updateGraph('Category 4')" id="link-category-4">이슈 별 코멘트 개수 (상위 3개)</a>
-                    <a href="#" onclick="updateGraph('Category 5')" id="link-category-5">이슈 type에 따른 평균 코멘트 개수</a>
+                    <a href="#" onclick="showCategoryInputs('Category 1')" id="link-category-1" th:classappend="${currentCategory == 'Category 1'} ? 'active' : ''">단위 시간동안 올라온 프로젝트별 이슈 개수</a>
                 </div>
             </div>
             <!-- 그래프 -->
             <div class="col-10">
                 <div class="row justify-content-center">
                     <div class="col-md-8">
-                        <canvas id="myChart" style="width: 70%; height: 70%; display: none;"></canvas>
+                        <canvas id="myChart" style="width: 70%; height: 70%; display: block;"></canvas>
                         <!-- Category 1 입력 필드 -->
                         <div id="category-1-inputs" class="input-container" style="display: block;">
                             <h5>Category 1 입력</h5>
-                            <label for="startDate1">시작 날짜:</label>
-                            <input type="date" id="startDate1" class="form-control" required>
-                            <label for="startTime1">시작 시간:</label>
-                            <input type="time" id="startTime1" class="form-control" step="1" required>
-                            <label for="endDate1">종료 날짜:</label>
-                            <input type="date" id="endDate1" class="form-control" required>
-                            <label for="endTime1">종료 시간:</label>
-                            <input type="time" id="endTime1" class="form-control" step="1" required>
-                        </div>
-                        <!-- Category 2 입력 필드 -->
-                        <div id="category-2-inputs" class="input-container" style="display: none;">
-                            <h5>Category 2 입력</h5>
-                            <label for="issueID2">이슈 ID:</label>
-                            <input type="text" id="issueID2" class="form-control" required>
-                            <label for="startDate2">시작 날짜:</label>
-                            <input type="date" id="startDate2" class="form-control" required>
-                            <label for="startTime2">시작 시간:</label>
-                            <input type="time" id="startTime2" class="form-control" step="1" required>
-                            <label for="endDate2">종료 날짜:</label>
-                            <input type="date" id="endDate2" class="form-control" required>
-                            <label for="endTime2">종료 시간:</label>
-                            <input type="time" id="endTime2" class="form-control" step="1" required>
-                        </div>
-                        <!-- Category 3 입력 필드 -->
-                        <div id="category-3-inputs" class="input-container" style="display: none;">
-                            <h5>Category 3 입력</h5>
-                            <!-- Category 3에 대한 입력 필드를 여기에 추가하세요 -->
-                        </div>
-                        <!-- Category 4 입력 필드 -->
-                        <div id="category-4-inputs" class="input-container" style="display: none;">
-                            <h5>Category 4 입력</h5>
-                            <!-- Category 4에 대한 입력 필드를 여기에 추가하세요 -->
-                        </div>
-                        <!-- Category 5 입력 필드 -->
-                        <div id="category-5-inputs" class="input-container" style="display: none;">
-                            <h5>Category 5 입력</h5>
-                            <!-- Category 5에 대한 입력 필드를 여기에 추가하세요 -->
-                        </div>
-                        <div class="btn-container">
-                            <button id="updateButton" class="btn btn-primary btn-block" onclick="sendData()">업데이트</button>
+                            <form id="category1Form">
+                                <label for="startDate1">시작 날짜:</label>
+                                <input type="date" id="startDate1" name="startDate" class="form-control" required>
+                                <label for="startTime1">시작 시간:</label>
+                                <input type="time" id="startTime1" name="startTime" class="form-control" step="1" required>
+                                <label for="endDate1">종료 날짜:</label>
+                                <input type="date" id="endDate1" name="endDate" class="form-control" required>
+                                <label for="endTime1">종료 시간:</label>
+                                <input type="time" id="endTime1" name="endTime" class="form-control" step="1" required>
+                                <div class="btn-container">
+                                    <button type="submit" class="btn btn-primary btn-block">업데이트</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -221,123 +174,82 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <script>
-        var categoryData = /*[[${categoryData}]]*/ {};
-
-        var currentCategory = "Category 1";
-        var initialData = categoryData[currentCategory] ? categoryData[currentCategory]["data"] : [];
-        var initialLabels = categoryData[currentCategory] ? categoryData[currentCategory]["labels"] : [];
-
-
-        var data = {
-            labels: initialLabels,
-            datasets: [{
-                label: '예시 데이터',
-                data: initialData,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                ],
-                borderWidth: 1
-            }]
-        };
-
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: data,
-            options: {
-                title: {
-                    display: true,
-                    text: '통계',
-                    fontSize: 20,
-                    fontColor: 'black'
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
+        document.addEventListener('DOMContentLoaded', function() {
+            var categoryData = /*[[${categoryData}]]*/ {};
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: categoryData['Category 1'].labels,
+                    datasets: [{
+                        label: '데이터',
+                        data: categoryData['Category 1'].data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                        ],
+                        borderWidth: 1
                     }]
                 },
-                barThickness: 30,
-            }
-        });
-
-        function updateGraph(category) {
-            if (categoryData[category]) {
-                myChart.data.datasets[0].data = categoryData[category]["data"];
-                myChart.data.labels = categoryData[category]["labels"];
-                myChart.update();
-            }
-            updateActiveLink();
-            showCategoryInputs(category);
-        }
-
-
-        function updateActiveLink() {
-            var links = document.querySelectorAll('.sidebar a');
-            links.forEach(function(link) {
-                link.classList.remove('active');
-            });
-            document.getElementById('link-' + currentCategory.toLowerCase().replace(' ', '-')).classList.add('active');
-        }
-
-        function showCategoryInputs(category) {
-            var inputContainers = document.querySelectorAll('.input-container');
-            inputContainers.forEach(function(container) {
-                container.style.display = 'none';
-            });
-            document.getElementById(category.toLowerCase().replace(' ', '-') + '-inputs').style.display = 'block';
-            document.getElementById('myChart').style.display = 'none'; // 차트를 처음에 숨기기
-        }
-
-        function sendData() {
-            var data = {};
-            var url = "";
-            
-            if (currentCategory === "Category 1") {
-                data = {
-                    startTime: document.getElementById("startDate1").value + " " + document.getElementById("startTime1").value,
-                    endTime: document.getElementById("endDate1").value + " " + document.getElementById("endTime1").value
-                };
-                url = "/updateGraph1";
-            } else if (currentCategory === "Category 2") {
-                data = {
-                    issueID: document.getElementById("issueID2").value,
-                    startTime: document.getElementById("startDate2").value + " " + document.getElementById("startTime2").value,
-                    endTime: document.getElementById("endDate2").value + " " + document.getElementById("endTime2").value
-                };
-                url = "/updateGraph2";
-            }
-            $.ajax({
-                url: "/updateGraph1",
-                method: "POST",
-                data: { category: currentCategory, startTime: startDateTime, endTime: endDateTime },
-                success: function(response) {
-                    categoryData[currentCategory] = response[currentCategory];
-                    updateGraph(currentCategory);
-                    document.getElementById('myChart').style.display = 'block'; // 데이터가 수신된 후 차트 표시
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
+                options: {
+                    title: {
+                        display: true,
+                        text: '통계',
+                        fontSize: 20,
+                        fontColor: 'black'
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    barThickness: 30,
                 }
             });
-        }
 
-        // 첫 번째 카테고리를 초기 활성화 상태로 설정
-        updateActiveLink();
-        showCategoryInputs(currentCategory);
+            document.getElementById('category1Form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var form = event.target;
+                var formData = new FormData(form);
 
+                fetch('/updateGraph1', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.json())
+                  .then(data => {
+                    myChart.data.labels = data.labels;
+                    myChart.data.datasets[0].data = data.data;
+                    myChart.update();
+                  })
+                  .catch(error => console.error('Error:', error));
+            });
+
+            function showCategoryInputs(category) {
+                var links = document.querySelectorAll('.sidebar a');
+                links.forEach(function(link) {
+                    link.classList.remove('active');
+                });
+                document.getElementById('link-' + category.toLowerCase().replace(' ', '-')).classList.add('active');
+
+                var inputContainers = document.querySelectorAll('.input-container');
+                inputContainers.forEach(function(container) {
+                    container.style.display = 'none';
+                });
+                document.getElementById(category.toLowerCase().replace(' ', '-') + '-inputs').style.display = 'block';
+            }
+        });
     </script>
 </body>
 </html>

@@ -1,6 +1,9 @@
 package com.example.its.logic;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -36,5 +39,12 @@ public class StatisticService {
 
     public Map<String, Object> countAvgofCommentService(ProjectID projectIDFK){
         return service.countAvgofComment(projectIDFK);
+    }
+
+    public Timestamp convertToTimestamp(String date, String time) throws ParseException {
+        String dateTime = date + " " + time;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date parsedDate = dateFormat.parse(dateTime);
+        return new Timestamp(parsedDate.getTime());
     }
 }

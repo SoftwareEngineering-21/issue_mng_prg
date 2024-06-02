@@ -236,7 +236,7 @@
         <div th:replace="~{logo::logo}" id = 'logo'></div>
     </div>
     <div>
-        <a th:href="@{/statistic}" class="hyperlink">통계</a>
+        <a th:href="@{|/statistic/projectid=${projectID}|}" class="hyperlink">내부 통계</a>
         <a th:href="@{/logout}" class="hyperlink">로그아웃</a>
 
     </div>
