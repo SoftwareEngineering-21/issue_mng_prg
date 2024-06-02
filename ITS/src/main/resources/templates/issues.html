@@ -164,6 +164,11 @@
                 }
             })
         });
+
+        function newI(){
+            var projectID = [[${projectID}]];
+            window.location.href="/projects/projectid="+projectID+"/create";
+        }
     </script>
 
 </head>
@@ -194,7 +199,7 @@
 
         </div>
 
-        <div  onclick="window.location.href='/projects/create'">
+        <div  onclick="newI()">
             <p>New Issue</p>
         </div>
 

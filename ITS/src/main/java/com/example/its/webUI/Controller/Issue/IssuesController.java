@@ -35,7 +35,17 @@ public class IssuesController {
     private final ProjectService projectService;
     private final CommentService commentService;
     private final AuthorityService authorityService;
-    
+
+    @GetMapping("/projectid={projectID}/create")
+    public String createProject(Model model, @PathVariable("projectID") int projectID) {
+        return "issue_create";
+    }
+
+    @PostMapping("/projectid={projectID}/create")
+    public String createProject(@RequestParam("title")String title, @RequestParam("description") String description,Model model, @PathVariable("projectID") int projectID){
+
+        return "redirect:/projects/projectid="+projectID;
+    }
 
     @GetMapping("/projectid={projectID}")
     public String issues(@PathVariable("projectID") int projectID, Model model) throws LoginRequiredException {
