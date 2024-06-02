@@ -8,6 +8,11 @@
         insert INTO CommentDB(text, reporterComment)
         values (#{comment.text}, #{comment.reporterComment})
     </insert>
+
+    <insert id="createCommentTime" useGeneratedKeys="true" keyProperty="ID">
+        insert into CommentDB(text, reporterComment, createAt)
+        values(#{comment.text}, #{comment.reporterComment},#{comment.createAt})
+    </insert>
     
     
     <select id="readComment" resultType="com.example.its.dataClassDB.CommentDB">

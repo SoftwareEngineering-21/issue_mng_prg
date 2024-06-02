@@ -1,5 +1,6 @@
 package com.example.its.database.comment;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,15 @@ public class CommentDBService {
         return newC;
     }
 
-    public CommentID createCommentService(String text ,UserID reporterComment){
-        CommentID commentID = new CommentID(manager.createCommentManager(text, reporterComment.getID()));
+    public CommentID createCommentService(String text , UserID reporterComment, Timestamp timestamp){
+        CommentID commentID;
+        if(timestamp == null){
+            commentID = new CommentID(manager.createCommentManager(text, reporterComment.getID()));
+        }
+        else{
+            commentID = new CommentID(manager.createCommentManager(text, reporterComment.getID()));
+        }
+
         return commentID;
     }
 

@@ -2,6 +2,7 @@ package com.example.its.database;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -143,9 +144,9 @@ public class DBService {
 
 
     //Comment method
-    public CommentID createComment(IssueID issueID, String text, UserID author){
+    public CommentID createComment(IssueID issueID, String text, UserID author, Date date){
 
-        CommentID newC = commentDBService.createCommentService(text, author);
+        CommentID newC = commentDBService.createCommentService(text, author, new Timestamp(date.getTime()));
         icRelationDBService.createICRelationService(issueID, newC);
         return newC;
     }

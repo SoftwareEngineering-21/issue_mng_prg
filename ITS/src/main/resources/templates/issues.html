@@ -227,7 +227,7 @@
         </li>
         <div class="issue-set" th:each ="issue,iterStat : ${issueList}">
             <li class="issue-name list-group-item d-flex align-items-center">
-                <a class="issue-title align-items-center flex" th:href = "@{|/project/projectid=${projectID}/issueid=${issue.getID().ID}|}">
+                <a class="issue-title align-items-center flex" th:href = "@{|/projects/projectid=${projectID}/issueid=${issue.getID().ID}|}">
                     <h5 th:text = "${issue.title}" ></h5>
                 </a>
 
@@ -245,7 +245,7 @@
                         <h6 class = "priority" th:text = "${issue.getPriority().ordinal()}"></h6>
                     </div>
                     <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="type" th:text = "${issue.getPriority().ordinal()}"></h6>
+                        <h6 class="type" th:text = "${issue.getType().ordinal()}"></h6>
                     </div>
                     <div class ="d-flex issue-attribute align-items-center justify-content-center">
                         <h6 class="status" th:text = "${issue.getStatus().ordinal()}"></h6>
