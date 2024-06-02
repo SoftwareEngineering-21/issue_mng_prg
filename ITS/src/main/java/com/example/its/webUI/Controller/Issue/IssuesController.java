@@ -53,18 +53,17 @@ public class IssuesController {
         model.addAttribute("projectID", projectID);
         model.addAttribute("issueID", issueID);
         model.addAttribute("issue", issueService.readIssue(new IssueID(issueID)));
-        model.addAttribute("coomentCount", commentService.readCommentsByIssueID(stateManager.getIssue()).size());
+        model.addAttribute("commentCount", commentService.readCommentsByIssueID(stateManager.getIssue()).size());
         model.addAttribute("commentList", commentService.readCommentsByIssueID(stateManager.getIssue()));
         return "issue";
     }
-
-    @PostMapping("/issues/comments/add")
-    public String addComment(@RequestParam("text") String text, RedirectAttributes redirectAttributes) {
-        //MainController.isUserLogin(stateManager);
-        commentService.createComment(stateManager.getUser(), stateManager.getIssue(), text,commentService.getCurrentDate());
-        redirectAttributes.addAttribute("projectID", stateManager.getProject().getID());
-        redirectAttributes.addAttribute("issueID", stateManager.getIssue().getID());
-        return "redirect:/projects/projectid={projectID}/issueid={issueID}";
+    @GetMapping("/projectid={projectID}/issueid={issueID}/create={comment}")
+    public String addComment(@PathVariable("projectID") int projectID, @PathVariable("issueID") int issueID,@PathVariable("comment") String comment) throws LoginRequiredException {
+        MainController.isUserLogin(stateManager);
+        stateManager.setProject(new ProjectID(projectID));
+        stateManager.setIssue(new IssueID(issueID));
+        commentService.createComment(stateManager.getUser(), stateManager.getIssue(), comment,commentService.getCurrentDate());
+        return "redirect:/projects/projectidc="+projectID+"/issueid="+issueID;
     }
 
 }
