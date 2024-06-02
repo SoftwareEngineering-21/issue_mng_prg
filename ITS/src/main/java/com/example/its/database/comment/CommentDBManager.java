@@ -1,5 +1,6 @@
 package com.example.its.database.comment;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -16,6 +17,12 @@ public class CommentDBManager {
     public Integer createCommentManager(String text ,String reporterComment){
         CommentDB comment = new CommentDB(text, reporterComment);
         mapper.createComment(comment);
+        return comment.getID();
+    }
+
+    public Integer createCommentTimeManager(String text, String reporterComment, Timestamp time){
+        CommentDB comment = new CommentDB(text, reporterComment,time);
+        mapper.createCommentTime(comment);
         return comment.getID();
     }
 

@@ -16,7 +16,7 @@
     <select id="countAllofUploadIssue" resultType="java.util.Map">
         SELECT
             projectIDFK as projectID,
-            CO UNT(*) as issueCount
+            COUNT(*) as issueCount
         FROM
             PIRelationDB
         WHERE

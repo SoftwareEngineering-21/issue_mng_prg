@@ -14,7 +14,9 @@ public class userDeveloper implements userAuth {
     }
 
     @Override
-    public void perform(Issue.StatusID state, Issue.PriorityID priority, Issue.TypeID type, UserID reporter, UserID assignee, UserID fixer) {
-
+    public Issue perform(Issue.StatusID state, Issue.PriorityID priority, Issue.TypeID type, UserID reporter, UserID assignee, UserID fixer) {
+        Issue i = new Issue(null, null, null, Issue.StatusID.FIXED, type, priority, assignee, reporter, fixer);
+        return i;
+        
     }
 }

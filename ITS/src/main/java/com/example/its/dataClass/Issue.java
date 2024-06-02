@@ -20,6 +20,7 @@ public class Issue {
 	private final PriorityID priority;
 
 
+
 	private final UserID assignee;
 	private final UserID reporter;
 	private final UserID fixer;

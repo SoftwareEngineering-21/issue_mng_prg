@@ -168,7 +168,7 @@ public class MainSwingController extends BaseController {
         catch (Exception e) {
             return false;
         }
-        this.issueService.createIssue(projectID(), title, desc, userID(), _type, _priority);
+        //this.issueService.createIssue(projectID(), title, desc, userID(), _type, _priority);
         return true;
     }
 
@@ -189,7 +189,7 @@ public class MainSwingController extends BaseController {
 
     @Override
     public boolean addComment(String desc) {
-        this.commentService.createComment(this.stateManager.getUser(), this.stateManager.getIssue(), desc);
+        this.commentService.createComment(this.stateManager.getUser(), this.stateManager.getIssue(), desc, commentService.getCurrentDate());
         return true;
     }
 

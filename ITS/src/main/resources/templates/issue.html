@@ -132,8 +132,100 @@
 
     </style>
     <script>
-        function changeStatus(){
+        document.addEventListener("DOMContentLoaded",function (){
+            var comps = document.querySelectorAll(".priority");
+            comps.forEach(function (comp){
+                switch(comp.innerText){
+                    case '0':
+                        comp.classList.add('priority-blocker');
+                        comp.innerText = 'blocker';
+                        break;
+                    case '1':
+                        comp.classList.add('priority-critical');
+                        comp.innerText = 'critical';
+                        break;
+                    case '2':
+                        comp.classList.add('priority-major');
+                        comp.innerText = 'major';
+                        break;
+                    case '3':
+                        comp.classList.add('priority-minor');
+                        comp.innerText = 'minor';
+                        break;
+                    case '4':
+                        comp.classList.add('priority-trivial');
+                        comp.innerText = 'trivial';
+                        break;
+                    default:
+                        break;
+                }
 
+            })
+            comps = document.querySelectorAll(".status");
+            comps.forEach(function (comp) {
+                switch (comp.innerText) {
+                    case '0':
+                        comp.classList.add('status-new');
+                        comp.innerText = 'new';
+                        break;
+                    case '1':
+                        comp.classList.add('status-assigned');
+                        comp.innerText = 'assigned';
+                        break;
+                    case '2':
+                        comp.classList.add('status-fixed');
+                        comp.innerText = 'fixed';
+                        break;
+                    case '3':
+                        comp.classList.add('status-resolved');
+                        comp.innerText = 'resolved';
+                        break;
+                    case '4':
+                        comp.classList.add('status-reopen');
+                        comp.innerText = 'reopen';
+                        break;
+                    case '5':
+                        comp.classList.add('status-closed');
+                        comp.innerText = 'closed';
+                        break;
+                    default:
+                        break;
+                }
+            })
+            comps = document.querySelectorAll(".type");
+            comps.forEach(function (comp) {
+                switch (comp.innerText) {
+                    case '0':
+                        comp.innerText = 'bug';
+                        break;
+                    case '1':
+                        comp.innerText = 'improve';
+                        break;
+                    case '2':
+                        comp.innerText = 'feat';
+                        break;
+                    case '3':
+                        comp.innerText = 'task';
+                        break;
+                    case '4':
+                        comp.innerText = 'story';
+                        break;
+                    default:
+                        break;
+                }
+            })
+        });
+    </script>
+    <script>
+
+        function addComment(event){
+            event.preventDefault();
+            var value = document.getElementById("commentText").value;
+
+            var projectID = [[${projectID}]];
+            var issueID = [[${issueID}]];
+
+            window.location.href = "/projects/projectid=" + projectID + "/issueid=" + issueID+"/create="+value;
         }
 
     </script>
@@ -157,17 +249,17 @@
             <div class="card-body">
                 <div>
                     <div class ="row justify-content-between pr-5 pl-2">
-                        <h2 class="card-title">test</h2>
-                        <a th:href = "" class = "btn-custom">modify</a>
+                        <h2 class="card-title" th:text = "${issue.title}"></h2>
+                        <a th:href = "@{|http://localhost:8080/projects/issue/modify/projectid=${projectID}/issueid=${issueID}|}" class = "btn-custom">modify</a>
                     </div>
 
-                    <h5 class="card-description">test desc</h5>
+                    <h5 class="card-description" th:text = "${issue.description}"></h5>
 
                 </div>
                 <div class ="top-align justify-content-end pt-5">
-                    <h6 class ="ml-1 mr-3 type">bug</h6>
-                    <h6 class ="ml-1 mr-3 priority-critical">critical</h6>
-                    <h6 class ="ml-1 mr-3 status status-resolved">resolved</h6>
+                    <h6 class ="ml-1 mr-3 type" th:text = "${issue.getType().ordinal()}"></h6>
+                    <h6 class ="ml-1 mr-3 priority" th:text = "${issue.getPriority().ordinal()}"></h6>
+                    <h6 class ="ml-1 mr-3 status status" th:text = "${issue.getStatus().ordinal()}"></h6>
                 </div>
             </div>
 
@@ -183,26 +275,26 @@
                         <div class ="d-flex justify-content-between align-items-center ">
                             <h5 class = "user-context align-items-center pb-2">reporter</h5>
                             <select class="form-control" disabled>
-                                <option value ="a">test1</option>
+                                <option value ="a" th:text = "${issue.getReporter().getID}"></option>
                             </select>
                         </div>
                         <div class ="d-flex justify-content-between align-items-center ">
                             <h5 class = "user-context align-items-center pb-2">assignee</h5>
                             <select class="form-control" disabled>
-                                <option value ="a">test1</option>
+                                <option value ="a" th:text = "${issue.getAssignee() ==null ? '' : issue.getAssignee().getID()}"></option>
                             </select>
                         </div>
                         <div class =" d-flex justify-content-between align-items-center ">
                             <h5 class = "user-context">fixer</h5>
                             <select class="form-control" disabled>
-                                <option value ="a">test1</option>
+                                <option value ="a" th:text = "${issue.getFixer==null ? '' : issue.getFixer.getID()}"></option>
                             </select>
                         </div>
                     </div>
                     <div class = "d-flex justify-content-center  custom text-center pr-5">
                         <div>
                             <h1 class = "">Number of Comments</h1>
-                            <h2 class ="pt-3 ">1 comments</h2>
+                            <h2 class ="pt-3 " th:text = "${commentCount ==null ? '' : commentCount}"> comments</h2>
                         </div>
 
                     </div>
@@ -214,31 +306,35 @@
 
     <div class ="line"></div>
 
-    <div class = "card-container">
-        <div class = "card-np-cm">
-            <div class="card-body">
-                <div class="row align-items-end pb-3 comment-title d-flex">
-                    <h3 class ="pt-3 pr-4">tester Name</h3>
-
-                    <h6>2011-03-12 11:11:11</h6>
-                </div>
-                <div class="d-flex pb-3">
-                    <h6 class = "n-white">very very longggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggNggggggggggggggggggggg issue comment.</h6>
+    <div th:each="comment, iterStat: ${commentList}">
+        <div class="card-container">
+            <div class="card-np-cm">
+                <div class="card-body">
+                    <div class="row align-items-end pb-3 comment-title d-flex">
+                        <h3 class="pt-3 pr-4" th:text="${comment.getAuthor().getID()}"></h3>
+                        <h6 th:text="${comment.getDate()}"></h6>
+                    </div>
+                    <div class="d-flex pb-3">
+                        <h6 class="n-white" th:text="${comment.getText()}"></h6>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="line"></div>
     </div>
     <div class ="line"></div>
     <div class = "card-container pb-5">
         <div class = "card-np-cm-new">
             <div class="card-body">
-                <div class = "form-group pb-1">
-                    <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
-                </div>
-                <div class = "d-flex justify-content-end">
-                    <button type="submit"  class ="btn btn-custom" >add user</button>
-                </div>
-
+                <form></form>
+                <input type="hidden" />
+                    <div class = "form-group pb-1">
+                        <textarea class="form-control" id="commentText" name="text" rows="5" required></textarea>
+                    </div>
+                    <div class = "d-flex justify-content-end">
+                        <button type="submit" onclick="addComment(event)" class ="btn btn-custom" >add comment</button>
+                    </div>
+                </form>
             </div>
 
         </div>
