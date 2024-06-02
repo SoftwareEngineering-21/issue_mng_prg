@@ -182,7 +182,16 @@
                         <!-- Category 2 입력 필드 -->
                         <div id="category-2-inputs" class="input-container" style="display: none;">
                             <h5>Category 2 입력</h5>
-                            <!-- Category 2에 대한 입력 필드를 여기에 추가하세요 -->
+                            <label for="issueID2">이슈 ID:</label>
+                            <input type="text" id="issueID2" class="form-control" required>
+                            <label for="startDate2">시작 날짜:</label>
+                            <input type="date" id="startDate2" class="form-control" required>
+                            <label for="startTime2">시작 시간:</label>
+                            <input type="time" id="startTime2" class="form-control" step="1" required>
+                            <label for="endDate2">종료 날짜:</label>
+                            <input type="date" id="endDate2" class="form-control" required>
+                            <label for="endTime2">종료 시간:</label>
+                            <input type="time" id="endTime2" class="form-control" step="1" required>
                         </div>
                         <!-- Category 3 입력 필드 -->
                         <div id="category-3-inputs" class="input-container" style="display: none;">
@@ -212,32 +221,12 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <script>
-        var categoryData = {
-            "Category 1": {
-                data: [5, 3, 4, 2, 10],
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple"]
-            },
-            "Category 2": {
-                data: [20, 30, 40, 50, 60],
-                labels: ["Apple", "Orange", "Banana", "Grape", "Pineapple"]
-            },
-            "Category 3": {
-                data: [30, 40, 50, 60, 70],
-                labels: ["Car", "Bike", "Bus", "Train", "Airplane"]
-            },
-            "Category 4": {
-                data: [40, 50, 60, 70, 80],
-                labels: ["Cat", "Dog", "Bird", "Fish", "Rabbit"]
-            },
-            "Category 5": {
-                data: [50, 60, 70, 80, 90],
-                labels: ["Rock", "Pop", "Jazz", "Classical", "Hip-Hop"]
-            }
-        };
+        var categoryData = /*[[${categoryData}]]*/ {};
 
         var currentCategory = "Category 1";
-        var initialData = categoryData[currentCategory].data;
-        var initialLabels = categoryData[currentCategory].labels;
+        var initialData = categoryData[currentCategory] ? categoryData[currentCategory]["data"] : [];
+        var initialLabels = categoryData[currentCategory] ? categoryData[currentCategory]["labels"] : [];
+
 
         var data = {
             labels: initialLabels,
@@ -285,13 +274,15 @@
         });
 
         function updateGraph(category) {
-            currentCategory = category;
-            myChart.data.datasets[0].data = categoryData[category].data;
-            myChart.data.labels = categoryData[category].labels;
-            myChart.update();
+            if (categoryData[category]) {
+                myChart.data.datasets[0].data = categoryData[category]["data"];
+                myChart.data.labels = categoryData[category]["labels"];
+                myChart.update();
+            }
             updateActiveLink();
             showCategoryInputs(category);
         }
+
 
         function updateActiveLink() {
             var links = document.querySelectorAll('.sidebar a');
@@ -311,24 +302,29 @@
         }
 
         function sendData() {
-            var startDate = document.getElementById("startDate1").value;
-            var startTime = document.getElementById("startTime1").value;
-            var endDate = document.getElementById("endDate1").value;
-            var endTime = document.getElementById("endTime1").value;
-
-            if (!startDate || !startTime || !endDate || !endTime) {
-                alert("모든 필드를 입력해 주세요.");
-                return;
+            var data = {};
+            var url = "";
+            
+            if (currentCategory === "Category 1") {
+                data = {
+                    startTime: document.getElementById("startDate1").value + " " + document.getElementById("startTime1").value,
+                    endTime: document.getElementById("endDate1").value + " " + document.getElementById("endTime1").value
+                };
+                url = "/updateGraph1";
+            } else if (currentCategory === "Category 2") {
+                data = {
+                    issueID: document.getElementById("issueID2").value,
+                    startTime: document.getElementById("startDate2").value + " " + document.getElementById("startTime2").value,
+                    endTime: document.getElementById("endDate2").value + " " + document.getElementById("endTime2").value
+                };
+                url = "/updateGraph2";
             }
-
-            var startDateTime = startDate + " " + startTime;
-            var endDateTime = endDate + " " + endTime;
-
             $.ajax({
-                url: "/updateGraph",
+                url: "/updateGraph1",
                 method: "POST",
                 data: { category: currentCategory, startTime: startDateTime, endTime: endDateTime },
                 success: function(response) {
+                    categoryData[currentCategory] = response[currentCategory];
                     updateGraph(currentCategory);
                     document.getElementById('myChart').style.display = 'block'; // 데이터가 수신된 후 차트 표시
                 },
