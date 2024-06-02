@@ -16,7 +16,7 @@ import com.example.its.swingUI.MainSwingController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //@EnableAsync
-@SpringBootApplication
+//@SpringBootApplication
 @RequiredArgsConstructor
 public class ItsApplication implements CommandLineRunner {
 

@@ -1,7 +1,6 @@
-package com.example.its;
+package com.example.its.dev;
 
 import java.sql.Connection;
-import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -11,15 +10,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import com.example.its.dataClass.Project;
-import com.example.its.dataClass.User;
-import com.example.its.dataClass.UserID;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.database.user.UserDBService;
 import com.example.its.swingUI.MainSwingController;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootApplication
 @ActiveProfiles("test")
