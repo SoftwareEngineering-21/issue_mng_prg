@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Issues</title>
+    <title>Issues Correction</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -15,22 +15,16 @@
             justify-content: left;
             align-items: center;
         }
-        .projectsHeader h1{
-            padding-bottom: 20px;
 
-            font-size: 36px;
-            font-weight: bold;
-            color: #303050;
-        }
-        .hyperlink{
-            padding-right: 50px;
-            font-weight: bold;
-        }
-        .center-align {
-            display: flex;
-            align-items: center;
+        .issue-attribute{
+            padding: 0px 10px;
+            width: 90px;
+            min-height: 50px;
+            align-content: center;
             justify-content: center;
-            height: 100%; /* 부모 요소의 높이를 100%로 설정 */
+        }
+        .list-group{
+            color: #202030;
         }
         p{
             background-color: #303050;
@@ -39,38 +33,6 @@
             font-size : 20px;
             color: #f5f5f5;
             cursor: pointer;
-
-        }
-        .user-context{
-            width: 200px;
-        }
-        .user-context-field{
-            width:50%;
-        }
-        .btn-custom {
-            background-color: #303050;
-            border-color: #303050;
-            color: #f5f5f5;
-            min-width: 80px;
-            min-height: 40px;
-            border-radius: 8px;
-            align-content: center;
-            justify-content: center;
-            margin-top: 10px;
-            text-align: center;
-            padding: 0px 20px;
-            font-size : 22px;
-
-        }
-        .btn-custom:hover {
-            background-color: #202030;
-            border-color: #202030;
-            color: #f5f5f5;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .custom{
-            align-items: center;
         }
         .flex{
             overflow: hidden;
@@ -82,169 +44,102 @@
             align-content: center;
             width:90%
         }
-        .display_flex{
+
+
+
+        /* 추가한 것 */
+        .contentDetail {
+            height: 80px;
             display: flex;
-        }
-        .n-white{
-            white-space: normal;
-            word-break:break-all;
-        }
-        .comment-title{
-
+            border-radius: 10px;
         }
 
-        .card-np-cm{
-            border: 1px solid rgba(0, 0, 0, .125);
-            border-radius: 15px !important;
-            width: 100%;
-            max-width: 1200px;
-            color: #303050;
-            padding:0px 30px;
-
-        }
-        .card-np-cm-new{
-            border: 1px solid rgba(0, 0, 0, .125);
-            border-radius: 15px !important;
-            width: 100%;
-            max-width: 1200px;
-            color: #303050;
-            padding-left:  30px;
-            padding-right: 30px;
-            padding-top: 20px;
-
-        }
-        .line {
-            width: 4px;
-            height: 50px; /* Adjust the height as needed */
-            background-color: black;
-            margin-left: 10%;
-        }
-        .custom-btn{
-            background-color: #303050;
-            color:#f5f5f5;
-            padding: 10px 15px;
-            font-size: 18px;
-            border-radius: 8px;
-            align-items: center;
-            align-content: center!important;
+        .buttenDetail {
+            width: 100px;
         }
 
+        .btn-custom-success{
+            background-color: #303050 !important;
+            border-color: #303050 !important;
+
+        }
 
     </style>
-    <script>
-        function changeStatus(){
-
-        }
-
-    </script>
 </head>
 <body>
-<div class="logo-container form-group row justify-content-between center-align">
-    <div class ="logo">
-        <div th:replace="~{logo::logo}" id = 'logo'></div>
-    </div>
-    <div>
-        <a th:href="@{/userinfo}" class="hyperlink">유저 정보</a>
-        <a th:href="@{/logout}" class="hyperlink">로그아웃</a>
-
-    </div>
-</div>
-
 
 <div class="container mt-5">
-    <div class="card-container mb-3">
-        <div class="card-np" >
-            <div class="card-body">
-                <div>
-                    <div class ="row justify-content-between pr-5 pl-2">
-                        <h2 class="card-title">test</h2>
-                        <a class = "btn-custom">modify</a>
-                    </div>
 
-                    <h5 class="card-description">test desc</h5>
-
-                </div>
-                <div class ="top-align justify-content-end pt-5">
-                    <h6 class ="ml-1 mr-3 type">bug</h6>
-                    <h6 class ="ml-1 mr-3 priority-critical">critical</h6>
-                    <h6 class ="ml-1 mr-3 status status-resolved">resolved</h6>
-                </div>
-            </div>
-
+    <div class="d-flex justify-content-between align-items-center mb-3 list-group-header contentDetail">
+        <div class = "projectsHeader ml-5">
+            <h3>Project name</h3>
         </div>
-    </div>
-    <div class="card-container">
-        <div class="card-np-cm" >
-            <div class="card-body">
 
-                <div class="pt-2 row justify-content-between">
-                    <div>
-                        <h4 class="mb-8">Contributors</h4>
-                        <div class ="d-flex justify-content-between align-items-center ">
-                            <h5 class = "user-context align-items-center pb-2">reporter</h5>
-                            <select class="form-control" disabled>
-                                <option value ="a">test1</option>
-                            </select>
-                        </div>
-                        <div class ="d-flex justify-content-between align-items-center ">
-                            <h5 class = "user-context align-items-center pb-2">assignee</h5>
-                            <select class="form-control" disabled>
-                                <option value ="a">test1</option>
-                            </select>
-                        </div>
-                        <div class =" d-flex justify-content-between align-items-center ">
-                            <h5 class = "user-context">fixer</h5>
-                            <select class="form-control" disabled>
-                                <option value ="a">test1</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class = "d-flex justify-content-center  custom text-center pr-5">
-                        <div>
-                            <h1 class = "">Number of Comments</h1>
-                            <h2 class ="pt-3 ">1 comments</h2>
-                        </div>
 
-                    </div>
-
-                </div>
-            </div>
+        <div class = "d-flex projectButten mr-5 mt-1">
+            <button type="submit" id="create" class="btn btn-success btn-custom-success buttenDetail text-center">
+                modify
+            </button>
         </div>
     </div>
 
-    <div class ="line"></div>
 
-    <div class = "card-container">
-        <div class = "card-np-cm">
-            <div class="card-body">
-                <div class="row align-items-end pb-3 comment-title d-flex">
-                    <h3 class ="pt-3 pr-4">tester Name</h3>
 
-                    <h6>2011-03-12 11:11:11</h6>
-                </div>
-                <div class="d-flex pb-3">
-                    <h6 class = "n-white">very very longggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggNggggggggggggggggggggg issue comment.</h6>
-                </div>
+
+
+    <div class="list-group">
+        <div class="list-group-header list-group-item mb-5">
+
+            <div class="form-group">
+                <label for="title">Title *</label>
+                <input type="text" class="form-control" id="title" name="title" required maxlength="100" placeholder="100자 이내" readonly>
             </div>
-        </div>
-    </div>
-    <div class ="line"></div>
-    <div class = "card-container pb-5">
-        <div class = "card-np-cm-new">
-            <div class="card-body">
-                <div class = "form-group pb-1">
-                    <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
-                </div>
-                <div class = "d-flex justify-content-end">
-                    <button type="submit"  class ="btn btn-custom" >add user</button>
-                </div>
-
+            <div class="form-group">
+                <label for="description">Description *</label>
+                <textarea class="form-control" id="description" name="description" rows="5" required readonly></textarea>
             </div>
 
         </div>
     </div>
 
-</div>
+
+    <h4 class="mb-8">Contributors</h4>
+    <div class="list-group">
+        <div class="list-group-header list-group-item mb-5">
+            <div class ="d-flex justify-content-between align-items-center ">
+                <h5 class = "user-context align-items-center pb-2">reporter : tester</h5>
+            </div>
+            <div class ="d-flex justify-content-between align-items-center ">
+                <h5 class = "user-context align-items-center pb-2 mr-1">assignee&nbsp;:&nbsp;</h5>
+                <select class="form-control" disabled>
+                    <option value ="a">test1</option>
+                </select>
+            </div>
+            <div class =" d-flex justify-content-between align-items-center ">
+                <h5 class = "user-context">fixer : dev</h5>
+            </div>
+            <div class =" d-flex justify-content-between align-items-center ">
+                <h5 class = "user-context mr-3">type : dev</h5>
+            </div>
+            <div class =" d-flex justify-content-between align-items-center ">
+                <h5 class = "user-context mr-3">priority : dev</h5>
+            </div>
+            <div class =" d-flex justify-content-between align-items-center ">
+                <h5 class = "user-context">status&nbsp;:&nbsp;</h5>
+                <select class="form-control" disabled>
+                    <option value ="a">test1</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    <h4 class="mb-8">Comment</h4>
+    <div class="list-group">
+        <div class="list-group-header list-group-item">
+            <textarea class="form-control" id="" name="description" rows="5" required></textarea>
+        </div>
+    </div>
 
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -10,6 +10,7 @@ import com.example.its.dataClassDB.CommentDB;
 @Mapper
 public interface CommentDBMapper {
     Integer createComment(@Param("comment") CommentDB comment);
+    Integer createCommentTime(@Param("comment") CommentDB comment);
     CommentDB readComment(int ID);
     List<CommentDB> readCommentList(int IssueID);
     void updateComment(@Param("ID") int ID, @Param("text") String text);

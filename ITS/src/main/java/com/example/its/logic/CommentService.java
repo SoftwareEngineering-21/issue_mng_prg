@@ -7,6 +7,7 @@ import com.example.its.database.DBService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -18,7 +19,11 @@ public class CommentService {
         return service.readCommentList(issueId);
     }
 
-    public void createComment(UserID userID, IssueID issueID, String desc) {
-        service.createComment(issueID, desc, userID);
+    public void createComment(UserID userID, IssueID issueID, String desc, Date date) {
+        service.createComment(issueID, desc, userID, date);
+    }
+
+    public Date getCurrentDate() {
+        return new Date();
     }
 }

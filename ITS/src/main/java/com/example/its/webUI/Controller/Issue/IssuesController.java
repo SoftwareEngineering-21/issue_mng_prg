@@ -61,7 +61,7 @@ public class IssuesController {
     @PostMapping("/issues/comments/add")
     public String addComment(@RequestParam("text") String text, RedirectAttributes redirectAttributes) {
         //MainController.isUserLogin(stateManager);
-        commentService.createComment(stateManager.getUser(), stateManager.getIssue(), text);
+        commentService.createComment(stateManager.getUser(), stateManager.getIssue(), text,commentService.getCurrentDate());
         redirectAttributes.addAttribute("projectID", stateManager.getProject().getID());
         redirectAttributes.addAttribute("issueID", stateManager.getIssue().getID());
         return "redirect:/projects/projectid={projectID}/issueid={issueID}";

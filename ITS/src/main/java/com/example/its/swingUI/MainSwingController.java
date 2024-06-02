@@ -189,7 +189,7 @@ public class MainSwingController extends BaseController {
 
     @Override
     public boolean addComment(String desc) {
-        this.commentService.createComment(this.stateManager.getUser(), this.stateManager.getIssue(), desc);
+        this.commentService.createComment(this.stateManager.getUser(), this.stateManager.getIssue(), desc, commentService.getCurrentDate());
         return true;
     }
 
