@@ -32,7 +32,7 @@ public class ProjectAdminController {
         return "redirect:/projects/admin/projectid="+projectID+"?success="+true;
     }
 
-    @GetMapping("project={projectID}/deleteplayer={userID}")
+    @GetMapping("projectid={projectID}/deleteplayer={userID}")
     public String projectAdminDeletePlayer(@PathVariable("projectID") int projectID, @PathVariable("userID") String userID, Model model) throws LoginRequiredException {
         MainController.isUserLogin(stateManager);
         stateManager.setProject(new ProjectID(projectID));
