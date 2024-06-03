@@ -19,9 +19,9 @@ insert into AuthorityDB(userID, projectID, auth) VALUES('test4',1,0);
 
 insert into IssueDB(title, description, reporter, type, priority, status) VALUES ('issue1', 'text1', 'test1',2,4,0);
 insert into IssueDB(title, description, reporter, type, priority, status) VALUES ('issue2', 'text2', 'test3',1,2,4);
-insert into IssueDB(title, description, reporter,assignee, type, priority, status) VALUES ('issue3', 'text3', 'test3','test4',1,2,3);
+insert into IssueDB(title, description, reporter,assignee,fixer, type, priority, status) VALUES ('issue3', 'text1', 'test1','test4','test4',1,2,2);
 insert into IssueDB(title, description, reporter,assignee, type, priority, status) VALUES ('issue4', 'text4', 'test4','test1',1,2,3);
-insert into IssueDB(title, description, reporter,assignee, type, priority, status) VALUES ('issue5', 'text5', 'test1','test4',2,4,1);
+insert into IssueDB(title, description, reporter,assignee, type, priority, status) VALUES ('issue5', 'text5', 'test1','test1',2,4,1);
 
 
 insert into PIRelationDB(projectIDFK,issueIDFK) VALUES (1,1);

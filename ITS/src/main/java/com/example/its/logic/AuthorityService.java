@@ -42,6 +42,7 @@ public class AuthorityService {
         return false;
     }
 
+    @Deprecated
     public Authority getAuthorityThisProject(UserID userID, ProjectID projectID) {
         if(service.readUser(userID)==null) return null;
 
@@ -50,22 +51,19 @@ public class AuthorityService {
         return service.readAuthorityListbyAll(userID, projectID);
     }
 
-    public List<userAuth> getUserAuthesInProject(UserID userID, ProjectID projectID){
-        if(service.readUser(userID)==null) return null;
+    public List<userAuth> getAuthListInProject(ProjectID projectID, UserID userID){
+        Authority a = service.readAuthorityListbyAll(userID, projectID);
+        List<userAuth> returnAuthes = new ArrayList<>();
 
-        Project project = service.readProject(projectID);
-        if(project==null) return null;
-
-        List<userAuth> result = new ArrayList<>();
-        Authority authority = service.readAuthorityListbyAll(userID, projectID);
-
-        for(Authority.AuthorityID authorityID : authority.getAuthority()){
-            switch(authorityID){
-                case Authority.AuthorityID.TESTER -> result.add(new userTester());
-                case Authority.AuthorityID.DEVELOPER -> result.add(new userDeveloper());
-                case Authority.AuthorityID.PLAYER -> result.add(new userPlayer());
-            }
+        if(a.getAuthority().contains(Authority.AuthorityID.PLAYER)){
+            returnAuthes.add(new userPlayer());
         }
-        return result;
+        if(a.getAuthority().contains(Authority.AuthorityID.DEVELOPER)){
+            returnAuthes.add(new userDeveloper());
+        }
+        if(a.getAuthority().contains(Authority.AuthorityID.TESTER)){
+            returnAuthes.add(new userTester());
+        }
+        return returnAuthes;
     }
 }

@@ -18,18 +18,18 @@ import org.springframework.test.context.ActiveProfiles;
 
 //@EnableAsync
 @SpringBootApplication
-@ActiveProfiles("test")
+@ActiveProfiles("dev")
+
 public class ItsApplicationTests {
 
     public static void main(String[] args) {
 
         //헤드리스 모드 끄는 함수. 기본 설정//
         System.setProperty("java.awt.headless", "false");
-
         //기본 configuration 종료//
-        ConfigurableApplicationContext context = SpringApplication.run(ItsApplicationTests.class, args);
 
-        //TestController controller = context.getBean(TestController.class);
+        ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
+        TestController controller = context.getBean(TestController.class);
         //controller.run();
     }
 

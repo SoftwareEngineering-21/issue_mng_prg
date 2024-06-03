@@ -18,8 +18,6 @@ public class UserService{
 
 
     private final Encryptor passwordEncoder;
-    //private final SmartInitializingSingleton loadBalancedRestTemplateInitializerDeprecated;
-
     private String encodePW(String password){
         return passwordEncoder.encode(password);
     }

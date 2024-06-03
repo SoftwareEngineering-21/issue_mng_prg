@@ -63,40 +63,34 @@ public class IssueService {
         return service.readIssue(issueID);
     }
 
-    public UserID recommendDeveloper(ProjectID projectID, Issue.TypeID type){
-        return service.recommendDev(projectID, Issue.StatusID.CLOSED, type);
+    public UserID recommendDeveloper(ProjectID projectID, IssueID issueID){
+        return service.recommendDev(projectID, Issue.StatusID.CLOSED,service.readIssue(issueID).getType());
     }
 
-    public void updateIssue(List<userAuth> authes,String commentText, UserID author, IssueID issueID, String title, String description, UserID reporter, UserID assignee, UserID fixer, Issue.TypeID type, Issue.PriorityID priority, Issue.StatusID status, Date date){
-        Issue preIssue = service.readIssue(issueID);
-        for(userAuth a : authes){
-            if(a.isAvailable(preIssue, null, assignee)){
-                Issue updateI = a.perform(status, priority, type, reporter, assignee, fixer);
-                service.updateIssue(issueID, title, description, updateI.getReporter(), updateI.getAssignee(), updateI.getFixer() == null ? null : updateI.getFixer(), updateI.getType().ordinal(), updateI.getPriority().ordinal(), updateI.getStatus().ordinal());
-                String commentDesc = reporter.getID() + "update issue" + commentText;
-                service.createComment(issueID, commentDesc, author, date);
+    public void updateIssue(UserID user, List<userAuth> authes,String commentText, UserID author, IssueID issueID, String title, String description, UserID reporter, UserID assignee, UserID fixer, Issue.TypeID type, Issue.PriorityID priority, Issue.StatusID status, Date date){
+//        Issue preIssue = service.readIssue(issueID);
+//        for(userAuth a : authes) {
+//            if (a.isAvailable(preIssue, user, assignee)) {
+//                Issue updateI = a.perform(status, priority, type, reporter, assignee, fixer);
+//                service.updateIssue(issueID, title, description, updateI.getReporter(), updateI.getAssignee(), updateI.getFixer() == null ? null : updateI.getFixer(), updateI.getType().ordinal(), updateI.getPriority().ordinal(), updateI.getStatus().ordinal());
+//                String commentDesc = reporter.getID() + "update issue" + commentText;
+//                service.createComment(issueID, commentDesc, author, date);
+//                return;
+//            }
+//        }
+        service.updateIssue(issueID, null, null,reporter, assignee,fixer, type==null?null:type.ordinal(), priority==null?null:priority.ordinal(), status==null?null:status.ordinal());
+        service.createComment(issueID, description, author, date);
+    }
+
+    public boolean isAvailable(List<userAuth> auth, IssueID issue, UserID user){
+        if(service.readIssue(issue)==null) return false;
+        for(userAuth a : auth){
+            if(a.isAvailable(service.readIssue(issue),user,service.readIssue(issue).getAssignee())){
+                System.out.println("통과");
+                return true;
             }
-
         }
-        
-    }
-
-    public List<userAuth> makeAuthList(ProjectID projectID, UserID userID){
-        Authority a = service.readAuthorityListbyAll(userID, projectID);
-        List<userAuth> returnAuthes = new ArrayList<>();
-        
-        if(a.getAuthority().contains(AuthorityID.PLAYER)){
-            returnAuthes.add(new userPlayer());
-        }
-        if(a.getAuthority().contains(AuthorityID.DEVELOPER)){
-            returnAuthes.add(new userDeveloper());
-        }
-        if(a.getAuthority().contains(AuthorityID.TESTER)){
-            returnAuthes.add(new userTester());
-        }
-
-        return returnAuthes;
-        
+        return false;
     }
 
 }
