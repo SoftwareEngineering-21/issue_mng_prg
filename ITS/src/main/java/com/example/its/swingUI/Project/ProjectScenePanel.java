@@ -166,13 +166,7 @@ public class ProjectScenePanel extends JPanel {
 		for(int i = 0; i < size; i++) {
 			gbl_IssueListPanel.rowHeights[i] = 32;
 			if(i < length) {
-				String result;
-				switch(issueList[i].getStatus()){
-					default : 
-						result = "New";
-						break;
-				}
-				IssuePanel[i] = new IssuePanel(IssueListPanel, i, issueList[i].getTitle(), result);
+				IssuePanel[i] = new IssuePanel(IssueListPanel, i, issueList[i].getTitle(), issueList[i].getStatus().toString());
 			}
 		}
 
