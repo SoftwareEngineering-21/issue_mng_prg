@@ -164,6 +164,11 @@
                 }
             })
         });
+
+        function newI(){
+            var projectID = [[${projectID}]];
+            window.location.href="/projects/projectid="+projectID+"/create";
+        }
     </script>
 
 </head>
@@ -227,7 +232,7 @@
         </li>
         <div class="issue-set" th:each ="issue,iterStat : ${issueList}">
             <li class="issue-name list-group-item d-flex align-items-center">
-                <a class="issue-title align-items-center flex" th:href = "@{|/projects/projectid=${projectID}/issueid=${issue.getID().ID}|}">
+                <a class="issue-title align-items-center flex" th:href = "@{|/projects/projectid=${projectID}/issueid=${issue.getID().ID}?success=true|}">
                     <h5 th:text = "${issue.title}" ></h5>
                 </a>
 

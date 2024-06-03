@@ -1,9 +1,8 @@
 package com.example.its.webUI.Controller.Issue;
 
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.example.its.dataClass.*;
+import com.example.its.logic.AuthorityService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.its.dataClass.Issue;
-import com.example.its.dataClass.Issue.StatusID;
-import com.example.its.dataClass.IssueID;
-import com.example.its.dataClass.ProjectID;
 import com.example.its.logic.CommentService;
 import com.example.its.logic.IssueService;
 import com.example.its.logic.ProjectService;
@@ -25,6 +20,9 @@ import com.example.its.webUI.Controller.MainController;
 
 import lombok.RequiredArgsConstructor;
 
+import java.lang.invoke.SwitchPoint;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/projects")
@@ -35,7 +33,18 @@ public class IssuesController {
     private final IssueService issueService;
     private final ProjectService projectService;
     private final CommentService commentService;
-    
+    private final AuthorityService authorityService;
+
+    @GetMapping("/projectid={projectID}/create")
+    public String createProject(Model model, @PathVariable("projectID") int projectID) {
+        return "issue_create";
+    }
+
+    @PostMapping("/projectid={projectID}/create")
+    public String createProject(@RequestParam("title")String title, @RequestParam("description") String description,Model model, @PathVariable("projectID") int projectID){
+
+        return "redirect:/projects/projectid="+projectID;
+    }
 
     @GetMapping("/projectid={projectID}")
     public String issues(@PathVariable("projectID") int projectID, Model model) throws LoginRequiredException {
@@ -51,45 +60,91 @@ public class IssuesController {
     }
 
     @GetMapping("/projectid={projectID}/issueid={issueID}")
-    public String issue(@PathVariable("projectID") int projectID, @PathVariable("issueID") int issueID, Model model) throws LoginRequiredException{
+    public String issue(@PathVariable("projectID") int projectID, @PathVariable("issueID") int issueID,@RequestParam("success")boolean success, Model model) throws LoginRequiredException{
         MainController.isUserLogin(stateManager);
         stateManager.setProject(new ProjectID(projectID));
         stateManager.setIssue(new IssueID(issueID));
+        //권한 stateManager에 저장
+        stateManager.setUserAuthes(issueService.makeAuthList(stateManager.getProject(), stateManager.getUser()));
+
         model.addAttribute("projectID", projectID);
         model.addAttribute("issueID", issueID);
         model.addAttribute("issue", issueService.readIssue(new IssueID(issueID)));
         model.addAttribute("commentCount", commentService.readCommentsByIssueID(stateManager.getIssue()).size());
         model.addAttribute("commentList", commentService.readCommentsByIssueID(stateManager.getIssue()));
+        model.addAttribute("success", success);
         return "issue";
     }
 
 
-    @GetMapping("/projects/issue/modify/projectid={projectID}/issueid={issueID}")
-    public String modifyIssue(){
-        return "";
-
-    }
-
-    @GetMapping("/issue/create/projectid={projectID}")
-    public String createIssue(@PathVariable("projectID") int projectID, Model model) throws LoginRequiredException {
+    @GetMapping("/modify/projectid={projectID}/issueid={issueID}")
+    public String modifyIssue(@PathVariable("projectID")int projectID, @PathVariable("issueID") int issueID,  Model model) throws LoginRequiredException {
         MainController.isUserLogin(stateManager);
+        stateManager.setProject(new ProjectID(projectID));
+        stateManager.setIssue(new IssueID(issueID));
+        //권한 stateManager에 저장
+        stateManager.setUserAuthes(issueService.makeAuthList(stateManager.getProject(), stateManager.getUser()));
+        if(!issueService.isAvailable(stateManager.getUserAuthes(),stateManager.getIssue(),stateManager.getUser())){
+            return "redirect:/projects/projectid="+projectID+"/issueid="+issueID+"?success=false";
+        }
+        List<List<UserID>> list = authorityService.readAuthorityListbyProject(stateManager.getProject());
+        UserID id = stateManager.getUser();
         model.addAttribute("projectID", projectID);
-        model.addAttribute("reporter", stateManager.getUser().getID());
-        model.addAttribute("typeList", Issue.TypeID.values());
-        model.addAttribute("priorityList", Issue.PriorityID.values());
-        List<StatusID> statusList = Arrays.asList(StatusID.NEW);
-        model.addAttribute("statusList", statusList);
-        return "issue_create";
+        model.addAttribute("issueID", issueID);
+        model.addAttribute("issue", issueService.readIssue(new IssueID(issueID)));
+        model.addAttribute("username", id.getID());
+        if( issueService.readIssue(new IssueID(issueID)).getAssignee()!=null){
+            UserID assignee = issueService.readIssue(new IssueID(issueID)).getAssignee();
+            model.addAttribute("developerList",assignee);
+
+        }
+        else{
+            model.addAttribute("developerList", list.get(Authority.AuthorityID.DEVELOPER.ordinal()));
+        }
+        model.addAttribute("commentList", commentService.readCommentsByIssueID(stateManager.getIssue()));
+        model.addAttribute("testerList", list.get(Authority.AuthorityID.TESTER.ordinal()));
+        model.addAttribute("playerList", list.get(Authority.AuthorityID.PLAYER.ordinal()));
+        model.addAttribute("recommend",issueService.recommendDeveloper(stateManager.getProject(),stateManager.getIssue()));
+        return "issue_modify";
+
     }
 
-    @PostMapping("/issue/create")
-    public String postMethodName(@RequestParam("title")String title, @RequestParam("description") String description, @RequestParam("type") Issue.TypeID type, @RequestParam("priority") Issue.PriorityID priority,@RequestParam("status") Issue.StatusID status, @RequestParam("comment") String comment) throws LoginRequiredException{
+    @GetMapping("/modify/projectid={projectID}/issueid={issueID}/reporter={reporter}/assignee={assignee}/fixer={fixer}/status={status}/comment={comment}")
+    public String modifyResult(@PathVariable("projectID")int projectID,@PathVariable("issueID") int issueID, @PathVariable("reporter") String reporter, @PathVariable("assignee") String assignee ,@PathVariable("fixer") String fixer, @PathVariable("status") String status, @PathVariable("comment") String comment, Model model) throws LoginRequiredException {
+        System.out.println("fixer="+fixer);
+        if(fixer.equals("null")){
+            fixer = null;
+        }
+        if(assignee.equals("null") )
+            assignee = null;
+        if(reporter.equals("null") )
+            reporter = null;
+        Issue.StatusID statusID = null;
+        switch(status){
+            case "new":
+                statusID = Issue.StatusID.NEW;
+                break;
+            case "assigned":
+                statusID = Issue.StatusID.ASSIGNED;
+                break;
+            case "fixed":
+                statusID =Issue.StatusID.FIXED;
+                break;
+            case "resolved":
+                statusID = Issue.StatusID.RESOLVED;
+                break;
+            case "reopen":
+                statusID = Issue.StatusID.REOPENED;
+                break;
+            case "closed":
+                statusID = Issue.StatusID.CLOSED;
+                break;
+        }
+        issueService.updateIssue(stateManager.getUser(),stateManager.getUserAuthes(),comment,stateManager.getUser(),stateManager.getIssue(),null,comment,new UserID(reporter),new UserID(assignee),new UserID(fixer),null,null,statusID,commentService.getCurrentDate());
         MainController.isUserLogin(stateManager);
-        issueService.createIssue(stateManager.getUserAuthes(), comment, stateManager.getProject(), title, description, stateManager.getUser(), type, priority, commentService.getCurrentDate());
-        return "redirect:/projects/projectid="+stateManager.getProject().getID();
+        return "redirect:/projects/projectid="+projectID+"/issueid="+issueID+"?success=true";
     }
-    
-    
+
 
 
 }

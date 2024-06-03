@@ -10,7 +10,10 @@ public class userDeveloper implements userAuth {
         if(issue==null){
             return false;
         }
-        return issue.getStatus() == Issue.StatusID.ASSIGNED;
+        if(issue.getStatus() == Issue.StatusID.ASSIGNED){
+            return current.getID().equals(issue.getAssignee().getID());
+        }
+        return false;
     }
 
     @Override
