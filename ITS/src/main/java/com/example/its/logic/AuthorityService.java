@@ -5,9 +5,14 @@ import com.example.its.dataClass.Project;
 import com.example.its.dataClass.ProjectID;
 import com.example.its.dataClass.UserID;
 import com.example.its.database.DBService;
+import com.example.its.logic.authorityHandling.userAuth;
+import com.example.its.logic.authorityHandling.userDeveloper;
+import com.example.its.logic.authorityHandling.userPlayer;
+import com.example.its.logic.authorityHandling.userTester;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -37,18 +42,28 @@ public class AuthorityService {
         return false;
     }
 
+    @Deprecated
     public Authority getAuthorityThisProject(UserID userID, ProjectID projectID) {
         if(service.readUser(userID)==null) return null;
 
         Project project = service.readProject(projectID);
         if(project==null) return null;
-        if(project.getAdmin() == userID) {
-            Authority authEnumSet = new Authority();
-            authEnumSet.addAuthority(Authority.AuthorityID.DEVELOPER);
-            authEnumSet.addAuthority(Authority.AuthorityID.PLAYER);
-            authEnumSet.addAuthority(Authority.AuthorityID.TESTER);
-            return authEnumSet;
-        }
         return service.readAuthorityListbyAll(userID, projectID);
+    }
+
+    public List<userAuth> getAuthListInProject(ProjectID projectID, UserID userID){
+        Authority a = service.readAuthorityListbyAll(userID, projectID);
+        List<userAuth> returnAuthes = new ArrayList<>();
+
+        if(a.getAuthority().contains(Authority.AuthorityID.PLAYER)){
+            returnAuthes.add(new userPlayer());
+        }
+        if(a.getAuthority().contains(Authority.AuthorityID.DEVELOPER)){
+            returnAuthes.add(new userDeveloper());
+        }
+        if(a.getAuthority().contains(Authority.AuthorityID.TESTER)){
+            returnAuthes.add(new userTester());
+        }
+        return returnAuthes;
     }
 }
