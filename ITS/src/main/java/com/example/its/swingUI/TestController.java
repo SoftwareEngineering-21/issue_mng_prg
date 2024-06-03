@@ -151,7 +151,7 @@ public class TestController extends BaseController {
     }
 
     @Override
-    public boolean makeIssue(String title, String desc, int type, int priority) {
+    public boolean makeIssue(String title, String desc, int type, int priority, String commentDesc) {
         issueList.add(new Issue(new IssueID(issueList.size()), title, desc, StatusID.NEW, TypeID.values()[type], PriorityID.values()[priority], null, stateManager.getUser(), null));
         return true;
     }
@@ -177,6 +177,11 @@ public class TestController extends BaseController {
             return issue;
         }
         return null;
+    }
+
+    @Override
+    public boolean updateIssue(String assignee, String status, String CommentDesc) {
+        return false;
     }
 
     @Override

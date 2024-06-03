@@ -78,7 +78,7 @@ public class IssueService {
 //                return;
 //            }
 //        }
-        service.updateIssue(issueID, null, null,reporter, assignee,fixer, type==null?null:type.ordinal(), priority==null?null:priority.ordinal(), status==null?null:status.ordinal());
+        service.updateIssue(issueID, null, null,reporter, assignee, fixer, type==null?null:type.ordinal(), priority==null?null:priority.ordinal(), status==null?null:status.ordinal());
         service.createComment(issueID, description, author, date);
     }
 

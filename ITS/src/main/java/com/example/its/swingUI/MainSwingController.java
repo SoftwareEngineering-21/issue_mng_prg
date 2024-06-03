@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.its.dataClass.*;
 import com.example.its.logic.*;
 import com.example.its.logic.Exception.LoginFailureException;
+import com.example.its.logic.authorityHandling.userAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -85,7 +86,7 @@ public class MainSwingController extends BaseController {
         Project project = getProject(projectId);
         if(project != null){
             this.stateManager.setProject(projectId);
-            this.stateManager.setAuthority(authorityService.getAuthorityThisProject(this.stateManager.getUser(), projectId));
+            this.stateManager.setUserAuthes(authorityService.getAuthListInProject(projectID(), userID()));
             return project;
         }
         return null;
@@ -157,18 +158,18 @@ public class MainSwingController extends BaseController {
     }
 
     @Override
-    public boolean makeIssue(String title, String desc, int type, int priority) {
+    public boolean makeIssue(String title, String desc, int type, int priority, String commentDesc) {
         Issue.TypeID _type;
         Issue.PriorityID _priority;
 
         try {
-            _type=   Issue.TypeID.values()[type];
+            _type =   Issue.TypeID.values()[type];
             _priority = Issue.PriorityID.values()[priority];
         }
         catch (Exception e) {
             return false;
         }
-        //this.issueService.createIssue(projectID(), title, desc, userID(), _type, _priority);
+        this.issueService.createIssue(this.stateManager.getUserAuthes(), commentDesc, projectID(), title, desc, userID(), _type, _priority, commentService.getCurrentDate());
         return true;
     }
 
@@ -185,6 +186,29 @@ public class MainSwingController extends BaseController {
             return target;
         }
         return null;
+    }
+
+    @Override
+    public boolean updateIssue(String assignee, String status, String CommentDesc) {
+        Issue issue = issueService.readIssue(issueID());
+        if(issue == null) return false;
+        for(userAuth auth : getUserAuths()){
+            if(auth.isAvailable(issue, userID(), new UserID(assignee))){ Issue.StatusID _status;
+                switch (status){
+                    case "REOPENED" -> _status = Issue.StatusID.REOPENED;
+                    case "RESOLVED" -> _status = Issue.StatusID.RESOLVED;
+                    case "CLOSED" -> _status = Issue.StatusID.CLOSED;
+                    case "FIXED" -> _status = Issue.StatusID.FIXED;
+                    case "ASSIGNED" -> _status = Issue.StatusID.ASSIGNED;
+                    default -> _status = null;
+                }
+
+                issueService.updateIssue(userID(), getUserAuths(), CommentDesc, userID(), issueID(),
+                        null, CommentDesc, userID(), new UserID(assignee), new UserID(assignee), null, null, _status, commentService.getCurrentDate());
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

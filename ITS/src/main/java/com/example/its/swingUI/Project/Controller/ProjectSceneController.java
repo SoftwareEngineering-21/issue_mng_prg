@@ -11,7 +11,6 @@ import com.example.its.swingUI.Project.ProjectScenePanel;
 public class ProjectSceneController {
     private BaseController baseController;
 
-    protected ProjAuthSceneController projAuthSceneController;
     protected MakeIssueController makeIssueController;
     protected IssueSceneController issueSceneController;
 
@@ -24,7 +23,6 @@ public class ProjectSceneController {
 
         this.issueSceneController = new IssueSceneController(this.baseController);
         this.makeIssueController = new MakeIssueController(this.baseController, this);
-        this.projAuthSceneController = new ProjAuthSceneController(this.baseController);
         this.panel = new ProjectScenePanel(this);
     }
 
@@ -55,11 +53,6 @@ public class ProjectSceneController {
     public void run() {
         panel.makeIssueList();
         baseController.setBasePanel(panel);
-    }
-
-    public void runProjAuthPanel() {
-        projAuthSceneController.run();
-        makeIssueController.dispose();
     }
 
     public void runMakeIssue(){
