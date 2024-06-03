@@ -55,6 +55,7 @@ public class DatabaseTests {
 
     @Test
     public void Login() throws LoginFailureException {
+        //회원 가입과 로그인 테스트
         String id = "me";
         String password = "password";
 
@@ -63,16 +64,24 @@ public class DatabaseTests {
         userService.createUser(id, password);
         Assertions.assertDoesNotThrow(() -> { userService.login(id, password); });
         stateManager.setUser(userService.login(id, password));
-        Assertions.assertEquals(stateManager.getUser().getID(), id);
+        Assertions.assertEquals(id, stateManager.getUser().getID());
+
+        //Project 생성 및 목록 불러오기 테스트
+        List<Project> projectAdminList = projectService.readAdminProjects(stateManager.getUser());
+        Assertions.assertEquals(0, projectAdminList.size());
 
         String title = "thisTitle";
         String description = "thisDescription";
 
         projectService.createProject(stateManager.getUser(), title, description);
-        List<Project> projectAdminList = projectService.readAdminProjects(stateManager.getUser());
-        Assertions.assertEquals(projectAdminList.size(), 1);
-        Assertions.assertEquals(projectAdminList.getFirst().getTitle(), title);
+        projectAdminList = projectService.readAdminProjects(stateManager.getUser());
+        Assertions.assertEquals(1, projectAdminList.size());
+        Assertions.assertEquals(title, projectAdminList.getFirst().getTitle());
 
+        List<Project> projects = projectService.readProjects(user1);
+        Assertions.assertEquals(1, projects.size());
+
+        //권한 추가 테스트
         stateManager.setProject(projectAdminList.getFirst().getProjectID());
 
         authorityService.createAuthority(user1, stateManager.getProject(), Authority.AuthorityID.TESTER);
@@ -84,10 +93,49 @@ public class DatabaseTests {
             Assertions.assertEquals(authorityList.get(i).size(), 1);
         }
 
-        Assertions.assertEquals(authorityList.get(Authority.AuthorityID.TESTER.ordinal()).getFirst(), user1);
-        Assertions.assertEquals(authorityList.get(Authority.AuthorityID.DEVELOPER.ordinal()).getFirst(), user2);
-        Assertions.assertEquals(authorityList.get(Authority.AuthorityID.PLAYER.ordinal()).getFirst(), user3);
+        Assertions.assertEquals(user1.getID(), authorityList.get(Authority.AuthorityID.TESTER.ordinal()).getFirst().getID());
+        Assertions.assertEquals(user2.getID(), authorityList.get(Authority.AuthorityID.DEVELOPER.ordinal()).getFirst().getID());
+        Assertions.assertEquals(user3.getID(), authorityList.get(Authority.AuthorityID.PLAYER.ordinal()).getFirst().getID());
 
-        
+        projects = projectService.readProjects(user1);
+        Assertions.assertEquals(2, projects.size());
+
+        authorityService.deleteAuthority(user1, stateManager.getProject(), Authority.AuthorityID.TESTER);
+        authorityService.createAuthority(stateManager.getUser(), stateManager.getProject(), Authority.AuthorityID.TESTER);
+
+        authorityList = authorityService.readAuthorityListbyProject(stateManager.getProject());
+        Assertions.assertEquals(1, authorityList.get(Authority.AuthorityID.TESTER.ordinal()).size());
+        Assertions.assertEquals(stateManager.getUser().getID(), authorityList.get(Authority.AuthorityID.TESTER.ordinal()).getFirst().getID());
+
+        //Issue 추가 테스트
+        String issueTitle = "문제가 생겼어요.";
+
+        stateManager.setUserAuthes(authorityService.getAuthListInProject(stateManager.getProject(), stateManager.getUser()));
+        issueService.createIssue(stateManager.getUserAuthes(), "안녕하세요.", stateManager.getProject(), issueTitle, "과제가 안 끝나요.", stateManager.getUser(), Issue.TypeID.BUG, Issue.PriorityID.CRITICAL, commentService.getCurrentDate());
+        List<Issue> issueList = issueService.readIssueList(stateManager.getProject(), null, null, null, null);
+
+        Assertions.assertEquals(issueList.size(), 1);
+        stateManager.setIssue(issueList.getFirst().getID());
+
+        Issue issue = issueService.readIssue(stateManager.getIssue());
+
+        Assertions.assertEquals(stateManager.getUser().getID(), issue.getReporter().getID());
+        Assertions.assertEquals(Issue.StatusID.NEW, issue.getStatus());
+        Assertions.assertEquals(Issue.TypeID.BUG, issue.getType());
+        Assertions.assertEquals(Issue.PriorityID.CRITICAL, issue.getPriority());
+        Assertions.assertEquals(issueTitle, issue.getTitle());
+
+        //Comment 추가 테스트
+        List<Comment> comments = commentService.readCommentsByIssueID(stateManager.getIssue());
+        Assertions.assertEquals(1, comments.size());
+
+        commentService.createComment(user1, stateManager.getIssue(), "Listen CareFully", commentService.getCurrentDate());
+        commentService.createComment(user2, stateManager.getIssue(), "NONONONONO", commentService.getCurrentDate());
+
+        comments = commentService.readCommentsByIssueID(stateManager.getIssue());
+        Assertions.assertEquals(3, comments.size());
+
+        Assertions.assertEquals(user1.getID(), comments.get(1).getAuthor().getID());
+        Assertions.assertEquals(user2.getID(), comments.get(2).getAuthor().getID());
     }
 }
