@@ -112,18 +112,22 @@ public class MainScenePanel extends JPanel {
 
 			setBorder(new LineBorder(new Color(0, 0, 0)));
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+
+			JPanel backgroundPanel = new JPanel();
+			backgroundPanel.setLayout(new BoxLayout(backgroundPanel, BoxLayout.X_AXIS));
+			add(backgroundPanel);
 			
 			Component horizontalStrut_1 = Box.createHorizontalStrut(20);
-			add(horizontalStrut_1);
+			backgroundPanel.add(horizontalStrut_1);
 			
 			JLabel ProjectName = new JLabel(title);
-			add(ProjectName);
+			backgroundPanel.add(ProjectName);
 			
 			Component horizontalStrut_2 = Box.createHorizontalStrut(20);
-			add(horizontalStrut_2);
+			backgroundPanel.add(horizontalStrut_2);
 			
 			JPanel AthorityAreaPanel = new JPanel();
-			add(AthorityAreaPanel);
+			backgroundPanel.add(AthorityAreaPanel);
 			AthorityAreaPanel.setLayout(new BoxLayout(AthorityAreaPanel, BoxLayout.Y_AXIS));
 			
 			Component verticalGlue_1 = Box.createVerticalGlue();
@@ -150,7 +154,7 @@ public class MainScenePanel extends JPanel {
 			AthorityAreaPanel.add(verticalGlue);
 			
 			Component horizontalGlue_2 = Box.createHorizontalGlue();
-			add(horizontalGlue_2);
+			backgroundPanel.add(horizontalGlue_2);
 
 			if(isAdmin){
 				JButton manageAuthority = new JButton("Manage");
@@ -186,7 +190,7 @@ public class MainScenePanel extends JPanel {
 		class OpenAdminAction implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.runProjectScene(index);
+				controller.OpenProjectAdmin(index);
 			}
 		}
 	}

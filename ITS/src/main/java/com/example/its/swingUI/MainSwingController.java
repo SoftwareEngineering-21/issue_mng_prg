@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.its.dataClass.*;
 import com.example.its.logic.*;
 import com.example.its.logic.Exception.LoginFailureException;
+import com.example.its.logic.authorityHandling.userAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -185,6 +186,29 @@ public class MainSwingController extends BaseController {
             return target;
         }
         return null;
+    }
+
+    @Override
+    public boolean updateIssue(String assignee, String status, String CommentDesc) {
+        Issue issue = issueService.readIssue(issueID());
+        if(issue == null) return false;
+        for(userAuth auth : getUserAuths()){
+            if(auth.isAvailable(issue, userID(), new UserID(assignee))){ Issue.StatusID _status;
+                switch (status){
+                    case "REOPENED" -> _status = Issue.StatusID.REOPENED;
+                    case "RESOLVED" -> _status = Issue.StatusID.RESOLVED;
+                    case "CLOSED" -> _status = Issue.StatusID.CLOSED;
+                    case "FIXED" -> _status = Issue.StatusID.FIXED;
+                    case "ASSIGNED" -> _status = Issue.StatusID.ASSIGNED;
+                    default -> _status = null;
+                }
+
+                issueService.updateIssue(userID(), getUserAuths(), CommentDesc, userID(), issueID(),
+                        null, CommentDesc, userID(), new UserID(assignee), new UserID(assignee), null, null, _status, commentService.getCurrentDate());
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
