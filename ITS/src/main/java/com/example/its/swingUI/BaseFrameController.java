@@ -17,6 +17,7 @@ public class BaseFrameController {
     @Autowired
     public BaseFrameController(BaseController controller){
         this.controller = controller;
+        System.setProperty("java.awt.headless", "false");
 
         this.frame = new BaseFrame(this);
     }

@@ -94,7 +94,7 @@ public class MainScenePanel extends JPanel {
 			gbl_ProjectListPanel.rowWeights[i + adminProjectList.length] = 0;
 
 			new ProjectPanel(ProjectListPanel, i + adminProjectList.length, 
-				projectList[i + adminProjectList.length].getTitle(), false);
+				projectList[i].getTitle(), false);
 		}
 
 		gbl_ProjectListPanel.rowHeights[adminProjectList.length + projectList.length] = 0;
