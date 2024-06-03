@@ -34,7 +34,7 @@ public class MainController {
 
     @GetMapping("/test")
     public String test(@RequestParam(name = "tester", required = false)String tester , Model model ) {
-        model.addAttribute("toggle", Arrays.asList("a", "b"));
+        model.addAttribute("numbers",new Integer[]{1,2,3,4,5,6,7,8,9,10});
         return "test/testLayout";
     }
 

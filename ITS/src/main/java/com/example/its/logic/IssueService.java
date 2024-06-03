@@ -84,10 +84,9 @@ public class IssueService {
 
     public boolean isAvailable(List<userAuth> auth, IssueID issue, UserID user){
         if(service.readIssue(issue)==null){
-            System.out.println("dbfa");
             for(userAuth a : auth){
                 if(a.isAvailable(null, user, null)){
-                    System.out.println("xhdrhk");
+
                     return true;
                 }
 
@@ -96,7 +95,6 @@ public class IssueService {
         }
         for(userAuth a : auth){
             if(a.isAvailable(service.readIssue(issue),user,service.readIssue(issue).getAssignee())){
-                System.out.println("통과");
                 return true;
             }
         }
