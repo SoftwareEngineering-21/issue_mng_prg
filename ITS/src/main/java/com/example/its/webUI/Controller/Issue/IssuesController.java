@@ -86,8 +86,6 @@ public class IssuesController {
             else if(input.equals("closed")){
                 statusID = Issue.StatusID.CLOSED;
             }
-
-        
                 for(Issue i : list){
                     if(i.getStatus()==statusID){
                         fList.add(i);
@@ -96,10 +94,18 @@ public class IssuesController {
                 break;
             case "assignee":
                 for(Issue i:list){
+                    if(i.getAssignee()==null){continue;}
                     if(i.getAssignee().getID().equals(input)){
                         fList.add(i);
                     }
                 }
+                case "reporter":
+                    for(Issue i:list){
+                        if(i.getReporter()==null){continue;}
+                        if(i.getReporter().getID().equals(input)){
+                            fList.add(i);
+                        }
+                    }
 
 
             }
