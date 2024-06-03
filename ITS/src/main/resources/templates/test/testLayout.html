@@ -158,7 +158,7 @@
                 <div>
                     <div class ="row justify-content-between pr-5 pl-2">
                         <h2 class="card-title">test</h2>
-                        <a class = "btn-custom">modify</a>
+
                     </div>
 
                     <h5 class="card-description">test desc</h5>
@@ -167,7 +167,7 @@
                 <div class ="top-align justify-content-end pt-5">
                     <h6 class ="ml-1 mr-3 type">bug</h6>
                     <h6 class ="ml-1 mr-3 priority-critical">critical</h6>
-                    <h6 class ="ml-1 mr-3 status status-resolved">resolved</h6>
+
                 </div>
             </div>
 
@@ -199,10 +199,18 @@
                             </select>
                         </div>
                     </div>
+                    <div class = " justify-content-end pt-5 ">
+                        <div class="pt-5">
+                            <button type="submit"  class ="btn btn-custom"> Recommend assignee</button>
+                        </div>
+
+                    </div>
                     <div class = "d-flex justify-content-center  custom text-center pr-5">
-                        <div>
-                            <h1 class = "">Number of Comments</h1>
-                            <h2 class ="pt-3 ">1 comments</h2>
+                        <div class =" d-flex justify-content-between align-items-center pt-3 pr-5">
+                            <h5 class = "user-context pb-2">status</h5>
+                            <select class=" form-control" disabled>
+                                <option value ="a">test1</option>
+                            </select>
                         </div>
 
                     </div>
@@ -214,20 +222,7 @@
 
     <div class ="line"></div>
 
-    <div class = "card-container">
-        <div class = "card-np-cm">
-            <div class="card-body">
-                <div class="row align-items-end pb-3 comment-title d-flex">
-                    <h3 class ="pt-3 pr-4">tester Name</h3>
 
-                    <h6>2011-03-12 11:11:11</h6>
-                </div>
-                <div class="d-flex pb-3">
-                    <h6 class = "n-white">very very longggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggNggggggggggggggggggggg issue comment.</h6>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class ="line"></div>
     <div class = "card-container pb-5">
         <div class = "card-np-cm-new">
@@ -236,7 +231,7 @@
                     <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
                 </div>
                 <div class = "d-flex justify-content-end">
-                    <button type="submit"  class ="btn btn-custom" >add user</button>
+                    <button type="submit"  class ="btn btn-custom" >Modify Issue</button>
                 </div>
 
             </div>

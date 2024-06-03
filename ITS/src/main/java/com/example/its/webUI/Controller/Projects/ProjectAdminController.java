@@ -29,7 +29,7 @@ public class ProjectAdminController {
         MainController.isUserLogin(stateManager);
         stateManager.setProject(new ProjectID(projectID));
         service.deleteAuthority(new UserID(userID), stateManager.getProject(), Authority.AuthorityID.TESTER);
-        return "redirect:/projects/admin/projectid="+projectID;
+        return "redirect:/projects/admin/projectid="+projectID+"?success="+true;
     }
 
     @GetMapping("project={projectID}/deleteplayer={userID}")
@@ -37,7 +37,7 @@ public class ProjectAdminController {
         MainController.isUserLogin(stateManager);
         stateManager.setProject(new ProjectID(projectID));
         service.deleteAuthority(new UserID(userID), stateManager.getProject(), Authority.AuthorityID.PLAYER);
-        return "redirect:/projects/admin/projectid="+projectID;
+        return "redirect:/projects/admin/projectid="+projectID+"?success="+true;
     }
 
     @GetMapping("projectid={projectID}/deletedeveloper={userID}")
@@ -45,7 +45,7 @@ public class ProjectAdminController {
         MainController.isUserLogin(stateManager);
         stateManager.setProject(new ProjectID(projectID));
         service.deleteAuthority(new UserID(userID), stateManager.getProject(), Authority.AuthorityID.DEVELOPER);
-        return "redirect:/projects/admin/projectid="+projectID;
+        return "redirect:/projects/admin/projectid="+projectID+"?success="+true;
     }
 
     @GetMapping("/projectid={projectID}/tester={userID}")

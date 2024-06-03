@@ -3,30 +3,32 @@ package com.example.its.swingUI;
 import java.util.List;
 
 import com.example.its.dataClass.*;
-import com.example.its.logic.AuthorityService;
+import com.example.its.logic.*;
 import com.example.its.logic.Exception.LoginFailureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.its.logic.UserService;
 import com.example.its.state.StateManager;
-import com.example.its.logic.ProjectService;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Component
 @RequestMapping
 public class MainSwingController extends BaseController {
     protected UserService userService;
-    protected ProjectService projectService;
     protected AuthorityService authorityService;
-    //protected IssueService issueService;
+    protected ProjectService projectService;
+    protected IssueService issueService;
+    protected CommentService commentService;
 
     @Autowired
-    MainSwingController(UserService userService, ProjectService projectService,StateManager stateManager, AuthorityService authorityService){
+    MainSwingController(StateManager stateManager, UserService userService, AuthorityService authorityService,
+                        ProjectService projectService, IssueService issueService, CommentService commentService) {
         super(stateManager);
         this.userService = userService;
-        this.projectService = projectService;
         this.authorityService = authorityService;
+        this.projectService = projectService;
+        this.issueService = issueService;
+        this.commentService = commentService;
     }
 
     @Override
@@ -59,7 +61,7 @@ public class MainSwingController extends BaseController {
             return null;
         }
 
-        List<Project> list = projectService.readProjects(stateManager.getUser());
+        List<Project> list = projectService.readProjects(userID());
         return list.toArray(new Project[] {});
     }
 
@@ -69,7 +71,7 @@ public class MainSwingController extends BaseController {
             return false;
         }
 
-        this.projectService.createProject(stateManager.getUser(), title, Desc);
+        this.projectService.createProject(userID(), title, Desc);
         return true;
     }
 
@@ -83,6 +85,7 @@ public class MainSwingController extends BaseController {
         Project project = getProject(projectId);
         if(project != null){
             this.stateManager.setProject(projectId);
+            this.stateManager.setAuthority(authorityService.getAuthorityThisProject(this.stateManager.getUser(), projectId));
             return project;
         }
         return null;
@@ -145,8 +148,7 @@ public class MainSwingController extends BaseController {
             return null;
         }
 
-        List<Issue> issueList = null;
-        //issueList = this.projectService.getIssueList();
+        List<Issue> issueList = this.issueService.readIssueList(projectID(), null, null, null, null);
 
         if(issueList == null){
             return null;
@@ -156,24 +158,39 @@ public class MainSwingController extends BaseController {
 
     @Override
     public boolean makeIssue(String title, String desc, int type, int priority) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'makeIssue'");
+        Issue.TypeID _type;
+        Issue.PriorityID _priority;
+
+        try {
+            _type=   Issue.TypeID.values()[type];
+            _priority = Issue.PriorityID.values()[priority];
+        }
+        catch (Exception e) {
+            return false;
+        }
+        //this.issueService.createIssue(projectID(), title, desc, userID(), _type, _priority);
+        return true;
     }
 
     @Override
     public Issue getIssue(IssueID id) {
-        return null;
+        return issueService.readIssue(id);
     }
 
     @Override
     public Issue openIssue(IssueID id) {
+        Issue target = getIssue(id);
+        if(target != null){
+            this.stateManager.setIssue(target.getID());
+            return target;
+        }
         return null;
     }
 
     @Override
     public boolean addComment(String desc) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addComment'");
+        this.commentService.createComment(this.stateManager.getUser(), this.stateManager.getIssue(), desc, commentService.getCurrentDate());
+        return true;
     }
 
     @Override
@@ -184,8 +201,15 @@ public class MainSwingController extends BaseController {
 
     @Override
     public Comment[] getCommentList() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCommentList'");
+        if(this.commentService == null){
+            return null;
+        }
+
+        List<Comment> list = this.commentService.readCommentsByIssueID(this.stateManager.getIssue());
+        if(list == null){
+            return null;
+        }
+        return list.toArray(new Comment[] {});
     }
 
     @Override

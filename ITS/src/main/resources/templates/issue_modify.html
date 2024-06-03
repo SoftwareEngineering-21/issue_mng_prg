@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issues</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .list-group-header{
+            background-color : #f2f2f2;
+        }
+        .projectsHeader{
+            display : flex;
+            justify-content: left;
+            align-items: center;
+        }
+        .projectsHeader h1{
+            padding-bottom: 20px;
+
+            font-size: 36px;
+            font-weight: bold;
+            color: #303050;
+        }
+        .hyperlink{
+            padding-right: 50px;
+            font-weight: bold;
+        }
+        .center-align {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* 부모 요소의 높이를 100%로 설정 */
+        }
+        p{
+            background-color: #303050;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size : 20px;
+            color: #f5f5f5;
+            cursor: pointer;
+
+        }
+        .user-context{
+            width: 200px;
+        }
+        .user-context-field{
+            width:50%;
+        }
+        .btn-custom {
+            background-color: #303050;
+            border-color: #303050;
+            color: #f5f5f5;
+            min-width: 80px;
+            min-height: 40px;
+            border-radius: 8px;
+            align-content: center;
+            justify-content: center;
+            margin-top: 10px;
+            text-align: center;
+            padding: 0px 20px;
+            font-size : 22px;
+
+        }
+        .btn-custom:hover {
+            background-color: #202030;
+            border-color: #202030;
+            color: #f5f5f5;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .custom{
+            align-items: center;
+        }
+        .flex{
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding-right: 10px;
+            min-height: 70px;
+            flex: 0 1 auto;
+            align-content: center;
+            width:90%
+        }
+        .display_flex{
+            display: flex;
+        }
+        .n-white{
+            white-space: normal;
+            word-break:break-all;
+        }
+        .comment-title{
+
+        }
+
+        .card-np-cm{
+            border: 1px solid rgba(0, 0, 0, .125);
+            border-radius: 15px !important;
+            width: 100%;
+            max-width: 1200px;
+            color: #303050;
+            padding:0px 30px;
+
+        }
+        .card-np-cm-new{
+            border: 1px solid rgba(0, 0, 0, .125);
+            border-radius: 15px !important;
+            width: 100%;
+            max-width: 1200px;
+            color: #303050;
+            padding-left:  30px;
+            padding-right: 30px;
+            padding-top: 20px;
+
+        }
+        .line {
+            width: 4px;
+            height: 50px; /* Adjust the height as needed */
+            background-color: black;
+            margin-left: 10%;
+        }
+        .custom-btn{
+            background-color: #303050;
+            color:#f5f5f5;
+            padding: 10px 15px;
+            font-size: 18px;
+            border-radius: 8px;
+            align-items: center;
+            align-content: center!important;
+        }
+
+
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded",function (){
+            var comps = document.querySelectorAll(".priority");
+            comps.forEach(function (comp){
+                switch(comp.innerText){
+                    case '0':
+                        comp.classList.add('priority-blocker');
+                        comp.innerText = 'blocker';
+                        break;
+                    case '1':
+                        comp.classList.add('priority-critical');
+                        comp.innerText = 'critical';
+                        break;
+                    case '2':
+                        comp.classList.add('priority-major');
+                        comp.innerText = 'major';
+                        break;
+                    case '3':
+                        comp.classList.add('priority-minor');
+                        comp.innerText = 'minor';
+                        break;
+                    case '4':
+                        comp.classList.add('priority-trivial');
+                        comp.innerText = 'trivial';
+                        break;
+                    default:
+                        break;
+                }
+
+            })
+            comps = document.querySelectorAll(".status");
+            comps.forEach(function (comp) {
+                switch (comp.innerText) {
+                    case '0':
+                        comp.classList.add('status-new');
+                        comp.innerText = 'new';
+                        break;
+                    case '1':
+                        comp.classList.add('status-assigned');
+                        comp.innerText = 'assigned';
+                        break;
+                    case '2':
+                        comp.classList.add('status-fixed');
+                        comp.innerText = 'fixed';
+                        break;
+                    case '3':
+                        comp.classList.add('status-resolved');
+                        comp.innerText = 'resolved';
+                        break;
+                    case '4':
+                        comp.classList.add('status-reopen');
+                        comp.innerText = 'reopen';
+                        break;
+                    case '5':
+                        comp.classList.add('status-closed');
+                        comp.innerText = 'closed';
+                        break;
+                    default:
+                        break;
+                }
+            })
+            comps = document.querySelectorAll(".type");
+            comps.forEach(function (comp) {
+                switch (comp.innerText) {
+                    case '0':
+                        comp.innerText = 'bug';
+                        break;
+                    case '1':
+                        comp.innerText = 'improve';
+                        break;
+                    case '2':
+                        comp.innerText = 'feat';
+                        break;
+                    case '3':
+                        comp.innerText = 'task';
+                        break;
+                    case '4':
+                        comp.innerText = 'story';
+                        break;
+                    default:
+                        break;
+                }
+            })
+
+
+        });
+    </script>
+    <script th:inlint='javascript'>
+        document.addEventListener("DOMContentLoaded",function(){
+            var status = [[${issue.getStatus().ordinal()}]];
+            var statusform = document.getElementById("status-form");
+            var fix = document.getElementById("fixer-form");
+            var assignee = document.getElementById("assignee-form");
+            var recommend = document.getElementById("recommend");
+            switch(status){
+
+                case 0:
+                    document.getElementById("assignee-form").disabled = false;
+                    statusform.append(new Option("assigned","assigned"));
+                    statusform.disabled =false;
+                    recommend.disabled = false;
+                    break;
+                case 1:
+                    statusform.append(new Option("fixed","fixed"));
+                    fix.disabled= false;
+                    $('#fixer-form option:last').remove();
+                    fix.append(new Option (assignee.options[assignee.selectedIndex].value,assignee.options[assignee.selectedIndex].value));
+                    statusform.disabled =false;
+                    break;
+                case 2:
+
+                    statusform.append(new Option("resolved","resolved"));
+                    statusform.append(new Option("reopen","reopen"));
+                    statusform.disabled =false;
+                    break;
+                case 3:
+                    statusform.append(new Option("closed","closed"));
+                    statusform.disabled =false;
+                    break;
+                case 4:
+
+                    recommend.disabled = false;
+                    document.getElementById("assignee-form").disabled = false;
+                    statusform.append(new Option("assigned","assigned"));
+                    statusform.disabled =false;
+                    break;
+                case 5:
+                    break;
+                default:
+                    break;
+            }
+        })
+    </script>
+    <script th:inline ="javascript">
+        function recommend(event){
+            event.preventDefault();
+            var rec = [[${recommend.getID()}]];
+            var assignee = document.getElementById("assignee-form");
+            assignee.value = rec;
+
+        }
+
+
+    </script>
+    <script th:inline ="javascript">
+
+        function modify(event){
+            event.preventDefault();
+            var reporter = document.getElementById("reporter-form").value;
+            var assignee = document.getElementById("assignee-form").value;
+            var fixer = document.getElementById("fixer-form").value;
+            var status = document.getElementById("status-form").value;
+            var comment = document.getElementById("description").value;
+            var projectID = [[${projectID}]];
+            var issueID = [[${issueID}]];
+            if(fixer==='')
+                fixer = null;
+            if(comment==='')
+                comment = null;
+
+            window.location.href ="/projects/modify/projectid="+projectID+"/issueid="+issueID+"/reporter="+reporter+"/assignee="+assignee+"/fixer="+fixer+"/status="+status+"/comment="+comment;
+        }
+    </script>
+</head>
+<body>
+<div class="logo-container form-group row justify-content-between center-align">
+    <div class ="logo">
+        <div th:replace="~{logo::logo}" id = 'logo'></div>
+    </div>
+    <div>
+        <a th:href="@{/userinfo}" class="hyperlink">유저 정보</a>
+        <a th:href="@{/logout}" class="hyperlink">로그아웃</a>
+
+    </div>
+</div>
+
+
+<div class="container mt-5">
+    <div class="card-container mb-3">
+        <div class="card-np" >
+            <div class="card-body">
+                <div>
+                    <div class ="row justify-content-between pr-5 pl-2">
+                        <h2 class="card-title" th:text = "${issue.title}">test</h2>
+
+                    </div>
+
+                    <h5 class="card-description">test desc</h5>
+
+                </div>
+                <div class ="top-align justify-content-end pt-5">
+                    <h6 class ="ml-1 mr-3 type" th:text = "${issue.getType().ordinal()}"></h6>
+                    <h6 class ="ml-1 mr-3 priority" th:text = "${issue.getPriority().ordinal()}"></h6>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="card-container">
+        <div class="card-np-cm" >
+            <div class="card-body">
+
+                <div class="pt-2 row justify-content-between">
+                    <div>
+                        <h4 class="mb-8">Contributors</h4>
+                        <div class ="d-flex justify-content-between align-items-center ">
+                            <h5 class = "user-context align-items-center pb-2">reporter</h5>
+                            <select id = "reporter-form" class="reporter-form form-control" disabled>
+                                <option th:value = "${issue.getReporter().getID}" th:text = "${issue.getReporter().getID}"></option>
+                            </select>
+                        </div>
+                        <div class ="d-flex justify-content-between align-items-center ">
+                            <h5 class = "user-context align-items-center pb-2">assignee</h5>
+                            <select id ="assignee-form" class=" form-control" disabled>
+                                <option th:each="option : ${developerList}" th:value="${option.ID}" th:text="${option.ID}"></option>
+                            </select>
+                        </div>
+                        <div class =" d-flex justify-content-between align-items-center ">
+                            <h5 class = "user-context">fixer</h5>
+                            <select id = "fixer-form" class="fixer-form form-control" disabled>
+                                <option th:value ="${issue.getFixer==null ? '' : issue.getFixer.getID()}" th:text = "${issue.getFixer==null ? '' : issue.getFixer.getID()}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class = " justify-content-end pt-5 ">
+                        <div class="pt-5">
+                            <button type="submit" id="recommend" onclick = "recommend(event)" class ="btn btn-custom" disabled> Recommend assignee</button>
+                        </div>
+
+                    </div>
+                    <div class = "d-flex justify-content-center  custom text-center pr-5">
+                        <div class =" d-flex justify-content-between align-items-center pt-3 pr-5">
+                            <h5 class = "user-context pb-2">status</h5>
+                            <select id = "status-form" class="status-from form-control" >
+
+                            </select>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class ="line"></div>
+
+
+    <div class ="line"></div>
+    <div class = "card-container pb-5">
+        <div class = "card-np-cm-new">
+            <form>
+                <div class="card-body">
+                    <div class = "form-group pb-1">
+                        <textarea class="form-control" id="description" name="description" rows="5"></textarea>
+                    </div>
+                    <div class = "d-flex justify-content-end">
+                        <button type="submit" onclick="modify(event)" class ="btn btn-custom" >Modify Issue</button>
+                    </div>
+
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+</div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

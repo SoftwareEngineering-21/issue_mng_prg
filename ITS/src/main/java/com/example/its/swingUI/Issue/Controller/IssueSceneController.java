@@ -5,8 +5,6 @@ import com.example.its.dataClass.Issue;
 import com.example.its.swingUI.BaseController;
 import com.example.its.swingUI.Issue.IssueScenePanel;
 
-import java.util.List;
-
 public class IssueSceneController {
     protected BaseController baseController;
     protected IssueScenePanel panel;
@@ -16,7 +14,7 @@ public class IssueSceneController {
         panel = new IssueScenePanel(this);
     }
 
-    public void setProjectPanel(Issue issue) {
+    public void setBasePanel(Issue issue) {
         this.panel.setIssueInfo(issue);
         this.panel.makeCommentList();
         this.baseController.setBasePanel(panel);

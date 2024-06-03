@@ -164,6 +164,11 @@
                 }
             })
         });
+
+        function newI(){
+            var projectID = [[${projectID}]];
+            window.location.href="/projects/projectid="+projectID+"/create";
+        }
     </script>
 
 </head>
@@ -173,7 +178,7 @@
         <div th:replace="~{logo::logo}" id = 'logo'></div>
     </div>
     <div>
-        <a th:href="@{/userinfo}" class="hyperlink">유저 정보</a>
+        <a th:href="@{/statistic}" class="hyperlink">통계</a>
         <a th:href="@{/logout}" class="hyperlink">로그아웃</a>
     </div>
 </div>
@@ -194,7 +199,7 @@
 
         </div>
 
-        <div  onclick="window.location.href='/projects/create'">
+        <div th:onclick="|window.location.href='/projects/issue/create/projectid=${projectID}'|">
             <p>New Issue</p>
         </div>
 
@@ -227,7 +232,7 @@
         </li>
         <div class="issue-set" th:each ="issue,iterStat : ${issueList}">
             <li class="issue-name list-group-item d-flex align-items-center">
-                <a class="issue-title align-items-center flex" th:href = "@{|/project/projectid=${projectID}/issueid=${issue.getID().ID}|}">
+                <a class="issue-title align-items-center flex" th:href = "@{|/projects/projectid=${projectID}/issueid=${issue.getID().ID}?success=true|}">
                     <h5 th:text = "${issue.title}" ></h5>
                 </a>
 
@@ -245,7 +250,7 @@
                         <h6 class = "priority" th:text = "${issue.getPriority().ordinal()}"></h6>
                     </div>
                     <div class ="d-flex issue-attribute align-items-center justify-content-center">
-                        <h6 class="type" th:text = "${issue.getPriority().ordinal()}"></h6>
+                        <h6 class="type" th:text = "${issue.getType().ordinal()}"></h6>
                     </div>
                     <div class ="d-flex issue-attribute align-items-center justify-content-center">
                         <h6 class="status" th:text = "${issue.getStatus().ordinal()}"></h6>

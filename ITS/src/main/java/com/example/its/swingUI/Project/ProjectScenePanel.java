@@ -157,6 +157,7 @@ public class ProjectScenePanel extends JPanel {
 	public void setProjInfo(Project project) {
 		projecNameLabel.setText(project.getTitle());
 		projectDescArea.setText(project.getDescription());
+		makeIssueList();
 	}
 
 	public void makeIssueList(){

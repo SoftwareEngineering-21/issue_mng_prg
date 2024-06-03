@@ -21,4 +21,11 @@ public class CommentDB {
         this.reporterComment = reporterComment;
     }
 
+    public CommentDB(String text, String reporterComment, Timestamp createdAt)
+    {
+        this.text = text;
+        this.reporterComment = reporterComment;
+        this.createdAt = createdAt;
+    }
+
 }

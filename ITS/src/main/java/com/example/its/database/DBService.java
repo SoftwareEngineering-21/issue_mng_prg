@@ -1,11 +1,11 @@
 package com.example.its.database;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import com.example.its.dataClass.Authority;
@@ -60,7 +60,7 @@ public class DBService {
         projectDBService.updateProjectService(projectID, title, description);
     }
 
-    public void deleteProjectService(ProjectID projectID){
+    public void deleteProject(ProjectID projectID){
         projectDBService.deleteProjectService(projectID);
     }
 
@@ -81,7 +81,7 @@ public class DBService {
 
 
 
-    public void deleteUserSerivce(UserID userID){
+    public void deleteUser(UserID userID){
         userDBService.deleteUserSerivce(userID);
     }
 
@@ -133,7 +133,7 @@ public class DBService {
         return issueDBService.readIssueListService(projectIDFK, reporter, assignee, status, sortOrder);
     }
 
-    public void updateIssueService(IssueID ID, String title, String description, UserID reporter, UserID assignee, UserID fixer, Integer type, Integer priority, Integer status){
+    public void updateIssue(IssueID ID, String title, String description, UserID reporter, UserID assignee, UserID fixer, Integer type, Integer priority, Integer status){
         issueDBService.updateIssueService(ID, title, description, reporter, assignee, fixer, type, priority, status);
     }
 
@@ -144,9 +144,9 @@ public class DBService {
 
 
     //Comment method
-    public CommentID createComment(IssueID issueID, String text, UserID author){
+    public CommentID createComment(IssueID issueID, String text, UserID author, Date date){
 
-        CommentID newC = commentDBService.createCommentService(text, author);
+        CommentID newC = commentDBService.createCommentService(text, author, new Timestamp(date.getTime()));
         icRelationDBService.createICRelationService(issueID, newC);
         return newC;
     }
@@ -171,7 +171,7 @@ public class DBService {
 
     //Statistic method
     // read all count of issue from each project
-    public List<Pair<ProjectID, Integer>> countAllofUploadIssue(UserID userID, Timestamp startTime, Timestamp endTime){
+    public Map<String, Object> countAllofUploadIssue(UserID userID, Timestamp startTime, Timestamp endTime){
         List<Project> admin = projectDBService.readAdminProjectListService(userID);
         List<Project> notAdmin = projectDBService.readProjectListService(userID);
         List<ProjectID> projectIDList = new ArrayList<>();
@@ -187,38 +187,58 @@ public class DBService {
     }
 
     //read issue count with type in same project
-    public List<Pair<Issue.TypeID, Integer>> countAllTypeIssue(ProjectID projectIDFK, Timestamp startTime, Timestamp endTime){
+    public Map<String, Object> countAllTypeIssue(ProjectID projectIDFK, Timestamp startTime, Timestamp endTime){
         return statisticDBService.countAllTypeIssueService(projectIDFK, startTime, endTime);
     }
 
     // read issue count about assignee with status and type
-    public List<Pair<UserID, Integer>> countIssuesByAssignee(ProjectID projectIDFK, Integer type, Integer status){
-        List<Pair<UserID, Integer>> result = statisticDBService.countIssuesByAssigneeService(projectIDFK, type, status);
-        List<UserID> allDev = authDBService.readAuthorityListbyAuthinPService(projectIDFK, 1);
+    public Map<String, Object> countIssuesByAssignee(ProjectID projectIDFK, Integer type, Integer status){
+        // Map<String, Object> result = statisticDBService.countIssuesByAssigneeService(projectIDFK, type, status);
+        // List<UserID> allDev = authDBService.readAuthorityListbyAuthinPService(projectIDFK, 1);
+        // List<UserID> processedUserID = new ArrayList<>();
+        // for (Pair<UserID, Integer> pre : result){
+        //     processedUserID.add(pre.getFirst());
+        // }
 
-        List<UserID> processedUserID = new ArrayList<>();
-        for (Pair<UserID, Integer> pre : result){
-            processedUserID.add(pre.getFirst());
-        }
+        // for (UserID i : allDev){
+        //     if (!processedUserID.contains(i)){
+        //         Pair<UserID, Integer> temp = Pair.of(i, 0);
+        //         result.add(temp);
+        //     }
+        // }
 
-        for (UserID i : allDev){
-            if (!processedUserID.contains(i)){
-                Pair<UserID, Integer> temp = Pair.of(i, 0);
-                result.add(temp);
-            }
-        }
+        // return result;
 
-        return result;
+        return statisticDBService.countIssuesByAssigneeService(projectIDFK, type, status);
     }
 
-    public List<Pair<Integer, Integer>> count3MostCommentinIssue(ProjectID projectIDFK){
+    public Map<String, Object> count3MostCommentinIssue(ProjectID projectIDFK){
         return statisticDBService.count3MostCommentinIssueService(projectIDFK);
     }
 
-    public List<Pair<Issue.TypeID, BigDecimal>> countAvgofComment(ProjectID projectIDFK){
+    public Map<String, Object> countAvgofComment(ProjectID projectIDFK){
         return statisticDBService.countAvgofCommentService(projectIDFK);
     }
 
+
+    // recommend dev
+    public UserID recommendDev(ProjectID projectID, Issue.StatusID status, Issue.TypeID type){
+        int intStatus  = (status != null) ? status.ordinal() : null;
+        int intType  = (type != null) ? type.ordinal() : null;
+        Map<String, Object> statistic = countIssuesByAssignee(projectID, intStatus, intType);
+        UserID firstLabel;
+
+        List<String> labels = (List<String>) statistic.get("labels");
+        if (labels != null && !labels.isEmpty()) {
+            firstLabel = new UserID(labels.get(0));
+        } 
+        else {
+            List<UserID> allDev = authDBService.readAuthorityListbyAuthinPService(projectID, 1);
+            firstLabel = allDev.get(0);
+        }
+
+        return firstLabel;
+    }
 
 
 }

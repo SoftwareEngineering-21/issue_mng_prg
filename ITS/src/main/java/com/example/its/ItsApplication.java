@@ -28,15 +28,12 @@ public class ItsApplication implements CommandLineRunner {
         //기본 configuration 종료//
 
         ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
-        //ainSwingController controller = context.getBean(MainSwingController.class);
-        TestController controller = new TestController(new StateManager());
+        MainSwingController controller = context.getBean(MainSwingController.class);
+        //TestController controller = new TestController(new StateManager());
         controller.run();
     }
 
     //public TestController controller;
-
-    @Autowired
-    DBService serviceDB;
 
     @Override
     public void run(String... args) throws Exception {

@@ -18,8 +18,6 @@ public class UserService{
 
 
     private final Encryptor passwordEncoder;
-    private final SmartInitializingSingleton loadBalancedRestTemplateInitializerDeprecated;
-
     private String encodePW(String password){
         return passwordEncoder.encode(password);
     }
@@ -54,13 +52,8 @@ public class UserService{
         }
     }
 
-
-
     private boolean isAvailable(UserID newUser){
         User user = service.readUser(newUser);
         return user == null;
     }
-
-
-
 }

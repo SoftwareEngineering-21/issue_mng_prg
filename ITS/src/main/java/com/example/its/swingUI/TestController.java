@@ -173,7 +173,7 @@ public class TestController extends BaseController {
     public Issue openIssue(IssueID id) {
         Issue issue = getIssue(id);
         if(issue != null){
-            this.stateManager.setIssue(issue);
+            this.stateManager.setIssue(issue.getID());
             return issue;
         }
         return null;
