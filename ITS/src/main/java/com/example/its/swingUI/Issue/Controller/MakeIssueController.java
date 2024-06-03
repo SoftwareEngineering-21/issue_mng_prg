@@ -17,13 +17,14 @@ public class MakeIssueController {
         frame = new MakeIssueFrame(this);
     }
 
-    public boolean MakeIssue(String title, String desc, int type, int priority){
-        boolean result = this.baseController.makeIssue(title, desc, type, priority);
+    public boolean MakeIssue(String title, String desc, int type, int priority, String CommentDesc){
+        boolean result = this.baseController.makeIssue(title, desc, type, priority, CommentDesc);
         this.projectSceneController.makeIssueList();
         return result;
     }
 
     public void run(){
+        this.frame.reset();
         this.frame.setVisible(true);
     }
 
