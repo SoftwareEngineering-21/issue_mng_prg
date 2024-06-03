@@ -12,6 +12,7 @@ public class MainSceneController {
 
     protected MakeProjectFrameController makeProjectController;
     protected ProjectSceneController projSceneController;
+    protected ProjAuthSceneController projAuthSceneController;
     
     protected MainScenePanel panel;
 
@@ -24,6 +25,7 @@ public class MainSceneController {
 
         this.makeProjectController = new MakeProjectFrameController(this.baseController, this);
         this.projSceneController = new ProjectSceneController(this.baseController);
+        this.projAuthSceneController = new ProjAuthSceneController(this.baseController);
 
         this.panel = new MainScenePanel(this);
     }
@@ -36,6 +38,13 @@ public class MainSceneController {
         }
 
         return list;
+    }
+
+    public void OpenProjectAdmin(int index){
+        if(adminProjectIdList.length > index){
+            this.baseController.openProject(this.adminProjectIdList[index]);
+            this.projAuthSceneController.run();
+        }
     }
 
     public Project[] getProjectList(){

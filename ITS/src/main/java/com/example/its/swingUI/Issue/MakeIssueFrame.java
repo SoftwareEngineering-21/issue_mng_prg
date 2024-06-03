@@ -25,6 +25,7 @@ public class MakeIssueFrame extends JFrame {
     private JTextArea issueDescArea;
     private JComboBox priorityComboBox;
 	private JComboBox taskComboBox;
+	private JTextArea CommentDescArea;
 
     class BackButtonAction implements ActionListener {
         @Override
@@ -36,7 +37,7 @@ public class MakeIssueFrame extends JFrame {
     class PostButtonAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(controller.MakeIssue(issueTitleField.getText(), issueDescArea.getText(), taskComboBox.getSelectedIndex(), priorityComboBox.getSelectedIndex())) {
+            if(controller.MakeIssue(issueTitleField.getText(), issueDescArea.getText(), taskComboBox.getSelectedIndex(), priorityComboBox.getSelectedIndex(), CommentDescArea.getText())) {
                 issueTitleField.setText("");
                 issueDescArea.setText("");
                 dispose();
@@ -170,5 +171,18 @@ public class MakeIssueFrame extends JFrame {
 
 		Component horizontalStrut_8 = Box.createHorizontalStrut(20);
 		panel.add(horizontalStrut_8);
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		getContentPane().add(scrollPane_1, BorderLayout.SOUTH);
+		CommentDescArea = new JTextArea();
+		scrollPane_1.setViewportView(CommentDescArea);
     }
+
+	public void reset() {
+		issueTitleField.setText("");
+		issueDescArea.setText("");
+		priorityComboBox.setSelectedIndex(0);
+		taskComboBox.setSelectedIndex(0);
+		CommentDescArea.setText("");
+	}
 }

@@ -152,6 +152,15 @@ public class MainScenePanel extends JPanel {
 			Component horizontalGlue_2 = Box.createHorizontalGlue();
 			add(horizontalGlue_2);
 
+			if(isAdmin){
+				JButton manageAuthority = new JButton("Manage");
+				manageAuthority.addActionListener(new OpenAdminAction());
+				add(manageAuthority);
+
+				Component horizontalStrut_8 = Box.createHorizontalStrut(20);
+				add(horizontalStrut_8);
+			}
+
 			addMouseListener(new ProjectPanelAction());
 			
 			GridBagConstraints gbc_ProjectPanel = new GridBagConstraints();
@@ -171,6 +180,13 @@ public class MainScenePanel extends JPanel {
 				if(!controller.runProjectScene(index)){
 					JOptionPane.showMessageDialog(null, "Can not Open Project.");
 				}
+			}
+		}
+
+		class OpenAdminAction implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.runProjectScene(index);
 			}
 		}
 	}

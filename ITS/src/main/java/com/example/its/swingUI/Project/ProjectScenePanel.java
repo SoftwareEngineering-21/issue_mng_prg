@@ -49,14 +49,6 @@ public class ProjectScenePanel extends JPanel {
 			
 		}
 	}
-
-	class settingButtonAction implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			controller.runProjAuthPanel();
-		}
-		
-	}
 	
     public ProjectScenePanel(ProjectSceneController controller) {
 		this.controller = controller;
@@ -96,14 +88,6 @@ public class ProjectScenePanel extends JPanel {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 		add(buttonPanel);
-
-		JButton statisticButton = new JButton("Statistc");
-		statisticButton.addActionListener(new StatisticButtonAction());
-		buttonPanel.add(statisticButton);
-
-		JButton settingButton = new JButton("Setting");
-		settingButton.addActionListener(new settingButtonAction());
-		buttonPanel.add(settingButton);
 
 		Component verticalStrut = Box.createVerticalStrut(20);
 		add(verticalStrut);

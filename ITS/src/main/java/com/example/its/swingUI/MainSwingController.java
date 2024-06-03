@@ -85,7 +85,7 @@ public class MainSwingController extends BaseController {
         Project project = getProject(projectId);
         if(project != null){
             this.stateManager.setProject(projectId);
-            this.stateManager.setAuthority(authorityService.getAuthorityThisProject(this.stateManager.getUser(), projectId));
+            this.stateManager.setUserAuthes(authorityService.getAuthListInProject(projectID(), userID()));
             return project;
         }
         return null;
@@ -157,18 +157,18 @@ public class MainSwingController extends BaseController {
     }
 
     @Override
-    public boolean makeIssue(String title, String desc, int type, int priority) {
+    public boolean makeIssue(String title, String desc, int type, int priority, String commentDesc) {
         Issue.TypeID _type;
         Issue.PriorityID _priority;
 
         try {
-            _type=   Issue.TypeID.values()[type];
+            _type =   Issue.TypeID.values()[type];
             _priority = Issue.PriorityID.values()[priority];
         }
         catch (Exception e) {
             return false;
         }
-        //this.issueService.createIssue(projectID(), title, desc, userID(), _type, _priority);
+        this.issueService.createIssue(this.stateManager.getUserAuthes(), commentDesc, projectID(), title, desc, userID(), _type, _priority, commentService.getCurrentDate());
         return true;
     }
 
