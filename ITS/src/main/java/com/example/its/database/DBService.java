@@ -129,7 +129,6 @@ public class DBService {
      * @param sortOrder null -> desc, createdAt, status
      */
     public List<Issue> readIssueList(ProjectID projectIDFK, UserID reporter, UserID assignee, Integer status, String sortOrder){
-        System.out.println(sortOrder);
         return issueDBService.readIssueListService(projectIDFK, reporter, assignee, status, sortOrder);
     }
 

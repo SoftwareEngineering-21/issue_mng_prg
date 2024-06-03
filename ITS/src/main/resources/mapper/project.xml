@@ -14,11 +14,13 @@
         select ID, title, description, adminID
         from ProjectDB
         where ID=#{ID}
+
     </select>
 
     <select id="readAdminProjectList" resultType="com.example.its.dataClassDB.ProjectDB">
         SELECT * FROM ProjectDB
         WHERE adminID = #{userID}
+        order by ID;
     </select>
 
     <!-- TODO where 조건 바꾸기 -->
@@ -29,6 +31,7 @@
             FROM AuthorityDB
             WHERE userID = #{userID})
         and not adminID = #{userID}
+        order by ID;
 
     </select>
 

@@ -22,4 +22,9 @@ public class userDeveloper implements userAuth {
         return i;
         
     }
+
+    @Override
+    public void test() {
+        System.out.println("dev");
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.its.dev;
+package com.example.its;
 
 import java.sql.Connection;
 

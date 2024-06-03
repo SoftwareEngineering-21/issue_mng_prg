@@ -32,4 +32,8 @@ public class userPlayer implements userAuth {
             return i;
         }
     }
+    @Override
+    public void test() {
+        System.out.println("pl");
+    }
 }

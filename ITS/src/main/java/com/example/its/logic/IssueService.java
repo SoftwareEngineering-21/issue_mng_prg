@@ -83,10 +83,18 @@ public class IssueService {
     }
 
     public boolean isAvailable(List<userAuth> auth, IssueID issue, UserID user){
-        if(service.readIssue(issue)==null) return false;
+        if(service.readIssue(issue)==null){
+            for(userAuth a : auth){
+                if(a.isAvailable(null, user, null)){
+
+                    return true;
+                }
+
+            }
+            return false;
+        }
         for(userAuth a : auth){
             if(a.isAvailable(service.readIssue(issue),user,service.readIssue(issue).getAssignee())){
-                System.out.println("통과");
                 return true;
             }
         }
