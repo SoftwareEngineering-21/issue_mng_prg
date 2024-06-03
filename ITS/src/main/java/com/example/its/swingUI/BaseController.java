@@ -56,7 +56,7 @@ public abstract class BaseController {
 
     //이슈 관련
     public abstract Issue[] getIssueList();
-    public abstract boolean makeIssue(String title, String desc, int type, int priority);
+    public abstract boolean makeIssue(String title, String desc, int type, int priority, String commentDesc);
     public abstract Issue getIssue(IssueID id);
     public abstract Issue openIssue(IssueID id);
 
