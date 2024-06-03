@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.its.logic.CommentService;
 import com.example.its.logic.IssueService;
@@ -23,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.lang.invoke.SwitchPoint;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -112,7 +112,7 @@ public class IssuesController {
 
     @GetMapping("/modify/projectid={projectID}/issueid={issueID}/reporter={reporter}/assignee={assignee}/fixer={fixer}/status={status}/comment={comment}")
     public String modifyResult(@PathVariable("projectID")int projectID,@PathVariable("issueID") int issueID, @PathVariable("reporter") String reporter, @PathVariable("assignee") String assignee ,@PathVariable("fixer") String fixer, @PathVariable("status") String status, @PathVariable("comment") String comment, Model model) throws LoginRequiredException {
-        System.out.println("fixer="+fixer);
+        MainController.isUserLogin(stateManager);
         if(fixer.equals("null")){
             fixer = null;
         }
@@ -145,6 +145,27 @@ public class IssuesController {
         MainController.isUserLogin(stateManager);
         return "redirect:/projects/projectid="+projectID+"/issueid="+issueID+"?success=true";
     }
+
+    @GetMapping("/issue/create/projectid={projectID}")
+    public String createIssue(@PathVariable("projectID") int projectID, Model model) throws LoginRequiredException {
+        MainController.isUserLogin(stateManager);
+        model.addAttribute("projectID", projectID);
+        model.addAttribute("reporter", stateManager.getUser().getID());
+        model.addAttribute("typeList", Issue.TypeID.values());
+        model.addAttribute("priorityList", Issue.PriorityID.values());
+        List<Issue.StatusID> statusList = List.of(Issue.StatusID.NEW);
+        model.addAttribute("statusList", statusList);
+        return "issue_create";
+    }
+
+    @PostMapping("/issue/create")
+    public String postMethodName(@RequestParam("title")String title, @RequestParam("description") String description, @RequestParam("type") Issue.TypeID type, @RequestParam("priority") Issue.PriorityID priority,@RequestParam("status") Issue.StatusID status, @RequestParam("comment") String comment) throws LoginRequiredException{
+        MainController.isUserLogin(stateManager);
+        issueService.createIssue(stateManager.getUserAuthes(), comment, stateManager.getProject(), title, description, stateManager.getUser(), type, priority, commentService.getCurrentDate());
+        return "redirect:/projects/projectid="+stateManager.getProject().getID();
+    }
+
+
 
 
 

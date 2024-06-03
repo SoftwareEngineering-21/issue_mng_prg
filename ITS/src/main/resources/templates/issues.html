@@ -178,7 +178,7 @@
         <div th:replace="~{logo::logo}" id = 'logo'></div>
     </div>
     <div>
-        <a th:href="@{/userinfo}" class="hyperlink">유저 정보</a>
+        <a th:href="@{/statistic}" class="hyperlink">통계</a>
         <a th:href="@{/logout}" class="hyperlink">로그아웃</a>
     </div>
 </div>
@@ -199,7 +199,7 @@
 
         </div>
 
-        <div  onclick="newI()">
+        <div th:onclick="|window.location.href='/projects/issue/create/projectid=${projectID}'|">
             <p>New Issue</p>
         </div>
 
