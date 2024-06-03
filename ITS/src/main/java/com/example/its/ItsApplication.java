@@ -35,9 +35,6 @@ public class ItsApplication implements CommandLineRunner {
 
     //public TestController controller;
 
-    @Autowired
-    DBService serviceDB;
-
     @Override
     public void run(String... args) throws Exception {
 
