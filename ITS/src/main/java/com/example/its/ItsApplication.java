@@ -27,7 +27,12 @@ public class ItsApplication implements CommandLineRunner {
 
         ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
         MainSwingController controller = context.getBean(MainSwingController.class);
-        controller.run();
+
+        if(args.length > 0) {
+            if(args[0].equals("-compact")) {
+                controller.run();
+            }
+        }
     }
 
 
