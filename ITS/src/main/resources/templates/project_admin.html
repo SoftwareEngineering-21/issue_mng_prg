@@ -204,7 +204,7 @@
                         <div class=" row d-flex justify-content-between center-align">
                             <h3 th:text = "${tester.getID()}"></h3>
                             <div class="custom custom-delete">
-                                <a class ="custom custom-delete" th:href="@{|/projects/admin/projectid=${projectID}/deletedeveloper=${tester.getID()}|}">delete</a>
+                                <a class ="custom custom-delete" th:href="@{|/projects/admin/projectid=${projectID}/deletetester=${tester.getID()}|}">delete</a>
                             </div>
                         </div>
                     </div>
@@ -234,7 +234,7 @@
                         <div class=" row d-flex justify-content-between center-align">
                             <h3 th:text = "${player.getID()}"></h3>
                             <div class="custom custom-delete">
-                                <a class ="custom custom-delete" th:href="@{|/projects/admin/projectid=${projectID}/deletePlayer=${player.getID()}|}">delete</a>
+                                <a class ="custom custom-delete" th:href="@{|/projects/admin/projectid=${projectID}/deleteplayer=${player.getID()}|}">delete</a>
                             </div>
                         </div>
                     </div>
