@@ -112,7 +112,7 @@ public class IssuesController {
 
     @GetMapping("/modify/projectid={projectID}/issueid={issueID}/reporter={reporter}/assignee={assignee}/fixer={fixer}/status={status}/comment={comment}")
     public String modifyResult(@PathVariable("projectID")int projectID,@PathVariable("issueID") int issueID, @PathVariable("reporter") String reporter, @PathVariable("assignee") String assignee ,@PathVariable("fixer") String fixer, @PathVariable("status") String status, @PathVariable("comment") String comment, Model model) throws LoginRequiredException {
-        System.out.println("fixer="+fixer);
+        MainController.isUserLogin(stateManager);
         if(fixer.equals("null")){
             fixer = null;
         }
