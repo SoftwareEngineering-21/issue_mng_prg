@@ -1,8 +1,9 @@
 package com.example.its.webUI.Controller.Issue;
 
 
-import com.example.its.dataClass.*;
-import com.example.its.logic.AuthorityService;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.its.dataClass.Authority;
+import com.example.its.dataClass.Issue;
+import com.example.its.dataClass.IssueID;
+import com.example.its.dataClass.ProjectID;
+import com.example.its.dataClass.UserID;
+import com.example.its.logic.AuthorityService;
 import com.example.its.logic.CommentService;
 import com.example.its.logic.IssueService;
 import com.example.its.logic.ProjectService;
@@ -19,11 +26,6 @@ import com.example.its.state.StateManager;
 import com.example.its.webUI.Controller.MainController;
 
 import lombok.RequiredArgsConstructor;
-
-import java.lang.invoke.SwitchPoint;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Controller
 @RequestMapping("/projects")
@@ -49,13 +51,45 @@ public class IssuesController {
     }
 
     @GetMapping("/projectid={projectID}")
-    public String issues(@PathVariable("projectID") int projectID, @RequestParam("success") boolean success, Model model) throws LoginRequiredException {
+    public String issues(@PathVariable("projectID") int projectID, @RequestParam("success") boolean success, @RequestParam(name="option" ,required = false) String option,@RequestParam(name ="input",required = false) String input, Model model) throws LoginRequiredException {
         MainController.isUserLogin(stateManager);
         stateManager.setProject(new ProjectID(projectID));
         stateManager.setIssue(null);
         //권한 stateManager에 저장
         stateManager.setUserAuthes(authorityService.getAuthListInProject(stateManager.getProject(), stateManager.getUser()));
-        model.addAttribute("issueList", issueService.readIssueList(new ProjectID(projectID),null,null,null,null));
+        List<Issue> list = issueService.readIssueList(new ProjectID(projectID),null,null,null,null);
+        List<Issue> fList = new ArrayList();
+        
+        if(input == null||input.equals("")){
+            model.addAttribute("issueList", list);
+        }
+        else{
+            switch(option){
+            case "status":
+            Issue.StatusID statusID= null;
+            if(input.equals("new")){
+                statusID = Issue.StatusID.NEW;
+            }
+            System.out.println("ass");
+        
+                for(Issue i : list){
+                    if(i.getStatus()==statusID){
+                        fList.add(i);
+                    }
+                }
+                break;
+            case "assignee":
+                for(Issue i:list){
+                    if(i.getAssignee().getID().equals(input)){
+                        fList.add(i);
+                    }
+                }
+
+
+            }
+        }
+
+        
         model.addAttribute("projectID", projectID);
         model.addAttribute("success", success);
         model.addAttribute("issueListNum", issueService.readIssueList(new ProjectID(projectID),null,null,null,null).size());
@@ -175,6 +209,8 @@ public class IssuesController {
         issueService.createIssue(stateManager.getUserAuthes(), comment, stateManager.getProject(), title, description, stateManager.getUser(), type, priority, commentService.getCurrentDate());
         return "redirect:/projects/projectid="+stateManager.getProject().getID()+"?success=true";
     }
+
+
 
 
 
