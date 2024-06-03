@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.example.its.dataClass.Issue;
 import com.example.its.dataClass.Project;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,16 @@ public class StatisticService {
         return service.countIssuesByAssignee(projectIDFK, type, status);
     }
 
+    public List<String> getProjectList(UserID userID){
+        List<Project> list = service.readProjectList(userID);
+        list.addAll(service.readAdminProjectList(userID));
+
+        List<String> result = new ArrayList<>();
+        for(Project p : list){
+            result.add(p.getTitle());
+        }
+        return result;
+    }
 
 
     public Map<String, Object> count3MostCommentinIssueService(ProjectID projectIDFK){
@@ -62,4 +73,16 @@ public class StatisticService {
         }
         return result;
     }
+
+    public List<Integer> issuePerProject(UserID userID){
+        List<Integer> list = new ArrayList<>();
+        List<Project> plist = service.readProjectList(userID);
+        plist.addAll(service.readAdminProjectList(userID));
+        for(Project p : plist){
+            List<Issue> issues = service.readIssueList(p.getProjectID(),null,null,null,null);
+            list.add(issues.size());
+        }
+        return list;
+    }
+
 }

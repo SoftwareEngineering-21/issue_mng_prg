@@ -3,6 +3,10 @@ body{
     margin: 0;
     padding: 0;
     background-color: #f5f5f5;
+
+}
+h2{
+    color:#303050;
 }
 .logo-container{
     padding-left: 15px;

@@ -8,15 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.example.its.dataClass.IssueID;
-import com.example.its.dataClass.Project;
+import com.example.its.dataClass.*;
 import com.example.its.database.issue.IssueDBService;
 import com.example.its.database.project.ProjectDBService;
 import com.example.its.logic.IssueService;
+import com.example.its.logic.ProjectService;
 import org.springframework.stereotype.Service;
-
-import com.example.its.dataClass.Issue;
-import com.example.its.dataClass.ProjectID;
 
 import lombok.RequiredArgsConstructor;
 
@@ -139,6 +136,7 @@ public class StatisticDBService {
 
 
         List<String> labels = new ArrayList<>();
+
         for (Issue.TypeID label : typeLabels) {
             labels.add(label.name());
         }
@@ -270,6 +268,8 @@ public class StatisticDBService {
         return result;
         
     }
+
+
 
 
 }

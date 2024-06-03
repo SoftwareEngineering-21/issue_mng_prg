@@ -20,8 +20,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @RequiredArgsConstructor
 public class ItsApplication implements CommandLineRunner {
 
-//    @Autowired
-//    public static RealLoginContr realLoginContr;
     public static void main(String[] args) {
         //헤드리스 모드 끄는 함수. 기본 설정//
         System.setProperty("java.awt.headless", "false");
@@ -29,11 +27,9 @@ public class ItsApplication implements CommandLineRunner {
 
         ConfigurableApplicationContext context = SpringApplication.run(ItsApplication.class, args);
         MainSwingController controller = context.getBean(MainSwingController.class);
-        //TestController controller = new TestController(new StateManager());
         controller.run();
     }
 
-    //public TestController controller;
 
     @Override
     public void run(String... args) throws Exception {

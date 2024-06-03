@@ -68,16 +68,6 @@ public class IssueService {
     }
 
     public void updateIssue(UserID user, List<userAuth> authes,String commentText, UserID author, IssueID issueID, String title, String description, UserID reporter, UserID assignee, UserID fixer, Issue.TypeID type, Issue.PriorityID priority, Issue.StatusID status, Date date){
-//        Issue preIssue = service.readIssue(issueID);
-//        for(userAuth a : authes) {
-//            if (a.isAvailable(preIssue, user, assignee)) {
-//                Issue updateI = a.perform(status, priority, type, reporter, assignee, fixer);
-//                service.updateIssue(issueID, title, description, updateI.getReporter(), updateI.getAssignee(), updateI.getFixer() == null ? null : updateI.getFixer(), updateI.getType().ordinal(), updateI.getPriority().ordinal(), updateI.getStatus().ordinal());
-//                String commentDesc = reporter.getID() + "update issue" + commentText;
-//                service.createComment(issueID, commentDesc, author, date);
-//                return;
-//            }
-//        }
         service.updateIssue(issueID, null, null,reporter, assignee,fixer, type==null?null:type.ordinal(), priority==null?null:priority.ordinal(), status==null?null:status.ordinal());
         service.createComment(issueID, description, author, date);
     }
@@ -100,5 +90,6 @@ public class IssueService {
         }
         return false;
     }
+
 
 }

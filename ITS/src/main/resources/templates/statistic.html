@@ -24,19 +24,19 @@
     </div>
 </div>
 <div class="container mt-5">
-    <h2>Bar Chart of Numbers</h2>
+    <h2>Number of issue per project</h2>
     <canvas id="myChart" width="" height="80"></canvas>
 </div>
 <script th:inline="javascript">
-    /*<![CDATA[*/
-    var numbers = [[${numbers}]];
+    var numbers = [[${issuePerProject}]];
+    var projects = [[${project}]];
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: numbers.map((num, index) => index + 1),
+            labels: projects,
             datasets: [{
-                label: 'Numbers',
+                label: "number of issue",
                 data: numbers,
                 backgroundColor: 'rgba(30, 30, 50, 0.2)',
                 borderColor: 'rgba(30, 30, 50, 1)',
@@ -46,11 +46,15 @@
         options: {
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
                 }
             }
         }
     });
+
     /*]]>*/
 </script>
 </body>
