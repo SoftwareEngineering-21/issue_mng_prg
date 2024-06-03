@@ -52,7 +52,7 @@ public class IssuesController {
         MainController.isUserLogin(stateManager);
         stateManager.setProject(new ProjectID(projectID));
         //권한 stateManager에 저장
-        stateManager.setUserAuthes(issueService.makeAuthList(stateManager.getProject(), stateManager.getUser()));
+        stateManager.setUserAuthes(authorityService.getAuthListInProject(stateManager.getProject(), stateManager.getUser()));
         model.addAttribute("issueList", issueService.readIssueList(new ProjectID(projectID),null,null,null,null));
         model.addAttribute("projectID", projectID);
         model.addAttribute("issueListNum", issueService.readIssueList(new ProjectID(projectID),null,null,null,null).size());
@@ -66,7 +66,7 @@ public class IssuesController {
         stateManager.setProject(new ProjectID(projectID));
         stateManager.setIssue(new IssueID(issueID));
         //권한 stateManager에 저장
-        stateManager.setUserAuthes(issueService.makeAuthList(stateManager.getProject(), stateManager.getUser()));
+        stateManager.setUserAuthes(authorityService.getAuthListInProject(stateManager.getProject(), stateManager.getUser()));
 
         model.addAttribute("projectID", projectID);
         model.addAttribute("issueID", issueID);
@@ -84,7 +84,7 @@ public class IssuesController {
         stateManager.setProject(new ProjectID(projectID));
         stateManager.setIssue(new IssueID(issueID));
         //권한 stateManager에 저장
-        stateManager.setUserAuthes(issueService.makeAuthList(stateManager.getProject(), stateManager.getUser()));
+        stateManager.setUserAuthes(authorityService.getAuthListInProject(stateManager.getProject(), stateManager.getUser()));
         if(!issueService.isAvailable(stateManager.getUserAuthes(),stateManager.getIssue(),stateManager.getUser())){
             return "redirect:/projects/projectid="+projectID+"/issueid="+issueID+"?success=false";
         }
