@@ -69,8 +69,24 @@ public class IssuesController {
             Issue.StatusID statusID= null;
             if(input.equals("new")){
                 statusID = Issue.StatusID.NEW;
+                System.out.println("ass");
             }
-            System.out.println("ass");
+            else if(input.equals("assigned")){
+                statusID = Issue.StatusID.ASSIGNED;
+            }
+            else if(input.equals("fixed")){
+                statusID = Issue.StatusID.FIXED;
+            }
+            else if(input.equals("resolved")){
+                statusID = Issue.StatusID.RESOLVED;
+            }
+            else if(input.equals("reopen")){
+                statusID = Issue.StatusID.REOPENED;
+            }
+            else if(input.equals("closed")){
+                statusID = Issue.StatusID.CLOSED;
+            }
+
         
                 for(Issue i : list){
                     if(i.getStatus()==statusID){
@@ -87,6 +103,8 @@ public class IssuesController {
 
 
             }
+
+            model.addAttribute("issueList", fList);
         }
 
         
