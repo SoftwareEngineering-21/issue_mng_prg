@@ -32,6 +32,7 @@ public class IssueDBService {
     }
 
     public Issue readIssueService(IssueID issueID){
+        if(issueID == null){ return null;}
         IssueDB idb = manager.readIssueManager(issueID.getID());
         return IDBtoIssue(idb);
     }

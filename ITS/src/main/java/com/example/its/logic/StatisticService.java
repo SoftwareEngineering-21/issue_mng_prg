@@ -1,8 +1,11 @@
 package com.example.its.logic;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import com.example.its.dataClass.Project;
 import org.springframework.stereotype.Service;
 
 import com.example.its.dataClass.ProjectID;
@@ -30,11 +33,33 @@ public class StatisticService {
         return service.countIssuesByAssignee(projectIDFK, type, status);
     }
 
+
+
     public Map<String, Object> count3MostCommentinIssueService(ProjectID projectIDFK){
         return service.count3MostCommentinIssue(projectIDFK);
     }
 
+    public List<Map<String, Object>> count3MostCommentinIssueService(UserID userID){
+        List<Project> list = service.readProjectList(userID);
+        list.addAll(service.readAdminProjectList(userID));
+        List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+        for(Project p : list){
+            result.add(count3MostCommentinIssueService(p.getProjectID()));
+        }
+        return result;
+    }
+
     public Map<String, Object> countAvgofCommentService(ProjectID projectIDFK){
         return service.countAvgofComment(projectIDFK);
+    }
+
+    public List<Map<String,Object>> countAvgofCommentService(UserID userID){
+        List<Project> list = service.readProjectList(userID);
+        list.addAll(service.readAdminProjectList(userID));
+        List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+        for(Project p : list){
+            result.add(countAvgofCommentService(p.getProjectID()));
+        }
+        return result;
     }
 }

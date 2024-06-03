@@ -37,7 +37,8 @@ public class IssuesController {
     private final AuthorityService authorityService;
 
     @GetMapping("/projectid={projectID}/create")
-    public String createProject(Model model, @PathVariable("projectID") int projectID) {
+    public String createProject(Model model, @PathVariable("projectID") int projectID)
+    {
         return "issue_create";
     }
 
@@ -48,13 +49,15 @@ public class IssuesController {
     }
 
     @GetMapping("/projectid={projectID}")
-    public String issues(@PathVariable("projectID") int projectID, Model model) throws LoginRequiredException {
+    public String issues(@PathVariable("projectID") int projectID, @RequestParam("success") boolean success, Model model) throws LoginRequiredException {
         MainController.isUserLogin(stateManager);
         stateManager.setProject(new ProjectID(projectID));
+        stateManager.setIssue(null);
         //권한 stateManager에 저장
         stateManager.setUserAuthes(authorityService.getAuthListInProject(stateManager.getProject(), stateManager.getUser()));
         model.addAttribute("issueList", issueService.readIssueList(new ProjectID(projectID),null,null,null,null));
         model.addAttribute("projectID", projectID);
+        model.addAttribute("success", success);
         model.addAttribute("issueListNum", issueService.readIssueList(new ProjectID(projectID),null,null,null,null).size());
         model.addAttribute("project", projectService.readProject(new ProjectID(projectID)));
         return "issues";
@@ -136,6 +139,8 @@ public class IssuesController {
                 break;
             case "reopen":
                 statusID = Issue.StatusID.REOPENED;
+                assignee = null;
+                fixer = null;
                 break;
             case "closed":
                 statusID = Issue.StatusID.CLOSED;
@@ -149,6 +154,9 @@ public class IssuesController {
     @GetMapping("/issue/create/projectid={projectID}")
     public String createIssue(@PathVariable("projectID") int projectID, Model model) throws LoginRequiredException {
         MainController.isUserLogin(stateManager);
+        if(!issueService.isAvailable(stateManager.getUserAuthes(),stateManager.getIssue(),stateManager.getUser())){
+            return "redirect:/projects/projectid="+stateManager.getProject().getID()+"?success=false";
+        }
         model.addAttribute("projectID", projectID);
         model.addAttribute("reporter", stateManager.getUser().getID());
         model.addAttribute("typeList", Issue.TypeID.values());
@@ -161,11 +169,12 @@ public class IssuesController {
     @PostMapping("/issue/create")
     public String postMethodName(@RequestParam("title")String title, @RequestParam("description") String description, @RequestParam("type") Issue.TypeID type, @RequestParam("priority") Issue.PriorityID priority,@RequestParam("status") Issue.StatusID status, @RequestParam("comment") String comment) throws LoginRequiredException{
         MainController.isUserLogin(stateManager);
+//권한 stateManager에 저장
+        stateManager.setUserAuthes(authorityService.getAuthListInProject(stateManager.getProject(), stateManager.getUser()));
+
         issueService.createIssue(stateManager.getUserAuthes(), comment, stateManager.getProject(), title, description, stateManager.getUser(), type, priority, commentService.getCurrentDate());
-        return "redirect:/projects/projectid="+stateManager.getProject().getID();
+        return "redirect:/projects/projectid="+stateManager.getProject().getID()+"?success=true";
     }
-
-
 
 
 

@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.example.its.dataClass.IssueID;
+import com.example.its.dataClass.Project;
+import com.example.its.database.issue.IssueDBService;
+import com.example.its.database.project.ProjectDBService;
+import com.example.its.logic.IssueService;
 import org.springframework.stereotype.Service;
 
 import com.example.its.dataClass.Issue;
@@ -19,7 +24,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class StatisticDBService {
     private final StatisticDBManager manager;
-    
+    private final ProjectDBService projectDBService;
+    private final IssueDBService issueDBService;
+
     public Map<String, Object> countAllofUploadIssueService(List<ProjectID> projectIDList, Timestamp startTime, Timestamp endTime){
         Map<String, Object> result = new HashMap<>();
 
@@ -57,7 +64,9 @@ public class StatisticDBService {
 
         List<String> labels = new ArrayList<>();
         for (Integer label : intLabels) {
-            labels.add(String.valueOf(label));
+            Project proj = projectDBService.readProjectService(new ProjectID(label));
+            labels.add(proj.getTitle());
+
         }
 
         //가독성을 위해 5개까지만 제공
@@ -181,7 +190,8 @@ public class StatisticDBService {
 
         for (Map<String, Object> idb : idbList){
             int tempIssueID = (int) idb.get("issueID");
-            labels.add(String.valueOf(tempIssueID));
+            Issue issue = issueDBService.readIssueService(new IssueID(tempIssueID));
+            labels.add(String.valueOf(issue.getTitle()));
 
             long openCount = (long) idb.get("count");
             int tempCount =(int) openCount;

@@ -23,5 +23,6 @@ public interface userAuth {
      */
     public Issue perform(Issue.StatusID status, Issue.PriorityID priority, Issue.TypeID type, UserID reporter, UserID assignee, UserID fixer);
 
+    public void test();
 
 }

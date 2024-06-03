@@ -41,4 +41,8 @@ public class userTester implements userAuth {
             }
         }
     }
+    @Override
+    public void test() {
+        System.out.println("test");
+    }
 }
