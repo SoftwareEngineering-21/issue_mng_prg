@@ -180,6 +180,11 @@ public class TestController extends BaseController {
     }
 
     @Override
+    public boolean updateIssue(String assignee, String status, String CommentDesc) {
+        return false;
+    }
+
+    @Override
     public Comment[] getCommentList() {
         if(commentList == null){
             return null;

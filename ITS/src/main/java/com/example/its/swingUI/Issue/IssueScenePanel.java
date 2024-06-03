@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -20,6 +22,15 @@ public class IssueScenePanel extends JPanel {
 	private final IssueSceneController controller;
 
 	private JLabel IssueName;
+
+	private JLabel reporterLable;
+	private JLabel typeInfoLable;
+	private JLabel priorityLable;
+	private JLabel FixerLable;
+
+	private JComboBox statusComboBox;
+	private JComboBox assigneeComboBox;
+
 	private JTextArea IssueDescription;
 
 	private JTextArea WriteCommentArea;
@@ -28,7 +39,9 @@ public class IssueScenePanel extends JPanel {
 	class ModifiyButtonAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//controller
+			if(!controller.modifyIssue((String)assigneeComboBox.getSelectedItem(), (String)statusComboBox.getSelectedItem(), WriteCommentArea.getText())){
+				JOptionPane.showMessageDialog(null, "Can't modify issue");
+			}
 		}
 	}
 
@@ -54,7 +67,28 @@ public class IssueScenePanel extends JPanel {
 		JPanel ModifiyButtonPanel = new JPanel();
 		ModifyIssueButtonButtonPanel.add(ModifiyButtonPanel);
 		ModifiyButtonPanel.setLayout(new BoxLayout(ModifiyButtonPanel, BoxLayout.X_AXIS));
-		
+
+		Component horizontalStrut__ = Box.createHorizontalStrut(20);
+		ModifyIssueButtonButtonPanel.add(horizontalStrut__);
+
+		reporterLable = new JLabel("Reporter : ");
+		ModifiyButtonPanel.add(reporterLable);
+
+		Component horizontalStrut17 = Box.createHorizontalStrut(20);
+		ModifyIssueButtonButtonPanel.add(horizontalStrut17);
+
+		priorityLable = new JLabel("priority : ");
+		ModifiyButtonPanel.add(priorityLable);
+
+		Component horizontalStrut14 = Box.createHorizontalStrut(20);
+		ModifyIssueButtonButtonPanel.add(horizontalStrut14);
+
+		typeInfoLable = new JLabel("Type : ");
+		ModifiyButtonPanel.add(typeInfoLable);
+
+		FixerLable = new JLabel("Fixer : ");
+		ModifiyButtonPanel.add(FixerLable);
+
 		Component horizontalGlue_1 = Box.createHorizontalGlue();
 		ModifiyButtonPanel.add(horizontalGlue_1);
 		
@@ -64,6 +98,16 @@ public class IssueScenePanel extends JPanel {
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		ModifiyButtonPanel.add(horizontalStrut);
+
+		JPanel ModifyComboBoxPanel = new JPanel();
+		ModifiyButtonPanel.add(ModifyComboBoxPanel);
+
+		String[] status = new String[]{"NEW", "ASSIGNED", "FIXED", "RESOLVED", "REOPENED", "CLOSED"};
+		statusComboBox = new JComboBox(status);
+		ModifyComboBoxPanel.add(statusComboBox);
+
+		assigneeComboBox = new JComboBox();
+		ModifyComboBoxPanel.add(assigneeComboBox);
 		
 		JPanel IssueDescriptionPanel = new JPanel();
 		IssueDescriptionPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -172,8 +216,28 @@ public class IssueScenePanel extends JPanel {
 	}
 
 	public void setIssueInfo(Issue issue){
+		reporterLable.setText("Reporter : " + issue.getReporter().getID());
+		typeInfoLable.setText(", Type : " + issue.getType().toString());
+		priorityLable.setText(", Priority : " + issue.getPriority().toString());
+		FixerLable.setText(", Fixer : " + (issue.getFixer() == null ? "" : issue.getFixer().getID()));
+
 		IssueName.setText(issue.getTitle());
 		IssueDescription.setText(issue.getDescription());
+
+		if(issue.getStatus() != null) {
+			statusComboBox.setSelectedItem(issue.getStatus().toString());
+		}
+
+		assigneeComboBox.removeAllItems();
+		for(String name : this.controller.getDeveloperList()){
+			assigneeComboBox.addItem(name);
+		}
+		if(issue.getAssignee() != null) {
+			assigneeComboBox.setSelectedItem(issue.getAssignee().toString());
+		}
+
+		revalidate();
+		repaint();
 	}
 	
 	class CommentPanel extends JPanel {
