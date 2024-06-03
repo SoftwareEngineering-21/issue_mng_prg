@@ -16,7 +16,7 @@ import com.example.its.swingUI.MainSwingController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //@EnableAsync
-//@SpringBootApplication
+@SpringBootApplication
 @RequiredArgsConstructor
 public class ItsApplication implements CommandLineRunner {
 
@@ -34,9 +34,6 @@ public class ItsApplication implements CommandLineRunner {
     }
 
     //public TestController controller;
-
-    @Autowired
-    DBService serviceDB;
 
     @Override
     public void run(String... args) throws Exception {
