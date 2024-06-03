@@ -13,8 +13,11 @@ public class userTester implements userAuth {
      */
     @Override
     public boolean isAvailable(Issue issue, UserID current, UserID assignee) {
-        if(issue == null || issue.getStatus() == Issue.StatusID.FIXED){
+        if(issue == null){
             return true;
+        }
+        if(issue.getStatus() == Issue.StatusID.FIXED){
+            return current.getID().equals(issue.getReporter().getID());
         }
         return false;
     }

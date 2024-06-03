@@ -39,7 +39,6 @@ public class IssueDBService {
 
     public List<Issue> readIssueListService(ProjectID projectIDFK, UserID reporter, UserID assignee, Integer status, String sortOrder){
         List<IssueDB> iList = manager.readIssueListManager(projectIDFK.getID(), (reporter!=null)?reporter.getID():null, (assignee != null) ? assignee.getID() : null, status, sortOrder);
-        System.out.println(sortOrder);
         List<Issue> issues = new ArrayList<>();
 
         if(iList==null || iList.isEmpty()){
