@@ -9,7 +9,7 @@ sudo apt update
 sudo apt install openjdk-21-jdk
 # Gradle 설치
 # https://gradle.org/install/ 참고
-sudo apt install wget unzip # 다운로드 및 압축해제 프로그램
+sudo apt install wget unzip
 wget https://services.gradle.org/distributions/gradle-8.8-bin.zip -P /tmp
 sudo unzip -d /opt/gradle /tmp/gradle-8.8-bin.zip
 ```
