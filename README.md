@@ -62,3 +62,14 @@ java -jar build/libs/ITS-0.0.1-SNAPSHOT.jar
 ```
 java -jar ITS-1.0.0.jar -compact
 ```
+
+
+## 기술 스택
+
+Java Spring boot 3.2.5
+Java 21
+H2 console
+Lombok
+Mybatis Framework
+cloud Bootstrap
+Thymeleaf
